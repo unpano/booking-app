@@ -1,5 +1,6 @@
 package ftn.booking.Models;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Adventure {
@@ -21,6 +22,9 @@ public class Adventure {
     private String rules;
 
     private Integer rate;
+
+    @OneToMany
+    private List<Reservation> reservations;
 
     ///images
 

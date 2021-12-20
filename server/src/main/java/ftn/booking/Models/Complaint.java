@@ -14,6 +14,18 @@ public class Complaint {
 
     private String content;
 
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private Instructor instructor;
+
+    @ManyToOne
+    private CottageOwner cottageOwner;
+
+    @ManyToOne
+    private BoatOwner boatOwner;
+
     ///User
 
     public Complaint() {

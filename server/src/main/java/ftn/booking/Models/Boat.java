@@ -28,6 +28,9 @@ public class Boat {
 
     private Long maxSpeed;
 
+    @OneToMany
+    private List<Reservation> reservations;
+
     ///pictures
 
     @ManyToMany

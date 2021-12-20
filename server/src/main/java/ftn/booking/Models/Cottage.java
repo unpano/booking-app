@@ -1,6 +1,7 @@
 package ftn.booking.Models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Cottage {
@@ -22,6 +23,12 @@ public class Cottage {
     private Long price;
 
     private Integer rate;
+
+    @ManyToOne
+    private CottageOwner cottageOwner;
+
+    @OneToMany
+    private List<Reservation> reservations;
 
     ///pictures
 
