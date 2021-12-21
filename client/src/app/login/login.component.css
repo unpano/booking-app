@@ -5,3 +5,12 @@
 .login-form{
     padding: 20px;
 }
+
+p{
+    margin-top: 30px;
+    margin-left: 60px;
+}
+
+.login-button{
+    background-color: rgb(240, 199, 88)
+}

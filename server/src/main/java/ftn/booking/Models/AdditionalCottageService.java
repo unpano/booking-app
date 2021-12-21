@@ -4,31 +4,31 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
+
 @Entity
-@Table(name = "authority")
+@Table(name = "additional_cottage_service")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class Authority implements GrantedAuthority {
-
-    private static final long serialVersionUID = 1L;
+public class AdditionalCottageService {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
+
+    @Column(name = "info")
+    private String info;
 
     @Column(name = "name")
     private String name;
 
-    @Override
-    public String getAuthority() {
-        return name;
-    }
+    @Column(name = "price")
+    private Long price;
+
 
 }
