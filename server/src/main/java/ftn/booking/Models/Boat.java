@@ -1,6 +1,8 @@
 package ftn.booking.Models;
 
 
+import ftn.booking.model.enums.NavigationEquipment;
+
 import javax.persistence.*;
 
 import java.util.List;
