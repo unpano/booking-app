@@ -44,7 +44,7 @@ public class Cottage {
 
     @ManyToOne
     private CottageOwner cottageOwner;
-    
+
     ///pictures
 
     private int maxNumOfPersons;
