@@ -54,13 +54,7 @@ public class Boat {
     private NavigationEquipment navigationEquipment;
 
     ///pictures
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "boat_service",
-            joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
-    )
-    private List<BoatAdditionalService> boatAdditionalServices = new ArrayList<>();
+
 
     //@OneToOne
     //@JoinColumn(name = "report_id", nullable = false)
