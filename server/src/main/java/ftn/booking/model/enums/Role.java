@@ -1,9 +1,9 @@
 package ftn.booking.model.enums;
 
 public enum Role {
-    ADMIN,
-    CLIENT,
-    INSTRUCTOR,
-    COTTAGE_OWNER,
-    BOAT_OWNER
+    ROLE_ADMIN,
+    ROLE_CLIENT,
+    ROLE_INSTRUCTOR,
+    ROLE_COTTAGE_OWNER,
+    ROLE_BOAT_OWNER
 }

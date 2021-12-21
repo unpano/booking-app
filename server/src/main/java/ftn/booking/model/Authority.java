@@ -1,5 +1,6 @@
 package ftn.booking.model;
 
+import ftn.booking.model.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "authority")
@@ -16,19 +18,18 @@ import javax.persistence.*;
 @Getter
 public class Authority implements GrantedAuthority {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "User type can not be null")
+    private Role name;
 
     @Override
     public String getAuthority() {
-        return name;
+        return name.toString();
     }
 
 }

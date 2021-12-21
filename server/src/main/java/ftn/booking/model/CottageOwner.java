@@ -12,4 +12,5 @@ import javax.persistence.Entity;
 @Getter
 public class CottageOwner extends User{
 
+    private String reasonForRegistration;
 }

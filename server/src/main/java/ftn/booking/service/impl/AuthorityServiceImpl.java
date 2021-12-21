@@ -2,6 +2,7 @@ package ftn.booking.service.impl;
 
 import ftn.booking.exception.NotFoundException;
 import ftn.booking.model.Authority;
+import ftn.booking.model.enums.Role;
 import ftn.booking.repository.AuthorityRepository;
 import ftn.booking.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     @Override
-    public Authority findByName(String name) {
+    public Authority findByName(Role name) {
         return authorityRepository.findByName(name);
     }
 
