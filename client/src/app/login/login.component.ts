@@ -25,8 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    const headers = { 'content-type': 'application/json',
-    'Access-Control-Allow-Origin':'*'}  
+    const headers = { 'content-type': 'application/json'}  
     let options = { headers: headers };
 
     this.credentials.username = this.username

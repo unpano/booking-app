@@ -51,7 +51,7 @@ public class Cottage {
             joinColumns = @JoinColumn(name = "cottage_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
     )
-    private List<CottageAdditionalService> cottageAdditionalServices = new ArrayList<>();
+    private List<AdditionalService> cottageAdditionalServices = new ArrayList<>();
 
     ///pictures
 

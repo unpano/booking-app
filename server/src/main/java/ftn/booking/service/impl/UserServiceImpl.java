@@ -24,18 +24,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
-        } else {
-            return user;
-        }
+    public User loadUserByUsername(String username) {
+        return userRepository.findByEmail(username);
     }
 
     @Override
     public Boolean checkIfUsernameIsAvailable(String username) {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByEmail(username);
 
         //true when username available
         return user == null;
