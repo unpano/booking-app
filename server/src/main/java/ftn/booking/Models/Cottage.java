@@ -24,12 +24,6 @@ public class Cottage {
 
     private Integer rate;
 
-    @ManyToOne
-    private CottageOwner cottageOwner;
-
-    @OneToMany
-    private List<Reservation> reservations;
-
     ///pictures
 
     private  int maxNumOfPersons;

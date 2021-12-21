@@ -13,10 +13,6 @@ public class BoatReport {
 
     private Long revenue;
 
-    @OneToOne
-    @JoinColumn(name = "boat_id", nullable = false)
-    private Boat boat;
-
     public BoatReport() {
     }
 

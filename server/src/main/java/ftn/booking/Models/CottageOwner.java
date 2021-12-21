@@ -7,6 +7,4 @@ import java.util.List;
 @Entity
 public class CottageOwner extends User{
 
-    @OneToMany
-    private List<Cottage> cottages;
 }

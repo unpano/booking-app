@@ -16,11 +16,6 @@ public class AdditionalService {
 
     private Long price;
 
-    @ManyToMany
-    @JoinColumn(name = "boat_id", nullable = false)
-    private List<Boat> boat;
-
-
     public AdditionalService() {
     }
 

@@ -23,9 +23,6 @@ public class Adventure {
 
     private Integer rate;
 
-    @OneToMany
-    private List<Reservation> reservations;
-
     ///images
 
     public Adventure() {

@@ -28,18 +28,8 @@ public class Boat {
 
     private Long maxSpeed;
 
-    @OneToMany
-    private List<Reservation> reservations;
-
     ///pictures
 
-    @ManyToMany
-    @JoinColumn(name = "service_id", nullable = false)
-    private List<AdditionalService> service;
-
-    //@OneToOne
-    //@JoinColumn(name = "report_id", nullable = false)
-    //private BoatReport report;
 
     private int maxNumOfPersons;
 

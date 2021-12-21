@@ -29,8 +29,6 @@ public class Reservation {
 
     private String praise;
 
-    @OneToOne
-    private User user;
 
     public Reservation() {
     }
