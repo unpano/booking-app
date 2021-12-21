@@ -3,41 +3,45 @@
         <mat-toolbar color="primary">Register page</mat-toolbar>
         <form fxLayoutAlign="stretch" fxLayout="column" class="register-form">
             <mat-form-field>
-              <input matInput placeholder="First name">
+              <input [(ngModel)]="name" name="name" matInput placeholder="First name">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Last name">
+                <input [(ngModel)]="surname" name="surname" matInput placeholder="Last name">
               </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Email address">
+                <input [(ngModel)]="email" name="email" matInput placeholder="Email address">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Password" type="password">
+                <input [(ngModel)]="password" name="password" matInput placeholder="Password" type="password">
             </mat-form-field>  
             <mat-form-field>
                 <input matInput placeholder="Confirm password" type="password">
             </mat-form-field> 
             <mat-form-field>
-                <input matInput placeholder="Address">
+                <input [(ngModel)]="address" name="address" matInput placeholder="Address">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="City">
+                <input [(ngModel)]="city" name="city" matInput placeholder="City">
             </mat-form-field> 
             <mat-form-field>
-                <input matInput placeholder="Country">
+                <input [(ngModel)]="country" name="country" matInput placeholder="Country">
             </mat-form-field>  
             <mat-form-field>
-                <input matInput placeholder="Phone number">
+                <input [(ngModel)]="phone" name="phone" matInput placeholder="Phone number">
             </mat-form-field>   
             <mat-form-field appearance="fill">
                 <mat-label>Choose type</mat-label>
                 <mat-select>
-                    <mat-option value="cottage">Cottage</mat-option>
-                    <mat-option value="boat">Boat</mat-option>
-                    <mat-option value="instructor">Instructor</mat-option>
+                    <mat-option (click)="selectClient()" value="Client">Client</mat-option>
+                    <mat-option (click)="selectCottageOwner()" value="Cottage owner">Cottage owner</mat-option>
+                    <mat-option (click)="selectBoatOwner()" value="Boat owner">Boat owner</mat-option>
+                    <mat-option (click)="selectInstructor()" value="Fishing instructor">Fishing instructor</mat-option>
                 </mat-select> 
+            </mat-form-field> 
+            <mat-form-field>
+                <input [(ngModel)]="reason" name="reason" matInput placeholder="Reason for registration">
             </mat-form-field>      
-            <button mat-raised-button type="submit">Register</button>
+            <button mat-raised-button type="submit" (click)="signUp()">Register</button>
           </form>  
     </mat-card>
 </div>

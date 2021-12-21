@@ -11,4 +11,6 @@ import javax.persistence.Entity;
 @Setter
 @Getter
 public class BoatOwner extends User{
+
+    private String reasonForRegistration;
 }

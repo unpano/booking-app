@@ -17,5 +17,6 @@ import javax.persistence.Entity;
 @Getter
 public class Instructor extends User{
 
-    private  String biography;
+    private String biography;
+    private String reasonForRegistration;
 }

@@ -2,10 +2,18 @@ package ftn.booking.controller;
 
 import ftn.booking.dto.JwtAuthenticationRequest;
 import ftn.booking.dto.LoginDTO;
-import ftn.booking.model.User;
-import ftn.booking.model.UserTokenState;
+import ftn.booking.dto.UserDTO;
+import ftn.booking.exception.NotFoundException;
+import ftn.booking.exception.ResourceConflictException;
+import ftn.booking.exception.ValidationException;
+import ftn.booking.model.*;
+import ftn.booking.model.enums.Role;
+import ftn.booking.service.AuthorityService;
+import ftn.booking.service.OwnerService;
+import ftn.booking.service.ClientService;
 import ftn.booking.service.UserService;
 import ftn.booking.utils.TokenUtils;
+import ftn.booking.utils.ValidationUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +23,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,13 +39,135 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     private UserService userService;
     private ModelMapper modelMapper;
+    private AuthorityService authorityService;
+    private ClientService clientService;
+    private OwnerService ownerService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthenticationController(TokenUtils tokenUtils, AuthenticationManager authenticationManager, UserService userService, ModelMapper modelMapper) {
+    public AuthenticationController(TokenUtils tokenUtils, AuthenticationManager authenticationManager,
+                                    UserService userService, ModelMapper modelMapper,
+                                    AuthorityService authorityService, ClientService clientService,
+                                    OwnerService ownerService, PasswordEncoder passwordEncoder) {
         this.tokenUtils = tokenUtils;
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.authorityService = authorityService;
+        this.clientService = clientService;
+        this.ownerService = ownerService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
+
+        User existUser = this.userService.loadUserByUsername(userDTO.getEmail());
+
+        if (existUser != null) {
+            throw new ResourceConflictException(existUser.getId(), "Username already exists");
+        }
+
+        if(!ValidationUtils.isValidPassword(userDTO.getPassword()))
+            throw new ValidationException("Password is not valid.");
+
+        if(Objects.equals(userDTO.getUserType(), Role.ROLE_CLIENT)) {
+
+            //namapiram dto podatke na klijenta
+            Client client = new Client();
+            modelMapper.map(userDTO, client);
+
+            //dodelim mu ROLE_CLIENT
+            Authority authority = authorityService.findByName(userDTO.getUserType());
+
+            if(authority == null)
+                throw new NotFoundException("Role with user type: " + userDTO.getUserType() + " not found");
+            List<Authority> authorityList = (List<Authority>) client.getAuthorities();
+            authorityList.add(authority);
+            client.setAuthorities(authorityList);
+
+            //klijent aktivira profil preko linka
+            client.setEnabled(false);
+            client.setRole(Role.ROLE_CLIENT);
+            client.setPassword(passwordEncoder.encode(client.getPassword()));
+
+            //kreiram klijenta
+            clientService.add(client);
+
+        }else if(Objects.equals(userDTO.getUserType(), Role.ROLE_BOAT_OWNER)) {
+
+            //namapiram dto podatke na vlasnika broda
+            BoatOwner boatOwner = new BoatOwner();
+            modelMapper.map(userDTO, boatOwner);
+
+            //dodelim mu ROLE_BOAT_OWNER
+            Authority authority = authorityService.findByName(userDTO.getUserType());
+
+            if(authority == null)
+                throw new NotFoundException("Role with user type: " + userDTO.getUserType() + " not found");
+            List<Authority> authorityList = (List<Authority>) boatOwner.getAuthorities();
+            authorityList.add(authority);
+            boatOwner.setAuthorities(authorityList);
+
+            //admin odobrava zahtev za registraciju
+            boatOwner.setEnabled(false);
+            boatOwner.setRole(Role.ROLE_BOAT_OWNER);
+            boatOwner.setReasonForRegistration(userDTO.getReason());
+            boatOwner.setPassword(passwordEncoder.encode(boatOwner.getPassword()));
+
+            //kreiram vlasnika broda
+            ownerService.addBoatOwner(boatOwner);
+
+        }else if(userDTO.getUserType() == Role.ROLE_COTTAGE_OWNER){
+
+            //namapiram dto podatke na vlasnika vikendice
+            CottageOwner cottageOwner = new CottageOwner();
+            modelMapper.map(userDTO, cottageOwner);
+
+            //dodelim mu ROLE_COTTAGE_OWNER
+            Authority authority = authorityService.findByName(userDTO.getUserType());
+
+            if(authority == null)
+                throw new NotFoundException("Role with user type: " + userDTO.getUserType() + " not found");
+            List<Authority> authorityList = (List<Authority>) cottageOwner.getAuthorities();
+            authorityList.add(authority);
+            cottageOwner.setAuthorities(authorityList);
+
+            //admin odobrava zahtev za registraciju
+            cottageOwner.setEnabled(false);
+            cottageOwner.setRole(Role.ROLE_COTTAGE_OWNER);
+            cottageOwner.setReasonForRegistration(userDTO.getReason());
+            cottageOwner.setPassword(passwordEncoder.encode(cottageOwner.getPassword()));
+
+            //kreiram vlasnika vikendice
+            ownerService.addCottageOwner(cottageOwner);
+        }else if(userDTO.getUserType() == Role.ROLE_INSTRUCTOR){
+
+            //namapiram dto podatke na instruktora
+            Instructor instructor = new Instructor();
+            modelMapper.map(userDTO, instructor);
+
+            //dodelim mu ROLE_INSTRUCTOR
+            Authority authority = authorityService.findByName(userDTO.getUserType());
+
+            if(authority == null)
+                throw new NotFoundException("Role with user type: " + userDTO.getUserType() + " not found");
+            List<Authority> authorityList = (List<Authority>) instructor.getAuthorities();
+            authorityList.add(authority);
+            instructor.setAuthorities(authorityList);
+
+            //admin odobrava zahtev za registraciju
+            instructor.setEnabled(false);
+            instructor.setRole(Role.ROLE_INSTRUCTOR);
+            instructor.setReasonForRegistration(userDTO.getReason());
+            instructor.setPassword(passwordEncoder.encode(instructor.getPassword()));
+
+            //kreiram instruktora
+            ownerService.addInstructor(instructor);
+        }
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
     }
 
     @PostMapping("/login")

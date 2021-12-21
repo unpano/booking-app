@@ -45,6 +45,15 @@ public class Cottage {
     @ManyToOne
     private CottageOwner cottageOwner;
 
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "cottage_service",
+            joinColumns = @JoinColumn(name = "cottage_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
+    )
+    private List<AdditionalService> cottageAdditionalServices = new ArrayList<>();
+
     ///pictures
 
     private int maxNumOfPersons;
