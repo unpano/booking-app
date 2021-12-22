@@ -1,4 +1,4 @@
-package ftn.booking.Controllers;
+package ftn.booking.controller;
 
 
 import ftn.booking.model.Boat;
@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/boats", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/boats")
 public class BoatController {
 
     @Autowired
