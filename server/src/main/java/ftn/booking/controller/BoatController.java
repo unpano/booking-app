@@ -15,12 +15,14 @@ import java.util.List;
 @RequestMapping(value = "/boats")
 public class BoatController {
 
+
     @Autowired
     private BoatService boatService;
 
     @GetMapping(value = "/{findAll}", produces = "application/json")
     public @ResponseBody
     List<Boat> findAll() {
+        System.out.print("Boat controller! ");
         return boatService.findAll();
     }
 }

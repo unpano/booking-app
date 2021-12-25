@@ -61,7 +61,7 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
-
+        System.out.println("USAO JE U METODU! ");
         User existUser = this.userService.loadUserByUsername(userDTO.getEmail());
 
         if (existUser != null) {
@@ -76,7 +76,7 @@ public class AuthenticationController {
             //namapiram dto podatke na klijenta
             Client client = new Client();
             modelMapper.map(userDTO, client);
-
+            System.out.print("USAO JE U METODU! ");
             //dodelim mu ROLE_CLIENT
             Authority authority = authorityService.findByName(userDTO.getUserType());
 

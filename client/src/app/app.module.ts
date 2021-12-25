@@ -18,6 +18,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { AllBoatsComponent } from './all-boats/all-boats.component';
+import { AllCottagesComponent } from './all-cottages/all-cottages.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     PageNotFoundComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NavigationBarComponent,
+    AllBoatsComponent,
+    AllCottagesComponent
   ],
   imports: [
     BrowserModule,
