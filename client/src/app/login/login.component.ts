@@ -33,22 +33,44 @@ export class LoginComponent implements OnInit {
 
     const body=JSON.stringify(this.credentials);  
     
+    if(body == "{}"){
+      alert("Please enter both fields.")
+      return
+    }
+    
     this.http.post<any>(this.endpoint.LOGIN, body, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
-          alert("Invalid login. Please try again.");
+          alert("User with username " + this.credentials.username + " does not exist.");
         }
         return EMPTY;
       }),
       map((returnedToken: { [x: string]: string; }) => { 
-          Global.token.access_token = returnedToken["access_token"]
-          Global.token.expires_in = returnedToken["expires_in"]
-          sessionStorage.setItem("token", Global.token.access_token);
-          sessionStorage.setItem("timeOut", Global.token.expires_in);
+          
+          sessionStorage.setItem("token", returnedToken["access_token"]);
+          sessionStorage.setItem("timeOut", returnedToken["expires_in"]);
+          sessionStorage.setItem("role", returnedToken["role"]);
+          sessionStorage.setItem("id", returnedToken["id"])
      
-      })).subscribe()
+      })).subscribe( () => {
+          if (sessionStorage.getItem('role') == "ROLE_COTTAGE_OWNER"){
+            this.router.navigate(['cottageOwner'])
+          }
+          if (sessionStorage.getItem('role') == "ROLE_BOAT_OWNER"){
+            this.router.navigate(['boatOwner'])
+          }
+          if (sessionStorage.getItem('role') == "ROLE_INSTRUCTOR"){
+            this.router.navigate(["instructor"])
+          }
+          if (sessionStorage.getItem('role') == "ROLE_CLIENT"){
+            this.router.navigate(["client"])
+          }
+          if (sessionStorage.getItem('role') == "ROLE_ADMIN"){
+            this.router.navigate(["admin"])
+          }
+      })
   }
 
 }

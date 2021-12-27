@@ -1,12 +1,9 @@
-<mat-toolbar color="primary">
-  <button mat-button routerLink="/" class="home-button">Booking</button>
-  <button mat-icon-button color="accent" routerLink="/login">
-        <mat-icon>login</mat-icon>
-  </button>
-  <button mat-icon-button color="accent" routerLink="/register">
-    <mat-icon>person_add</mat-icon>
-</button>
-</mat-toolbar>
+<app-header-unauthenticated-user *ngIf="whoIsLogged() == 'nobody'"></app-header-unauthenticated-user>
+<app-header-cottage-owner *ngIf="whoIsLogged() == 'cottageOwner'"></app-header-cottage-owner>
+<app-header-boat-owner *ngIf="whoIsLogged() == 'boatOwner'"></app-header-boat-owner>
+<app-header-admin *ngIf="whoIsLogged() == 'admin'"></app-header-admin>
+<app-header-instructor *ngIf="whoIsLogged() == 'instructor'"></app-header-instructor>
+<app-header-client *ngIf="whoIsLogged() == 'client'"></app-header-client>
 
 <div class="content">
   <router-outlet></router-outlet>
