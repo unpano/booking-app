@@ -48,13 +48,29 @@ export class LoginComponent implements OnInit {
         return EMPTY;
       }),
       map((returnedToken: { [x: string]: string; }) => { 
-          Global.token.access_token = returnedToken["access_token"]
-          Global.token.expires_in = returnedToken["expires_in"]
-          Global.token.role = returnedToken["role"]
-          sessionStorage.setItem("token", Global.token.access_token);
-          sessionStorage.setItem("timeOut", Global.token.expires_in);
+          
+          sessionStorage.setItem("token", returnedToken["access_token"]);
+          sessionStorage.setItem("timeOut", returnedToken["expires_in"]);
+          sessionStorage.setItem("role", returnedToken["role"]);
+          sessionStorage.setItem("id", returnedToken["id"])
      
-      })).subscribe( () => this.router.navigate(['cottageOwner']))
+      })).subscribe( () => {
+          if (sessionStorage.getItem('role') == "ROLE_COTTAGE_OWNER"){
+            this.router.navigate(['cottageOwner'])
+          }
+          if (sessionStorage.getItem('role') == "ROLE_BOAT_OWNER"){
+            this.router.navigate(['boatOwner'])
+          }
+          if (sessionStorage.getItem('role') == "ROLE_INSTRUCTOR"){
+            this.router.navigate(["instructor"])
+          }
+          if (sessionStorage.getItem('role') == "ROLE_CLIENT"){
+            this.router.navigate(["client"])
+          }
+          if (sessionStorage.getItem('role') == "ROLE_ADMIN"){
+            this.router.navigate(["admin"])
+          }
+      })
   }
 
 }

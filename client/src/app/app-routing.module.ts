@@ -6,13 +6,13 @@ import { HomePageBoatOwnerComponent } from './home-page-boat-owner/home-page-boa
 import { HomePageClientComponent } from './home-page-client/home-page-client.component';
 import { HomePageCottageOwnerComponent } from './home-page-cottage-owner/home-page-cottage-owner.component';
 import { HomePageInstructorComponent } from './home-page-instructor/home-page-instructor.component';
-import { HomeComponent } from './home/home.component';
+import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticated-user/home-page-unauthenticated-user.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: HomePageUnauthenticatedUserComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'cottageOwner', component: HomePageCottageOwnerComponent},

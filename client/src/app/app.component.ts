@@ -9,23 +9,23 @@ import { Global } from './util/global';
 })
 export class AppComponent {
 
-  constructor(private router: Router){}
+  whoIsLogged(): String{
+    if(sessionStorage.getItem('role') == 'ROLE_CLIENT'){
+      return 'client'
+    }
+    if(sessionStorage.getItem('role') == 'ROLE_ADMIN'){
+      return 'admin'
+    }
+    if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
+      return 'cottageOwner'
+    }
+    if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER'){
+      return 'boatOwner'
+    }
+    if(sessionStorage.getItem('role') == 'ROLE_INSTRUCTOR'){
+      return 'instructor'
+    }
 
-  whichHomePageToShow(){
-    if (Global.token.role == "ROLE_COTTAGE_OWNER"){
-      this.router.navigate(['cottageOwner'])
-    }
-    if (Global.token.role == "ROLE_BOAT_OWNER"){
-      this.router.navigate(['boatOwner'])
-    }
-    if (Global.token.role == "ROLE_INSTRUCTOR"){
-      this.router.navigate(["instructor"])
-    }
-    if (Global.token.role == "ROLE_CLIENT"){
-      this.router.navigate(["client"])
-    }
-    if (Global.token.role == "ROLE_ADMIN"){
-      this.router.navigate(["admin"])
-    }
+    return 'nobody'
   }
 }
