@@ -22,7 +22,7 @@ export class AllBoatsComponent implements OnInit {
 
     let options = { headers: headers };
 
-    this.http.post<any>(this.endpoint.ALL_BOATS, options).subscribe( data =>{
+    this.http.get<any>(this.endpoint.ALL_BOATS, options).subscribe( data =>{
       console.log('Blaaa');
         this.boats = data;} 
     )
