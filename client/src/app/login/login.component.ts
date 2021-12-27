@@ -33,22 +33,28 @@ export class LoginComponent implements OnInit {
 
     const body=JSON.stringify(this.credentials);  
     
+    if(body == "{}"){
+      alert("Please enter both fields.")
+      return
+    }
+    
     this.http.post<any>(this.endpoint.LOGIN, body, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
-          alert("Invalid login. Please try again.");
+          alert("User with username " + this.credentials.username + " does not exist.");
         }
         return EMPTY;
       }),
       map((returnedToken: { [x: string]: string; }) => { 
           Global.token.access_token = returnedToken["access_token"]
           Global.token.expires_in = returnedToken["expires_in"]
+          Global.token.role = returnedToken["role"]
           sessionStorage.setItem("token", Global.token.access_token);
           sessionStorage.setItem("timeOut", Global.token.expires_in);
      
-      })).subscribe()
+      })).subscribe( () => this.router.navigate(['cottageOwner']))
   }
 
 }

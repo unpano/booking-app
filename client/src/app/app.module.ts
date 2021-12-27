@@ -18,6 +18,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HomePageCottageOwnerComponent } from './home-page-cottage-owner/home-page-cottage-owner.component';
+import { HomePageBoatOwnerComponent } from './home-page-boat-owner/home-page-boat-owner.component';
+import { HomePageInstructorComponent } from './home-page-instructor/home-page-instructor.component';
+import { HomePageClientComponent } from './home-page-client/home-page-client.component';
+import { HomePageAdminComponent } from './home-page-admin/home-page-admin.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,12 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     PageNotFoundComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomePageCottageOwnerComponent,
+    HomePageBoatOwnerComponent,
+    HomePageInstructorComponent,
+    HomePageClientComponent,
+    HomePageAdminComponent
   ],
   imports: [
     BrowserModule,
