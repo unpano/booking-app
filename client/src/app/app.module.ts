@@ -29,6 +29,10 @@ import { HeaderInstructorComponent } from './header-instructor/header-instructor
 import { HeaderBoatOwnerComponent } from './header-boat-owner/header-boat-owner.component';
 import { HeaderAdminComponent } from './header-admin/header-admin.component';
 import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticated-user/home-page-unauthenticated-user.component';
+import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ProfileComponent } from './profile/profile.component';
+import { DeactivationComponent } from './deactivation/deactivation.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,11 @@ import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticate
     HeaderInstructorComponent,
     HeaderBoatOwnerComponent,
     HeaderAdminComponent,
-    HomePageUnauthenticatedUserComponent
+    HomePageUnauthenticatedUserComponent,
+    ReportCottageOwnerComponent,
+    ChangePasswordComponent,
+    ProfileComponent,
+    DeactivationComponent
   ],
   imports: [
     BrowserModule,

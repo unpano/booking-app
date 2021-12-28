@@ -14,8 +14,8 @@ import ftn.booking.service.ClientService;
 import ftn.booking.service.UserService;
 import ftn.booking.utils.TokenUtils;
 import ftn.booking.utils.ValidationUtils;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 
@@ -43,21 +44,6 @@ public class AuthenticationController {
     private ClientService clientService;
     private OwnerService ownerService;
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public AuthenticationController(TokenUtils tokenUtils, AuthenticationManager authenticationManager,
-                                    UserService userService, ModelMapper modelMapper,
-                                    AuthorityService authorityService, ClientService clientService,
-                                    OwnerService ownerService, PasswordEncoder passwordEncoder) {
-        this.tokenUtils = tokenUtils;
-        this.authenticationManager = authenticationManager;
-        this.userService = userService;
-        this.modelMapper = modelMapper;
-        this.authorityService = authorityService;
-        this.clientService = clientService;
-        this.ownerService = ownerService;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
@@ -184,7 +170,7 @@ public class AuthenticationController {
         int expiresIn = tokenUtils.getExpiredIn();
         UserTokenState userTokenState = new UserTokenState(jwt,expiresIn);
 
-        return ResponseEntity.ok(new LoginDTO(userTokenState.getAccess_token(),userTokenState.getExpires_in(),user.getRole(), user.getId()));
+        return ResponseEntity.ok(new LoginDTO(userTokenState.getAccess_token(),userTokenState.getExpires_in(),user.getRole(), user.getId(),user.getEmail()));
     }
 
     @GetMapping("/check-username/{username}")

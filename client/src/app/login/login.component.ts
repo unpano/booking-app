@@ -52,7 +52,8 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("token", returnedToken["access_token"]);
           sessionStorage.setItem("timeOut", returnedToken["expires_in"]);
           sessionStorage.setItem("role", returnedToken["role"]);
-          sessionStorage.setItem("id", returnedToken["id"])
+          sessionStorage.setItem("id", returnedToken["userId"]);
+          sessionStorage.setItem("email", returnedToken["email"])
      
       })).subscribe( () => {
           if (sessionStorage.getItem('role') == "ROLE_COTTAGE_OWNER"){

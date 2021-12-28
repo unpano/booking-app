@@ -19,4 +19,6 @@ export class HeaderCottageOwnerComponent implements OnInit {
     
   }
 
+  
+
 }

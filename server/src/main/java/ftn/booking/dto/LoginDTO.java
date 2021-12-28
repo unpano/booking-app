@@ -20,5 +20,7 @@ public class LoginDTO {
 
     private Long userId;
 
+    private String email;
+
 }
 

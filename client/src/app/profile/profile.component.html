@@ -1,0 +1,33 @@
+<button mat-button routerLink="change-password">Change password</button>
+<button mat-button routerLink="delete-account">Delete profile</button>
+<button mat-button *ngIf="!editButtonClicked" (click)="clickOnEditButton()">Edit profile</button>
+<form (ngSubmit)="onSubmit()">
+    <h1>{{user.firstName + ' ' + user.lastName}}</h1>
+    
+    <div>
+        <h3>Cottage owner</h3>
+        
+        <label for="username">Username: {{user.email}}</label>
+        <input type="text" id="username" *ngIf="editButtonClicked">
+
+        <label for="phone">Phone number: {{user.phoneNumber}}</label>
+        <input type="text" id="phone" *ngIf="editButtonClicked">
+
+        <label>Password reseted on: {{user.lastPasswordResetDate}}</label>
+    </div>
+  
+    <div>
+      <h3>Address</h3>
+
+      <label for="address">Street: {{user.address}}</label>
+      <input type="text" id="address" *ngIf="editButtonClicked">
+
+      <label for="city">City: {{user.city}}</label>
+      <input type="text" id="city" *ngIf="editButtonClicked">
+
+      <label for="country">Country: {{user.country}}</label>
+      <input type="text" id="country" *ngIf="editButtonClicked">
+    </div>
+  
+    <button mat-button id="submitButton" type="submit" *ngIf="editButtonClicked">Submit</button>
+  </form>  
