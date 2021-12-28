@@ -7,23 +7,17 @@ import ftn.booking.repository.BoatOwnerRepository;
 import ftn.booking.repository.CottageOwnerRepository;
 import ftn.booking.repository.InstructorRepository;
 import ftn.booking.service.OwnerService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class OwnerServiceImpl implements OwnerService {
 
     private BoatOwnerRepository boatOwnerRepository;
     private CottageOwnerRepository cottageOwnerRepository;
     private InstructorRepository instructorRepository;
-
-    @Autowired
-    public OwnerServiceImpl(BoatOwnerRepository boatOwnerRepository, CottageOwnerRepository cottageOwnerRepository,
-                            InstructorRepository instructorRepository){
-        this.boatOwnerRepository = boatOwnerRepository;
-        this.cottageOwnerRepository = cottageOwnerRepository;
-        this.instructorRepository = instructorRepository;
-    }
 
     @Override
     public BoatOwner addBoatOwner(BoatOwner boatOwner) {

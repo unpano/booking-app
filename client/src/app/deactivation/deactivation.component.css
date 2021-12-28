@@ -4,6 +4,10 @@ h1{
     font-weight: bold;
 }
 
+textarea{
+    margin-left: 10%;
+}
+
 #cancelButton{
     margin-left: 40%;
     margin-top: 2%;

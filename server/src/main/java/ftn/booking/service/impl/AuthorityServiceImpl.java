@@ -5,18 +5,15 @@ import ftn.booking.model.Authority;
 import ftn.booking.model.enums.Role;
 import ftn.booking.repository.AuthorityRepository;
 import ftn.booking.service.AuthorityService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class AuthorityServiceImpl implements AuthorityService {
 
     private final AuthorityRepository authorityRepository;
-
-    @Autowired
-    public AuthorityServiceImpl(AuthorityRepository authorityRepository){
-        this.authorityRepository = authorityRepository;
-    }
 
     @Override
     public Authority findById(Long id) {

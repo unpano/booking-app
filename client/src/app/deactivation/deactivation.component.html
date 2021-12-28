@@ -2,6 +2,8 @@
     <h1>
         We will send request and your account will be deleted. Are you sure you want to continue?
     </h1>
+
+    <textarea placeholder="Please, tell us your reason for deleting account." [(ngModel)]="description" name="desc" rows="10" cols="120"></textarea>
     
     <button mat-button id="cancelButton" (click)="cancel()">Cancel</button>
     <button mat-button id="submitButton" type="submit">Delete</button>

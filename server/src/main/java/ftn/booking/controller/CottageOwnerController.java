@@ -1,4 +1,4 @@
-package ftn.booking.Controllers;
+package ftn.booking.controller;
 
 
 import org.springframework.http.MediaType;

@@ -1,7 +1,10 @@
 package ftn.booking.controller;
 
+import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.exception.ValidationException;
+import ftn.booking.model.DeactivationRequest;
 import ftn.booking.model.User;
+import ftn.booking.service.DeactivationRequestService;
 import ftn.booking.service.UserService;
 import ftn.booking.utils.ValidationUtils;
 import lombok.AllArgsConstructor;
@@ -20,6 +23,7 @@ import java.security.Principal;
 public class UserController {
 
     private UserService userService;
+    private DeactivationRequestService deactivationRequestService;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/{username}")
@@ -46,6 +50,22 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(newPassword));
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
 
+    @PostMapping("/deactivation/{description}")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<DeactivationRequest> addDeactivationRequest(@PathVariable String description, Principal loggedUser){
+
+        User user = userService.loadUserByUsername(loggedUser.getName());
+
+        DeactivationRequest existRequest = deactivationRequestService.findByUserId(user.getId());
+
+        if(existRequest.getId() != null)
+            throw  new ResourceConflictException("User already sent request.");
+
+        DeactivationRequest request = new DeactivationRequest();
+        request.setDescription(description);
+        request.setUser(user);
+        return new ResponseEntity<>(deactivationRequestService.add(request), HttpStatus.OK);
     }
 }
