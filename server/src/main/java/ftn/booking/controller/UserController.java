@@ -1,13 +1,16 @@
 package ftn.booking.controller;
 
+import ftn.booking.dto.UserDTO;
 import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.exception.ValidationException;
 import ftn.booking.model.DeactivationRequest;
 import ftn.booking.model.User;
+import ftn.booking.model.enums.Status;
 import ftn.booking.service.DeactivationRequestService;
 import ftn.booking.service.UserService;
 import ftn.booking.utils.ValidationUtils;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RestController
 @AllArgsConstructor
@@ -24,6 +30,7 @@ public class UserController {
 
     private UserService userService;
     private DeactivationRequestService deactivationRequestService;
+    private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/{username}")
@@ -48,6 +55,22 @@ public class UserController {
             throw new ValidationException("Password is not valid.");
 
         user.setPassword(passwordEncoder.encode(newPassword));
+        user.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+        userService.updateUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO, Principal loggedUser){
+        User user = userService.loadUserByUsername(loggedUser.getName());
+        User existUser = userService.loadUserByUsername(userDTO.getEmail());
+
+        if(userDTO.getEmail().equals(user.getEmail()) || existUser.getId()!=null)
+            throw new ResourceConflictException("User with same email already exists.");
+
+
+        modelMapper.map(userDTO, user);
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -58,7 +81,7 @@ public class UserController {
 
         User user = userService.loadUserByUsername(loggedUser.getName());
 
-        DeactivationRequest existRequest = deactivationRequestService.findByUserId(user.getId());
+        DeactivationRequest existRequest = deactivationRequestService.findByUserIdAndStatus(user.getId(), Status.PROCESSING);
 
         if(existRequest.getId() != null)
             throw  new ResourceConflictException("User already sent request.");
@@ -66,6 +89,7 @@ public class UserController {
         DeactivationRequest request = new DeactivationRequest();
         request.setDescription(description);
         request.setUser(user);
+        request.setStatus(Status.PROCESSING);
         return new ResponseEntity<>(deactivationRequestService.add(request), HttpStatus.OK);
     }
 }

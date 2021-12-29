@@ -1,6 +1,7 @@
 package ftn.booking.model;
 
 
+import ftn.booking.model.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,9 @@ public class DeactivationRequest {
 
     @NotNull
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne
     private User user;

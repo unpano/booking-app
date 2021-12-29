@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("role", returnedToken["role"]);
           sessionStorage.setItem("id", returnedToken["userId"]);
           sessionStorage.setItem("email", returnedToken["email"])
+          sessionStorage.setItem("picture", returnedToken["picture"])
      
       })).subscribe( () => {
           if (sessionStorage.getItem('role') == "ROLE_COTTAGE_OWNER"){

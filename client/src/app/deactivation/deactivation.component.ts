@@ -26,7 +26,7 @@ export class DeactivationComponent implements OnInit {
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
 
-    this.http.post<any>(this.endpoint.SEND_DEACTIVATION_REQUEST +  this.description,null, options).pipe(
+    this.http.post<any>(this.endpoint.USERS + 'deactivation/' +  this.description,null, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");

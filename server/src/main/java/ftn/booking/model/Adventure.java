@@ -32,5 +32,4 @@ public class Adventure {
 
     private Integer rate;
 
-    ///images
 }

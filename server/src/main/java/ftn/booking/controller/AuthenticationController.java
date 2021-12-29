@@ -169,7 +169,7 @@ public class AuthenticationController {
         int expiresIn = tokenUtils.getExpiredIn();
         UserTokenState userTokenState = new UserTokenState(jwt,expiresIn);
 
-        return ResponseEntity.ok(new LoginDTO(userTokenState.getAccess_token(),userTokenState.getExpires_in(),user.getRole(), user.getId(),user.getEmail()));
+        return ResponseEntity.ok(new LoginDTO(userTokenState.getAccess_token(),userTokenState.getExpires_in(),user.getRole(), user.getId(),user.getEmail(),user.getPicture()));
     }
 
     @GetMapping("/check-username/{username}")

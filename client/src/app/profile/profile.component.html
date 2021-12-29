@@ -1,17 +1,23 @@
+<div id="basics">
+  <img class="image" [src]="sanitize('../assets/profile-pictures/')"/>
+  <h1>{{user.firstName + ' ' + user.lastName}}</h1>
+</div>
+
 <button mat-button routerLink="change-password">Change password</button>
 <button mat-button routerLink="delete-account">Delete profile</button>
 <button mat-button *ngIf="!editButtonClicked" (click)="clickOnEditButton()">Edit profile</button>
 <form (ngSubmit)="onSubmit()">
-    <h1>{{user.firstName + ' ' + user.lastName}}</h1>
+  
+  
     
     <div>
         <h3>Cottage owner</h3>
         
         <label for="username">Username: {{user.email}}</label>
-        <input type="text" id="username" *ngIf="editButtonClicked">
+        <input type="text" id="username" *ngIf="editButtonClicked" name="email" [(ngModel)]="email">
 
         <label for="phone">Phone number: {{user.phoneNumber}}</label>
-        <input type="text" id="phone" *ngIf="editButtonClicked">
+        <input type="text" id="phone" *ngIf="editButtonClicked" name="phoneNumber" [(ngModel)]="phoneNumber">
 
         <label>Password reseted on: {{user.lastPasswordResetDate}}</label>
     </div>
@@ -20,14 +26,39 @@
       <h3>Address</h3>
 
       <label for="address">Street: {{user.address}}</label>
-      <input type="text" id="address" *ngIf="editButtonClicked">
+      <input type="text" id="address" *ngIf="editButtonClicked" name="address" [(ngModel)]="address">
 
       <label for="city">City: {{user.city}}</label>
-      <input type="text" id="city" *ngIf="editButtonClicked">
+      <input type="text" id="city" *ngIf="editButtonClicked" name="city" [(ngModel)]="city">
 
       <label for="country">Country: {{user.country}}</label>
-      <input type="text" id="country" *ngIf="editButtonClicked">
+      <input type="text" id="country" *ngIf="editButtonClicked" name="country" [(ngModel)]="country">
     </div>
-  
-    <button mat-button id="submitButton" type="submit" *ngIf="editButtonClicked">Submit</button>
-  </form>  
+
+    <form *ngIf="editButtonClicked" id="uploadForm">
+      <h3>Change profile picture:</h3>
+      <div class="row">
+        <div class="col-8">
+          <label class="btn btn-default p-0">
+            <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+          </label>
+      </div>
+      
+      <div class="col-4">
+          <button
+            class="btn btn-success btn-sm"
+            [disabled]="!selectedFiles"
+            (click)="uploadFiles()"
+          >
+            Upload
+          </button>
+        </div>
+      </div>
+      
+      <div>
+        <img *ngFor='let preview of previews' [src]="preview" class="preview">
+      </div>
+  </form>
+
+  <button mat-button id="submitButton" type="submit" *ngIf="editButtonClicked">Submit</button>
+  </form>

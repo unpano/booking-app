@@ -1,6 +1,7 @@
 package ftn.booking.service.impl;
 
 import ftn.booking.model.DeactivationRequest;
+import ftn.booking.model.enums.Status;
 import ftn.booking.repository.DeactivationRequestRepository;
 import ftn.booking.service.DeactivationRequestService;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,9 @@ public class DeactivationRequestServiceImpl implements DeactivationRequestServic
     }
 
     @Override
-    public DeactivationRequest findByUserId(Long id) {
-        return deactivationRequestRepository.findByUserId(id);
+    public DeactivationRequest findByUserIdAndStatus(Long id, Status processing) {
+        return deactivationRequestRepository.findByUserIdAndStatus(id,processing);
     }
+
+
 }

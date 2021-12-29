@@ -10,4 +10,5 @@ export class User{
   phoneNumber !: String
   reason !: String
   userType !: String
+  picture !: String
 }

@@ -51,6 +51,10 @@ public class User implements UserDetails {
 
     private boolean enabled;
 
+    //profilna slika
+    private String picture;
+
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;

@@ -28,7 +28,7 @@ export class ChangePasswordComponent implements OnInit {
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
 
-    this.http.get<any>(this.endpoint.CHECK_PASSWORD + this.oldPassword, options).pipe(
+    this.http.get<any>(this.endpoint.USERS + 'checkPassword/' + this.oldPassword, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
@@ -48,7 +48,7 @@ export class ChangePasswordComponent implements OnInit {
         if(this.matchPasswords){
           //ako je uneta nova promeni
           if(this.newPassword != undefined){
-            this.http.put<any>(this.endpoint.CHANGE_PASSWORD + this.newPassword,null, options1).pipe(
+            this.http.put<any>(this.endpoint.USERS + 'changePassword/' + this.newPassword,null, options1).pipe(
               catchError((error: HttpErrorResponse) => {
                 if (error.error instanceof Error) {
                   alert("Bad request, please try again later.");
