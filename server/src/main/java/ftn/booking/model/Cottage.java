@@ -1,6 +1,7 @@
 package ftn.booking.model;
 
 
+import ftn.booking.model.enums.Behaviour;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,22 +30,31 @@ public class Cottage {
     @NotNull
     private String address;
 
-    private String rate;
-
     private String description;
 
-    @NotNull
-    private Integer bedNum;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "cottage_room",
+            joinColumns = @JoinColumn(name = "cottage_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id")
+    )
+    private List<Room> rooms = new ArrayList<>();
 
-    private Integer roomNum;
+    //ovo je jedan string u bazi, mozda bolje napraviti entitet??
+    @Enumerated
+    @ElementCollection(targetClass = Behaviour.class)
+    private List<Behaviour> behaviorRules = new ArrayList<>();
 
-    private String behaviorRules;
+    //private Long prices;
 
-    private Long prices;
+    ///pictures
+
+    private int maxNumOfPersons;
+
+    //private String rate;
 
     @ManyToOne
     private CottageOwner cottageOwner;
-
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -53,9 +63,4 @@ public class Cottage {
             inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
     )
     private List<AdditionalService> cottageAdditionalServices = new ArrayList<>();
-
-    ///pictures
-
-    private int maxNumOfPersons;
-
 }

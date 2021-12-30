@@ -1,4 +1,4 @@
-package ftn.booking.service;
+package ftn.booking.service.impl;
 
 import ftn.booking.model.User;
 import ftn.booking.repository.UserRepository;

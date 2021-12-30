@@ -43,6 +43,8 @@ public class Reservation {
 
     private String praise;
 
+    private Boolean isReportFilled;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private ReservationType reservationType;

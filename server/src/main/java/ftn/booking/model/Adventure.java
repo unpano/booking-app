@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "adventures")
@@ -33,5 +32,4 @@ public class Adventure {
 
     private Integer rate;
 
-    ///images
 }

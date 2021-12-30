@@ -14,8 +14,8 @@ import ftn.booking.service.ClientService;
 import ftn.booking.service.UserService;
 import ftn.booking.utils.TokenUtils;
 import ftn.booking.utils.ValidationUtils;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 
@@ -44,24 +45,10 @@ public class AuthenticationController {
     private OwnerService ownerService;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public AuthenticationController(TokenUtils tokenUtils, AuthenticationManager authenticationManager,
-                                    UserService userService, ModelMapper modelMapper,
-                                    AuthorityService authorityService, ClientService clientService,
-                                    OwnerService ownerService, PasswordEncoder passwordEncoder) {
-        this.tokenUtils = tokenUtils;
-        this.authenticationManager = authenticationManager;
-        this.userService = userService;
-        this.modelMapper = modelMapper;
-        this.authorityService = authorityService;
-        this.clientService = clientService;
-        this.ownerService = ownerService;
-        this.passwordEncoder = passwordEncoder;
-    }
-
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
-        System.out.println("USAO JE U METODU! ");
+
+    public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO){
+
         User existUser = this.userService.loadUserByUsername(userDTO.getEmail());
 
         if (existUser != null) {
@@ -171,8 +158,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginDTO> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
-                                                              HttpServletResponse response) {
+    public ResponseEntity<LoginDTO> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
@@ -184,7 +170,7 @@ public class AuthenticationController {
         int expiresIn = tokenUtils.getExpiredIn();
         UserTokenState userTokenState = new UserTokenState(jwt,expiresIn);
 
-        return ResponseEntity.ok(new LoginDTO(userTokenState.getAccess_token(),userTokenState.getExpires_in(),user.getRole(), user.getId()));
+        return ResponseEntity.ok(new LoginDTO(userTokenState.getAccess_token(),userTokenState.getExpires_in(),user.getRole(), user.getId(),user.getEmail(),user.getPicture()));
     }
 
     @GetMapping("/check-username/{username}")
@@ -203,8 +189,6 @@ public class AuthenticationController {
     @PostMapping(value = "/refresh")
     public ResponseEntity<UserTokenState> refreshAuthenticationToken(HttpServletRequest request) {
         String token = tokenUtils.getToken(request);
-        String username = this.tokenUtils.getUsernameFromToken(token);
-        User user = (User) this.userService.loadUserByUsername(username);
         String refreshedToken = tokenUtils.refreshToken(token);
         int expiresIn = tokenUtils.getExpiredIn();
         return ResponseEntity.ok(new UserTokenState(refreshedToken, expiresIn));

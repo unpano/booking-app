@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -21,17 +20,48 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
+import { HomePageCottageOwnerComponent } from './home-page-cottage-owner/home-page-cottage-owner.component';
+import { HomePageBoatOwnerComponent } from './home-page-boat-owner/home-page-boat-owner.component';
+import { HomePageInstructorComponent } from './home-page-instructor/home-page-instructor.component';
+import { HomePageClientComponent } from './home-page-client/home-page-client.component';
+import { HomePageAdminComponent } from './home-page-admin/home-page-admin.component';
+import { HeaderCottageOwnerComponent } from './header-cottage-owner/header-cottage-owner.component';
+import { HeaderUnauthenticatedUserComponent } from './header-unauthenticated-user/header-unauthenticated-user.component';
+import { HeaderClientComponent } from './header-client/header-client.component';
+import { HeaderInstructorComponent } from './header-instructor/header-instructor.component';
+import { HeaderBoatOwnerComponent } from './header-boat-owner/header-boat-owner.component';
+import { HeaderAdminComponent } from './header-admin/header-admin.component';
+import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticated-user/home-page-unauthenticated-user.component';
+import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ProfileComponent } from './profile/profile.component';
+import { DeactivationComponent } from './deactivation/deactivation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     PageNotFoundComponent,
     LoginComponent,
     RegisterComponent,
     NavigationBarComponent,
     AllBoatsComponent,
-    AllCottagesComponent
+    AllCottagesComponent,
+    HomePageCottageOwnerComponent,
+    HomePageBoatOwnerComponent,
+    HomePageInstructorComponent,
+    HomePageClientComponent,
+    HomePageAdminComponent,
+    HeaderCottageOwnerComponent,
+    HeaderUnauthenticatedUserComponent,
+    HeaderClientComponent,
+    HeaderInstructorComponent,
+    HeaderBoatOwnerComponent,
+    HeaderAdminComponent,
+    HomePageUnauthenticatedUserComponent,
+    ReportCottageOwnerComponent,
+    ChangePasswordComponent,
+    ProfileComponent,
+    DeactivationComponent
   ],
   imports: [
     BrowserModule,

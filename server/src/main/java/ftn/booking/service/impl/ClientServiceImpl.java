@@ -3,18 +3,14 @@ package ftn.booking.service.impl;
 import ftn.booking.model.Client;
 import ftn.booking.repository.ClientRepository;
 import ftn.booking.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
     private ClientRepository clientRepository;
-
-    @Autowired
-    public ClientServiceImpl(ClientRepository clientRepository){
-        this.clientRepository = clientRepository;
-    }
 
     @Override
     public Client add(Client client) {

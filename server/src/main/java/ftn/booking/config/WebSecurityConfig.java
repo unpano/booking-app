@@ -4,6 +4,7 @@ import ftn.booking.auth.RestAuthenticationEntryPoint;
 import ftn.booking.auth.TokenAuthenticationFilter;
 import ftn.booking.service.impl.UserServiceImpl;
 import ftn.booking.utils.TokenUtils;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +22,10 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
+@AllArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -33,14 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     private TokenUtils tokenUtils;
-
-    @Autowired
-    public WebSecurityConfig(PasswordEncoder passwordEncoder, UserServiceImpl userServiceImpl, RestAuthenticationEntryPoint restAuthenticationEntryPoint, TokenUtils tokenUtils) {
-        this.passwordEncoder = passwordEncoder;
-        this.userServiceImpl = userServiceImpl;
-        this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
-        this.tokenUtils = tokenUtils;
-    }
 
     @Bean
     @Override
@@ -73,16 +68,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-
     }
 }
