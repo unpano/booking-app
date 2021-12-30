@@ -8,4 +8,6 @@ public interface CottageService {
     List<Cottage> findAllOwnerCottages(Long id);
 
     Cottage findById(Long cottageId);
+
+    Cottage add(Cottage cottage);
 }

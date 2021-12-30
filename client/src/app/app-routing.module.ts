@@ -10,6 +10,7 @@ import { HomePageCottageOwnerComponent } from './home-page-cottage-owner/home-pa
 import { HomePageInstructorComponent } from './home-page-instructor/home-page-instructor.component';
 import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticated-user/home-page-unauthenticated-user.component';
 import { LoginComponent } from './login/login.component';
+import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -27,8 +28,9 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
-  {path: 'cottages', component: HomePageCottageOwnerComponent},
   {path: 'cottage', component: ProfileCottageComponent},
+  {path: 'cottages', component: HomePageCottageOwnerComponent},
+  {path: 'cottages/new-cottage', component: NewCottageComponent},
   {path: 'report', component: ReportCottageOwnerComponent},
   {path: '**', component: PageNotFoundComponent},
 ];

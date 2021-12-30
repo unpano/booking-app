@@ -1,94 +1,69 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Cottage } from '../dto/cottage';
 import { Endpoint } from '../util/endpoints-enum';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-new-cottage',
+  templateUrl: './new-cottage.component.html',
+  styleUrls: ['./new-cottage.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class NewCottageComponent implements OnInit {
 
-  endpoint = Endpoint; 
-  editButtonClicked !: boolean
-
-  user : any 
-  user1: any
-
-  email !: String
+  name !: String
   address !: String
   city !: String
-  country !: String
-  phoneNumber !: String
+  description !: String
+
+  cottage: Cottage = new Cottage()
+
+  endpoint = Endpoint; 
 
   selectedFiles?: FileList;
   previews: string[] = [];
-  
+
   constructor(private router: Router,private http: HttpClient,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-   
+  }
+
+  addNewCottage(){
+    //cottage dto object
+      this.cottage.address = this.address
+      this.cottage.city = this.city
+      this.cottage.name = this.name
+      this.cottage.description = this.description
+
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
-
-    this.http.get<any>(this.endpoint.USERS + sessionStorage.getItem('email'), options).pipe(
+    
+    const body=JSON.stringify(this.cottage);
+    
+  //create new cottage
+    this.http.post<any>(this.endpoint.COTTAGES, body, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
-          alert("User with id " + sessionStorage.getItem('email') + ' does not exist.');
+          alert("You didn`t fill all of the fields. Please try again.");
         }
+
         return EMPTY;
       }),
-      map(returnedUser => {
-        this.user = returnedUser
-        this.user1 = returnedUser
-      })).subscribe()
+      map(returnedCottage => {
+        this.cottage.id = returnedCottage['id']
+
+})
+    ).subscribe( () => 
+                      //add pictures of cottage to db
+                      this.uploadFiles())
   }
 
-  sanitize(imgURL:any) { return this.sanitizer.bypassSecurityTrustUrl(imgURL+this.user.username+'.png'); }
-
-  onSubmit() {
-    this.editButtonClicked = false
-
-    //update info profila korisnika
-    const headers = { 'content-type': 'application/json',
-                      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
-    let options = { headers: headers };
-
-    if(this.email != undefined)
-      this.user1.email = this.email
-    if(this.address != undefined)
-      this.user1.address = this.address
-    if(this.city != undefined)
-      this.user1.city = this.city
-    if(this.country != undefined)
-      this.user1.country = this.country
-    if(this.phoneNumber != undefined)
-      this.user1.phoneNumber = this.phoneNumber
-
-    let body = JSON.stringify(this.user1)
-
-    this.http.put<any>(this.endpoint.USERS, body, options).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.error instanceof Error) {
-          alert("Bad request, please try again later.");
-        } else {
-          alert("User with username " + this.email + ' already exists.');
-        }
-        return EMPTY;
-      })).subscribe()
-  }
-
-  clickOnEditButton(){
-    this.editButtonClicked = true;
-  }
 
   selectFiles(event: any): void {
     this.selectedFiles = event.target.files;
@@ -125,7 +100,7 @@ export class ProfileComponent implements OnInit {
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     
-    this.http.post<any>(this.endpoint.UPLOAD + 'set-profile-picture', formData, options).pipe(
+    this.http.post<any>(this.endpoint.UPLOAD + 'add-cottage-picture/' + this.cottage.id, formData, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
@@ -137,4 +112,5 @@ export class ProfileComponent implements OnInit {
     
       
       }  
+
 }

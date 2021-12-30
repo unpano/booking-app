@@ -23,5 +23,13 @@ export class ProfileCottageComponent implements OnInit {
   bookCottage(){
     
   }
+  removeCottage(){
+    
+  }
+  futureReservations(){
 
+  }
+  pastReservations(){
+    
+  }
 }

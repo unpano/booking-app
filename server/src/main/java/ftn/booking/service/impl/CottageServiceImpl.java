@@ -30,4 +30,9 @@ public class CottageServiceImpl implements CottageService {
 
         return cottage.get();
     }
+
+    @Override
+    public Cottage add(Cottage cottage) {
+        return cottageRepository.save(cottage);
+    }
 }

@@ -1,0 +1,21 @@
+.main-div mat-card{
+    padding: 0px;
+}
+
+.register-form{
+    padding: 20px;
+    width: 580px;
+}
+
+#uploadForm{
+    display: inline-block;   
+    width: 600px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+img{
+    width: 130px;
+    height: 150px;
+    margin-bottom: 5%;
+}
