@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -33,6 +34,7 @@ import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cotta
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
+import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { DeactivationComponent } from './deactivation/deactivation.component';
     ReportCottageOwnerComponent,
     ChangePasswordComponent,
     ProfileComponent,
-    DeactivationComponent
+    DeactivationComponent,
+    ProfileCottageComponent
   ],
   imports: [
     BrowserModule,
@@ -67,11 +70,13 @@ import { DeactivationComponent } from './deactivation/deactivation.component';
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSortModule,
     MatCardModule,
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2SearchPipeModule
     
   ],
   providers: [HttpClientModule],

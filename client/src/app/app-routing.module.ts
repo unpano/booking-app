@@ -11,6 +11,7 @@ import { HomePageInstructorComponent } from './home-page-instructor/home-page-in
 import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticated-user/home-page-unauthenticated-user.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
@@ -19,7 +20,6 @@ const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'cottageOwner', component: HomePageCottageOwnerComponent},
   {path: 'boatOwner', component: HomePageBoatOwnerComponent},
   {path: 'instructor', component: HomePageInstructorComponent},
   {path: 'admin', component: HomePageAdminComponent},
@@ -27,7 +27,9 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
-  {path: 'cottageOwner/report', component: ReportCottageOwnerComponent},
+  {path: 'cottages', component: HomePageCottageOwnerComponent},
+  {path: 'cottage', component: ProfileCottageComponent},
+  {path: 'report', component: ReportCottageOwnerComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 

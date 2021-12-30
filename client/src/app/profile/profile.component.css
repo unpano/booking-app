@@ -32,9 +32,12 @@ img{
     margin-bottom: 5%;
 }
 
+form{
+    margin-top: 2%;
+}
+
 #uploadForm{
-    display: inline-block;
-    
+    display: inline-block;   
     width: 600px;
 }
 
