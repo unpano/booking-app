@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AppComponent } from './app.component';
+import { BoatDetailsComponent } from './boat-details/boat-details.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
 import { HomePageAdminComponent } from './home-page-admin/home-page-admin.component';
@@ -29,8 +30,11 @@ const routes: Routes = [
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
   {path: 'cottageOwner/report', component: ReportCottageOwnerComponent},
-  {path: '**', component: PageNotFoundComponent},
+  {path: 'boatDetails', component: BoatDetailsComponent},
   {path: 'boats', component: AllBoatsComponent},
+
+  {path: '**', component: PageNotFoundComponent}
+
 ];
 
 @NgModule({

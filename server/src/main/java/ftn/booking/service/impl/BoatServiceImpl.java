@@ -20,4 +20,10 @@ public class BoatServiceImpl implements BoatService {
     {
         return boatRepository.findAll();
     }
+
+    @Override
+    public Boat findById(Long id)
+    {
+        return boatRepository.findById(id).get();
+    }
 }

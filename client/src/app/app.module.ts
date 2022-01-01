@@ -36,6 +36,7 @@ import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cotta
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
+import { BoatDetailsComponent } from './boat-details/boat-details.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { DeactivationComponent } from './deactivation/deactivation.component';
     ReportCottageOwnerComponent,
     ChangePasswordComponent,
     ProfileComponent,
-    DeactivationComponent
+    DeactivationComponent,
+    BoatDetailsComponent
   ],
   imports: [
     BrowserModule,

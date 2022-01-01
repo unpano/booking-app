@@ -8,4 +8,5 @@ import java.util.List;
 public interface BoatService {
 
     List<Boat> findAll();
+    Boat findById(Long id);
 }

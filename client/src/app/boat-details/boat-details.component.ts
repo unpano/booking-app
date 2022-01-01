@@ -7,39 +7,27 @@ import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
 @Component({
-  selector: 'app-all-boats',
-  templateUrl: './all-boats.component.html',
-  styleUrls: ['./all-boats.component.css']
+  selector: 'app-boat-details',
+  templateUrl: './boat-details.component.html',
+  styleUrls: ['./boat-details.component.css']
 })
-export class AllBoatsComponent implements OnInit {
+export class BoatDetailsComponent implements OnInit {
+
 
   endpoint = Endpoint
 
   constructor(private router: Router,private http: HttpClient) { }
 
-  boats: any;
-  
+  boat : Boat = new Boat()
 
-  ngOnInit(): void 
-  {
-    
+  ngOnInit(): void {
     const headers = { 'content-type': 'application/json'} 
     let options = { headers: headers };
 
-    this.http.get<any>(this.endpoint.ALL_BOATS, options).pipe(
+    this.http.get<any>(this.endpoint.FIND_BOAT + "/"+ Global.clickedBoat.id, options).pipe(
       map(returnedBoat => {
-        this.boats = returnedBoat
+        this.boat = returnedBoat
       })).subscribe()
-
-
   }
-
-  viewDetails(boat : Boat)
-  {
-    Global.clickedBoat = boat;
-    this.router.navigate(["boatDetails"]);
-
-  }
-
 
 }

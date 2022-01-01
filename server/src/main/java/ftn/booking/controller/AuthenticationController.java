@@ -163,13 +163,12 @@ public class AuthenticationController {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         User user = (User) authentication.getPrincipal();
         String jwt = tokenUtils.generateToken(user.getUsername(), user.getRole().toString());
         int expiresIn = tokenUtils.getExpiredIn();
         UserTokenState userTokenState = new UserTokenState(jwt,expiresIn);
-
         return ResponseEntity.ok(new LoginDTO(userTokenState.getAccess_token(),userTokenState.getExpires_in(),user.getRole(), user.getId(),user.getEmail(),user.getPicture()));
     }
 

@@ -5,3 +5,13 @@
 .home-button{
     margin-right: 87%;
 }
+
+li{
+    display: inline;
+    float: left;
+}
+
+a{
+    display: block;
+    padding: 8px;
+  }
