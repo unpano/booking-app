@@ -22,7 +22,7 @@ public class BoatController {
 
     private BoatService boatService;
 
-    @GetMapping(value = "/{findAll}", produces = "application/json")
+    @GetMapping(value = "/findAll", produces = "application/json")
     //@PreAuthorize("hasRole('ADMIN') || hasRole('CLIENT')")
     public @ResponseBody
     List<Boat> findAll(Principal loggedUser) {

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
+import { AllCottagesComponent } from './all-cottages/all-cottages.component';
+import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
 import { AppComponent } from './app.component';
 import { BoatDetailsComponent } from './boat-details/boat-details.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -32,6 +34,8 @@ const routes: Routes = [
   {path: 'cottageOwner/report', component: ReportCottageOwnerComponent},
   {path: 'boatDetails', component: BoatDetailsComponent},
   {path: 'boats', component: AllBoatsComponent},
+  {path: 'cottages', component: AllCottagesComponent},
+  {path: 'instructors', component: AllInstructorsComponent},
 
   {path: '**', component: PageNotFoundComponent}
 

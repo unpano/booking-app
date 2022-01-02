@@ -7,9 +7,5 @@ import java.util.List;
 
 
 public interface BoatRepository extends JpaRepository<Boat, Long> {
-
-    Boat findByAddress(String address);
-
-    List<Boat> findAll();
 }
 

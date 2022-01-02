@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface CottageRepository extends JpaRepository<Cottage, Long> {
 
-    List<Cottage> findAll();
 }

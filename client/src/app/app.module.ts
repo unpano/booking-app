@@ -37,6 +37,9 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ProfileComponent } from './profile/profile.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
 import { BoatDetailsComponent } from './boat-details/boat-details.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
+import { CottageDetailsComponent } from './cottage-details/cottage-details.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,9 @@ import { BoatDetailsComponent } from './boat-details/boat-details.component';
     ChangePasswordComponent,
     ProfileComponent,
     DeactivationComponent,
-    BoatDetailsComponent
+    BoatDetailsComponent,
+    AllInstructorsComponent,
+    CottageDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +84,7 @@ import { BoatDetailsComponent } from './boat-details/boat-details.component';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
+    Ng2SearchPipeModule,
     HttpClientModule
     
   ],

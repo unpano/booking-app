@@ -14,10 +14,12 @@ import { Global } from '../util/global';
 export class AllBoatsComponent implements OnInit {
 
   endpoint = Endpoint
+  searchText : any
+  boats: any;
 
   constructor(private router: Router,private http: HttpClient) { }
 
-  boats: any;
+
   
 
   ngOnInit(): void 

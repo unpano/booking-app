@@ -5,10 +5,9 @@
 <app-header-instructor *ngIf="whoIsLogged() == 'instructor'"></app-header-instructor>
 <app-header-client *ngIf="whoIsLogged() == 'client'"></app-header-client>
 
-<div class="content">
-  <router-outlet></router-outlet>
-</div>
-<app-navigation-bar></app-navigation-bar>
-
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+ 
 
 

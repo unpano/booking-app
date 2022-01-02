@@ -3,27 +3,35 @@ package ftn.booking.controller;
 
 import ftn.booking.model.Boat;
 import ftn.booking.model.Instructor;
+import ftn.booking.service.BoatService;
 import ftn.booking.service.InstructorService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping( value = "/instructors")
 public class InstructorController {
 
-    @Autowired
     private InstructorService instructorService;
 
 
-    @GetMapping(value = "/{findAll}", produces = "application/json")
-    public @ResponseBody
-    List<Instructor> findAll() {
+    @GetMapping(value = "/findAll")
+    public @ResponseBody List<Instructor> findAll()
+    {
         return instructorService.findAll();
+    }
+
+
+    @GetMapping("/findOne/{instructorId}")
+    public ResponseEntity<Instructor> findById(@PathVariable Long instructorId)
+    {
+        return new ResponseEntity<>(instructorService.findOne(instructorId), HttpStatus.OK);
     }
 
 }

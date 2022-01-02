@@ -1,8 +1,7 @@
-ul{
-    display: inline;
-    float: left;
-}
 
+li{
+    display: inline-block;
+}
 a{
     display: block;
     padding: 8px;

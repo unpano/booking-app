@@ -1,19 +1,54 @@
-<h2>Boat details </h2>
-<div>
-
-    <label >Name: {{boat.name}}</label>
-    <label> Address : {{boat.address}}</label>
-    <label >Behavioral rules:</label>
-    <label> Cancellation conditions: </label>
-    <label >Capacity: {{boat.capacity}}</label>
-    <label> Fishing equipment : </label>
-    <label >Max speed: {{boat.maxSpeed}}</label>
-    <label> Motor power : {{boat.motorPower}}</label>
-    <label >Description: {{boat.description}}</label>
-    <label> Number of motors : {{boat.numberOfMotors}}</label>
-    <label> Rating: {{boat.rating}}</label>
-    <label> Type : {{boat.type}}</label>
-    <label> Length: {{boat.length}}</label>
-    <label> Navigation Equipment : </label>
-
-</div>
+    <mat-card class="example-card">
+    
+        <mat-card-content>
+              <form>
+      
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Boat name:</th>
+                      <th>Boat address:</th>
+                      <th>Behavioral rules:</th>
+                      <th>Cancellation conditions:</th>
+                      <th>Capacity:</th>
+                      <th>Fishing equipment:</th>
+                      <th>Max speed:</th>
+                      <th>Motor power:</th>
+                      <th>Description:</th>
+                      <th>Mumber of motors:</th>
+                      <th>Rating:</th>
+                      <th>Type:</th>
+                      <th>Length:</th>
+                      <th>Navigation equipment:</th>
+                    </tr>
+                  </thead>
+      
+                  
+      
+                  <tbody>
+                    <tr>
+                                        
+                      <td>{{boat.name}}</td>
+                      <td>{{boat.address}}</td>
+                      <td>{{boat.behavioralRules}}</td>
+                      <td>{{boat.cancellationConditions}}</td>
+                      <td>{{boat.capacity}}</td>
+                      <td>{{boat.fishingEquipment}}</td>
+                      <td>{{boat.maxSpeed}}</td>
+                      <td>{{boat.motorPower}}</td>
+                      <td>{{boat.description}}</td>
+                      <td>{{boat.numberOfMotors}}</td>
+                      <td>{{boat.rating}}</td>
+                      <td>{{boat.type}}</td>
+                      <td>{{boat.length}}</td>
+                      <td>{{boat.navigationEquipment}}</td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+      
+              </form>
+      
+        </mat-card-content>
+      </mat-card>
+      

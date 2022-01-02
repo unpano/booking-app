@@ -1,6 +1,42 @@
-<h2>Cottages</h2>
-<ul class="cottages">
-    <li *ngFor="let cottage of cottages">
-    <span >{{cottage.name}}</span> {{cottage.length}}
-  </li>
-</ul>
+
+<mat-card class="example-card">
+    
+  <mat-card-content>
+        <form>
+          <div>
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Search">
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Boat name:</th>
+                <th>Boat address:</th>
+                <th>Boat rate:</th>
+              </tr>
+            </thead>
+
+            
+
+            <tbody>
+              <tr *ngFor="let boat of boats | filter:searchText">
+                                  
+                <td>{{boat.name}}</td>
+                <td>{{boat.address}}</td>
+                <td>{{boat.rating}}</td>
+              
+                <td> 
+                  <button  (click)= "viewDetails(boat)" > View details </button>
+                </td>
+                
+              </tr>
+            </tbody>
+          </table>
+
+        </form>
+
+  </mat-card-content>
+</mat-card>
+
+
+
