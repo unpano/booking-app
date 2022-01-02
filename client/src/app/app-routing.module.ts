@@ -14,7 +14,9 @@ import { HomePageCottageOwnerComponent } from './home-page-cottage-owner/home-pa
 import { HomePageInstructorComponent } from './home-page-instructor/home-page-instructor.component';
 import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticated-user/home-page-unauthenticated-user.component';
 import { LoginComponent } from './login/login.component';
+import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
@@ -23,7 +25,6 @@ const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'cottageOwner', component: HomePageCottageOwnerComponent},
   {path: 'boatOwner', component: HomePageBoatOwnerComponent},
   {path: 'instructor', component: HomePageInstructorComponent},
   {path: 'admin', component: HomePageAdminComponent},
@@ -34,10 +35,13 @@ const routes: Routes = [
   {path: 'cottageOwner/report', component: ReportCottageOwnerComponent},
   {path: 'boatDetails', component: BoatDetailsComponent},
   {path: 'boats', component: AllBoatsComponent},
-  {path: 'cottages', component: AllCottagesComponent},
-  {path: 'instructors', component: AllInstructorsComponent},
-
-  {path: '**', component: PageNotFoundComponent}
+  {path: 'allCottages', component: AllCottagesComponent},
+  {path: 'allInstructors', component: AllInstructorsComponent},
+  {path: 'cottage', component: ProfileCottageComponent},
+  {path: 'cottages', component: HomePageCottageOwnerComponent},
+  {path: 'cottages/new-cottage', component: NewCottageComponent},
+  {path: 'report', component: ReportCottageOwnerComponent},
+  {path: '**', component: PageNotFoundComponent},
 
 ];
 

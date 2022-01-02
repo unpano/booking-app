@@ -10,23 +10,23 @@
           <table>
             <thead>
               <tr>
-                <th>Boat name:</th>
-                <th>Boat address:</th>
-                <th>Boat rate:</th>
+                <th>Cottage name:</th>
+                <th>Cottage address:</th>
+                <th>Cottage rate:</th>
               </tr>
             </thead>
 
             
 
             <tbody>
-              <tr *ngFor="let boat of boats | filter:searchText">
+              <tr *ngFor="let cottage of cottages | filter:searchText">
                                   
-                <td>{{boat.name}}</td>
-                <td>{{boat.address}}</td>
-                <td>{{boat.rating}}</td>
+                <td>{{cottage.name}}</td>
+                <td>{{cottage.address}}</td>
+                <td>{{cottage.rating}}</td>
               
                 <td> 
-                  <button  (click)= "viewDetails(boat)" > View details </button>
+                  <button  (click)= "viewDetails(cottage)" > View details </button>
                 </td>
                 
               </tr>

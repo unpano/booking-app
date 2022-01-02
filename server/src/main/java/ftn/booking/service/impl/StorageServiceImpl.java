@@ -1,6 +1,9 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.model.Cottage;
+import ftn.booking.model.Image;
 import ftn.booking.model.User;
+import ftn.booking.service.ImageService;
 import ftn.booking.service.StorageService;
 import ftn.booking.service.UserService;
 import lombok.AllArgsConstructor;
@@ -16,8 +19,10 @@ import java.io.IOException;
 @Service
 @AllArgsConstructor
 public class StorageServiceImpl implements StorageService {
+
     private static final Logger logger = LoggerFactory.getLogger(StorageServiceImpl.class);
     private UserService userService;
+    private ImageService imageService;
 
     @Override
     public String setProfilePicture(MultipartFile file, String username) throws IOException{
@@ -49,6 +54,29 @@ public class StorageServiceImpl implements StorageService {
     public String deleteFile(String fileName) {
         //s3Client.deleteObject(bucketName,fileName);
         return fileName + "removed...";
+    }
+
+    @Override
+    public String addCottagePicture(MultipartFile file, Long cottageId) throws IOException {
+        String fileName = file.getOriginalFilename();
+        String filePath = System.getProperty("user.dir");
+        filePath = filePath.replace("server","client");
+
+        File outputFile = new File(filePath + "\\src\\assets\\cottage-pictures\\" + fileName );
+
+        //treba ubeleziti da cottageId-ju odgovara ta slika
+        Image image = new Image();
+        Cottage cottage = new Cottage();
+        cottage.setId(cottageId);
+        image.setCottage(cottage);
+        image.setPath(outputFile.getAbsolutePath());
+
+        imageService.add(image);
+
+        file.transferTo(outputFile);
+
+        return "File uploaded: " + fileName;
+
     }
 
     private File convertMultiPartFileToFile(MultipartFile file) {

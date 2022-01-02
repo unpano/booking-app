@@ -30,6 +30,9 @@ public class Cottage {
     @NotNull
     private String address;
 
+    @NotNull
+    private String city;
+
     private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -51,7 +54,7 @@ public class Cottage {
 
     private int maxNumOfPersons;
 
-    //private String rate;
+    private Float rate;
 
     @ManyToOne
     private CottageOwner cottageOwner;

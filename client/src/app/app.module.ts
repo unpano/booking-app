@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -37,9 +38,12 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ProfileComponent } from './profile/profile.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
 import { BoatDetailsComponent } from './boat-details/boat-details.component';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
 import { CottageDetailsComponent } from './cottage-details/cottage-details.component';
+import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
+import { NewCottageComponent } from './new-cottage/new-cottage.component';
+import { InstructorDetailsComponent } from './instructor-details/instructor-details.component';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +72,11 @@ import { CottageDetailsComponent } from './cottage-details/cottage-details.compo
     DeactivationComponent,
     BoatDetailsComponent,
     AllInstructorsComponent,
-    CottageDetailsComponent
+    CottageDetailsComponent,
+    ProfileCottageComponent,
+    NewCottageComponent,
+    InstructorDetailsComponent
+
   ],
   imports: [
     BrowserModule,
@@ -80,12 +88,13 @@ import { CottageDetailsComponent } from './cottage-details/cottage-details.compo
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSortModule,
     MatCardModule,
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    Ng2SearchPipeModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2SearchPipeModule
     
   ],
   providers: [HttpClientModule],

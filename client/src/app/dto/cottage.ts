@@ -1,13 +1,13 @@
+
+import { User } from "./user";
+
+
 export class Cottage{
-    id !: Number
-    name !: String
-    address !: String
-    behavioralRules !: String
-    cancellationConditions !: String
-    capacity !: Number
-    description !: String
-    rating !: String
-    bedNum !: Number
-    roomNum !: Number
-    prices !: Number
-  }
+    id !: Number;
+    name !: String;
+    address !: String;
+    city !: String;
+    description !: String;
+    maxNumOfPersons !: Number;
+    rate !: Number;
+}
