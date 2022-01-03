@@ -42,18 +42,9 @@ export class HomePageCottageOwnerComponent implements OnInit {
   }
 
   cottageDetails(cottage: Cottage){
+    sessionStorage.setItem('cottageId', cottage.id.toString())
+    this.router.navigate(['cottage'])
 
-    //cottage details
-    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
-    let options = { headers: headers };
-
-    this.http
-        .get(this.endpoint.COTTAGES + cottage.id ,options)
-          .pipe(
-            map(returnedCottage=> {
-              this.cottage = returnedCottage
-              Global.cottage = this.cottage
-            })).subscribe(() => this.router.navigate(['cottage']))    
   }
 
   sortData(sort: Sort) {

@@ -1,6 +1,7 @@
 package ftn.booking.controller;
 import ftn.booking.model.Cottage;
 import ftn.booking.service.CottageService;
+import ftn.booking.service.ImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ public class CottageController {
     private CottageService cottageService;
     private UserService userService;
     private ModelMapper modelMapper;
+    private ImageService imageService;
 
     @GetMapping(value = "/findAll", produces = "application/json")
     public @ResponseBody List<Cottage> findAll()
@@ -46,6 +48,11 @@ public class CottageController {
     @GetMapping("/{cottageId}")
     public ResponseEntity<Cottage> findById(@PathVariable Long cottageId){
         return new ResponseEntity<>(cottageService.findById(cottageId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{cottageId}/images")
+    public ResponseEntity<List<String>> findCottageImages(@PathVariable Long cottageId){
+        return new ResponseEntity<>(imageService.findImagesByCottageId(cottageId), HttpStatus.OK);
     }
 
     @PostMapping

@@ -2,8 +2,7 @@
     <div class="form-group">
         <h1>{{cottage.name}}</h1>								
     </div>
-    
-<button mat-button (click)="bookCottage()">Book cottage</button>
+
 <button mat-button (click)="removeCottage()">Remove cottage</button>
 <button mat-button (click)="futureReservations()">Future reservations</button>
 <button mat-button (click)="pastReservations()">Past reservations</button>
@@ -28,9 +27,29 @@
         <label>Rate</label>
         <label>{{cottage.description}}</label>								
     </div> 
-    <div class="form-group">
-        <h1>Pictures</h1>								
+    <h1>Pictures</h1>
+    <div class="holder">
+        <div *ngFor="let pictureUrl of pictureUrls">
+            <img class="image" [src]="sanitize('../assets/cottage-pictures/', pictureUrl)"/>
+        </div>								
     </div>
+    <div>
+        <h1>Book cottage</h1>
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Book cottage</mat-label>
+            <mat-date-range-input
+              [formGroup]="pickCottage"
+              [rangePicker]="cottagePicker">
+              <input matStartDate placeholder="Start date" formControlName="start">
+              <input matEndDate placeholder="End date" formControlName="end">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="cottagePicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #cottagePicker></mat-date-range-picker>
+          </mat-form-field>
+          <button mat-button (click)="bookCottage()">Book cottage</button>
+    </div>
+    
+    
 </form>
 
 

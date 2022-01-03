@@ -7,6 +7,7 @@ import ftn.booking.service.ImageService;
 import ftn.booking.service.StorageService;
 import ftn.booking.service.UserService;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Service
 @AllArgsConstructor
@@ -36,7 +41,7 @@ public class StorageServiceImpl implements StorageService {
         file.transferTo(outputFile);
 
         User user = userService.loadUserByUsername(username);
-        user.setPicture( outputFile.getAbsolutePath() + username + ".png");
+        user.setPicture( outputFile.getAbsolutePath());
         userService.updateUser(user);
 
         return "File uploaded: " + fileName;
@@ -59,24 +64,38 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public String addCottagePicture(MultipartFile file, Long cottageId) throws IOException {
         String fileName = file.getOriginalFilename();
+
+        String pathName = generateUniqueFileName() + fileName.substring(fileName.length()-4);
+
         String filePath = System.getProperty("user.dir");
         filePath = filePath.replace("server","client");
-
-        File outputFile = new File(filePath + "\\src\\assets\\cottage-pictures\\" + fileName );
+        System.out.println(pathName);
+        File outputFile = new File(filePath + "\\src\\assets\\cottage-pictures\\" + pathName);
+        file.transferTo(outputFile);
 
         //treba ubeleziti da cottageId-ju odgovara ta slika
         Image image = new Image();
         Cottage cottage = new Cottage();
         cottage.setId(cottageId);
         image.setCottage(cottage);
-        image.setPath(outputFile.getAbsolutePath());
+        image.setPath(pathName);
 
         imageService.add(image);
 
-        file.transferTo(outputFile);
 
         return "File uploaded: " + fileName;
 
+    }
+
+    String generateUniqueFileName() {
+        String filename = "";
+        long millis = System.currentTimeMillis();
+        String datetime = new Date().toString();
+        datetime = datetime.replace(" ", "");
+        datetime = datetime.replace(":", "");
+        String rndchars = RandomStringUtils.randomAlphanumeric(8);
+        filename = rndchars + "_" + datetime + "_" + millis;
+        return filename;
     }
 
     private File convertMultiPartFileToFile(MultipartFile file) {

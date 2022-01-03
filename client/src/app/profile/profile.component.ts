@@ -52,7 +52,8 @@ export class ProfileComponent implements OnInit {
       })).subscribe()
   }
 
-  sanitize(imgURL:any) { return this.sanitizer.bypassSecurityTrustUrl(imgURL+this.user.username+'.png'); }
+  sanitize(imgURL:any) { 
+    return this.sanitizer.bypassSecurityTrustUrl(imgURL+ this.user.username +this.user.picture.substr(this.user.picture.length - 4)); }
 
   onSubmit() {
     this.editButtonClicked = false
