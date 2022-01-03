@@ -8,6 +8,11 @@ import { Router } from '@angular/router';
 })
 export class HomePageUnauthenticatedUserComponent implements OnInit {
 
+  types = [ 'Boat','Instructor', 'Cottage']
+  type !: String
+  dateInput : any
+  timeInput : any
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -30,6 +35,11 @@ export class HomePageUnauthenticatedUserComponent implements OnInit {
         this.router.navigate(['instructor'])
       }
     }
+  }
+
+  onSelectType(type : String)
+  {
+    this.type = type;
   }
 
 }

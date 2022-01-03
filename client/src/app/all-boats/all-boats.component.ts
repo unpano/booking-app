@@ -15,12 +15,11 @@ export class AllBoatsComponent implements OnInit {
 
   endpoint = Endpoint
   searchText : any
-  boats: any;
+  boats: any
+
+
 
   constructor(private router: Router,private http: HttpClient) { }
-
-
-  
 
   ngOnInit(): void 
   {
@@ -40,8 +39,6 @@ export class AllBoatsComponent implements OnInit {
   {
     Global.clickedBoat = boat;
     this.router.navigate(["boat"]);
-
   }
-
 
 }

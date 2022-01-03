@@ -4,11 +4,6 @@
     <form novalidate class="form-inline">
         <div class="container">
             <div class="row">
-              
-              <div>
-                <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Location filter">
-                <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Rate filter">
-              </div>
     
               <table matSort (matSortChange)="sortData($event)">
                 <thead>

@@ -9,4 +9,26 @@
 
 div{
     display: block;
+    margin-top: 20px;
+}
+
+select{
+    width: 200px;
+}
+
+label
+{
+    display: block;
+}
+
+.mat-filters
+{
+    width: 300px;
+    height: 100%;
+    border-color: gray;
+}
+
+.entities
+{
+    margin-left: 300px;
 }

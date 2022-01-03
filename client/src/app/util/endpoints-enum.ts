@@ -8,5 +8,6 @@ export enum Endpoint{
     FIND_INSTRUCTOR= "http://localhost:8084/instructors/findOne",
     USERS = "http://localhost:8084/users/",
     UPLOAD = "http://localhost:8084/uploads/",
-    COTTAGES = "http://localhost:8084/cottages/"
+    COTTAGES = "http://localhost:8084/cottages/",
+    FREE_BOATS = "http://localhost:8084/cottages/findAll"
 }

@@ -9,11 +9,19 @@ import { Global } from '../util/global';
 })
 export class HeaderUnauthenticatedUserComponent implements OnInit {
 
-  token = Global.token.access_token
-
+  types = [ 'Boat','Instructor', 'Cottage']
+  type !: String
+  dateInput : any
+  timeInput : any
+  
   constructor(private router: Router){}
 
   ngOnInit(): void {
+  }
+
+  onSelectType(type : String)
+  {
+    this.type = type;
   }
 
   

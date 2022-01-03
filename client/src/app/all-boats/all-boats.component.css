@@ -12,6 +12,7 @@ button{
 
 mat-card{
     margin: 2% 10% 10% 10%;
+    height: inherit;
 }
 
 input,select{
@@ -26,11 +27,3 @@ input,select{
 table {
     width: 100%;
   }
-
-
-  
-
-.mat-sort-header-container {
-  align-items: center;
-}
-  

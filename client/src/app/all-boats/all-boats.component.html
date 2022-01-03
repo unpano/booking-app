@@ -1,39 +1,33 @@
 
-<mat-card class="example-card">
-    
+<mat-card class="example-card">    
   <mat-card-content>
+
         <form>
-          <div>
-            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Name filter">
-            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Location filter">
-            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Rate filter">
+          <div class="table-form">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Boat name:</th>
+                    <th>Boat address:</th>
+                    <th>Boat rate:</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let boat of boats | filter:searchText">
+                                      
+                    <td>{{boat.name}}</td>
+                    <td>{{boat.address}}</td>
+                    <td>{{boat.rating}}</td>
+                  
+                    <td> 
+                      <button  (click)= "viewDetails(boat)" > View details </button>
+                    </td>
+                    
+                  </tr>
+                </tbody>
+              </table>
           </div>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Boat name:</th>
-                <th>Boat address:</th>
-                <th>Boat rate:</th>
-              </tr>
-            </thead>
-
-            
-
-            <tbody>
-              <tr *ngFor="let boat of boats | filter:searchText">
-                                  
-                <td>{{boat.name}}</td>
-                <td>{{boat.address}}</td>
-                <td>{{boat.rating}}</td>
-              
-                <td> 
-                  <button  (click)= "viewDetails(boat)" > View details </button>
-                </td>
-                
-              </tr>
-            </tbody>
-          </table>
 
         </form>
 
