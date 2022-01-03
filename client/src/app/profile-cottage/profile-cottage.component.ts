@@ -14,6 +14,8 @@ import { Global } from '../util/global';
 })
 export class ProfileCottageComponent implements OnInit {
 
+  imgCollection: Array<object> = [];
+
   endpoint = Endpoint
   cottage:any
   pickCottage !: FormGroup;
@@ -54,8 +56,12 @@ export class ProfileCottageComponent implements OnInit {
                       map(returnedImages=> {
                         let imageUrls : any
                         imageUrls = returnedImages
-                        imageUrls.forEach((image: string) => {
-                          this.pictureUrls.push(image)
+                        imageUrls.forEach((path: string) => {
+                          let obj = {
+                            image: 'assets/cottage-pictures/'+ path,
+                            thumbImage: 'assets/cottage-pictures/'+ path
+                          }
+                          this.imgCollection.push(obj)
                         });
                       })).subscribe()
             })  
@@ -63,10 +69,6 @@ export class ProfileCottageComponent implements OnInit {
     
 
   }
-
-  sanitize(rootURL:any, pictureUrl: String) { 
-    return this.sanitizer.bypassSecurityTrustUrl(rootURL + pictureUrl) }
-
 
   bookCottage(){
     

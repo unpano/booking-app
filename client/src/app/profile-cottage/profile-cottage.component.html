@@ -28,11 +28,8 @@
         <label>{{cottage.description}}</label>								
     </div> 
     <h1>Pictures</h1>
-    <div class="holder">
-        <div *ngFor="let pictureUrl of pictureUrls">
-            <img class="image" [src]="sanitize('../assets/cottage-pictures/', pictureUrl)"/>
-        </div>								
-    </div>
+    
+    <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>
     <div>
         <h1>Book cottage</h1>
         <mat-form-field class="example-form-field" appearance="fill">
@@ -48,7 +45,6 @@
           </mat-form-field>
           <button mat-button (click)="bookCottage()">Book cottage</button>
     </div>
-    
     
 </form>
 
