@@ -37,12 +37,12 @@ import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cotta
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
-import { BoatDetailsComponent } from './boat-details/boat-details.component';
 import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
-import { CottageDetailsComponent } from './cottage-details/cottage-details.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
+import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { InstructorDetailsComponent } from './instructor-details/instructor-details.component';
+import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
 
 
 @NgModule({
@@ -70,12 +70,12 @@ import { InstructorDetailsComponent } from './instructor-details/instructor-deta
     ChangePasswordComponent,
     ProfileComponent,
     DeactivationComponent,
-    BoatDetailsComponent,
     AllInstructorsComponent,
-    CottageDetailsComponent,
     ProfileCottageComponent,
     NewCottageComponent,
-    InstructorDetailsComponent
+    InstructorDetailsComponent,
+    ClientReservationsComponent,
+    ProfileBoatComponent
 
   ],
   imports: [
@@ -95,7 +95,6 @@ import { InstructorDetailsComponent } from './instructor-details/instructor-deta
     FormsModule,
     HttpClientModule,
     Ng2SearchPipeModule
-    
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

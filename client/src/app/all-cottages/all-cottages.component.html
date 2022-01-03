@@ -1,42 +1,39 @@
 
-<mat-card class="example-card">
-    
+<mat-card> 
   <mat-card-content>
-        <form>
-          <div>
-            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Search">
-          </div>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Cottage name:</th>
-                <th>Cottage address:</th>
-                <th>Cottage rate:</th>
-              </tr>
-            </thead>
-
-            
-
-            <tbody>
-              <tr *ngFor="let cottage of cottages | filter:searchText">
-                                  
-                <td>{{cottage.name}}</td>
-                <td>{{cottage.address}}</td>
-                <td>{{cottage.rating}}</td>
+    <form novalidate class="form-inline">
+        <div class="container">
+            <div class="row">
               
-                <td> 
-                  <button  (click)= "viewDetails(cottage)" > View details </button>
-                </td>
-                
-              </tr>
-            </tbody>
-          </table>
-
-        </form>
-
+              <div>
+                <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Location filter">
+                <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Rate filter">
+              </div>
+    
+              <table matSort (matSortChange)="sortData($event)">
+                <thead>
+                <tr> 
+                  <th mat-sort-header="name">Cottage</th>
+                  <th mat-sort-header="address">Address</th>
+                  <th mat-sort-header="city">City</th>
+                  <th mat-sort-header="rate">Rate</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let cottage of sortedData | filter:searchText">
+                  <td>{{cottage.name}}</td>
+                  <td>{{cottage.address}}</td>
+                  <td>{{cottage.city}}</td>
+                  <td>{{cottage.rate}}</td>   
+                  <button id="eyeBtn" (click)="cottageDetails(cottage)">Details</button>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+    </form> 
   </mat-card-content>
 </mat-card>
-
 
 

@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Endpoint } from '../util/endpoints-enum';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Global } from '../util/global';
 
 @Component({
   selector: 'app-profile',
@@ -137,4 +138,24 @@ export class ProfileComponent implements OnInit {
     
       
       }  
+
+      whoIsLogged(): String{
+        if(sessionStorage.getItem('role') == 'ROLE_CLIENT'){
+          return 'client'
+        }
+        if(sessionStorage.getItem('role') == 'ROLE_ADMIN'){
+          return 'admin'
+        }
+        if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
+          return 'cottageOwner'
+        }
+        if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER'){
+          return 'boatOwner'
+        }
+        if(sessionStorage.getItem('role') == 'ROLE_INSTRUCTOR'){
+          return 'instructor'
+        }
+    
+        return 'nobody'
+      }
 }

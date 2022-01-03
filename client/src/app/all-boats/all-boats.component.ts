@@ -39,7 +39,7 @@ export class AllBoatsComponent implements OnInit {
   viewDetails(boat : Boat)
   {
     Global.clickedBoat = boat;
-    this.router.navigate(["boatDetails"]);
+    this.router.navigate(["boat"]);
 
   }
 

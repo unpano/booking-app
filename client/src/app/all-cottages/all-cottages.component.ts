@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Cottage } from '../dto/cottage';
@@ -16,6 +17,8 @@ export class AllCottagesComponent implements OnInit {
   endpoint = Endpoint
   searchText : any
   cottages: any;
+  cottage: any
+  sortedData: any
 
   constructor(private router: Router,private http: HttpClient) { }
 
@@ -29,18 +32,42 @@ export class AllCottagesComponent implements OnInit {
     this.http.get<any>(this.endpoint.ALL_COTTAGES, options).pipe(
       map(returnedCottages => {
         this.cottages = returnedCottages
+        this.sortedData = this.cottages.slice()
       })).subscribe()
 
-
   }
 
-  viewDetails(cottage : Cottage)
+  cottageDetails(cottage : Cottage)
   {
-    Global.clickedCottage = cottage;
-    this.router.navigate(["cottageDetails"]);
+    Global.cottage = cottage;
+    this.router.navigate(["cottage"]);
 
   }
 
+  sortData(sort: Sort) 
+  {
+    const data = this.cottages.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
 
-
+    this.sortedData = data.sort((a : any, b : any) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name': return compare(a.name, b.name, isAsc);
+        case 'address': return compare(a.address, b.address, isAsc);
+        case 'city': return compare(a.city, b.city, isAsc);
+        case 'rate': return compare(a.rate, b.rate, isAsc);
+        default: return 0;
+      }
+    });
+  }
 }
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+
+

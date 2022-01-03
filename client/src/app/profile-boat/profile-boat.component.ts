@@ -7,11 +7,12 @@ import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
 @Component({
-  selector: 'app-boat-details',
-  templateUrl: './boat-details.component.html',
-  styleUrls: ['./boat-details.component.css']
+  selector: 'app-profile-boat',
+  templateUrl: './profile-boat.component.html',
+  styleUrls: ['./profile-boat.component.css']
 })
-export class BoatDetailsComponent implements OnInit {
+export class ProfileBoatComponent implements OnInit {
+
 
 
   endpoint = Endpoint

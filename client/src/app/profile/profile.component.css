@@ -11,6 +11,8 @@ h1{
 }
 
 input{
+    margin-left: 15%;
+    margin-top: 2%;
     width: 230px;
 }
 
@@ -32,9 +34,16 @@ img{
     margin-bottom: 5%;
 }
 
-form{
-    margin-top: 2%;
-}
+form {
+    position :static;
+    width  : 600px;
+    margin : 0;
+    padding: 1em;
+    box-sizing: border-box;
+    background : lightgrey;
+    color: black;
+    margin-top: 20px;
+  }
 
 #uploadForm{
     display: inline-block;   

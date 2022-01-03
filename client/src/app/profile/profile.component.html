@@ -8,7 +8,7 @@
 <button mat-button *ngIf="!editButtonClicked" (click)="clickOnEditButton()">Edit profile</button>
 
 <form (ngSubmit)="onSubmit()">
-    <div>
+    <div *ngIf="whoIsLogged() == 'cottageOwner'">
         <h3>Cottage owner</h3>
         
         <label for="username">Username: {{user.email}}</label>
@@ -19,6 +19,17 @@
 
         <label>Password reseted on: {{user.lastPasswordResetDate}}</label>
     </div>
+
+    <div *ngIf="whoIsLogged() == 'client'">
+      <h3>Client</h3>
+      
+      <label for="username">Username: {{user.email}}</label>
+
+      <label for="phone">Phone number: {{user.phoneNumber}}</label>
+      <input type="text" id="phone" *ngIf="editButtonClicked" name="phoneNumber" [(ngModel)]="phoneNumber">
+
+      <label>Password reseted on: {{user.lastPasswordResetDate}}</label>
+  </div>
   
     <div>
       <h3>Address</h3>

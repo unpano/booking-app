@@ -1,17 +1,15 @@
 .content{
-    padding: 32px;
+    padding: 30px;
 }
 
 .home-button{
-    margin-right: 87%;
+    margin-right: 70%;
 }
 
-li{
-    display: inline;
-    float: left;
+button{
+    width: 170px;
 }
 
-a{
+div{
     display: block;
-    padding: 8px;
-  }
+}

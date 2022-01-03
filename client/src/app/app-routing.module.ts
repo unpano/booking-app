@@ -3,9 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
 import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
-import { AppComponent } from './app.component';
-import { BoatDetailsComponent } from './boat-details/boat-details.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
 import { HomePageAdminComponent } from './home-page-admin/home-page-admin.component';
 import { HomePageBoatOwnerComponent } from './home-page-boat-owner/home-page-boat-owner.component';
@@ -16,6 +15,7 @@ import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticate
 import { LoginComponent } from './login/login.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
@@ -25,22 +25,30 @@ const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+
   {path: 'boatOwner', component: HomePageBoatOwnerComponent},
   {path: 'instructor', component: HomePageInstructorComponent},
   {path: 'admin', component: HomePageAdminComponent},
   {path: 'client', component: HomePageClientComponent},
+
   {path: 'profile', component: ProfileComponent},
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
+
   {path: 'cottageOwner/report', component: ReportCottageOwnerComponent},
-  {path: 'boatDetails', component: BoatDetailsComponent},
+
   {path: 'boats', component: AllBoatsComponent},
   {path: 'allCottages', component: AllCottagesComponent},
   {path: 'allInstructors', component: AllInstructorsComponent},
+
   {path: 'cottage', component: ProfileCottageComponent},
+  {path: 'boat', component: ProfileBoatComponent},
+
   {path: 'cottages', component: HomePageCottageOwnerComponent},
   {path: 'cottages/new-cottage', component: NewCottageComponent},
   {path: 'report', component: ReportCottageOwnerComponent},
+  {path: 'clientReservations', component: ClientReservationsComponent},
+  
   {path: '**', component: PageNotFoundComponent},
 
 ];

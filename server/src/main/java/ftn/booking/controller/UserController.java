@@ -34,20 +34,20 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/{username}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
     public ResponseEntity<User> checkIfUsernameIsAvailable(@PathVariable String username){
         return new ResponseEntity<>(userService.loadUserByUsername(username), HttpStatus.OK);
     }
     
     @GetMapping("/checkPassword/{oldPassword}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
     public ResponseEntity<Boolean> checkExistingPassword(@PathVariable String oldPassword, Principal loggedUser){
         User user = userService.loadUserByUsername(loggedUser.getName());
         return new ResponseEntity<>(userService.checkExistingPassword(oldPassword,user.getPassword()), HttpStatus.OK);
     }
 
     @PutMapping("/changePassword/{newPassword}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
     public ResponseEntity<?> changePassword(@PathVariable String newPassword, Principal loggedUser){
         User user = userService.loadUserByUsername(loggedUser.getName());
 
@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
     public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO, Principal loggedUser){
         User user = userService.loadUserByUsername(loggedUser.getName());
         User existUser = userService.loadUserByUsername(userDTO.getEmail());
@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @PostMapping("/deactivation/{description}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
     public ResponseEntity<DeactivationRequest> addDeactivationRequest(@PathVariable String description, Principal loggedUser){
 
         User user = userService.loadUserByUsername(loggedUser.getName());
