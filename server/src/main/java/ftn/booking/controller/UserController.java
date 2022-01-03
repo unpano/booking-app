@@ -83,7 +83,7 @@ public class UserController {
 
         DeactivationRequest existRequest = deactivationRequestService.findByUserIdAndStatus(user.getId(), Status.PROCESSING);
 
-        if(existRequest.getId() != null)
+        if(existRequest != null)
             throw  new ResourceConflictException("User already sent request.");
 
         DeactivationRequest request = new DeactivationRequest();

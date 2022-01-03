@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   surname !: String
   email !: String
   password !: String
+  rePassword !: String
   address !: String
   city !: String
   country !: String
@@ -80,6 +81,12 @@ export class RegisterComponent implements OnInit {
 
 })
     ).subscribe()
+  }
+
+  confirmPassword(){
+    if(this.password != this.rePassword || this.rePassword == undefined)
+      return 1
+    else return 0
   }
 
 

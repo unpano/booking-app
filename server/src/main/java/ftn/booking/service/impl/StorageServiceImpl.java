@@ -36,12 +36,20 @@ public class StorageServiceImpl implements StorageService {
         String filePath = System.getProperty("user.dir");
         filePath = filePath.replace("server","client");
 
-        File outputFile = new File(filePath + "\\src\\assets\\profile-pictures\\" + username + ".png");
+        String pathName = "";
+        String substring = fileName.substring(fileName.length() - 4);
+        if(!substring.equals("jpeg"))
+            pathName = username + substring;
+        else
+            pathName = username + '.' + substring;
+
+        File outputFile = new File(filePath + "\\src\\assets\\profile-pictures\\" + pathName);
         
         file.transferTo(outputFile);
 
         User user = userService.loadUserByUsername(username);
-        user.setPicture( outputFile.getAbsolutePath());
+        
+        user.setPicture("..\\assets\\profile-pictures\\" + pathName);
         userService.updateUser(user);
 
         return "File uploaded: " + fileName;
@@ -64,12 +72,16 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public String addCottagePicture(MultipartFile file, Long cottageId) throws IOException {
         String fileName = file.getOriginalFilename();
+        String pathName = "";
 
-        String pathName = generateUniqueFileName() + fileName.substring(fileName.length()-4);
+        String substring = fileName.substring(fileName.length() - 4);
+        if(!substring.equals("jpeg"))
+            pathName = generateUniqueFileName() + substring;
+        else
+            pathName = generateUniqueFileName() + '.' + substring;
 
         String filePath = System.getProperty("user.dir");
         filePath = filePath.replace("server","client");
-        System.out.println(pathName);
         File outputFile = new File(filePath + "\\src\\assets\\cottage-pictures\\" + pathName);
         file.transferTo(outputFile);
 

@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
   }
 
   sanitize(imgURL:any) { 
-    return this.sanitizer.bypassSecurityTrustUrl(imgURL+ this.user.username +this.user.picture.substr(this.user.picture.length - 4)); }
+    return this.sanitizer.bypassSecurityTrustUrl(imgURL+ this.user.picture)}
 
   onSubmit() {
     this.editButtonClicked = false
@@ -101,7 +101,6 @@ export class ProfileComponent implements OnInit {
         const reader = new FileReader();
   
         reader.onload = (e: any) => {
-          //console.log(e.target.result);
           this.previews.push(e.target.result);
         };
   

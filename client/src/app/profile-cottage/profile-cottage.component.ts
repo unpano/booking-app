@@ -19,7 +19,6 @@ export class ProfileCottageComponent implements OnInit {
   endpoint = Endpoint
   cottage:any
   pickCottage !: FormGroup;
-  pictureUrls : string[] = [];
 
   constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient) { 
     const today = new Date();
@@ -49,7 +48,7 @@ export class ProfileCottageComponent implements OnInit {
               this.cottage = returnedCottage
             })).subscribe(() =>
             {
-              //pronadji sve slike vikendice i pushuj ih u pictureUrls
+              //cottage images in imgCollection
               this.http
                   .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId') + '/images' ,options)
                     .pipe(

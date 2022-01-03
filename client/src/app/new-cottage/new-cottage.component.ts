@@ -75,7 +75,6 @@ export class NewCottageComponent implements OnInit {
         const reader = new FileReader();
   
         reader.onload = (e: any) => {
-          //console.log(e.target.result);
           this.previews.push(e.target.result);
         };
   
@@ -100,15 +99,8 @@ export class NewCottageComponent implements OnInit {
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     
-    this.http.post<any>(this.endpoint.UPLOAD + 'add-cottage-picture/' + this.cottage.id, formData, options).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.error instanceof Error) {
-          alert("Bad request, please try again later.");
-        } else {
-          alert("User with username does not exist.");
-        }
-        return EMPTY;
-      })).subscribe()
+    this.http.post<any>(this.endpoint.UPLOAD + 'add-cottage-picture/' + this.cottage.id, formData, options)
+            .subscribe()
     
       
       }  
