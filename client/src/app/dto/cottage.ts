@@ -1,4 +1,5 @@
 
+import { Amenity } from "./enums/Amenity";
 import { User } from "./user";
 
 
@@ -10,4 +11,5 @@ export class Cottage{
     description !: String;
     maxNumOfPersons !: Number;
     rate !: Number;
+    amenities !: Amenity[]
 }

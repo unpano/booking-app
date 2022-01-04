@@ -1,5 +1,5 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
-    <mat-card fxFlex="50">
+    <mat-card fxFlex="52">
         <mat-toolbar color="primary">Register new cottage</mat-toolbar>
         <form fxLayoutAlign="stretch" fxLayout="column" class="register-form">
 
@@ -19,8 +19,18 @@
                 <input [(ngModel)]="description" name="description" matInput placeholder="Description">
             </mat-form-field>
 
+            <div>
+              <h4>Select amenities</h4>
+              <select multiple name="amenities" [(ngModel)]="cottage.amenities">
+                
+                <option *ngFor="let amenity of amenities" [value]="amenity.value">
+                  {{amenity.display}}
+                </option>
+              </select>
+            </div>
+
             <form  id="uploadForm">
-                <h3>Add cottage images</h3>
+                <h4>Add cottage images</h4>
                 <div class="row">
                   <div class="col-8">
                     <label class="btn btn-default p-0">

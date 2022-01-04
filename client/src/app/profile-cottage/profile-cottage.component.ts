@@ -19,6 +19,7 @@ export class ProfileCottageComponent implements OnInit {
   endpoint = Endpoint
   cottage:any
   pickCottage !: FormGroup;
+  amenities : String[] = []
 
   constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient) { 
     const today = new Date();
@@ -32,22 +33,27 @@ export class ProfileCottageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //if token expired
-    if(sessionStorage.getItem('token') == null){
-      this.router.navigate([''])
-    }
 
     //cottage details
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
 
+    if(sessionStorage.getItem('cottageId') == undefined)
+      this.router.navigate(["login"])
+
     this.http
         .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId') ,options)
           .pipe(
             map(returnedCottage=> {
-              this.cottage = returnedCottage
+              this.cottage = returnedCottage              
             })).subscribe(() =>
             {
+              this.cottage.amenities.forEach((amenityInCottage: string) => {
+                Global.amenities.forEach(amenity => {
+                  if(amenityInCottage == amenity.value)
+                    this.amenities.push(amenity.display)
+                });
+              });
               //cottage images in imgCollection
               this.http
                   .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId') + '/images' ,options)
@@ -79,6 +85,9 @@ export class ProfileCottageComponent implements OnInit {
 
   }
   pastReservations(){
+    
+  }
+  editCottage(){
     
   }
 }

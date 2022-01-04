@@ -1,6 +1,7 @@
 package ftn.booking.model;
 
 
+import ftn.booking.model.enums.Amenity;
 import ftn.booking.model.enums.Behaviour;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,14 +44,15 @@ public class Cottage {
     )
     private List<Room> rooms = new ArrayList<>();
 
-    //ovo je jedan string u bazi, mozda bolje napraviti entitet??
+    //Pravila ponasanja
     @Enumerated
     @ElementCollection(targetClass = Behaviour.class)
     private List<Behaviour> behaviorRules = new ArrayList<>();
 
-    //private Long prices;
-
-    ///pictures
+    //Dodatne usluge
+    @Enumerated
+    @ElementCollection(targetClass = Amenity.class)
+    private List<Amenity> amenities = new ArrayList<>();
 
     private int maxNumOfPersons;
 
@@ -59,11 +61,11 @@ public class Cottage {
     @ManyToOne
     private CottageOwner cottageOwner;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "cottage_service",
-            joinColumns = @JoinColumn(name = "cottage_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
-    )
-    private List<AdditionalService> cottageAdditionalServices = new ArrayList<>();
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "cottage_service",
+//            joinColumns = @JoinColumn(name = "cottage_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
+//    )
+//    private List<AdditionalService> cottageAdditionalServices = new ArrayList<>();
 }

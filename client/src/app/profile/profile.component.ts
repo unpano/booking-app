@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit {
           alert("Bad request, please try again later.");
         } else {
           alert("User with id " + sessionStorage.getItem('email') + ' does not exist.');
+          this.router.navigate(["login"])
         }
         return EMPTY;
       }),
@@ -82,6 +83,7 @@ export class ProfileComponent implements OnInit {
           alert("Bad request, please try again later.");
         } else {
           alert("User with username " + this.email + ' already exists.');
+          this.router.navigate(["login"])
         }
         return EMPTY;
       })).subscribe()

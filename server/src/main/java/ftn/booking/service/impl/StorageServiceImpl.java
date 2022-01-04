@@ -48,7 +48,7 @@ public class StorageServiceImpl implements StorageService {
         file.transferTo(outputFile);
 
         User user = userService.loadUserByUsername(username);
-        
+
         user.setPicture("..\\assets\\profile-pictures\\" + pathName);
         userService.updateUser(user);
 

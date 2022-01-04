@@ -6,6 +6,7 @@ import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Cottage } from '../dto/cottage';
 import { Endpoint } from '../util/endpoints-enum';
+import { Global } from '../util/global';
 
 @Component({
   selector: 'app-new-cottage',
@@ -13,6 +14,8 @@ import { Endpoint } from '../util/endpoints-enum';
   styleUrls: ['./new-cottage.component.css']
 })
 export class NewCottageComponent implements OnInit {
+
+  amenities = Global.amenities
 
   name !: String
   address !: String
@@ -50,6 +53,8 @@ export class NewCottageComponent implements OnInit {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
+          if(sessionStorage.getItem('cottageId') == undefined)
+            this.router.navigate(["login"])
           alert("You didn`t fill all of the fields. Please try again.");
         }
 

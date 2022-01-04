@@ -23,10 +23,6 @@ export class HomePageCottageOwnerComponent implements OnInit {
   constructor(private http: HttpClient,private router: Router) { }
 
   ngOnInit(): void {
-    //if token expired
-    if(sessionStorage.getItem('token') == null){
-      this.router.navigate([''])
-    }
 
     //list of owner cottages
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  

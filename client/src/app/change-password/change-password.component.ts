@@ -35,6 +35,7 @@ export class ChangePasswordComponent implements OnInit {
           alert("Bad request, please try again later.");
         } else {
           alert("User with id " + sessionStorage.getItem('email') + ' does not exist.');
+          this.router.navigate(["login"])
         }
         return EMPTY;
       }),
@@ -59,7 +60,7 @@ export class ChangePasswordComponent implements OnInit {
                   alert("Bad request, please try again later.");
                 } else {
                   alert("Please enter valid new password. At least 8 characters. Number, lower and upper case required.")
-          
+                  
                 }
                 return EMPTY;
               })).subscribe()

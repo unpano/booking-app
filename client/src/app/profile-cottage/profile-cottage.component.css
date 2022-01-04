@@ -1,12 +1,12 @@
 label{
     margin-left: 5%;
     margin-top: 2%;
-    width: 200px;
+    width: 280px;
 }
 
 h1{
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     font-weight: bold;
 }
 
@@ -28,7 +28,19 @@ input{
 }
 
 button{
-    width: 200px;
+    color: white;
+    background: indigo;
+    border-radius: 1rem;
+    border: none;
+    width: 170px;
+    height: 35px;
+    margin-left: 30px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+#firstButton{
+    margin-left: 120px;
 }
 
 img{

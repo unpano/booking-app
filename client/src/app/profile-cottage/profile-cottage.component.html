@@ -1,12 +1,16 @@
 <form role="form" novalidate class="form-inline">
-    <div class="form-group">
-        <h1>{{cottage.name}}</h1>								
-    </div>
+    
 
-<button mat-button (click)="removeCottage()">Remove cottage</button>
-<button mat-button (click)="futureReservations()">Future reservations</button>
+<button mat-button (click)="bookCottage()" id="firstButton">New reservation</button>
+<button mat-button (click)="futureReservations()" >Future reservations</button>
 <button mat-button (click)="pastReservations()">Past reservations</button>
+<button mat-button (click)="removeCottage()" >Remove cottage</button>
+<button mat-button (click)="editCottage()">Edit cottage</button>
 
+    <div class="form-group">
+        <h1>{{cottage.name}}</h1>	
+        <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>							
+    </div>
     <div class="form-group">
         <label>Address</label>
         <label>{{cottage.address}}</label>								
@@ -24,12 +28,18 @@
         <label>{{cottage.rate}}</label>								
     </div>
     <div class="form-group">
-        <label>Rate</label>
+        <label>Description</label>
         <label>{{cottage.description}}</label>								
-    </div> 
-    <h1>Pictures</h1>
-    
-    <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>
+    </div>    
+
+    <div class="form-group">
+        <h1>Rooms</h1>								
+    </div>
+    <div class="form-group">
+        <h1>What this place offers</h1>	
+        <label *ngFor="let amenity of amenities">{{amenity}}</label>							
+    </div>
+
     <div>
         <h1>Book cottage</h1>
         <mat-form-field class="example-form-field" appearance="fill">
@@ -43,8 +53,8 @@
             <mat-datepicker-toggle matSuffix [for]="cottagePicker"></mat-datepicker-toggle>
             <mat-date-range-picker #cottagePicker></mat-date-range-picker>
           </mat-form-field>
-          <button mat-button (click)="bookCottage()">Book cottage</button>
     </div>
+    
     
 </form>
 
