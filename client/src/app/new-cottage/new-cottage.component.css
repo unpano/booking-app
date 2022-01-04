@@ -24,3 +24,11 @@ img{
 select{
     height: 400px;
 }
+
+#secondSelect{
+    height: 80px;
+}
+
+h4{
+    margin-top: 10px;
+}

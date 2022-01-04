@@ -1,5 +1,5 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
-    <mat-card fxFlex="52">
+    <mat-card fxFlex="50">
         <mat-toolbar color="primary">Register new cottage</mat-toolbar>
         <form fxLayoutAlign="stretch" fxLayout="column" class="register-form">
 
@@ -19,12 +19,26 @@
                 <input [(ngModel)]="description" name="description" matInput placeholder="Description">
             </mat-form-field>
 
+            <mat-form-field>
+              <input [(ngModel)]="maxNumPers" name="maxNumPers" matInput placeholder="Max number of persons">
+          </mat-form-field>
+
             <div>
               <h4>Select amenities</h4>
               <select multiple name="amenities" [(ngModel)]="cottage.amenities">
                 
                 <option *ngFor="let amenity of amenities" [value]="amenity.value">
                   {{amenity.display}}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <h4>Select services</h4>
+              <select multiple name="services" [(ngModel)]="cottage.additionalServices" id="secondSelect">
+                
+                <option *ngFor="let service of services" [value]="service.value">
+                  {{service.display}}
                 </option>
               </select>
             </div>

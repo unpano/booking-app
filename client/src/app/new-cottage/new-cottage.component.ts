@@ -16,11 +16,14 @@ import { Global } from '../util/global';
 export class NewCottageComponent implements OnInit {
 
   amenities = Global.amenities
+  
+  services = Global.services
 
   name !: String
   address !: String
   city !: String
   description !: String
+  maxNumPers !: Number
 
   cottage: Cottage = new Cottage()
 
@@ -40,6 +43,7 @@ export class NewCottageComponent implements OnInit {
       this.cottage.city = this.city
       this.cottage.name = this.name
       this.cottage.description = this.description
+      this.cottage.maxNumOfPersons = this.maxNumPers
 
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  

@@ -1,6 +1,7 @@
 package ftn.booking.dto;
 
 import ftn.booking.model.enums.Amenity;
+import ftn.booking.model.enums.Service;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,5 @@ public class CottageDTO {
     private String city;
     private Integer maxNumOfPersons;
     private List<Amenity> amenities;
+    private List<Service> additionalServices;
 }

@@ -4,6 +4,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { AmenityJSON } from '../dto/amenitiyJSON';
+import { RuleJSON } from '../dto/RuleJSON';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
@@ -19,7 +21,9 @@ export class ProfileCottageComponent implements OnInit {
   endpoint = Endpoint
   cottage:any
   pickCottage !: FormGroup;
-  amenities : String[] = []
+
+  amenities : AmenityJSON[] = []
+  rules : RuleJSON[] = []
 
   constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient) { 
     const today = new Date();
@@ -49,11 +53,15 @@ export class ProfileCottageComponent implements OnInit {
             })).subscribe(() =>
             {
               this.cottage.amenities.forEach((amenityInCottage: string) => {
-                Global.amenities.forEach(amenity => {
-                  if(amenityInCottage == amenity.value)
-                    this.amenities.push(amenity.display)
-                });
+                    var amenityJSON = this.findAmenity(amenityInCottage)
+                    this.amenities.push(amenityJSON)
               });
+
+              this.cottage.additionalServices.forEach((rule: string) => {
+                var ruleJSON = this.findRule(rule)
+                this.rules.push(ruleJSON)
+          });
+              
               //cottage images in imgCollection
               this.http
                   .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId') + '/images' ,options)
@@ -70,9 +78,35 @@ export class ProfileCottageComponent implements OnInit {
                         });
                       })).subscribe()
             })  
+  }
 
+  private findAmenity(amenityName: string): AmenityJSON{
     
+    var amenityJSON = new AmenityJSON()
 
+      Global.amenities.forEach((amenity) => {
+        if(amenityName == amenity.value){
+          amenityJSON.name = amenity.display
+          amenityJSON.icon = amenity.icon
+        }
+          
+      })
+
+      return amenityJSON
+  }
+  private findRule(ruleName: string): RuleJSON{
+    
+    var ruleJSON = new RuleJSON()
+
+      Global.services.forEach((rule) => {
+        if(ruleName == rule.value){
+          ruleJSON.name = rule.display
+          ruleJSON.icon = rule.icon
+        }
+          
+      })
+
+      return ruleJSON
   }
 
   bookCottage(){
@@ -91,3 +125,4 @@ export class ProfileCottageComponent implements OnInit {
     
   }
 }
+
