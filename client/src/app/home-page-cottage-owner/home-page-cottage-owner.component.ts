@@ -23,10 +23,6 @@ export class HomePageCottageOwnerComponent implements OnInit {
   constructor(private http: HttpClient,private router: Router) { }
 
   ngOnInit(): void {
-    //if token expired
-    if(sessionStorage.getItem('token') == null){
-      this.router.navigate([''])
-    }
 
     //list of owner cottages
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
@@ -42,18 +38,9 @@ export class HomePageCottageOwnerComponent implements OnInit {
   }
 
   cottageDetails(cottage: Cottage){
+    sessionStorage.setItem('cottageId', cottage.id.toString())
+    this.router.navigate(['cottage'])
 
-    //cottage details
-    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
-    let options = { headers: headers };
-
-    this.http
-        .get(this.endpoint.COTTAGES + cottage.id ,options)
-          .pipe(
-            map(returnedCottage=> {
-              this.cottage = returnedCottage
-              Global.cottage = this.cottage
-            })).subscribe(() => this.router.navigate(['cottage']))    
   }
 
   sortData(sort: Sort) {

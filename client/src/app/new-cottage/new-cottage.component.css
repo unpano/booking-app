@@ -2,6 +2,7 @@
     padding: 0px;
 }
 
+
 .register-form{
     padding: 20px;
     width: 580px;
@@ -18,4 +19,20 @@ img{
     width: 130px;
     height: 150px;
     margin-bottom: 5%;
+}
+
+select{
+    height: 400px;
+}
+
+#secondSelect{
+    height: 80px;
+}
+
+h4{
+    margin-top: 10px;
+}
+
+#maxNumPers{
+    width: 160px !important;
 }

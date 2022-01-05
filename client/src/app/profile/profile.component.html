@@ -1,5 +1,5 @@
 <div id="basics">
-  <img class="image" [src]="sanitize('../assets/profile-pictures/')"/>
+  <img class="image" [src]="user.picture"/>
   <h1>{{user.firstName + ' ' + user.lastName}}</h1>
 </div>
 
@@ -46,9 +46,9 @@
           <button
             class="btn btn-success btn-sm"
             [disabled]="!selectedFiles"
-            (click)="uploadFiles()"
-          >
-            Upload
+            (click)="uploadFiles()">
+
+            Change profile picture
           </button>
         </div>
       </div>

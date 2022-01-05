@@ -19,8 +19,41 @@
                 <input [(ngModel)]="description" name="description" matInput placeholder="Description">
             </mat-form-field>
 
+            <mat-form-field id="maxNumPers">
+              <input [(ngModel)]="maxNumPers" type="number" min="1" max="100" name="maxNumPers" matInput placeholder="Max number of persons">
+          </mat-form-field>
+
+          <mat-form-field id="maxNumPers">
+            <input [(ngModel)]="roomNum" (change)="changeNumOfRooms()" type="number" min="1" max="10" name="roomNum" matInput placeholder="Number of rooms">
+          </mat-form-field>
+
+          <div *ngFor="let i of rooms">
+            <input name="roomName" [(ngModel)]="i.name" type="text" matInput placeholder="Room name">
+            <input name="beds" [(ngModel)]="i.bedTypes" type="text" matInput placeholder="Number of beds and its types">
+          </div>
+
+            <div>
+              <h4>Select amenities</h4>
+              <select multiple name="amenities" [(ngModel)]="cottage.amenities">
+                
+                <option *ngFor="let amenity of amenities" [value]="amenity.value">
+                  {{amenity.display}}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <h4>Select services</h4>
+              <select multiple name="services" [(ngModel)]="cottage.additionalServices" id="secondSelect">
+                
+                <option *ngFor="let service of services" [value]="service.value">
+                  {{service.display}}
+                </option>
+              </select>
+            </div>
+
             <form  id="uploadForm">
-                <h3>Add cottage images</h3>
+                <h4>Add cottage images</h4>
                 <div class="row">
                   <div class="col-8">
                     <label class="btn btn-default p-0">

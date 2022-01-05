@@ -43,7 +43,9 @@ import { CottageDetailsComponent } from './cottage-details/cottage-details.compo
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { InstructorDetailsComponent } from './instructor-details/instructor-details.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,10 @@ import { InstructorDetailsComponent } from './instructor-details/instructor-deta
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgImageSliderModule
     
   ],
   providers: [HttpClientModule],

@@ -5,7 +5,9 @@ import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Cottage } from '../dto/cottage';
+import { Room } from '../dto/Room';
 import { Endpoint } from '../util/endpoints-enum';
+import { Global } from '../util/global';
 
 @Component({
   selector: 'app-new-cottage',
@@ -14,10 +16,17 @@ import { Endpoint } from '../util/endpoints-enum';
 })
 export class NewCottageComponent implements OnInit {
 
+  amenities = Global.amenities
+  
+  services = Global.services
+
   name !: String
   address !: String
   city !: String
   description !: String
+  maxNumPers !: Number
+  roomNum !: Number 
+  rooms : Room[] = []
 
   cottage: Cottage = new Cottage()
 
@@ -31,18 +40,30 @@ export class NewCottageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  changeNumOfRooms(){
+    this.rooms = []
+    for(let i=0; i< this.roomNum;i++){
+      var room = new Room()
+      this.rooms.push(room)
+    }
+  }
+
   addNewCottage(){
     //cottage dto object
       this.cottage.address = this.address
       this.cottage.city = this.city
       this.cottage.name = this.name
       this.cottage.description = this.description
+      this.cottage.maxNumOfPersons = this.maxNumPers
+      this.cottage.rooms = this.rooms
+      
 
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     
     const body=JSON.stringify(this.cottage);
+    alert(body)
     
   //create new cottage
     this.http.post<any>(this.endpoint.COTTAGES, body, options).pipe(
@@ -50,6 +71,8 @@ export class NewCottageComponent implements OnInit {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
+          if(sessionStorage.getItem('cottageId') == undefined)
+            this.router.navigate(["login"])
           alert("You didn`t fill all of the fields. Please try again.");
         }
 
@@ -75,7 +98,6 @@ export class NewCottageComponent implements OnInit {
         const reader = new FileReader();
   
         reader.onload = (e: any) => {
-          //console.log(e.target.result);
           this.previews.push(e.target.result);
         };
   
@@ -100,15 +122,8 @@ export class NewCottageComponent implements OnInit {
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     
-    this.http.post<any>(this.endpoint.UPLOAD + 'add-cottage-picture/' + this.cottage.id, formData, options).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.error instanceof Error) {
-          alert("Bad request, please try again later.");
-        } else {
-          alert("User with username does not exist.");
-        }
-        return EMPTY;
-      })).subscribe()
+    this.http.post<any>(this.endpoint.UPLOAD + 'add-cottage-picture/' + this.cottage.id, formData, options)
+            .subscribe()
     
       
       }  

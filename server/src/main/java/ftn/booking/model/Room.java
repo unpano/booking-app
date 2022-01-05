@@ -20,8 +20,9 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private RoomType roomType;
+    private String name;
 
-    private Integer numOfBeds;
+    //type and number of beds
+    private String bedTypes;
+
 }
