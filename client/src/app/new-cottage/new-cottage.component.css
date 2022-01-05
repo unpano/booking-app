@@ -32,3 +32,7 @@ select{
 h4{
     margin-top: 10px;
 }
+
+#maxNumPers{
+    width: 160px !important;
+}

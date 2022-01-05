@@ -28,12 +28,16 @@
         <label>{{cottage.rate}}</label>								
     </div>
     <div class="form-group">
-        <label>Description</label>
+        <h1>Our cottage</h1>
         <label>{{cottage.description}}</label>								
     </div>    
 
     <div class="form-group">
-        <h1>Rooms</h1>								
+        <h1>Where you'll sleep</h1>	
+        <div *ngFor="let room of cottage.rooms">
+            <label>{{room.name}}</label>
+            <label>{{room.bedTypes}}</label>
+        </div>							
     </div>
     <div class="form-group">
         <h1>What this place offers</h1>	

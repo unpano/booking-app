@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Cottage } from '../dto/cottage';
+import { Room } from '../dto/Room';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
@@ -24,6 +25,8 @@ export class NewCottageComponent implements OnInit {
   city !: String
   description !: String
   maxNumPers !: Number
+  roomNum !: Number 
+  rooms : Room[] = []
 
   cottage: Cottage = new Cottage()
 
@@ -37,6 +40,14 @@ export class NewCottageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  changeNumOfRooms(){
+    this.rooms = []
+    for(let i=0; i< this.roomNum;i++){
+      var room = new Room()
+      this.rooms.push(room)
+    }
+  }
+
   addNewCottage(){
     //cottage dto object
       this.cottage.address = this.address
@@ -44,12 +55,15 @@ export class NewCottageComponent implements OnInit {
       this.cottage.name = this.name
       this.cottage.description = this.description
       this.cottage.maxNumOfPersons = this.maxNumPers
+      this.cottage.rooms = this.rooms
+      
 
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     
     const body=JSON.stringify(this.cottage);
+    alert(body)
     
   //create new cottage
     this.http.post<any>(this.endpoint.COTTAGES, body, options).pipe(

@@ -19,9 +19,18 @@
                 <input [(ngModel)]="description" name="description" matInput placeholder="Description">
             </mat-form-field>
 
-            <mat-form-field>
-              <input [(ngModel)]="maxNumPers" name="maxNumPers" matInput placeholder="Max number of persons">
+            <mat-form-field id="maxNumPers">
+              <input [(ngModel)]="maxNumPers" type="number" min="1" max="100" name="maxNumPers" matInput placeholder="Max number of persons">
           </mat-form-field>
+
+          <mat-form-field id="maxNumPers">
+            <input [(ngModel)]="roomNum" (change)="changeNumOfRooms()" type="number" min="1" max="10" name="roomNum" matInput placeholder="Number of rooms">
+          </mat-form-field>
+
+          <div *ngFor="let i of rooms">
+            <input name="roomName" [(ngModel)]="i.name" type="text" matInput placeholder="Room name">
+            <input name="beds" [(ngModel)]="i.bedTypes" type="text" matInput placeholder="Number of beds and its types">
+          </div>
 
             <div>
               <h4>Select amenities</h4>

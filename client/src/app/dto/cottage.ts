@@ -1,8 +1,6 @@
-
 import { AdditionalService } from "./enums/AdditionalService";
 import { Amenity } from "./enums/Amenity";
-import { User } from "./user";
-
+import { Room } from "./Room";
 
 export class Cottage{
     id !: Number;
@@ -14,4 +12,5 @@ export class Cottage{
     rate !: Number;
     amenities !: Amenity[];
     additionalServices !: AdditionalService[];
+    rooms !: Room[];
 }
