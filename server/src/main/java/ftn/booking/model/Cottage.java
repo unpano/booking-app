@@ -40,6 +40,8 @@ public class Cottage {
 
     private Float rate;
 
+    private Float oneDayPrice;
+
     @ManyToOne
     private CottageOwner cottageOwner;
 
