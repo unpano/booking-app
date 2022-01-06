@@ -1,11 +1,14 @@
 package ftn.booking.model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import ftn.booking.model.enums.ReservationType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -26,9 +29,11 @@ public class Reservation {
     private ReservationType reservationType;
 
     @NotNull
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
     @NotNull
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
     private Long price;

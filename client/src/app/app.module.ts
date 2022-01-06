@@ -46,6 +46,8 @@ import { InstructorDetailsComponent } from './instructor-details/instructor-deta
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { NewReservationComponent } from './new-reservation/new-reservation.component';
+import { NewActionComponent } from './new-action/new-action.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { NgImageSliderModule } from 'ng-image-slider';
     CottageDetailsComponent,
     ProfileCottageComponent,
     NewCottageComponent,
-    InstructorDetailsComponent
+    InstructorDetailsComponent,
+    NewReservationComponent,
+    NewActionComponent
 
   ],
   imports: [
