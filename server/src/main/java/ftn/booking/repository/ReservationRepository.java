@@ -19,4 +19,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "(?4 <= r.end_time) AND (r.start_time <= ?5) ", nativeQuery = true)
     List<Reservation> findAllByEntityIdAndClientIdAndReservationType(Long entityId, Long id, String reservationType,
                                                                      LocalDateTime startTime, LocalDateTime endTime);
+
+    List<Reservation> findAllByCottageId(Long id);
 }

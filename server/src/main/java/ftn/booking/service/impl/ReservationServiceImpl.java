@@ -26,4 +26,9 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> findOneByEntityIdAndClientIdAndReservationType(Long entityId, Long id, ReservationType reservationType, LocalDateTime startTime, LocalDateTime endTime) {
         return reservationRepository.findAllByEntityIdAndClientIdAndReservationType(entityId, id, reservationType.toString(),startTime,endTime);
     }
+
+    @Override
+    public List<Reservation> findAllByCottageId(Long id) {
+        return reservationRepository.findAllByCottageId(id);
+    }
 }

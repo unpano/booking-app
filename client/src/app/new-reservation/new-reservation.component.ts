@@ -29,6 +29,10 @@ export class NewReservationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  reserve(){
+    
+  }
+
   //na submit
 
   //isAction = false

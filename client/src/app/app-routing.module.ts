@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
 import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
-import { AppComponent } from './app.component';
 import { BoatDetailsComponent } from './boat-details/boat-details.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
+import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
 import { HomePageAdminComponent } from './home-page-admin/home-page-admin.component';
 import { HomePageBoatOwnerComponent } from './home-page-boat-owner/home-page-boat-owner.component';
 import { HomePageClientComponent } from './home-page-client/home-page-client.component';
@@ -42,6 +42,7 @@ const routes: Routes = [
   {path: 'cottage', component: ProfileCottageComponent},
   {path: 'cottage/reserve', component: NewReservationComponent},
   {path: 'cottage/action', component: NewActionComponent},
+  {path: 'cottage/delete', component: DeleteCottageComponent},
   {path: 'cottages', component: HomePageCottageOwnerComponent},
   {path: 'cottages/new-cottage', component: NewCottageComponent},
   {path: 'report', component: ReportCottageOwnerComponent},

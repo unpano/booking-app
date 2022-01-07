@@ -1,1 +1,17 @@
-<p>new-action works!</p>
+<div>
+    <h1>Book cottage</h1>
+    <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Book cottage</mat-label>
+        <mat-date-range-input
+          [formGroup]="pickPeriod"
+          [rangePicker]="periodPicker">
+          <input matStartDate placeholder="Start date" formControlName="start">
+          <input matEndDate placeholder="End date" formControlName="end">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #periodPicker></mat-date-range-picker>
+      </mat-form-field>
+
+      
+    <button mat-raised-button type="submit" (click)="createAction()" >Submit</button>
+</div>
