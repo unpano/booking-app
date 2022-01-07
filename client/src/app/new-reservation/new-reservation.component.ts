@@ -22,6 +22,8 @@ export class NewReservationComponent implements OnInit {
   reservation : Reservation = new Reservation()
   reservationType !: ReservationType 
 
+  actions : any
+
   constructor(private router: Router, private http: HttpClient) { 
     const today = new Date();
     const month = today.getMonth();
@@ -34,6 +36,17 @@ export class NewReservationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //find all actions for cottage
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+
+    this.http
+        .get(this.endpoint.RESERVATIONS + sessionStorage.getItem('cottageId'),options)
+          .pipe(
+            map(returnedActions => {
+              this.actions = returnedActions
+              
+            })).subscribe()
   }
 
   reserve(){

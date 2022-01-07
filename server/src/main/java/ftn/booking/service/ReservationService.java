@@ -13,4 +13,6 @@ public interface ReservationService{
     List<Reservation> findAllByCottageId(Long id);
 
     List<Reservation> findOneByEntityIdAndReservationType(Long entityId, ReservationType reservationType, LocalDateTime startTime, LocalDateTime endTime);
+
+    List<Reservation> findAllFutureActionsByCottageId(Long id);
 }

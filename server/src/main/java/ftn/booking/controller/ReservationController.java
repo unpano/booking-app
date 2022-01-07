@@ -1,11 +1,9 @@
 package ftn.booking.controller;
 
-import ftn.booking.dto.CottageDTO;
 import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.PeriodConflictException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.ReservationType;
-import ftn.booking.service.BoatService;
 import ftn.booking.service.CottageService;
 import ftn.booking.service.ReservationService;
 import ftn.booking.service.UserService;
@@ -14,10 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -30,6 +26,12 @@ public class ReservationController {
     private UserService userService;
     private CottageService cottageService;
     private ModelMapper modelMapper;
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<Reservation>> findAllCottageActions(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.findAllFutureActionsByCottageId(id), HttpStatus.OK);
+    }
 
     //OBICNA REZERVACIJA SALJE FALSE ZA IS_ACTION
     @PostMapping("/{username}/{entityId}/{isAction}")

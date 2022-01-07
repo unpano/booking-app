@@ -20,4 +20,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
                                                                      LocalDateTime startTime, LocalDateTime endTime);
 
     List<Reservation> findAllByCottageId(Long id);
+
+    List<Reservation> findAllByCottageIdAndClientId(Long id, Long clientId);
 }
