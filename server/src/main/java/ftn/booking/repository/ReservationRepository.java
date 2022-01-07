@@ -14,9 +14,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query(value = "select * " +
             "from reservations r " +
             "where (r.cottage_id = ?1 OR r.adventure_id = ?1 OR r.boat_id = ?1) AND " +
-            "r.client_id = ?2 AND " +
-            "(r.reservation_type like ?3) AND " +
-            "(?4 <= r.end_time) AND (r.start_time <= ?5) ", nativeQuery = true)
-    List<Reservation> findAllByEntityIdAndClientIdAndReservationType(Long entityId, Long id, String reservationType,
+            "(r.reservation_type like ?2) AND " +
+            "(?3 <= r.end_time) AND (r.start_time <= ?4) ", nativeQuery = true)
+    List<Reservation> findAllByEntityIdAndReservationType(Long entityId, String reservationType,
                                                                      LocalDateTime startTime, LocalDateTime endTime);
+
+    List<Reservation> findAllByCottageId(Long id);
+
+    List<Reservation> findAllByCottageIdAndClientId(Long id, Long clientId);
 }

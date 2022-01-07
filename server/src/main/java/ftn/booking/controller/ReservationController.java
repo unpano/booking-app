@@ -1,11 +1,9 @@
 package ftn.booking.controller;
 
-import ftn.booking.dto.CottageDTO;
 import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.PeriodConflictException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.ReservationType;
-import ftn.booking.service.BoatService;
 import ftn.booking.service.CottageService;
 import ftn.booking.service.ReservationService;
 import ftn.booking.service.UserService;
@@ -16,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -30,6 +27,12 @@ public class ReservationController {
     private CottageService cottageService;
     private ModelMapper modelMapper;
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<Reservation>> findAllCottageActions(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.findAllFutureActionsByCottageId(id), HttpStatus.OK);
+    }
+
     //OBICNA REZERVACIJA SALJE FALSE ZA IS_ACTION
     @PostMapping("/{username}/{entityId}/{isAction}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
@@ -38,21 +41,19 @@ public class ReservationController {
                                                       @PathVariable Long entityId,
                                                       @PathVariable Boolean isAction){
 
-
         User user = userService.loadUserByUsername(username);
 
         if(reservationDTO.getStartTime().isAfter(reservationDTO.getEndTime())) {
-            throw new PeriodConflictException(entityId,"User " + username + " have selected wrong period (start after end))");
+            throw new PeriodConflictException(entityId,"User have selected wrong period (start after end))");
         }
 
         //metoda koja proverava da li se rezervacija preklapa sa vec postojecom
-        List<Reservation> reservationList =reservationService.findOneByEntityIdAndClientIdAndReservationType(
-                entityId,user.getId(),reservationDTO.getReservationType(),
+        List<Reservation> reservationList =reservationService.findOneByEntityIdAndReservationType(
+                entityId,reservationDTO.getReservationType(),
                 reservationDTO.getStartTime(),reservationDTO.getEndTime());
         System.out.println(reservationList);
         System.out.println(reservationList.isEmpty());
         System.out.println(entityId);
-        System.out.println(user.getId());
         System.out.println(reservationDTO.getReservationType());
         if(!reservationList.isEmpty())
             throw new PeriodConflictException(entityId,"Conflicting period.");

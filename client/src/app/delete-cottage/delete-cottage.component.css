@@ -1,0 +1,23 @@
+h1{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-weight: bold;
+}
+
+#cancelButton{
+    margin-left: 40%;
+    margin-top: 2%;
+    background-color: indigo;
+    color: honeydew;
+    border: none;
+    width: 100px;
+}
+
+#submitButton{
+    margin-left: 2%;
+    margin-top: 2%;
+    background-color: rgb(255, 255, 255);
+    color: grey;
+    border: none;
+    width: 100px;
+}

@@ -1,7 +1,7 @@
 <div>
     <h1>Book cottage</h1>
     <mat-form-field class="example-form-field" appearance="fill">
-        <mat-label>Book cottage</mat-label>
+        <mat-label>Pick period</mat-label>
         <mat-date-range-input
           [formGroup]="pickPeriod"
           [rangePicker]="periodPicker">
@@ -15,4 +15,13 @@
       <mat-form-field>
         <input [(ngModel)]="username" name="username" matInput placeholder="Client username">
     </mat-form-field>
+
+    <button mat-raised-button type="submit" (click)="reserve()" >Submit</button>
+
+    <h1>Actions for this month</h1>	
+    <div class="form-group" *ngFor="let action of actions"> 
+      <label> From: {{action.startTime}} To: {{action.endTime}}</label>
+      <button>Reserve action period</button>           
+  </div>  
+           
 </div>

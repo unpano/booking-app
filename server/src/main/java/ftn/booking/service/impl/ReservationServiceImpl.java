@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,7 +24,21 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> findOneByEntityIdAndClientIdAndReservationType(Long entityId, Long id, ReservationType reservationType, LocalDateTime startTime, LocalDateTime endTime) {
-        return reservationRepository.findAllByEntityIdAndClientIdAndReservationType(entityId, id, reservationType.toString(),startTime,endTime);
+    public List<Reservation> findOneByEntityIdAndReservationType(Long entityId, ReservationType reservationType, LocalDateTime startTime, LocalDateTime endTime) {
+        return reservationRepository.findAllByEntityIdAndReservationType(entityId, reservationType.toString(),startTime,endTime);
+    }
+
+    @Override
+    public List<Reservation> findAllFutureActionsByCottageId(Long id) {
+        List<Reservation> reservations = reservationRepository.findAllByCottageIdAndClientId(id,null);
+
+        reservations.removeIf(res -> res.getStartTime().isBefore(LocalDateTime.now()));
+
+        return reservations;
+    }
+
+    @Override
+    public List<Reservation> findAllByCottageId(Long id) {
+        return reservationRepository.findAllByCottageId(id);
     }
 }
