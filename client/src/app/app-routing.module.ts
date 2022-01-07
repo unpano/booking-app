@@ -44,13 +44,9 @@ const routes: Routes = [
   {path: 'allInstructors', component: AllInstructorsComponent},
 
   {path: 'cottage', component: ProfileCottageComponent},
-<<<<<<< HEAD
   {path: 'boat', component: ProfileBoatComponent},
-
-=======
   {path: 'cottage/reserve', component: NewReservationComponent},
   {path: 'cottage/action', component: NewActionComponent},
->>>>>>> master
   {path: 'cottages', component: HomePageCottageOwnerComponent},
   {path: 'cottages/new-cottage', component: NewCottageComponent},
   {path: 'report', component: ReportCottageOwnerComponent},

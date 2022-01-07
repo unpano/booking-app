@@ -42,19 +42,13 @@ import { ProfileCottageComponent } from './profile-cottage/profile-cottage.compo
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { InstructorDetailsComponent } from './instructor-details/instructor-details.component';
-<<<<<<< HEAD
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
-
-=======
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NgImageSliderModule } from 'ng-image-slider';
-<<<<<<< HEAD
->>>>>>> master
-=======
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { NewActionComponent } from './new-action/new-action.component';
->>>>>>> master
+import { NgImageSliderModule } from 'ng-image-slider';
+
 
 @NgModule({
   declarations: [
@@ -85,13 +79,11 @@ import { NewActionComponent } from './new-action/new-action.component';
     ProfileCottageComponent,
     NewCottageComponent,
     InstructorDetailsComponent,
-<<<<<<< HEAD
     ClientReservationsComponent,
-    ProfileBoatComponent
-=======
+    ProfileBoatComponent,
     NewReservationComponent,
     NewActionComponent
->>>>>>> master
+
 
   ],
   imports: [
@@ -110,15 +102,10 @@ import { NewActionComponent } from './new-action/new-action.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-<<<<<<< HEAD
-    Ng2SearchPipeModule
-=======
     Ng2SearchPipeModule,
     MatDatepickerModule,
     MatNativeDateModule,
     NgImageSliderModule
-    
->>>>>>> master
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
