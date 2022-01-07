@@ -1,4 +1,5 @@
 package ftn.booking.controller;
+import ftn.booking.dto.ReservationDTO;
 import ftn.booking.model.*;
 import ftn.booking.service.*;
 import lombok.AllArgsConstructor;
@@ -72,12 +73,12 @@ public class CottageController {
     }
 
     ///Searching for boats that are not reserved on that period
-    @GetMapping("/findFree/{startDateTime}/{endDateTime}")
+    @GetMapping("/findFree/")
     //@PreAuthorize("hasRole('CLIENT')")
     public @ResponseBody
-    List<Cottage> freeCottages(@PathVariable LocalDateTime startDateTime,
-                         @PathVariable LocalDateTime endDateTime)
+    List<Cottage> freeCottages(@RequestBody ReservationDTO reservationDTO)
     {
-        return cottageService.findFreeCottages(startDateTime, endDateTime);
+        return cottageService.findFreeCottages(reservationDTO);
     }
+
 }

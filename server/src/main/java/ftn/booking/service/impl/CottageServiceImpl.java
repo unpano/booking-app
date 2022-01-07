@@ -1,4 +1,5 @@
 package ftn.booking.service.impl;
+import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.NotFoundException;
 import ftn.booking.model.Boat;
 import ftn.booking.model.Cottage;
@@ -54,11 +55,12 @@ public class CottageServiceImpl implements CottageService {
     }
 
     @Override
-    public List<Cottage> findFreeCottages(LocalDateTime start, LocalDateTime end)
+    public List<Cottage> findFreeCottages(ReservationDTO reservationDTO)
     {
         List<Cottage> resultCottages = new ArrayList<>();
         List<Cottage> allCottages = cottageRepository.findAll();
-        List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndStartTimeAndEndTime("COTTAGE",start, end);
+        List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndStartTimeAndEndTime
+                ("COTTAGE", reservationDTO.getStartTime(), reservationDTO.getEndTime());
 
         for (Cottage cottage : allCottages)
         {
