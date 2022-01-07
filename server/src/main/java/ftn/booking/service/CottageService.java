@@ -1,5 +1,8 @@
 package ftn.booking.service;
+import ftn.booking.model.Boat;
 import ftn.booking.model.Cottage;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CottageService {
@@ -9,4 +12,5 @@ public interface CottageService {
     List<Cottage> findAllOwnerCottages(Long id);
     Cottage findById(Long cottageId);
     Cottage add(Cottage cottage);
+    List<Cottage> findFreeCottages(LocalDateTime start, LocalDateTime end);
 }

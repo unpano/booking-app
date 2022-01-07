@@ -42,8 +42,14 @@ import { ProfileCottageComponent } from './profile-cottage/profile-cottage.compo
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { InstructorDetailsComponent } from './instructor-details/instructor-details.component';
+<<<<<<< HEAD
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
 
+=======
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgImageSliderModule } from 'ng-image-slider';
+>>>>>>> master
 
 @NgModule({
   declarations: [
@@ -94,7 +100,15 @@ import { ClientReservationsComponent } from './client-reservations/client-reserv
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+<<<<<<< HEAD
     Ng2SearchPipeModule
+=======
+    Ng2SearchPipeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgImageSliderModule
+    
+>>>>>>> master
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

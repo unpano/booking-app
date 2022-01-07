@@ -1,7 +1,8 @@
 package ftn.booking.model;
 
 
-import ftn.booking.model.enums.Behaviour;
+import ftn.booking.model.enums.Amenity;
+import ftn.booking.model.enums.Service;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,26 @@ public class Cottage {
 
     private String description;
 
+    private int maxNumOfPersons;
+
+    private Float rate;
+
+    private Float oneDayPrice;
+
+    @ManyToOne
+    private CottageOwner cottageOwner;
+
+    //Pravila ponasanja
+    @Enumerated
+    @ElementCollection(targetClass = Service.class)
+    private List<Service> additionalServices = new ArrayList<>();
+
+    //Dodatne usluge
+    @Enumerated
+    @ElementCollection(targetClass = Amenity.class)
+    private List<Amenity> amenities = new ArrayList<>();
+
+    //Sobe
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "cottage_room",
@@ -42,28 +63,4 @@ public class Cottage {
             inverseJoinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id")
     )
     private List<Room> rooms = new ArrayList<>();
-
-    //ovo je jedan string u bazi, mozda bolje napraviti entitet??
-    @Enumerated
-    @ElementCollection(targetClass = Behaviour.class)
-    private List<Behaviour> behaviorRules = new ArrayList<>();
-
-    //private Long prices;
-
-    ///pictures
-
-    private int maxNumOfPersons;
-
-    private Float rate;
-
-    @ManyToOne
-    private CottageOwner cottageOwner;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "cottage_service",
-            joinColumns = @JoinColumn(name = "cottage_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
-    )
-    private List<AdditionalService> cottageAdditionalServices = new ArrayList<>();
 }

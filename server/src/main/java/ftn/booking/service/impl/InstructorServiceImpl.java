@@ -1,10 +1,16 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.model.Boat;
 import ftn.booking.model.Instructor;
+import ftn.booking.model.Reservation;
 import ftn.booking.repository.InstructorRepository;
+import ftn.booking.repository.ReservationRepository;
 import ftn.booking.service.InstructorService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,6 +18,7 @@ import java.util.List;
 public class InstructorServiceImpl implements InstructorService {
 
     private InstructorRepository instructorRepository;
+    private ReservationRepository reservationRepository;
 
     @Override
     public List<Instructor> findAll()
@@ -24,4 +31,8 @@ public class InstructorServiceImpl implements InstructorService {
     {
         return instructorRepository.findById(id).get();
     }
+
+
+
+
 }

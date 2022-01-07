@@ -15,6 +15,7 @@ export class ChangePasswordComponent implements OnInit {
   endpoint = Endpoint;
   oldPassword !: String
   newPassword !: String
+  rePassword !: String
   matchPasswords !: Boolean
 
   constructor(private router: Router,private http: HttpClient) { }
@@ -34,6 +35,7 @@ export class ChangePasswordComponent implements OnInit {
           alert("Bad request, please try again later.");
         } else {
           alert("User with id " + sessionStorage.getItem('email') + ' does not exist.');
+          this.router.navigate(["login"])
         }
         return EMPTY;
       }),
@@ -47,23 +49,28 @@ export class ChangePasswordComponent implements OnInit {
         //ako se lozinke poklapaju moze promeniti na novu
         if(this.matchPasswords){
           //ako je uneta nova promeni
+          if(this.newPassword != this.rePassword){
+            alert("Passwords do not match.")
+            return
+          }
           if(this.newPassword != undefined){
             this.http.put<any>(this.endpoint.USERS + 'changePassword/' + this.newPassword,null, options1).pipe(
               catchError((error: HttpErrorResponse) => {
                 if (error.error instanceof Error) {
                   alert("Bad request, please try again later.");
                 } else {
-                  alert("User with id " + sessionStorage.getItem('email') + ' does not exist.');
+                  alert("Please enter valid new password. At least 8 characters. Number, lower and upper case required.")
+                  
                 }
                 return EMPTY;
               })).subscribe()
-          }else{
-            alert("Please enter valid new password. At least 8 characters. Number, lower and upper case required.")
           }
         }else{
           alert("That`s not your old password. Please try again.")
         }
       })
   }
+
+  
 
 }

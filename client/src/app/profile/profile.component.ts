@@ -44,6 +44,7 @@ export class ProfileComponent implements OnInit {
           alert("Bad request, please try again later.");
         } else {
           alert("User with id " + sessionStorage.getItem('email') + ' does not exist.');
+          this.router.navigate(["login"])
         }
         return EMPTY;
       }),
@@ -53,7 +54,8 @@ export class ProfileComponent implements OnInit {
       })).subscribe()
   }
 
-  sanitize(imgURL:any) { return this.sanitizer.bypassSecurityTrustUrl(imgURL+this.user.username+'.png'); }
+  sanitize(imgURL:any) { 
+    return this.sanitizer.bypassSecurityTrustUrl(imgURL+ this.user.picture)}
 
   onSubmit() {
     this.editButtonClicked = false
@@ -82,6 +84,7 @@ export class ProfileComponent implements OnInit {
           alert("Bad request, please try again later.");
         } else {
           alert("User with username " + this.email + ' already exists.');
+          this.router.navigate(["login"])
         }
         return EMPTY;
       })).subscribe()
@@ -101,7 +104,6 @@ export class ProfileComponent implements OnInit {
         const reader = new FileReader();
   
         reader.onload = (e: any) => {
-          //console.log(e.target.result);
           this.previews.push(e.target.result);
         };
   

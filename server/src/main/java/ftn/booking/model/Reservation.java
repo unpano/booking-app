@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reservations")
@@ -22,35 +22,35 @@ public class Reservation {
     private Long id;
 
     @NotNull
-    private String place;
-
-    @NotNull
-    private LocalDateTime date;
-
-    @NotNull
-    private Integer duration;
-
-    @NotNull
-    private Integer maxPerson;
-
-    private Long price;
-
-    private Boolean status;
-
-    private String report;
-
-    private String comment;
-
-    private String praise;
-
-    private Boolean isReportFilled;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     private ReservationType reservationType;
 
+    @NotNull
+    private LocalDateTime startTime;
+
+    @NotNull
+    private LocalDateTime endTime;
+
+    private Long price;
+
+    //private Boolean status;
+
+    //private String report;
+
+    //private String comment;
+
+
+//    @NotNull
+//    private String place;
+
+//    //Sta je ovo??
+//    private String praise;
+
+    //private Boolean isReportFilled;
+
+    //if client is not set, then reservation is action
     @OneToOne
-    private User user;
+    private Client client;
 
     @OneToOne
     private Boat boat;
@@ -58,5 +58,6 @@ public class Reservation {
     @OneToOne
     private Cottage cottage;
 
-
+    @OneToOne
+    private Adventure adventure;
 }

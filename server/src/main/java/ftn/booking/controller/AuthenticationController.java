@@ -75,6 +75,7 @@ public class AuthenticationController {
 
             //klijent aktivira profil preko linka
             client.setEnabled(false);
+            client.setPicture("");
             client.setRole(Role.ROLE_CLIENT);
             client.setPassword(passwordEncoder.encode(client.getPassword()));
 
@@ -99,6 +100,7 @@ public class AuthenticationController {
             //admin odobrava zahtev za registraciju
             boatOwner.setEnabled(false);
             boatOwner.setRole(Role.ROLE_BOAT_OWNER);
+            boatOwner.setPicture("");
             boatOwner.setReasonForRegistration(userDTO.getReason());
             boatOwner.setPassword(passwordEncoder.encode(boatOwner.getPassword()));
 
@@ -123,6 +125,7 @@ public class AuthenticationController {
             //admin odobrava zahtev za registraciju
             cottageOwner.setEnabled(false);
             cottageOwner.setRole(Role.ROLE_COTTAGE_OWNER);
+            cottageOwner.setPicture("");
             cottageOwner.setReasonForRegistration(userDTO.getReason());
             cottageOwner.setPassword(passwordEncoder.encode(cottageOwner.getPassword()));
 
@@ -146,6 +149,7 @@ public class AuthenticationController {
             //admin odobrava zahtev za registraciju
             instructor.setEnabled(false);
             instructor.setRole(Role.ROLE_INSTRUCTOR);
+            instructor.setPicture("");
             instructor.setReasonForRegistration(userDTO.getReason());
             instructor.setPassword(passwordEncoder.encode(instructor.getPassword()));
 

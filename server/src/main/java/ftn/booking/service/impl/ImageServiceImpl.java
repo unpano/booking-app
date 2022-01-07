@@ -6,6 +6,9 @@ import ftn.booking.service.ImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ImageServiceImpl implements ImageService {
@@ -15,5 +18,17 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image add(Image image) {
         return imageRepository.save(image);
+    }
+
+    @Override
+    public List<String> findImagesByCottageId(Long cottageId) {
+        List<Image> images = imageRepository.findAllByCottageId(cottageId);
+        List<String> paths = new ArrayList<>();
+
+        for(Image image : images){
+            paths.add(image.getPath());
+        }
+
+        return paths;
     }
 }

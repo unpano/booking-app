@@ -1,6 +1,7 @@
 package ftn.booking.controller;
 
 
+import ftn.booking.dto.ReservationDTO;
 import ftn.booking.model.Boat;
 import ftn.booking.model.User;
 import ftn.booking.service.BoatService;
@@ -12,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -34,4 +36,15 @@ public class BoatController {
     public ResponseEntity<Boat> findById(@PathVariable Long boatId){
         return new ResponseEntity<>(boatService.findById(boatId), HttpStatus.OK);
     }
+
+    ///Searching for boats that are not reserved on that period
+    @GetMapping("/findFree/")
+    //@PreAuthorize("hasRole('CLIENT')")
+    public @ResponseBody
+    List<Boat> freeBoats(@RequestBody ReservationDTO reservationDTO)
+    {
+        return boatService.findFreeBoats(reservationDTO);
+    }
+
+
 }
