@@ -2,6 +2,7 @@ package ftn.booking.controller;
 
 import ftn.booking.dto.CottageDTO;
 import ftn.booking.dto.ReservationDTO;
+import ftn.booking.exception.PeriodConflictException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.ReservationType;
 import ftn.booking.service.BoatService;
@@ -45,12 +46,30 @@ public class ReservationController {
                                                       @PathVariable Long entityId,
                                                       @PathVariable Boolean isAction){
 
+
+        User user = userService.loadUserByUsername(username);
+
+        if(reservationDTO.getStartTime().isAfter(reservationDTO.getEndTime())) {
+            throw new PeriodConflictException(entityId,"User " + username + " have selected wrong period (start after end))");
+        }
+
+        //metoda koja proverava da li se rezervacija preklapa sa vec postojecom
+        List<Reservation> reservationList =reservationService.findOneByEntityIdAndClientIdAndReservationType(
+                entityId,user.getId(),reservationDTO.getReservationType(),
+                reservationDTO.getStartTime(),reservationDTO.getEndTime());
+        System.out.println(reservationList);
+        System.out.println(reservationList.isEmpty());
+        System.out.println(entityId);
+        System.out.println(user.getId());
+        System.out.println(reservationDTO.getReservationType());
+        if(!reservationList.isEmpty())
+            throw new PeriodConflictException(entityId,"Conflicting period.");
+
         Reservation reservation = new Reservation();
         modelMapper.map(reservationDTO,reservation);
 
         //client
         if(!isAction){
-            User user = userService.loadUserByUsername(username);
             Client client = new Client();
             client.setId(user.getId());
 
@@ -95,7 +114,6 @@ public class ReservationController {
         }else{
             //TODO calculate price for adventure reservation
         }
-
 
         return new ResponseEntity<>(reservationService.add(reservation), HttpStatus.OK);
     }

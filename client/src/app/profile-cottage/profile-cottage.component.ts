@@ -20,20 +20,12 @@ export class ProfileCottageComponent implements OnInit {
 
   endpoint = Endpoint
   cottage:any
-  pickCottage !: FormGroup;
 
   amenities : AmenityJSON[] = []
   rules : RuleJSON[] = []
 
   constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient) { 
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-
-    this.pickCottage = new FormGroup({
-      start: new FormControl(new Date(year, month, 11)),
-      end: new FormControl(new Date(year, month, 15)),
-    });
+    
   }
 
   ngOnInit(): void {
@@ -107,10 +99,6 @@ export class ProfileCottageComponent implements OnInit {
       })
 
       return ruleJSON
-  }
-
-  bookCottage(){
-    
   }
   removeCottage(){
     

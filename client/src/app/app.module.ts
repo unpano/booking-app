@@ -49,6 +49,11 @@ import { ClientReservationsComponent } from './client-reservations/client-reserv
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgImageSliderModule } from 'ng-image-slider';
+<<<<<<< HEAD
+>>>>>>> master
+=======
+import { NewReservationComponent } from './new-reservation/new-reservation.component';
+import { NewActionComponent } from './new-action/new-action.component';
 >>>>>>> master
 
 @NgModule({
@@ -80,8 +85,13 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ProfileCottageComponent,
     NewCottageComponent,
     InstructorDetailsComponent,
+<<<<<<< HEAD
     ClientReservationsComponent,
     ProfileBoatComponent
+=======
+    NewReservationComponent,
+    NewActionComponent
+>>>>>>> master
 
   ],
   imports: [

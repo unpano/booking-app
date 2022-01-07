@@ -1,7 +1,8 @@
 <form role="form" novalidate class="form-inline">
     
 
-<button mat-button (click)="bookCottage()" id="firstButton">New reservation</button>
+<button mat-button routerLink="reserve" id="firstButton">New reservation</button>
+<button mat-button routerLink="action">New action</button>
 <button mat-button (click)="futureReservations()" >Future reservations</button>
 <button mat-button (click)="pastReservations()">Past reservations</button>
 <button mat-button (click)="removeCottage()" >Remove cottage</button>
@@ -53,24 +54,7 @@
             <i class="material-icons">{{rule.icon}}</i>
             {{rule.name}}</label>
         							
-    </div>
-
-    <div>
-        <h1>Book cottage</h1>
-        <mat-form-field class="example-form-field" appearance="fill">
-            <mat-label>Book cottage</mat-label>
-            <mat-date-range-input
-              [formGroup]="pickCottage"
-              [rangePicker]="cottagePicker">
-              <input matStartDate placeholder="Start date" formControlName="start">
-              <input matEndDate placeholder="End date" formControlName="end">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="cottagePicker"></mat-datepicker-toggle>
-            <mat-date-range-picker #cottagePicker></mat-date-range-picker>
-          </mat-form-field>
-    </div>
-    
-    
+    </div>    
 </form>
 
 
