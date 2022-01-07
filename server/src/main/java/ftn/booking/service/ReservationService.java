@@ -10,7 +10,7 @@ import java.util.List;
 public interface ReservationService{
     Reservation add(Reservation reservation);
 
-    List<Reservation> findOneByEntityIdAndClientIdAndReservationType(Long entityId, Long id, ReservationType reservationType, LocalDateTime startTime, LocalDateTime endTime);
-
     List<Reservation> findAllByCottageId(Long id);
+
+    List<Reservation> findOneByEntityIdAndReservationType(Long entityId, ReservationType reservationType, LocalDateTime startTime, LocalDateTime endTime);
 }

@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -38,21 +39,19 @@ public class ReservationController {
                                                       @PathVariable Long entityId,
                                                       @PathVariable Boolean isAction){
 
-
         User user = userService.loadUserByUsername(username);
 
         if(reservationDTO.getStartTime().isAfter(reservationDTO.getEndTime())) {
-            throw new PeriodConflictException(entityId,"User " + username + " have selected wrong period (start after end))");
+            throw new PeriodConflictException(entityId,"User have selected wrong period (start after end))");
         }
 
         //metoda koja proverava da li se rezervacija preklapa sa vec postojecom
-        List<Reservation> reservationList =reservationService.findOneByEntityIdAndClientIdAndReservationType(
-                entityId,user.getId(),reservationDTO.getReservationType(),
+        List<Reservation> reservationList =reservationService.findOneByEntityIdAndReservationType(
+                entityId,reservationDTO.getReservationType(),
                 reservationDTO.getStartTime(),reservationDTO.getEndTime());
         System.out.println(reservationList);
         System.out.println(reservationList.isEmpty());
         System.out.println(entityId);
-        System.out.println(user.getId());
         System.out.println(reservationDTO.getReservationType());
         if(!reservationList.isEmpty())
             throw new PeriodConflictException(entityId,"Conflicting period.");
