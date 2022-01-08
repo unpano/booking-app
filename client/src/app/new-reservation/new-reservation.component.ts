@@ -45,7 +45,6 @@ export class NewReservationComponent implements OnInit {
           .pipe(
             map(returnedActions => {
               this.actions = returnedActions
-              
             })).subscribe()
   }
 

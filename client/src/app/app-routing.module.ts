@@ -13,6 +13,8 @@ import { HomePageClientComponent } from './home-page-client/home-page-client.com
 import { HomePageCottageOwnerComponent } from './home-page-cottage-owner/home-page-cottage-owner.component';
 import { HomePageInstructorComponent } from './home-page-instructor/home-page-instructor.component';
 import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticated-user/home-page-unauthenticated-user.component';
+import { ListCottageFutureReservationsComponent } from './list-cottage-future-reservations/list-cottage-future-reservations.component';
+import { ListCottagePastReservationsComponent } from './list-cottage-past-reservations/list-cottage-past-reservations.component';
 import { LoginComponent } from './login/login.component';
 import { NewActionComponent } from './new-action/new-action.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
@@ -27,25 +29,33 @@ const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  
   {path: 'boatOwner', component: HomePageBoatOwnerComponent},
   {path: 'instructor', component: HomePageInstructorComponent},
   {path: 'admin', component: HomePageAdminComponent},
   {path: 'client', component: HomePageClientComponent},
+
   {path: 'profile', component: ProfileComponent},
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
-  {path: 'cottageOwner/report', component: ReportCottageOwnerComponent},
+
   {path: 'boatDetails', component: BoatDetailsComponent},
   {path: 'boats', component: AllBoatsComponent},
   {path: 'allCottages', component: AllCottagesComponent},
   {path: 'allInstructors', component: AllInstructorsComponent},
+
   {path: 'cottage', component: ProfileCottageComponent},
   {path: 'cottage/reserve', component: NewReservationComponent},
   {path: 'cottage/action', component: NewActionComponent},
+  {path: 'cottage/future-reservations', component: ListCottageFutureReservationsComponent},
+  {path: 'cottage/past-reservations', component: ListCottagePastReservationsComponent},
   {path: 'cottage/delete', component: DeleteCottageComponent},
+
   {path: 'cottages', component: HomePageCottageOwnerComponent},
   {path: 'cottages/new-cottage', component: NewCottageComponent},
+
   {path: 'report', component: ReportCottageOwnerComponent},
+
   {path: '**', component: PageNotFoundComponent},
 
 ];

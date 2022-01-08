@@ -49,6 +49,10 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { NewActionComponent } from './new-action/new-action.component';
 import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
+import { ListCottagePastReservationsComponent } from './list-cottage-past-reservations/list-cottage-past-reservations.component';
+import { ListCottageFutureReservationsComponent } from './list-cottage-future-reservations/list-cottage-future-reservations.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ProfileClientComponent } from './profile-client/profile-client.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +87,10 @@ import { DeleteCottageComponent } from './delete-cottage/delete-cottage.componen
     InstructorDetailsComponent,
     NewReservationComponent,
     NewActionComponent,
-    DeleteCottageComponent
+    DeleteCottageComponent,
+    ListCottagePastReservationsComponent,
+    ListCottageFutureReservationsComponent,
+    ProfileClientComponent
 
   ],
   imports: [
@@ -105,7 +112,8 @@ import { DeleteCottageComponent } from './delete-cottage/delete-cottage.componen
     Ng2SearchPipeModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    MatDialogModule
     
   ],
   providers: [HttpClientModule],

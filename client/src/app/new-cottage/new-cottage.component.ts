@@ -25,6 +25,7 @@ export class NewCottageComponent implements OnInit {
   city !: String
   description !: String
   maxNumPers !: Number
+  oneDayPrice !: Number
   roomNum !: Number 
   rooms : Room[] = []
 
@@ -56,6 +57,7 @@ export class NewCottageComponent implements OnInit {
       this.cottage.description = this.description
       this.cottage.maxNumOfPersons = this.maxNumPers
       this.cottage.rooms = this.rooms
+      this.cottage.oneDayPrice = this.oneDayPrice
       
 
     const headers = { 'content-type': 'application/json',

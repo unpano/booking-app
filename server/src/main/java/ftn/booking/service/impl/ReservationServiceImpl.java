@@ -31,11 +31,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<Reservation> findAllFutureActionsByCottageId(Long id) {
-        List<Reservation> reservations = reservationRepository.findAllByCottageIdAndClientId(id,null);
-
-        reservations.removeIf(res -> res.getStartTime().isBefore(LocalDateTime.now()));
-
-        return reservations;
+      return reservationRepository.findAllByCottageIdAndClientIdAndStartTimeAfter(id,null, LocalDateTime.now());
     }
 
     @Override
@@ -47,6 +43,16 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation update(Reservation reservation) {
         return reservationRepository.save(reservation);
+    }
+
+    @Override
+    public List<Reservation> findAllPastReservationsByCottageId(Long id) {
+        return reservationRepository.findAllByCottageIdAndStartTimeBefore(id, LocalDateTime.now());
+    }
+
+    @Override
+    public List<Reservation> findAllFutureReservationsByCottageId(Long id) {
+        return reservationRepository.findAllByCottageIdAndStartTimeAfter(id,LocalDateTime.now());
     }
 
     @Override

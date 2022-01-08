@@ -19,4 +19,8 @@ public interface ReservationService{
     Reservation findById(Long id);
 
     Reservation update(Reservation reservation);
+
+    List<Reservation> findAllPastReservationsByCottageId(Long id);
+
+    List<Reservation> findAllFutureReservationsByCottageId(Long id);
 }

@@ -32,7 +32,19 @@ public class ReservationController {
     public ResponseEntity<List<Reservation>> findAllCottageActions(@PathVariable Long id){
         return new ResponseEntity<>(reservationService.findAllFutureActionsByCottageId(id), HttpStatus.OK);
     }
-    
+
+    @GetMapping("/{id}/past-reservations")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<Reservation>> findAllCottagePastReservations(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.findAllPastReservationsByCottageId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/future-reservations")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<Reservation>> findAllCottageFutureReservations(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.findAllFutureReservationsByCottageId(id), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}/{username}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<Reservation> reserveActionForClient(@PathVariable Long id,

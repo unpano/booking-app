@@ -1,0 +1,28 @@
+<div id="basics">
+    <img class="image" [src]="user.picture"/>
+    <h1>{{user.firstName + ' ' + user.lastName}}</h1>
+  </div>
+  
+  <form>
+      <div>
+          <h3>Cottage owner</h3>
+          
+          <label for="username">Username: {{user.email}}</label>
+         
+          <label for="phone">Phone number: {{user.phoneNumber}}</label>
+         
+          <label>Password reseted on: {{user.lastPasswordResetDate}}</label>
+      </div>
+    
+      <div>
+        <h3>Address</h3>
+  
+        <label for="address">Street: {{user.address}}</label>
+        
+        <label for="city">City: {{user.city}}</label>
+        
+        <label for="country">Country: {{user.country}}</label>
+       </div>
+  
+    </form>
+  
