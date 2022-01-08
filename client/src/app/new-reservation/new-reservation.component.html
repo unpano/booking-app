@@ -18,10 +18,10 @@
 
     <button mat-raised-button type="submit" (click)="reserve()" >Submit</button>
 
-    <h1>Actions for this month</h1>	
+    <h1>Actions for this cottage</h1>	
     <div class="form-group" *ngFor="let action of actions"> 
       <label> From: {{action.startTime}} To: {{action.endTime}}</label>
-      <button>Reserve action period</button>           
+      <button type="submit" (click)="reserveAction(action.id)">Reserve action period</button>           
   </div>  
            
 </div>
