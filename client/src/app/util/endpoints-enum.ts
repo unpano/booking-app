@@ -10,4 +10,6 @@ export enum Endpoint{
     UPLOAD = "http://localhost:8084/uploads/",
     COTTAGES = "http://localhost:8084/cottages/",
     RESERVATIONS = "http://localhost:8084/reservations/",
+    REPORTS = "http://localhost:8084/reports/",
+
 }

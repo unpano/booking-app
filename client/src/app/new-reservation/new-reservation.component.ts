@@ -16,6 +16,7 @@ import { Endpoint } from '../util/endpoints-enum';
 export class NewReservationComponent implements OnInit {
 
   username !: String
+  username1 !: String
   pickPeriod !: FormGroup;
   endpoint = Endpoint
 
@@ -45,7 +46,6 @@ export class NewReservationComponent implements OnInit {
           .pipe(
             map(returnedActions => {
               this.actions = returnedActions
-              
             })).subscribe()
   }
 
@@ -82,21 +82,23 @@ export class NewReservationComponent implements OnInit {
     
   }
 
-  //na submit
+  reserveAction(id: Number){
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+    
+    this.http.put<any>(this.endpoint.RESERVATIONS + id +
+                                                      "/" + this.username1,null, options).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof Error) {
+          alert("Bad request, please try again later.");
+        } else {
+          alert("Action does not exist.");
+        }
 
-  //isAction = false
-  //if Role == CottageOwner then reservationType = COTTAGE
-  //startTime i endTime
-  //clientUsername
-  //clickedCottage je entityId
-
-
-  //u new action komponenti
-  
-  //isAction = true
-  //if Role == CottageOwner then reservationType = COTTAGE
-  //startTime i endTime
-  //ne setuje se username, posalji null
-  //clickedCottage je entityId
+        return EMPTY;
+      })
+    ).subscribe( )
+  }
 
 }

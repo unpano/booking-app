@@ -5,6 +5,7 @@ import ftn.booking.exception.PeriodConflictException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.ReservationType;
 import ftn.booking.service.CottageService;
+import ftn.booking.service.ReportService;
 import ftn.booking.service.ReservationService;
 import ftn.booking.service.UserService;
 import lombok.AllArgsConstructor;
@@ -26,12 +27,48 @@ public class ReservationController {
     private UserService userService;
     private CottageService cottageService;
     private ModelMapper modelMapper;
+    private ReportService reportService;
+
+    @GetMapping("/{id}/isReported")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public Boolean isReservationReported(@PathVariable Long id) {
+        return reportService.isReservationReported(id);
+    }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<List<Reservation>> findAllCottageActions(@PathVariable Long id){
         return new ResponseEntity<>(reservationService.findAllFutureActionsByCottageId(id), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/past-reservations")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<Reservation>> findAllCottagePastReservations(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.findAllPastReservationsByCottageId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/future-reservations")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<Reservation>> findAllCottageFutureReservations(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.findAllFutureReservationsByCottageId(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/{username}")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<Reservation> reserveActionForClient(@PathVariable Long id,
+                                                              @PathVariable String username) {
+
+        Reservation reservation = reservationService.findById(id);
+
+        User user = userService.loadUserByUsername(username);
+        Client client = new Client();
+        client.setId(user.getId());
+
+        reservation.setClient(client);
+
+        return new ResponseEntity<>(reservationService.update(reservation), HttpStatus.OK);
+    }
+
 
     //OBICNA REZERVACIJA SALJE FALSE ZA IS_ACTION
     @PostMapping("/{username}/{entityId}/{isAction}")
@@ -51,10 +88,7 @@ public class ReservationController {
         List<Reservation> reservationList =reservationService.findOneByEntityIdAndReservationType(
                 entityId,reservationDTO.getReservationType(),
                 reservationDTO.getStartTime(),reservationDTO.getEndTime());
-        System.out.println(reservationList);
-        System.out.println(reservationList.isEmpty());
-        System.out.println(entityId);
-        System.out.println(reservationDTO.getReservationType());
+
         if(!reservationList.isEmpty())
             throw new PeriodConflictException(entityId,"Conflicting period.");
 

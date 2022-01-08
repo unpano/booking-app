@@ -1,5 +1,6 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.exception.NotFoundException;
 import ftn.booking.model.Reservation;
 import ftn.booking.model.enums.ReservationType;
 import ftn.booking.repository.ReservationRepository;
@@ -8,8 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -30,11 +31,28 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<Reservation> findAllFutureActionsByCottageId(Long id) {
-        List<Reservation> reservations = reservationRepository.findAllByCottageIdAndClientId(id,null);
+      return reservationRepository.findAllByCottageIdAndClientIdAndStartTimeAfter(id,null, LocalDateTime.now());
+    }
 
-        reservations.removeIf(res -> res.getStartTime().isBefore(LocalDateTime.now()));
+    @Override
+    public Reservation findById(Long id) {
+        return reservationRepository.findById(id).orElseThrow(() -> new NotFoundException(id,"Reservation with id " + id + " does not exist."));
 
-        return reservations;
+    }
+
+    @Override
+    public Reservation update(Reservation reservation) {
+        return reservationRepository.save(reservation);
+    }
+
+    @Override
+    public List<Reservation> findAllPastReservationsByCottageId(Long id) {
+        return reservationRepository.findAllByCottageIdAndEndTimeBefore(id, LocalDateTime.now());
+    }
+
+    @Override
+    public List<Reservation> findAllFutureReservationsByCottageId(Long id) {
+        return reservationRepository.findAllByCottageIdAndStartTimeAfter(id,LocalDateTime.now());
     }
 
     @Override

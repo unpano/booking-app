@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
 
   name !: String
   surname !: String
-  email !: String
+  email !: string
   password !: String
   rePassword !: String
   address !: String

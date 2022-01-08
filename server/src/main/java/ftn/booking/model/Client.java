@@ -13,4 +13,6 @@ import javax.persistence.Table;
 @Setter
 @Getter
 public class Client extends User{
+
+    private Integer numOfPenalties;
 }

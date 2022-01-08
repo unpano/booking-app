@@ -4,8 +4,8 @@ import ftn.booking.model.Reservation;
 import ftn.booking.model.enums.ReservationType;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationService{
     Reservation add(Reservation reservation);
@@ -15,4 +15,12 @@ public interface ReservationService{
     List<Reservation> findOneByEntityIdAndReservationType(Long entityId, ReservationType reservationType, LocalDateTime startTime, LocalDateTime endTime);
 
     List<Reservation> findAllFutureActionsByCottageId(Long id);
+
+    Reservation findById(Long id);
+
+    Reservation update(Reservation reservation);
+
+    List<Reservation> findAllPastReservationsByCottageId(Long id);
+
+    List<Reservation> findAllFutureReservationsByCottageId(Long id);
 }

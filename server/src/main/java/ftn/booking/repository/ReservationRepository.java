@@ -1,7 +1,6 @@
 package ftn.booking.repository;
 
 import ftn.booking.model.Reservation;
-import ftn.booking.model.enums.ReservationType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -21,5 +20,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findAllByCottageId(Long id);
 
-    List<Reservation> findAllByCottageIdAndClientId(Long id, Long clientId);
+    List<Reservation> findAllByCottageIdAndClientIdAndStartTimeAfter(Long id, Long clientId, LocalDateTime now);
+
+    List<Reservation> findAllByCottageIdAndEndTimeBefore(Long id, LocalDateTime now);
+
+    List<Reservation> findAllByCottageIdAndStartTimeAfter(Long id, LocalDateTime now);
 }
