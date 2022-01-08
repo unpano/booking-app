@@ -16,6 +16,7 @@ import { Endpoint } from '../util/endpoints-enum';
 export class NewReservationComponent implements OnInit {
 
   username !: String
+  username1 !: String
   pickPeriod !: FormGroup;
   endpoint = Endpoint
 
@@ -87,7 +88,7 @@ export class NewReservationComponent implements OnInit {
     let options = { headers: headers };
     
     this.http.put<any>(this.endpoint.RESERVATIONS + id +
-                                                      "/" + this.username,null, options).pipe(
+                                                      "/" + this.username1,null, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");

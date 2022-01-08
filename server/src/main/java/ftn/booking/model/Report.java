@@ -19,22 +19,16 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long averageRate;
+    private String comment;
 
-    private Long revenue;
+    //if approved and punishClient are true directly increase client penalties by 1 (client did not show up)
+    //else admin will decide if he wants to punish client
+    private Boolean punishClient;
 
-    ///onaj ko pise izvestaj
-    @OneToOne
-    private User user;
-
-    @OneToOne
-    private Boat boat;
+    //admin approves it if feedback was bad
+    private Boolean approved;
 
     @OneToOne
-    private Cottage cottage;
-
-    @OneToOne
-    private Client client;
-
+    private Reservation reservation;
 
 }

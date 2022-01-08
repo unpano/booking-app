@@ -53,6 +53,7 @@ import { ListCottagePastReservationsComponent } from './list-cottage-past-reserv
 import { ListCottageFutureReservationsComponent } from './list-cottage-future-reservations/list-cottage-future-reservations.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileClientComponent } from './profile-client/profile-client.component';
+import { ReportReservationComponent } from './report-reservation/report-reservation.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { ProfileClientComponent } from './profile-client/profile-client.componen
     DeleteCottageComponent,
     ListCottagePastReservationsComponent,
     ListCottageFutureReservationsComponent,
-    ProfileClientComponent
+    ProfileClientComponent,
+    ReportReservationComponent
 
   ],
   imports: [

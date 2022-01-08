@@ -22,6 +22,9 @@
                     <td *ngIf="reservation.client != null">{{reservation.client.firstName + ' ' + reservation.client.lastName}}</td>   
                     <td *ngIf="reservation.client == null">Nobody reserved action...</td>   
                     <button *ngIf="reservation.client != null" id="eyeBtn" (click)="clientProfile(reservation.client)">Client profile</button>
+                    <button *ngIf="reservation.client == null" id="disabledBtn" disabled>Client profile</button>
+                    <button *ngIf="!reservation.reported" id="eyeBtn" (click)="report(reservation.id)">Write report</button>
+                    <td *ngIf="reservation.reported">Already written report.</td>   
                   </tr>
                   </tbody>
                 </table>

@@ -5,6 +5,7 @@ import ftn.booking.exception.PeriodConflictException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.ReservationType;
 import ftn.booking.service.CottageService;
+import ftn.booking.service.ReportService;
 import ftn.booking.service.ReservationService;
 import ftn.booking.service.UserService;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,13 @@ public class ReservationController {
     private UserService userService;
     private CottageService cottageService;
     private ModelMapper modelMapper;
+    private ReportService reportService;
+
+    @GetMapping("/{id}/isReported")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public Boolean isReservationReported(@PathVariable Long id) {
+        return reportService.isReservationReported(id);
+    }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")

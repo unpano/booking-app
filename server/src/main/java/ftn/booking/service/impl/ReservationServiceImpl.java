@@ -47,7 +47,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<Reservation> findAllPastReservationsByCottageId(Long id) {
-        return reservationRepository.findAllByCottageIdAndStartTimeBefore(id, LocalDateTime.now());
+        return reservationRepository.findAllByCottageIdAndEndTimeBefore(id, LocalDateTime.now());
     }
 
     @Override

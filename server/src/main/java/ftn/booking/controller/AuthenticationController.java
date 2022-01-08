@@ -63,7 +63,7 @@ public class AuthenticationController {
             //namapiram dto podatke na klijenta
             Client client = new Client();
             modelMapper.map(userDTO, client);
-            System.out.print("USAO JE U METODU! ");
+
             //dodelim mu ROLE_CLIENT
             Authority authority = authorityService.findByName(userDTO.getUserType());
 
@@ -77,6 +77,7 @@ public class AuthenticationController {
             client.setEnabled(false);
             client.setPicture("");
             client.setRole(Role.ROLE_CLIENT);
+            client.setNumOfPenalties(0);
             client.setPassword(passwordEncoder.encode(client.getPassword()));
 
             //kreiram klijenta

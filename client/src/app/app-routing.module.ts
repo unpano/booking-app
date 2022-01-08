@@ -24,6 +24,7 @@ import { ProfileCottageComponent } from './profile-cottage/profile-cottage.compo
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
+import { ReportReservationComponent } from './report-reservation/report-reservation.component';
 
 const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
@@ -49,6 +50,7 @@ const routes: Routes = [
   {path: 'cottage/action', component: NewActionComponent},
   {path: 'cottage/future-reservations', component: ListCottageFutureReservationsComponent},
   {path: 'cottage/past-reservations', component: ListCottagePastReservationsComponent},
+  {path: 'cottage/past-reservations/report', component: ReportReservationComponent},
   {path: 'cottage/delete', component: DeleteCottageComponent},
 
   {path: 'cottages', component: HomePageCottageOwnerComponent},

@@ -29,4 +29,9 @@ table {
 .mat-sort-header-container {
   align-items: center;
 }
+
+#disabledBtn{
+    color: grey;
+    background: white;
+}
   
