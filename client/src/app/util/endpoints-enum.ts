@@ -9,5 +9,5 @@ export enum Endpoint{
     USERS = "http://localhost:8084/users/",
     UPLOAD = "http://localhost:8084/uploads/",
     COTTAGES = "http://localhost:8084/cottages/",
-    FREE_BOATS = "http://localhost:8084/cottages/findAll"
+    FREE_BOATS = "http://localhost:8084/boats/findFree/"
 }

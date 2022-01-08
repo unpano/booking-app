@@ -18,7 +18,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
 import { HomePageCottageOwnerComponent } from './home-page-cottage-owner/home-page-cottage-owner.component';
@@ -48,6 +47,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { NewActionComponent } from './new-action/new-action.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { FreeBoatsComponent } from './free-boats/free-boats.component';
 
 
 @NgModule({
@@ -56,7 +56,6 @@ import { NgImageSliderModule } from 'ng-image-slider';
     PageNotFoundComponent,
     LoginComponent,
     RegisterComponent,
-    NavigationBarComponent,
     AllBoatsComponent,
     AllCottagesComponent,
     HomePageCottageOwnerComponent,
@@ -82,8 +81,8 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ClientReservationsComponent,
     ProfileBoatComponent,
     NewReservationComponent,
-    NewActionComponent
-
+    NewActionComponent,
+    FreeBoatsComponent,
 
   ],
   imports: [

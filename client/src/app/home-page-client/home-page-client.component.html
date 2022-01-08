@@ -1,1 +1,50 @@
-<p>home-page-client works!</p>
+
+  <mat-card class="mat-filters">
+    <div >
+        <div>
+          <label>Type of entity:</label>
+          <select>
+            <option *ngFor="let type of types" (click)="onSelectType(type)" >{{type}}</option>
+          </select>	
+        </div>
+  
+        <div>
+            <label> Pick date: </label>
+            <form >
+              <input type="date" class="input" name="examinationDateInput" [(ngModel)]="dateInput" />
+            </form>
+        </div>
+  
+        <div>
+          <label class="label">Pick time:</label>
+          <form>
+            <input type="time" id="input"  class="input" value="13:00" mdbInput [(ngModel)]="timeInput" />    
+          </form>
+        </div> 
+        <div>
+          <button (click)="findEntities()">Find</button>
+        </div>
+  
+    </div>
+  </mat-card> 
+  
+  <div class = "entities" *ngIf="buttonClicked == false">
+      <div *ngIf= "type != 'Instructor' && type != 'Cottage'">
+          <app-all-boats ></app-all-boats>
+      </div>
+      <div *ngIf = "type == 'Instructor'">
+        <app-all-instructors></app-all-instructors>
+      </div>
+      <div *ngIf= "type == 'Cottage'">
+        <app-all-cottages></app-all-cottages>
+      </div>
+  </div>
+
+  <div class = "entities" *ngIf="buttonClicked == true">
+    <div *ngIf= "type != 'Instructor' && type != 'Cottage'">
+        <app-free-boats [startTime]="dateInput"></app-free-boats>
+    </div>
+    
+</div>
+
+  

@@ -31,12 +31,10 @@ const routes: Routes = [
   {path: 'boatOwner', component: HomePageBoatOwnerComponent},
   {path: 'instructor', component: HomePageInstructorComponent},
   {path: 'admin', component: HomePageAdminComponent},
-  {path: 'client', component: HomePageClientComponent},
-
+  {path : 'client', component : HomePageClientComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
-
   {path: 'cottageOwner/report', component: ReportCottageOwnerComponent},
 
   {path: 'boats', component: AllBoatsComponent},

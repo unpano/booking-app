@@ -1,0 +1,39 @@
+
+<mat-card class="example-card">    
+    <mat-card-content>
+  
+          <form>
+            <div class="table-form">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Boat name:</th>
+                      <th>Boat address:</th>
+                      <th>Boat rate:</th>
+                    </tr>
+                  </thead>
+  
+                  <tbody>
+                    <tr *ngFor="let boat of boats | filter:searchText">
+                                        
+                      <td>{{boat.name}}</td>
+                      <td>{{boat.address}}</td>
+                      <td>{{boat.rating}}</td>
+                    
+                      <td> 
+                        <button  (click)= "viewDetails(boat)" > View details </button>
+                      </td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+  
+          </form>
+  
+    </mat-card-content>
+  </mat-card>
+  
+  
+  
+  
