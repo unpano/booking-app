@@ -58,6 +58,12 @@ public class CottageController {
         return new ResponseEntity<>(imageService.findImagesByCottageId(cottageId), HttpStatus.OK);
     }
 
+    @GetMapping("/{cottageId}/subscribers")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<Client>> findCottageSubscribers(@PathVariable Long cottageId){
+        return new ResponseEntity<>(cottageService.findById(cottageId).getSubscribers(), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<String> delete(@PathVariable Long id){
