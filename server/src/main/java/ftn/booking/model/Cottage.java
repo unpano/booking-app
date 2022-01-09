@@ -55,7 +55,6 @@ public class Cottage {
     @ElementCollection(targetClass = Amenity.class)
     private List<Amenity> amenities = new ArrayList<>();
 
-    //Sobe
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "cottage_room",
@@ -63,4 +62,12 @@ public class Cottage {
             inverseJoinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id")
     )
     private List<Room> rooms = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "cottage_subscriber",
+            joinColumns = @JoinColumn(name = "cottage_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+    )
+    private List<Client> subscribers = new ArrayList<>();
 }

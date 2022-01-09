@@ -10,4 +10,6 @@ public interface CottageService {
     Cottage findById(Long cottageId);
     Cottage add(Cottage cottage);
     void delete(Cottage cottage);
+
+    Cottage update(Cottage cottage);
 }

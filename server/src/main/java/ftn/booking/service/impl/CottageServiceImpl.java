@@ -50,4 +50,9 @@ public class CottageServiceImpl implements CottageService {
     public void delete(Cottage cottage) {
         cottageRepository.delete(cottage);
     }
+
+    @Override
+    public Cottage update(Cottage cottage) {
+        return cottageRepository.save(cottage);
+    }
 }

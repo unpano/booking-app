@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
   onSubmit() {
     this.editButtonClicked = false
 
-    //update info profila korisnika
+    //update user info
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };

@@ -4,7 +4,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Cottage } from '../dto/cottage';
 import { ReservationType } from '../dto/enums/ReservationType';
+import { MailDTO } from '../dto/mailDTO';
 import { Reservation } from '../dto/reservation';
 import { Endpoint } from '../util/endpoints-enum';
 
@@ -20,10 +22,14 @@ export class NewReservationComponent implements OnInit {
   pickPeriod !: FormGroup;
   endpoint = Endpoint
 
+  cottage : any
+
   reservation : Reservation = new Reservation()
   reservationType !: ReservationType 
 
   actions : any
+
+  reservedCottageName !: String
 
   constructor(private router: Router, private http: HttpClient) { 
     const today = new Date();
@@ -77,8 +83,21 @@ export class NewReservationComponent implements OnInit {
         }
 
         return EMPTY;
+      }),map(reservedCottage => {
+
+        const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+        let options = { headers: headers };
+        this.http
+        .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId'),options)
+          .pipe(
+            map(returnedCottage => {
+              this.cottage = returnedCottage
+              this.reservedCottageName = this.cottage["name"]
+            })).subscribe()
+            
       })
-    ).subscribe( )
+    ).subscribe(() => this.sendMail(this.username))
     
   }
 
@@ -98,7 +117,37 @@ export class NewReservationComponent implements OnInit {
 
         return EMPTY;
       })
-    ).subscribe( )
+    ).subscribe(() => this.sendMail(this.username1))
+  }
+
+  sendMail(username: String){
+    let mail = new MailDTO()
+
+    mail.mailFrom = "isaBooking56@gmail.com"
+    //OVDE MI TREBALO PODESITI DA MEJL BUDE USERNAME KORISNIKA KOJI ZAKAZUJE
+    //mail.mailTo = username
+    mail.mailTo = "isaBooking56@gmail.com"
+    mail.mailSubject = "-CONFIRMATION MAIL-"
+    mail.mailContent = "Successfully booked cottage " + this.reservedCottageName + ". Period: " + this.reservation.startTime + 
+    "-" + this.reservation.endTime + ". Kind requards, Isa Team 56."
+
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+
+    let body = JSON.stringify(mail)
+    
+    this.http.post<any>(this.endpoint.MAIL + "send-mail",body, options).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof Error) {
+          alert("Bad request, please try again later.");
+        } else {
+          alert("Action does not exist.");
+        }
+
+        return EMPTY;
+      })
+    ).subscribe()
   }
 
 }
