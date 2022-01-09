@@ -31,7 +31,7 @@ export class DeleteCottageComponent implements OnInit {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
-          alert("Could not remove cottage with id " + sessionStorage.getItem('cottageId') + ".");
+          alert("Cottage is or has been reserved and could not be deleted.");
         }
         return EMPTY;
       })).subscribe(() => alert("Your cottage is deleted."))

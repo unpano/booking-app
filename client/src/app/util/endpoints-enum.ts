@@ -11,5 +11,5 @@ export enum Endpoint{
     COTTAGES = "http://localhost:8084/cottages/",
     RESERVATIONS = "http://localhost:8084/reservations/",
     REPORTS = "http://localhost:8084/reports/",
-
+    MAIL = "http://localhost:8084/emails/",
 }
