@@ -61,3 +61,6 @@ form{
 #basics{
     width: 200px;
 }
+select{
+    height: 400px;
+}
