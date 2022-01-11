@@ -7,6 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 import { AmenityJSON } from '../dto/amenitiyJSON';
 import { Room } from '../dto/Room';
 import { RuleJSON } from '../dto/RuleJSON';
+import { DateFilterService } from '../util/dateFIlterService';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
@@ -42,11 +43,15 @@ export class ProfileCottageComponent implements OnInit {
   selectedFiles?: FileList;
   previews: string[] = [];
 
-  constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient) { 
+  selected !: Date | null;
+
+  constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient, private dateService: DateFilterService) { 
     
   }
 
   ngOnInit(): void {
+
+    this.dateService.findForbiddenDate()
 
     //cottage details
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
@@ -117,10 +122,6 @@ export class ProfileCottageComponent implements OnInit {
       })
 
       return ruleJSON
-  }
-
-  yourfunctionName(event: any){
-    alert(event)
   }
 
   editCottage(){

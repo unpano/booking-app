@@ -4,7 +4,7 @@
         <mat-label>Pick period</mat-label>
         <mat-date-range-input
           [formGroup]="pickPeriod"
-          [rangePicker]="periodPicker">
+          [rangePicker]="periodPicker" [min]="minDate">
           <input matStartDate placeholder="Start date" formControlName="start">
           <input matEndDate placeholder="End date" formControlName="end">
         </mat-date-range-input>

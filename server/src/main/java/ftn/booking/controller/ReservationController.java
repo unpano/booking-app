@@ -15,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -51,6 +54,27 @@ public class ReservationController {
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<List<Reservation>> findAllCottageFutureReservations(@PathVariable Long id){
         return new ResponseEntity<>(reservationService.findAllFutureReservationsByCottageId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/isDateFree")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<Boolean> checkIfDateIsFree(@RequestParam String date){
+
+        date = date.replace('T',' ');
+        date = date.substring(0, date.indexOf("."));
+        //System.out.println(date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+        ///System.out.println(dateTime);
+        return new ResponseEntity<>(reservationService.checkIfDateIsFree(dateTime), HttpStatus.OK);
+    }
+
+    @GetMapping("/forbiddenDates")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<LocalDate>> findAllForbiddenDates(){
+
+        return new ResponseEntity<>(reservationService.findAllForbiddenDates(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}/{username}")

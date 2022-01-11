@@ -20,6 +20,8 @@ export class NewActionComponent implements OnInit {
   pickPeriod !: FormGroup;
   endpoint = Endpoint
 
+  minDate = new Date
+
   reservation : Reservation = new Reservation()
   reservationType !: ReservationType 
 

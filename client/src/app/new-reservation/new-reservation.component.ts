@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DateFilterFn } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -8,7 +9,9 @@ import { Cottage } from '../dto/cottage';
 import { ReservationType } from '../dto/enums/ReservationType';
 import { MailDTO } from '../dto/mailDTO';
 import { Reservation } from '../dto/reservation';
+import { DateFilterService } from '../util/dateFIlterService';
 import { Endpoint } from '../util/endpoints-enum';
+import { Global } from '../util/global';
 
 @Component({
   selector: 'app-new-reservation',
@@ -22,6 +25,8 @@ export class NewReservationComponent implements OnInit {
   pickPeriod !: FormGroup;
   endpoint = Endpoint
 
+  minDate = new Date
+
   cottage : any
 
   reservation : Reservation = new Reservation()
@@ -31,7 +36,9 @@ export class NewReservationComponent implements OnInit {
 
   reservedCottageName !: String
 
-  constructor(private router: Router, private http: HttpClient) { 
+  
+
+  constructor(private router: Router, private http: HttpClient, private dateService: DateFilterService) { 
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -40,6 +47,7 @@ export class NewReservationComponent implements OnInit {
       start: new FormControl(new Date(year, month, 11)),
       end: new FormControl(new Date(year, month, 15)),
     });
+
   }
 
   ngOnInit(): void {
@@ -52,7 +60,33 @@ export class NewReservationComponent implements OnInit {
           .pipe(
             map(returnedActions => {
               this.actions = returnedActions
-            })).subscribe()
+            })).subscribe(() =>{})
+  }
+
+  rangeFilter: DateFilterFn<Date> = (date: Date | null) => {
+  
+    if (date != null) return this.isFree(date);
+    return true
+  };
+
+  isFree(input: Date): boolean{
+    let dateIsFree : boolean = true
+
+    input.setDate(input.getDate() +1)
+    
+    let date1 = new Date(input).toISOString()
+    date1.toLocaleString();
+    date1 = date1.substring(0,date1.indexOf("T"))
+
+    Global.forbiddenDates.forEach((date: Date)=> {
+
+      if(date1 == date.toString()){
+      
+        dateIsFree = false
+      }
+    });
+     return dateIsFree
+    
   }
 
   reserve(){

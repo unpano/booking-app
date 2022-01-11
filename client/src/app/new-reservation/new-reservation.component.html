@@ -4,13 +4,15 @@
         <mat-label>Pick period</mat-label>
         <mat-date-range-input
           [formGroup]="pickPeriod"
-          [rangePicker]="periodPicker">
+          [rangePicker]="periodPicker" [min]="minDate" [dateFilter]="rangeFilter">
           <input matStartDate placeholder="Start date" formControlName="start">
           <input matEndDate placeholder="End date" formControlName="end">
         </mat-date-range-input>
         <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
-        <mat-date-range-picker #periodPicker></mat-date-range-picker>
+        <mat-date-range-picker touchUi  #periodPicker></mat-date-range-picker>
       </mat-form-field>
+
+    
 
       <mat-form-field>
         <input [(ngModel)]="username" name="username" matInput placeholder="Client username">

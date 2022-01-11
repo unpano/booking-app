@@ -29,6 +29,12 @@
           <img *ngFor='let preview of previews' [src]="preview" class="preview">
         </div>
     </form>
+
+    <mat-card class="demo-inline-calendar-card">
+      <mat-calendar [(selected)]="selected"></mat-calendar>
+    </mat-card>
+    <p>Selected date: {{selected}}</p>
+
     <div class="form-group">
         <label>Address</label>
         <label>{{cottage.address}}</label>
