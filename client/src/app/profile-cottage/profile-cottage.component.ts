@@ -7,6 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 import { AmenityJSON } from '../dto/amenitiyJSON';
 import { Room } from '../dto/Room';
 import { RuleJSON } from '../dto/RuleJSON';
+import { DateFilterService } from '../util/dateFIlterService';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
@@ -42,11 +43,17 @@ export class ProfileCottageComponent implements OnInit {
   selectedFiles?: FileList;
   previews: string[] = [];
 
-  constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient) { 
+  selected !: Date | null;
+
+  starNames : String[] = []
+
+  constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient, private dateService: DateFilterService) { 
     
   }
 
   ngOnInit(): void {
+
+    this.dateService.findForbiddenDate()
 
     //cottage details
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
@@ -90,6 +97,91 @@ export class ProfileCottageComponent implements OnInit {
             })  
   }
 
+  starNamesFunc(rate: Number): String[]{
+    this.starNames = []
+   
+    if(rate == 0){
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+    
+    }else if(rate > 0 && rate < 1){
+      this.starNames.push('half')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if(rate >= 1 && rate < 1.5){
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 1.5 && rate < 2){
+      this.starNames.push('rate')
+      this.starNames.push('half')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 2 && rate < 2.5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 2.5 && rate < 3){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('half')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 3 && rate < 3.5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      
+    }else if (rate >= 3.5 && rate < 4){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('half')
+      this.starNames.push('outline')
+
+    }else if (rate >= 4 && rate < 4.5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+
+    }else if (rate >= 4.5 && rate < 5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('half')
+
+    }else if( rate == 5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+    }
+
+    console.log(this.starNames)
+    return this.starNames
+  }
+
   private findAmenity(amenityName: string): AmenityJSON{
     
     var amenityJSON = new AmenityJSON()
@@ -117,10 +209,6 @@ export class ProfileCottageComponent implements OnInit {
       })
 
       return ruleJSON
-  }
-
-  yourfunctionName(event: any){
-    alert(event)
   }
 
   editCottage(){

@@ -131,9 +131,7 @@ export class ProfileComponent implements OnInit {
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
-        } else {
-          alert("User with username does not exist.");
-        }
+        } 
         return EMPTY;
       })).subscribe()
     

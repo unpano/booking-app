@@ -4,7 +4,7 @@
           <div class="container">
               <div class="row">
                 <div class="search-hero">
-                  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Search">
+                  <input class="form-control" type="text" style="font-family:Arial, FontAwesome" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Search">
                 </div>
                 <table matSort (matSortChange)="sortData($event)">
                   <thead>
@@ -23,8 +23,10 @@
                     <td *ngIf="reservation.client == null">Nobody reserved action...</td>   
                     <button *ngIf="reservation.client != null" id="eyeBtn" (click)="clientProfile(reservation.client)">Client profile</button>
                     <button *ngIf="reservation.client == null" id="disabledBtn" disabled>Client profile</button>
-                    <button *ngIf="!reservation.reported" id="eyeBtn" (click)="report(reservation.id)">Write report</button>
-                    <td *ngIf="reservation.reported">Already written report.</td>   
+                    <button *ngIf="!reservation.reported && reservation.client != null" id="eyeBtn" (click)="report(reservation.id)">Write report</button>
+                    <button *ngIf="reservation.reported" id="disabledBtn" disabled>Already written report.</button>   
+                    <button *ngIf="reservation.client == null" id="disabledBtn" disabled>Cannot write report.</button>   
+                  
                   </tr>
                   </tbody>
                 </table>

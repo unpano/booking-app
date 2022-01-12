@@ -15,8 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @AllArgsConstructor
@@ -53,6 +57,27 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.findAllFutureReservationsByCottageId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/isDateFree")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<Boolean> checkIfDateIsFree(@RequestParam String date){
+
+        date = date.replace('T',' ');
+        date = date.substring(0, date.indexOf("."));
+        //System.out.println(date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+        ///System.out.println(dateTime);
+        return new ResponseEntity<>(reservationService.checkIfDateIsFree(dateTime), HttpStatus.OK);
+    }
+
+    @GetMapping("/forbiddenDates")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<LocalDate>> findAllForbiddenDates(){
+
+        return new ResponseEntity<>(reservationService.findAllForbiddenDates(), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}/{username}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<Reservation> reserveActionForClient(@PathVariable Long id,
@@ -71,12 +96,13 @@ public class ReservationController {
 
 
     //OBICNA REZERVACIJA SALJE FALSE ZA IS_ACTION
-    @PostMapping("/{username}/{entityId}/{isAction}")
+    @PostMapping("/{username}/{entityId}/{isAction}/{actionPrice}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDTO reservationDTO,
                                                       @PathVariable String username,
                                                       @PathVariable Long entityId,
-                                                      @PathVariable Boolean isAction){
+                                                      @PathVariable Boolean isAction,
+                                                      @PathVariable String actionPrice){
 
         User user = userService.loadUserByUsername(username);
 
@@ -133,7 +159,10 @@ public class ReservationController {
             float oneDayPrice = cottageService.findOne(entityId).getOneDayPrice();
 
             //number of days x price for one day stay = price for cottage
-            reservation.setPrice((long) (numOfDays*oneDayPrice));
+            if(Objects.equals(actionPrice, "undefined"))
+                reservation.setPrice((long) (numOfDays*oneDayPrice));
+            else
+                reservation.setPrice(numOfDays*Long.parseLong(actionPrice));
 
         }else if(reservationDTO.getReservationType() == ReservationType.BOAT){
             //TODO calculate price for renting boat

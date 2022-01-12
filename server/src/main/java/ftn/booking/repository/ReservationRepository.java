@@ -25,4 +25,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findAllByCottageIdAndEndTimeBefore(Long id, LocalDateTime now);
 
     List<Reservation> findAllByCottageIdAndStartTimeAfter(Long id, LocalDateTime now);
+
+    //custom query
+    @Query(value = "select count(*) " +
+            "from reservations r " +
+            "where (?1 <= r.end_time) AND (r.start_time <= ?1) ", nativeQuery = true)
+    Integer checkIfDateIsFree(LocalDateTime date);
+
+
 }

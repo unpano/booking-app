@@ -3,6 +3,7 @@ package ftn.booking.service;
 import ftn.booking.model.Reservation;
 import ftn.booking.model.enums.ReservationType;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +24,8 @@ public interface ReservationService{
     List<Reservation> findAllPastReservationsByCottageId(Long id);
 
     List<Reservation> findAllFutureReservationsByCottageId(Long id);
+
+    Boolean checkIfDateIsFree(LocalDateTime date);
+
+    List<LocalDate> findAllForbiddenDates();
 }

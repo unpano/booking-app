@@ -29,6 +29,12 @@
           <img *ngFor='let preview of previews' [src]="preview" class="preview">
         </div>
     </form>
+
+    <mat-card class="demo-inline-calendar-card">
+      <mat-calendar [(selected)]="selected"></mat-calendar>
+    </mat-card>
+    <p>Selected date: {{selected}}</p>
+
     <div class="form-group">
         <label>Address</label>
         <label>{{cottage.address}}</label>
@@ -48,7 +54,11 @@
     </div> 
     <div class="form-group">
         <label>Rate</label>
-        <label>{{cottage.rate}}</label>								
+        <label>
+          <div id="starsRow" *ngFor="let i of starNamesFunc(cottage.rate)">
+            <i class="material-icons">star_{{i}}</i>
+          </div>
+        </label>							
     </div>
     <div class="form-group">
         <h1>Our cottage</h1>

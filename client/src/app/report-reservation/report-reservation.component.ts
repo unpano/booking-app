@@ -70,7 +70,10 @@ export class ReportReservationComponent implements OnInit {
           alert("User with username " + sessionStorage.getItem('email') + ' has already reported client visit.');
         }
         return EMPTY;
-      })).subscribe(() => alert("Successfully reported client visit."))
+      })).subscribe(() =>{
+        alert("Successfully reported client visit.")
+        this.router.navigate(["cottage/past-reservations"])
+      } )
   }
 
   cancel(){

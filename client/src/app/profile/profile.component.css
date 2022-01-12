@@ -23,7 +23,19 @@ input{
 }
 
 button{
-    width: 200px;
+    color: white;
+    background: indigo;
+    border-radius: 1rem;
+    border: none;
+    width: 170px;
+    height: 35px;
+    margin-left: 14px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+#firstButton{
+    margin-left: 200px;
 }
 
 img{
