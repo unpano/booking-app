@@ -44,8 +44,8 @@ export class NewReservationComponent implements OnInit {
     const year = today.getFullYear();
 
     this.pickPeriod = new FormGroup({
-      start: new FormControl(new Date(year, month, 11)),
-      end: new FormControl(new Date(year, month, 15)),
+      start: new FormControl(new Date(year, month, 28)),
+      end: new FormControl(new Date(year, month, 29)),
     });
 
   }
@@ -73,7 +73,7 @@ export class NewReservationComponent implements OnInit {
     let dateIsFree : boolean = true
 
     input.setDate(input.getDate() +1)
-    
+
     let date1 = new Date(input).toISOString()
     date1.toLocaleString();
     date1 = date1.substring(0,date1.indexOf("T"))
@@ -131,7 +131,11 @@ export class NewReservationComponent implements OnInit {
             })).subscribe()
             
       })
-    ).subscribe(() => this.sendMail(this.username))
+    ).subscribe(() => {
+      this.sendMail(this.username)
+      
+      this.router.navigate(["cottage"])
+    })
     
   }
 

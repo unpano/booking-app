@@ -67,3 +67,7 @@ select{
 .demo-inline-calendar-card {
     width: 300px;
   }
+  #starsRow{
+    display: inline-block;
+    text-align: left;
+}

@@ -45,6 +45,8 @@ export class ProfileCottageComponent implements OnInit {
 
   selected !: Date | null;
 
+  starNames : String[] = []
+
   constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient, private dateService: DateFilterService) { 
     
   }
@@ -93,6 +95,84 @@ export class ProfileCottageComponent implements OnInit {
                         });
                       })).subscribe()
             })  
+  }
+
+  starNamesFunc(rate: Number): String[]{
+    this.starNames = []
+   
+    if(rate > 0 && rate < 1){
+      this.starNames.push('half')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if(rate >= 1 && rate < 1.5){
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 1.5 && rate < 2){
+      this.starNames.push('rate')
+      this.starNames.push('half')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 2 && rate < 2.5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 2.5 && rate < 3){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('half')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 3 && rate < 3.5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      
+    }else if (rate >= 3.5 && rate < 4){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('half')
+      this.starNames.push('outline')
+
+    }else if (rate >= 4 && rate < 4.5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+
+    }else if (rate >= 4.5 && rate < 5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('half')
+
+    }else if( rate == 5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+    }
+
+    console.log(this.starNames)
+    return this.starNames
   }
 
   private findAmenity(amenityName: string): AmenityJSON{

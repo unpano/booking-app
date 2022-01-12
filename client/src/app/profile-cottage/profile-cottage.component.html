@@ -54,7 +54,11 @@
     </div> 
     <div class="form-group">
         <label>Rate</label>
-        <label>{{cottage.rate}}</label>								
+        <label>
+          <div id="starsRow" *ngFor="let i of starNamesFunc(cottage.rate)">
+            <i class="material-icons">star_{{i}}</i>
+          </div>
+        </label>							
     </div>
     <div class="form-group">
         <h1>Our cottage</h1>
