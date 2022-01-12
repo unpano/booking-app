@@ -42,7 +42,14 @@ export class HomePageCottageOwnerComponent implements OnInit {
   starNamesFunc(rate: Number): String[]{
     this.starNames = []
    
-    if(rate > 0 && rate < 1){
+    if(rate == 0){
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+    
+    }else if(rate > 0 && rate < 1){
       this.starNames.push('half')
       this.starNames.push('outline')
       this.starNames.push('outline')

@@ -1,7 +1,11 @@
 label{
     margin-left: 5%;
     margin-top: 2%;
-    width: 400px;
+    width: 350px;
+}
+
+#priceLbl{
+    width: 100px
 }
 
 h1{
@@ -12,6 +16,14 @@ h1{
 
 .main-div mat-card{
     padding: 0px;
+}
+
+button{
+    color: indigo;
+    background: white;
+    border: none;
+    margin: 10px 10px 10px 10px;
+    width: 150px;
 }
 
 

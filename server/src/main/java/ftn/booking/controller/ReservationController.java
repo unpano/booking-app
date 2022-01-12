@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @AllArgsConstructor
@@ -95,12 +96,13 @@ public class ReservationController {
 
 
     //OBICNA REZERVACIJA SALJE FALSE ZA IS_ACTION
-    @PostMapping("/{username}/{entityId}/{isAction}")
+    @PostMapping("/{username}/{entityId}/{isAction}/{actionPrice}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDTO reservationDTO,
                                                       @PathVariable String username,
                                                       @PathVariable Long entityId,
-                                                      @PathVariable Boolean isAction){
+                                                      @PathVariable Boolean isAction,
+                                                      @PathVariable String actionPrice){
 
         User user = userService.loadUserByUsername(username);
 
@@ -157,7 +159,10 @@ public class ReservationController {
             float oneDayPrice = cottageService.findOne(entityId).getOneDayPrice();
 
             //number of days x price for one day stay = price for cottage
-            reservation.setPrice((long) (numOfDays*oneDayPrice));
+            if(Objects.equals(actionPrice, "undefined"))
+                reservation.setPrice((long) (numOfDays*oneDayPrice));
+            else
+                reservation.setPrice(numOfDays*Long.parseLong(actionPrice));
 
         }else if(reservationDTO.getReservationType() == ReservationType.BOAT){
             //TODO calculate price for renting boat

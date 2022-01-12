@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DateFilterFn } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -8,6 +9,7 @@ import { ReservationType } from '../dto/enums/ReservationType';
 import { MailDTO } from '../dto/mailDTO';
 import { Reservation } from '../dto/reservation';
 import { Endpoint } from '../util/endpoints-enum';
+import { Global } from '../util/global';
 
 @Component({
   selector: 'app-new-action',
@@ -30,14 +32,16 @@ export class NewActionComponent implements OnInit {
 
   subscribers : any
 
+  price !: Number
+
   constructor(private router: Router, private http: HttpClient) { 
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
 
     this.pickPeriod = new FormGroup({
-      start: new FormControl(new Date(year, month, 11)),
-      end: new FormControl(new Date(year, month, 15)),
+      start: new FormControl(new Date(year, month, 28)),
+      end: new FormControl(new Date(year, month, 29)),
     });
   }
 
@@ -56,11 +60,12 @@ export class NewActionComponent implements OnInit {
     let options = { headers: headers };
     
     const body=JSON.stringify(this.reservation);
-    console.log(body)
     
   //create new action
+  if (this.price != undefined){
+  
     this.http.post<any>(this.endpoint.RESERVATIONS + this.username +
-                                                      "/" + sessionStorage.getItem("cottageId") + "/" + true, body, options).pipe(
+                                                      "/" + sessionStorage.getItem("cottageId") + "/" + true + '/' + this.price, body, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
@@ -101,8 +106,12 @@ export class NewActionComponent implements OnInit {
               this.subscribers.forEach((subscriber:any) => {
                 this.sendMail(subscriber["email"])
               });
-            })).subscribe()
-    })
+            })).subscribe(()=>{
+              alert("Successfully created new action.")
+              this.router.navigate(["cottage/reserve"])
+            })
+    })  
+  }else alert("You did not fill in the action price.")
   }
 
   sendMail(username: String){
@@ -131,5 +140,31 @@ export class NewActionComponent implements OnInit {
         return EMPTY;
       })
     ).subscribe()
+  }
+
+  rangeFilter: DateFilterFn<Date> = (date: Date | null) => {
+  
+    if (date != null) return this.isFree(date);
+    return true
+  };
+
+  isFree(input: Date): boolean{
+    let dateIsFree : boolean = true
+
+    input.setDate(input.getDate() +1)
+
+    let date1 = new Date(input).toISOString()
+    date1.toLocaleString();
+    date1 = date1.substring(0,date1.indexOf("T"))
+
+    Global.forbiddenDates.forEach((date: Date)=> {
+
+      if(date1 == date.toString()){
+      
+        dateIsFree = false
+      }
+    });
+     return dateIsFree
+    
   }
 }

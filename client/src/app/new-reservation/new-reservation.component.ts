@@ -21,7 +21,6 @@ import { Global } from '../util/global';
 export class NewReservationComponent implements OnInit {
 
   username !: String
-  username1 !: String
   pickPeriod !: FormGroup;
   endpoint = Endpoint
 
@@ -105,15 +104,17 @@ export class NewReservationComponent implements OnInit {
     console.log(body)
     
   //create new reservation
+  if(this.username == undefined) alert("You did not fill the username for reservation.");
+  else{
     this.http.post<any>(this.endpoint.RESERVATIONS + this.username +
-                                                      "/" + sessionStorage.getItem("cottageId") + "/" + false, body, options).pipe(
+                                                      "/" + sessionStorage.getItem("cottageId") + "/" + false + '/' + undefined, body, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
           if(sessionStorage.getItem('cottageId') == undefined)
             this.router.navigate(["login"])
-          alert("Conficting period.");
+           alert("Client does not exist.")
         }
 
         return EMPTY;
@@ -132,10 +133,11 @@ export class NewReservationComponent implements OnInit {
             
       })
     ).subscribe(() => {
-      this.sendMail(this.username)
       
+      this.sendMail(this.username)
+      alert("Successfully reserved cottage.")
       this.router.navigate(["cottage"])
-    })
+    })}
     
   }
 
@@ -144,18 +146,24 @@ export class NewReservationComponent implements OnInit {
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     
-    this.http.put<any>(this.endpoint.RESERVATIONS + id +
-                                                      "/" + this.username1,null, options).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.error instanceof Error) {
-          alert("Bad request, please try again later.");
-        } else {
-          alert("Action does not exist.");
-        }
+    if(this.username == undefined) alert("You did not fill the username for reservation.");
+    else{
+      this.http.put<any>(this.endpoint.RESERVATIONS + id +
+                                                        "/" + this.username,null, options).pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.error instanceof Error) {
+            alert("Bad request, please try again later.");
+          } else {
+            alert("Action does not exist.");
+          }
 
-        return EMPTY;
-      })
-    ).subscribe(() => this.sendMail(this.username1))
+          return EMPTY;
+        })
+      ).subscribe(() => {
+        this.sendMail(this.username)
+        alert("Successfully reserved cottage.")
+        this.router.navigate(["cottage"])
+      })}
   }
 
   sendMail(username: String){

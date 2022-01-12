@@ -1,11 +1,12 @@
+<button mat-button routerLink="change-password" id="firstButton">Change password</button>
+<button mat-button routerLink="delete-account">Delete profile</button>
+<button mat-button *ngIf="!editButtonClicked" (click)="clickOnEditButton()">Edit profile</button>
 <div id="basics">
   <img class="image" [src]="user.picture"/>
   <h1>{{user.firstName + ' ' + user.lastName}}</h1>
 </div>
 
-<button mat-button routerLink="change-password">Change password</button>
-<button mat-button routerLink="delete-account">Delete profile</button>
-<button mat-button *ngIf="!editButtonClicked" (click)="clickOnEditButton()">Edit profile</button>
+
 
 <form (ngSubmit)="onSubmit()">
     <div>
