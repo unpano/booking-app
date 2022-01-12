@@ -1,0 +1,45 @@
+-------------------------------------NAPOMENA---------------------------------------------
+
+FRONT se nalazi u folderu client, a BACK u folderu server.
+
+-----POPUJAVANJE BAZE-----
+
+Baza se kreira na localhost:3306/booking. booking je naziv šeme baze podataka. U application.properties fajlu
+podesiti:
+spring.datasource.username=ovdeIdeUsername
+spring.datasource.password=ovdeIdeSifra
+Tako da odgovara korisničkom imenu i šifri koju ste koristili prilikom otvaranja konekcije na tom portu. Da bi se
+baza kreirala potrebno je kreirati šemu sa nazivom booking.
+
+Kada pokrenete prvi put back, tabele se formiraju automatski. Kako bi ubacili potrebne početne info, prebacite fajl 
+data.sql sa putanje na kome su front i back, u src/main/resources folder. Ponovo pokrenite program kako bi se podaci
+uneli u bazu.
+
+-----SLANJE EMAIL-A-----
+
+Za slanje email-a podesiti u application.properties fajlu email i password. Kreiran je poseban Google Account i vec je
+podeseno da se sa njega salju mejlovi. 
+spring.mail.username=ovdeIdeEmailPosiljaoca
+spring.mail.password=ovdeIdeSifraPosiljaoca
+
+-----POKRETANJE FRONTEND-A-----
+
+Pozicionirati se u folder client i pokrenuti sledece komande.
+npm install -g @angular/cli
+npm install
+npm start
+
+Po potrebi pre pokretanja pokrenuti komandu (ako dodje do greske prilikom pokretanja)
+npm install --save-dev @angular-devkit/build-angular
+
+-----POKRETANJE BACKEND-A-----
+
+server
+Otvoriti projekat u IntelliJ-u. Podesiti konfiguraciju da prepozna main class-u. Pokrenuti na Run.
+Aplikacija se pokrece na portu 8084. Nije preporucljivo menjati port, jer je front takodje podesen da gadja
+taj port, u suprotnom moralo bi se i tamo menjati.
+
+-----REŠAVANE KONFLIKTNE SITUACIJE-----
+
+U Word dokumentu korenskog direktorijuma projekta nalazi se opis konfliktnih situacija koje su rešavane kad je
+u pitanju konkurentni pristup resursima baze u ulozi vlasnika vikendice/broda.

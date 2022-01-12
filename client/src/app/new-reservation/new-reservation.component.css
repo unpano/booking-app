@@ -1,0 +1,62 @@
+label{
+    margin-left: 5%;
+    margin-top: 2%;
+    width: 350px;
+}
+
+#priceLbl{
+    width: 100px
+}
+
+h1{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-weight: bold;
+}
+
+.main-div mat-card{
+    padding: 0px;
+}
+
+button{
+    color: indigo;
+    background: white;
+    border: none;
+    margin: 10px 10px 10px 10px;
+    width: 150px;
+}
+
+
+.register-form{
+    padding: 20px;
+    width: 580px;
+}
+
+#uploadForm{
+    display: inline-block;   
+    width: 600px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+img{
+    width: 130px;
+    height: 150px;
+    margin-bottom: 5%;
+}
+
+select{
+    height: 400px;
+}
+
+#secondSelect{
+    height: 80px;
+}
+
+h4{
+    margin-top: 10px;
+}
+
+#maxNumPers{
+    width: 160px !important;
+}

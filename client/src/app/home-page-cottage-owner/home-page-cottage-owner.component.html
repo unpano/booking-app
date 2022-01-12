@@ -1,0 +1,43 @@
+
+<mat-card> 
+    <mat-card-content>
+      <form novalidate class="form-inline">
+          <div class="container">
+              <div class="row">
+                
+                <button id="addBtn" routerLink="new-cottage"><mat-icon>add</mat-icon> Add cottage </button>
+                <div class="search-hero">
+                  <input class="form-control" type="text" style="font-family:Arial, FontAwesome" name="search"  [(ngModel)]="searchText" autocomplete="off" placeholder="&#xF002; Search">
+                </div>
+                <table matSort (matSortChange)="sortData($event)">
+                  <thead>
+                  <tr> 
+                    <th mat-sort-header="name">Cottage</th>
+                    <th mat-sort-header="address">Address</th>
+                    <th mat-sort-header="city">City</th>
+                    <th mat-sort-header="rate"></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let cottage of sortedData | filter:searchText">
+                    <td>{{cottage.name}}</td>
+                    <td>{{cottage.address}}</td>
+                    <td>{{cottage.city}}</td>
+                    <td>
+                      <div id="starsRow" *ngFor="let i of starNamesFunc(cottage.rate)">
+                        <i class="material-icons">star_{{i}}</i>
+                      </div>
+                    </td>
+                    
+                    <button id="eyeBtn" (click)="cottageDetails(cottage)"> View</button>
+                    
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+      </form> 
+    </mat-card-content>
+  </mat-card>
+

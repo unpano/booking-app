@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9ab139fc-8ef4-4642-8ba4-e286cf873648" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Users\Andjela Paunovic\.m2\wrapper\dists\apache-maven-3.8.3-bin\5a6n1u8or3307vo2u2jgmkhm0t\apache-maven-3.8.3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="20Mn7PnggByK5wTB5CcZVATphgs" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/server" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Booking" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="ISA" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ftn.booking.BookingApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9ab139fc-8ef4-4642-8ba4-e286cf873648" name="Default Changelist" comment="" />
+      <created>1635863159725</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1635863159725</updated>
+      <workItem from="1635863165052" duration="196000" />
+      <workItem from="1635863394612" duration="347000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="0" y="40" width="1089" height="680" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1635863463007">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state x="0" y="40" width="1089" height="680" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.40.1280.680@0.40.1280.680" timestamp="1635863463007" />
+    <state x="275" y="170" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1635863453410">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state x="275" y="170" key="#com.intellij.ide.util.TreeClassChooserDialog/0.40.1280.680@0.40.1280.680" timestamp="1635863453410" />
+    <state x="421" y="136" key="FileChooserDialogImpl" timestamp="1635863749435">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state x="421" y="136" key="FileChooserDialogImpl/0.40.1280.680@0.40.1280.680" timestamp="1635863749435" />
+    <state width="1237" height="461" key="GridCell.Tab.0.bottom" timestamp="1635863750547">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state width="1237" height="461" key="GridCell.Tab.0.bottom/0.40.1280.680@0.40.1280.680" timestamp="1635863750547" />
+    <state width="1237" height="461" key="GridCell.Tab.0.center" timestamp="1635863750547">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state width="1237" height="461" key="GridCell.Tab.0.center/0.40.1280.680@0.40.1280.680" timestamp="1635863750547" />
+    <state width="1237" height="461" key="GridCell.Tab.0.left" timestamp="1635863750547">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state width="1237" height="461" key="GridCell.Tab.0.left/0.40.1280.680@0.40.1280.680" timestamp="1635863750547" />
+    <state width="1237" height="461" key="GridCell.Tab.0.right" timestamp="1635863750547">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state width="1237" height="461" key="GridCell.Tab.0.right/0.40.1280.680@0.40.1280.680" timestamp="1635863750547" />
+    <state width="1237" height="461" key="GridCell.Tab.1.bottom" timestamp="1635863750552">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state width="1237" height="461" key="GridCell.Tab.1.bottom/0.40.1280.680@0.40.1280.680" timestamp="1635863750552" />
+    <state width="1237" height="461" key="GridCell.Tab.1.center" timestamp="1635863750552">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state width="1237" height="461" key="GridCell.Tab.1.center/0.40.1280.680@0.40.1280.680" timestamp="1635863750552" />
+    <state width="1237" height="461" key="GridCell.Tab.1.left" timestamp="1635863750552">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state width="1237" height="461" key="GridCell.Tab.1.left/0.40.1280.680@0.40.1280.680" timestamp="1635863750552" />
+    <state width="1237" height="461" key="GridCell.Tab.1.right" timestamp="1635863750552">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state width="1237" height="461" key="GridCell.Tab.1.right/0.40.1280.680@0.40.1280.680" timestamp="1635863750552" />
+  </component>
+</project>

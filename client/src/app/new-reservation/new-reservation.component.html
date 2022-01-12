@@ -1,0 +1,30 @@
+<div>
+  <h1>Client</h1>
+  <mat-form-field>
+    <input [(ngModel)]="username" name="username" matInput placeholder="Client username" required>
+  </mat-form-field>
+
+    <h1>Book cottage</h1>
+    <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Pick period</mat-label>
+        <mat-date-range-input
+          [formGroup]="pickPeriod"
+          [rangePicker]="periodPicker" [min]="minDate" [dateFilter]="rangeFilter">
+          <input matStartDate placeholder="Start date" formControlName="start">
+          <input matEndDate placeholder="End date" formControlName="end">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+        <mat-date-range-picker touchUi  #periodPicker></mat-date-range-picker>
+      </mat-form-field>
+    <button mat-raised-button type="submit" (click)="reserve()" >Submit</button>
+
+    <h1>Actions for this cottage</h1>	
+    <div class="form-group" *ngFor="let action of actions"> 
+      <label> <b>From:</b> {{action.startTime}} <b>To:</b> {{action.endTime}}</label>
+      <label id="priceLbl"> Price: <b>{{action.price}}$</b></label>
+      
+      <button type="submit" (click)="reserveAction(action.id)">Reserve action period</button> 
+               
+  </div>  
+           
+</div>

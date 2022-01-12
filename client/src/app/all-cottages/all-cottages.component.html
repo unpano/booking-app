@@ -1,0 +1,42 @@
+
+<mat-card class="example-card">
+    
+  <mat-card-content>
+        <form>
+          <div>
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Search">
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Cottage name:</th>
+                <th>Cottage address:</th>
+                <th>Cottage rate:</th>
+              </tr>
+            </thead>
+
+            
+
+            <tbody>
+              <tr *ngFor="let cottage of cottages | filter:searchText">
+                                  
+                <td>{{cottage.name}}</td>
+                <td>{{cottage.address}}</td>
+                <td>{{cottage.rating}}</td>
+              
+                <td> 
+                  <button  (click)= "viewDetails(cottage)" > View details </button>
+                </td>
+                
+              </tr>
+            </tbody>
+          </table>
+
+        </form>
+
+  </mat-card-content>
+</mat-card>
+
+
+
