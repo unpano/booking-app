@@ -34,12 +34,12 @@ public class BoatServiceImpl implements BoatService {
     }
 
     @Override
-    public List<Boat> findFreeBoats(ReservationDTO reservationDTO)
+    public List<Boat> findFreeBoats(LocalDateTime startTime, LocalDateTime endTime)
     {
         List<Boat> resultBoats = new ArrayList<>();
         List<Boat> allBoats = boatRepository.findAll();
         List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndStartTimeAndEndTime
-                ("BOAT", reservationDTO.getStartTime(), reservationDTO.getEndTime());
+                ("BOAT", startTime, endTime);
 
         for (Boat boat : allBoats)
         {

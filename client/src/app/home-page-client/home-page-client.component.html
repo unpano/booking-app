@@ -1,6 +1,7 @@
 
   <mat-card class="mat-filters">
     <div >
+
         <div>
           <label>Type of entity:</label>
           <select>
@@ -9,18 +10,33 @@
         </div>
   
         <div>
-            <label> Pick date: </label>
+            <label> Start date: </label>
             <form >
               <input type="date" class="input" name="examinationDateInput" [(ngModel)]="dateInput" />
             </form>
         </div>
-  
+
         <div>
-          <label class="label">Pick time:</label>
+          <label class="label">Start time:</label>
           <form>
-            <input type="time" id="input"  class="input" value="13:00" mdbInput [(ngModel)]="timeInput" />    
+            <input type="time" class="input" value="13:00"  [(ngModel)]="startTimeInput" />    
           </form>
         </div> 
+
+        <div>
+          <label> End date: </label>
+          <form >
+            <input type="date" class="input" name="examinationDateInput" [(ngModel)]="endDateInput" />
+          </form>
+      </div>
+
+      <div>
+        <label class="label">End time:</label>
+        <form>
+          <input type="time" class="input" value="13:00"  [(ngModel)]="endTimeInput" />    
+        </form>
+      </div> 
+  
         <div>
           <button (click)="findEntities()">Find</button>
         </div>
@@ -42,7 +58,7 @@
 
   <div class = "entities" *ngIf="buttonClicked == true">
     <div *ngIf= "type != 'Instructor' && type != 'Cottage'">
-        <app-free-boats [startTime]="dateInput"></app-free-boats>
+        <app-free-boats [startTime]="dateInput" [endTime]="endDateInput"></app-free-boats>
     </div>
     
 </div>

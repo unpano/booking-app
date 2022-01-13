@@ -9,5 +9,5 @@ public interface BoatService {
 
     List<Boat> findAll();
     Boat findById(Long id);
-    List<Boat> findFreeBoats(ReservationDTO reservationDTO);
+    List<Boat> findFreeBoats(LocalDateTime startTime, LocalDateTime endTime);
 }

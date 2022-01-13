@@ -4,21 +4,23 @@
   
           <form>
             <div class="table-form">
-                <table>
+              <table matSort (matSortChange)="sortData($event)">
                   <thead>
                     <tr>
                       <th>Boat name:</th>
                       <th>Boat address:</th>
                       <th>Boat rate:</th>
+                      <th>Boat price:</th>
                     </tr>
                   </thead>
   
                   <tbody>
-                    <tr *ngFor="let boat of boats | filter:searchText">
+                    <tr *ngFor="let boat of sortedData | filter:searchText">
                                         
                       <td>{{boat.name}}</td>
                       <td>{{boat.address}}</td>
                       <td>{{boat.rating}}</td>
+                      <td>{{boat.price}}</td>
                     
                       <td> 
                         <button  (click)= "viewDetails(boat)" > View details </button>

@@ -42,7 +42,6 @@ export class AllBoatsComponent implements OnInit {
 
   viewDetails(boat : Boat)
   {
-    alert("Date input boats: " + this.clickedValue)
     Global.clickedBoat = boat;
     this.router.navigate(["boat"]);
   }
