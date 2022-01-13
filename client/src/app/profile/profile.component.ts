@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
-          alert("User with id " + sessionStorage.getItem('email') + ' does not exist.');
+          alert("User with username " + sessionStorage.getItem('email') + ' does not exist.');
           this.router.navigate(["login"])
         }
         return EMPTY;
@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit {
       map(returnedUser => {
         this.user = returnedUser
         this.user1 = returnedUser
+        this.user1["email"] = undefined
       })).subscribe()
   }
 
@@ -86,7 +87,10 @@ export class ProfileComponent implements OnInit {
           this.router.navigate(["login"])
         }
         return EMPTY;
-      })).subscribe()
+      })).subscribe(res => {
+        sessionStorage.setItem("email",res["email"])
+        this.router.navigate(["login"])
+      })
   }
 
   clickOnEditButton(){
