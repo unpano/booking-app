@@ -3,7 +3,7 @@ export class User{
   id !: Number
   firstName !: String
   lastName !: String
-  email !: String
+  email !: string
   password !: String
   address !: String
   city !: String

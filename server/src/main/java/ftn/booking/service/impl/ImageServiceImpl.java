@@ -1,5 +1,6 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.model.Cottage;
 import ftn.booking.model.Image;
 import ftn.booking.repository.ImageRepository;
 import ftn.booking.service.ImageService;
@@ -30,5 +31,10 @@ public class ImageServiceImpl implements ImageService {
         }
 
         return paths;
+    }
+
+    @Override
+    public void deleteAll(Long id) {
+        imageRepository.deleteByCottageId(id);
     }
 }

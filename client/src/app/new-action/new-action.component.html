@@ -1,1 +1,21 @@
-<p>new-action works!</p>
+<div>
+  <h1>Action price</h1>
+  <mat-form-field>
+    <input [(ngModel)]="price" name="price" matInput placeholder="Price $" required>
+  </mat-form-field>
+    <h1>Create action</h1>
+    <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Pick period</mat-label>
+        <mat-date-range-input
+          [formGroup]="pickPeriod"
+          [rangePicker]="periodPicker" [min]="minDate" [dateFilter]="rangeFilter">
+          <input matStartDate placeholder="Start date" formControlName="start">
+          <input matEndDate placeholder="End date" formControlName="end">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #periodPicker></mat-date-range-picker>
+      </mat-form-field>
+
+      
+    <button mat-raised-button type="submit" (click)="createAction()" >Submit</button>
+</div>

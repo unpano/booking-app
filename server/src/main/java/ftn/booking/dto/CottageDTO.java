@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 public class CottageDTO {
 
+    private Long id;
     private String name;
     private String description;
     private String address;
@@ -24,4 +25,5 @@ public class CottageDTO {
     private List<Amenity> amenities;
     private List<Service> additionalServices;
     private List<Room> rooms;
+    private Float oneDayPrice;
 }

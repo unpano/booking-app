@@ -55,30 +55,33 @@ public class CottageServiceImpl implements CottageService {
     }
 
     @Override
-    public List<Cottage> findFreeCottages(ReservationDTO reservationDTO)
-    {
+    public List<Cottage> findFreeCottages(ReservationDTO reservationDTO) {
         List<Cottage> resultCottages = new ArrayList<>();
         List<Cottage> allCottages = cottageRepository.findAll();
         List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndStartTimeAndEndTime
                 ("COTTAGE", reservationDTO.getStartTime(), reservationDTO.getEndTime());
 
-        for (Cottage cottage : allCottages)
-        {
+        for (Cottage cottage : allCottages) {
             Boolean taken = false;
-            for (Reservation res : reservations)
-            {
-                if( res.getCottage() == cottage)
-                {
+            for (Reservation res : reservations) {
+                if (res.getCottage() == cottage) {
                     taken = true;
                 }
             }
-            if( taken == false)
-            {
+            if (taken == false) {
                 resultCottages.add(cottage);
             }
 
         }
 
         return resultCottages;
+    }
+    public void delete(Cottage cottage) {
+        cottageRepository.delete(cottage);
+    }
+
+    @Override
+    public Cottage update(Cottage cottage) {
+        return cottageRepository.save(cottage);
     }
 }

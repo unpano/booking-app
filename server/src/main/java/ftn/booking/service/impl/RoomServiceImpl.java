@@ -6,6 +6,8 @@ import ftn.booking.service.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class RoomServiceImpl implements RoomService {
@@ -14,5 +16,15 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Room addRoom(Room room) {
         return roomRepository.save(room);
+    }
+
+    @Override
+    public Optional<Room> findById(Long roomId) {
+        return roomRepository.findById(roomId);
+    }
+
+    @Override
+    public void delete(Room room) {
+        roomRepository.delete(room);
     }
 }

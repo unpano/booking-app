@@ -46,9 +46,17 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { NewActionComponent } from './new-action/new-action.component';
+
 import { NgImageSliderModule } from 'ng-image-slider';
 import { FreeBoatsComponent } from './free-boats/free-boats.component';
 
+
+import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
+import { ListCottagePastReservationsComponent } from './list-cottage-past-reservations/list-cottage-past-reservations.component';
+import { ListCottageFutureReservationsComponent } from './list-cottage-future-reservations/list-cottage-future-reservations.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ProfileClientComponent } from './profile-client/profile-client.component';
+import { ReportReservationComponent } from './report-reservation/report-reservation.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +92,13 @@ import { FreeBoatsComponent } from './free-boats/free-boats.component';
     NewActionComponent,
     FreeBoatsComponent,
 
+    DeleteCottageComponent,
+    ListCottagePastReservationsComponent,
+    ListCottageFutureReservationsComponent,
+    ProfileClientComponent,
+    ReportReservationComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -104,7 +119,10 @@ import { FreeBoatsComponent } from './free-boats/free-boats.component';
     Ng2SearchPipeModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgImageSliderModule
+
+    NgImageSliderModule,
+    MatDialogModule
+    
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

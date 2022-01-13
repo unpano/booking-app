@@ -1,0 +1,46 @@
+label{
+    margin-left: 15%;
+    margin-top: 2%;
+    width: 500px;
+}
+
+h1{
+    margin-top: 5%;
+    margin-bottom: 15%;
+    font-weight: bold;
+}
+
+input{
+    width: 230px;
+}
+
+#submitButton{
+    margin-left: 60%;
+    margin-top: 2%;
+    background-color: indigo;
+    color: honeydew;
+    border: none;
+}
+
+button{
+    width: 200px;
+}
+
+img{
+    width: 150px;
+    height: 150px;
+    margin-bottom: 5%;
+}
+
+form{
+    margin-top: 2%;
+}
+
+#uploadForm{
+    display: inline-block;   
+    width: 600px;
+}
+
+#basics{
+    width: 200px;
+}

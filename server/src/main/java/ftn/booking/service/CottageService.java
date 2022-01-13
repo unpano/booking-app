@@ -14,4 +14,6 @@ public interface CottageService {
     Cottage findById(Long cottageId);
     Cottage add(Cottage cottage);
     List<Cottage> findFreeCottages(ReservationDTO reservationDTO);
+    void delete(Cottage cottage);
+    Cottage update(Cottage cottage);
 }

@@ -20,6 +20,8 @@ export class HomePageCottageOwnerComponent implements OnInit {
   searchText: any
   endpoint = Endpoint;
 
+  starNames : String[] = []
+
   constructor(private http: HttpClient,private router: Router) { }
 
   ngOnInit(): void {
@@ -35,6 +37,91 @@ export class HomePageCottageOwnerComponent implements OnInit {
               this.cottages = returnedCottages
               this.sortedData = this.cottages.slice()
             })).subscribe()
+  }
+
+  starNamesFunc(rate: Number): String[]{
+    this.starNames = []
+   
+    if(rate == 0){
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+    
+    }else if(rate > 0 && rate < 1){
+      this.starNames.push('half')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if(rate >= 1 && rate < 1.5){
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 1.5 && rate < 2){
+      this.starNames.push('rate')
+      this.starNames.push('half')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 2 && rate < 2.5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 2.5 && rate < 3){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('half')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+
+    }else if (rate >= 3 && rate < 3.5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+      this.starNames.push('outline')
+      
+    }else if (rate >= 3.5 && rate < 4){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('half')
+      this.starNames.push('outline')
+
+    }else if (rate >= 4 && rate < 4.5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('outline')
+
+    }else if (rate >= 4.5 && rate < 5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('half')
+
+    }else if( rate == 5){
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+      this.starNames.push('rate')
+    }
+
+    console.log(this.starNames)
+    return this.starNames
   }
 
   cottageDetails(cottage: Cottage){

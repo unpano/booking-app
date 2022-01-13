@@ -1,43 +1,83 @@
-<form role="form" novalidate class="form-inline">
+<form role="form" novalidate class="form-inline" >
     
 
 <button mat-button routerLink="reserve" id="firstButton">New reservation</button>
 <button mat-button routerLink="action">New action</button>
-<button mat-button (click)="futureReservations()" >Future reservations</button>
-<button mat-button (click)="pastReservations()">Past reservations</button>
-<button mat-button (click)="removeCottage()" >Remove cottage</button>
-<button mat-button (click)="editCottage()">Edit cottage</button>
+<button mat-button routerLink="future-reservations">Future reservations</button>
+<button mat-button routerLink="past-reservations">Past reservations</button>
+<button mat-button routerLink="delete">Delete cottage</button>
+<button mat-button (click)="editCottage()" *ngIf="!editButtonClicked">Edit cottage</button>
 
     <div class="form-group">
         <h1>{{cottage.name}}</h1>	
+        <input type="text" id="name" *ngIf="editButtonClicked" name="name" [(ngModel)]="name">
         <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>							
     </div>
+    <form *ngIf="editButtonClicked" id="uploadForm">
+        <h4>Add cottage images</h4>
+        <div class="row">
+          <div class="col-8">
+            <label class="btn btn-default p-0">
+              <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+            </label>
+        </div>
+        
+        
+        </div>
+        
+        <div>
+          <img *ngFor='let preview of previews' [src]="preview" class="preview">
+        </div>
+    </form>
+
+    <mat-card class="demo-inline-calendar-card">
+      <mat-calendar [(selected)]="selected"></mat-calendar>
+    </mat-card>
+    <p>Selected date: {{selected}}</p>
+
     <div class="form-group">
         <label>Address</label>
-        <label>{{cottage.address}}</label>								
+        <label>{{cottage.address}}</label>
+        <input type="text" id="address" *ngIf="editButtonClicked" name="address" [(ngModel)]="address">								
     </div>
     <div class="form-group">
         <label>City</label>
-        <label>{{cottage.city}}</label>								
+        <label>{{cottage.city}}</label>	
+        <input type="text" id="city" *ngIf="editButtonClicked" name="city" [(ngModel)]="city">							
     </div>
     <div class="form-group">
         <label>Number of persons</label>
-        <label>{{cottage.maxNumOfPersons}}</label>								
+        <label>{{cottage.maxNumOfPersons}}</label>
+        <mat-form-field id="maxNumPers" *ngIf="editButtonClicked">
+            <input [(ngModel)]="oneDayPrice" name="oneDayPrice" matInput placeholder="Price for one day stay $">
+        </mat-form-field>									
     </div> 
     <div class="form-group">
         <label>Rate</label>
-        <label>{{cottage.rate}}</label>								
+        <label>
+          <div id="starsRow" *ngFor="let i of starNamesFunc(cottage.rate)">
+            <i class="material-icons">star_{{i}}</i>
+          </div>
+        </label>							
     </div>
     <div class="form-group">
         <h1>Our cottage</h1>
         <label>{{cottage.description}}</label>								
+        <mat-form-field *ngIf="editButtonClicked">
+            <input [(ngModel)]="description" name="description" matInput placeholder="Description">
+        </mat-form-field>
     </div>    
 
     <div class="form-group">
         <h1>Where you'll sleep</h1>	
+        <input name="roomName" *ngIf="editButtonClicked" [(ngModel)]="roomName" type="text" matInput placeholder="Room name">
+        <input name="beds" *ngIf="editButtonClicked" [(ngModel)]="roomBadTypes" type="text" matInput placeholder="Number of beds and its types">
+          
+        <button mat-button *ngIf="editButtonClicked" (click)="addRoom()">Add room</button>
         <div *ngFor="let room of cottage.rooms">
             <label>{{room.name}}</label>
             <label>{{room.bedTypes}}</label>
+            <button mat-button *ngIf="editButtonClicked" (click)="deleteRoom(room.id)">Delete room</button>
         </div>							
     </div>
     <div class="form-group">
@@ -47,6 +87,15 @@
             {{amenity.name}}</label>
         							
     </div>
+    <div *ngIf="editButtonClicked">
+        <h4>Select amenities</h4>
+        <select multiple name="amenities" [(ngModel)]="cottage.amenities">
+          
+          <option *ngFor="let amenity of amenities1" [value]="amenity.value">
+            {{amenity.display}}
+          </option>
+        </select>
+      </div>
 
     <div class="form-group">
         <h1>Behavioral rules</h1>	
@@ -54,7 +103,18 @@
             <i class="material-icons">{{rule.icon}}</i>
             {{rule.name}}</label>
         							
-    </div>    
+    </div>  
+    <div *ngIf="editButtonClicked">
+        <h4>Select rules</h4>
+        <select multiple name="services" [(ngModel)]="cottage.additionalServices" id="secondSelect">
+          
+          <option *ngFor="let service of services" [value]="service.value">
+            {{service.display}}
+          </option>
+        </select>
+      </div>  
+    
+  <button mat-button id="submitButton" type="submit"(click)="onSubmit()" *ngIf="editButtonClicked">Submit</button>
 </form>
 
 

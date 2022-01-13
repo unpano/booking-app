@@ -12,6 +12,7 @@ export namespace Global {
     export var clickedBoat : Boat;
     export var clickedInstructor : User;
     export var cottage: Cottage = new Cottage();
+    export var forbiddenDates: any
 
     export var services = [
       {value: AdditionalService[0], icon: 'smoking_rooms', display: 'No smoking'},

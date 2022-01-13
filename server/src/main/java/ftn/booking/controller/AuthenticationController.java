@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,7 +65,7 @@ public class AuthenticationController {
             //namapiram dto podatke na klijenta
             Client client = new Client();
             modelMapper.map(userDTO, client);
-            System.out.print("USAO JE U METODU! ");
+
             //dodelim mu ROLE_CLIENT
             Authority authority = authorityService.findByName(userDTO.getUserType());
 
@@ -77,7 +79,9 @@ public class AuthenticationController {
             client.setEnabled(false);
             client.setPicture("");
             client.setRole(Role.ROLE_CLIENT);
+            client.setNumOfPenalties(0);
             client.setPassword(passwordEncoder.encode(client.getPassword()));
+            client.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
 
             //kreiram klijenta
             clientService.add(client);
@@ -103,6 +107,7 @@ public class AuthenticationController {
             boatOwner.setPicture("");
             boatOwner.setReasonForRegistration(userDTO.getReason());
             boatOwner.setPassword(passwordEncoder.encode(boatOwner.getPassword()));
+            boatOwner.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
 
             //kreiram vlasnika broda
             ownerService.addBoatOwner(boatOwner);
@@ -128,6 +133,7 @@ public class AuthenticationController {
             cottageOwner.setPicture("");
             cottageOwner.setReasonForRegistration(userDTO.getReason());
             cottageOwner.setPassword(passwordEncoder.encode(cottageOwner.getPassword()));
+            cottageOwner.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
 
             //kreiram vlasnika vikendice
             ownerService.addCottageOwner(cottageOwner);
@@ -152,6 +158,7 @@ public class AuthenticationController {
             instructor.setPicture("");
             instructor.setReasonForRegistration(userDTO.getReason());
             instructor.setPassword(passwordEncoder.encode(instructor.getPassword()));
+            instructor.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
 
             //kreiram instruktora
             ownerService.addInstructor(instructor);

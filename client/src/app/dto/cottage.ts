@@ -13,4 +13,5 @@ export class Cottage{
     amenities !: Amenity[];
     additionalServices !: AdditionalService[];
     rooms !: Room[];
+    oneDayPrice !: Number;
 }

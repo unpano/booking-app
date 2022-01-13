@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit {
   onSubmit() {
     this.editButtonClicked = false
 
-    //update info profila korisnika
+    //update user info
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
@@ -132,9 +132,7 @@ export class ProfileComponent implements OnInit {
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
-        } else {
-          alert("User with username does not exist.");
-        }
+        } 
         return EMPTY;
       })).subscribe()
     
