@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Endpoint } from '../util/endpoints-enum';
 import { map } from 'rxjs/operators';
 import { Cottage } from '../dto/cottage';
-import { Global } from '../util/global';
 import { Sort } from '@angular/material/sort';
 
 @Component({
