@@ -22,6 +22,7 @@ import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @RestController
 @AllArgsConstructor
@@ -34,20 +35,23 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/{username}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
+
     public ResponseEntity<User> checkIfUsernameIsAvailable(@PathVariable String username){
+        System.out.println(userService.loadUserByUsername(username));
         return new ResponseEntity<>(userService.loadUserByUsername(username), HttpStatus.OK);
     }
     
     @GetMapping("/checkPassword/{oldPassword}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
+
     public ResponseEntity<Boolean> checkExistingPassword(@PathVariable String oldPassword, Principal loggedUser){
         User user = userService.loadUserByUsername(loggedUser.getName());
         return new ResponseEntity<>(userService.checkExistingPassword(oldPassword,user.getPassword()), HttpStatus.OK);
     }
 
     @PutMapping("/changePassword/{newPassword}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
     public ResponseEntity<?> changePassword(@PathVariable String newPassword, Principal loggedUser){
         User user = userService.loadUserByUsername(loggedUser.getName());
 
@@ -61,22 +65,27 @@ public class UserController {
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
-    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO, Principal loggedUser){
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
+    public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO, Principal loggedUser){
+
         User user = userService.loadUserByUsername(loggedUser.getName());
-        User existUser = userService.loadUserByUsername(userDTO.getEmail());
 
-        if(userDTO.getEmail().equals(user.getEmail()) || existUser.getId()!=null)
-            throw new ResourceConflictException("User with same email already exists.");
+        if(!Objects.equals(userDTO.getEmail(), user.getUsername()) && userDTO.getEmail() != null) {
+            User existUser = userService.loadUserByUsername(userDTO.getEmail());
+            if (existUser != null)
+                throw new ResourceConflictException("User with same email already exists.");
+        }
 
-
+        user.setEmail(user.getEmail());
+        String password = user.getPassword();
         modelMapper.map(userDTO, user);
-        userService.updateUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        user.setPassword(password);
+
+        return new ResponseEntity<>(userService.updateUser(user),HttpStatus.OK);
     }
 
     @PostMapping("/deactivation/{description}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
     public ResponseEntity<DeactivationRequest> addDeactivationRequest(@PathVariable String description, Principal loggedUser){
 
         User user = userService.loadUserByUsername(loggedUser.getName());

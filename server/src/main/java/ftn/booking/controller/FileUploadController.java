@@ -23,13 +23,13 @@ public class FileUploadController {
     private UserService userService;
 
     @PostMapping("/set-profile-picture")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")
     public ResponseEntity<String> addProfilePicture(@RequestParam("file") MultipartFile file, Principal loggedUser) throws IOException {
         return new ResponseEntity<>(storageService.setProfilePicture(file, loggedUser.getName()), HttpStatus.OK);
     }
 
     @PostMapping("/add-cottage-picture/{cottageId}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")
     public ResponseEntity<String> addCottagePicture(@RequestParam("file") MultipartFile file,
                                                     @PathVariable Long cottageId) throws IOException {
         return new ResponseEntity<>(storageService.addCottagePicture(file, cottageId), HttpStatus.OK);
