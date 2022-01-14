@@ -63,7 +63,10 @@ export class ChangePasswordComponent implements OnInit {
                   
                 }
                 return EMPTY;
-              })).subscribe()
+              })).subscribe(() => {
+                alert("Successfully updated password.")
+                this.router.navigate(["profile"])
+              })
           }
         }else{
           alert("That`s not your old password. Please try again.")
