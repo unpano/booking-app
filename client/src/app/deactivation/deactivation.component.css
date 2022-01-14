@@ -8,49 +8,20 @@ textarea{
     margin-left: 10%;
 }
 
-button
-{
+#cancelButton{
     margin-left: 40%;
     margin-top: 2%;
     background-color: indigo;
     color: honeydew;
     border: none;
-    width: 100px; 
-}
-
-label{
-    margin-left: 15%;
-    margin-top: 2%;
-    width: 500px;
-}
-
-input{
-    margin-left: 15%;
-    margin-top: 2%;
-    width: 230px;
+    width: 100px;
 }
 
 #submitButton{
-    margin-left: 60%;
+    margin-left: 2%;
     margin-top: 2%;
-    background-color: indigo;
-    color: honeydew;
+    background-color: rgb(255, 255, 255);
+    color: grey;
     border: none;
-}
-
-
-form {
-    position :static;
-    width  : 1200px;
-    margin : 0;
-    padding: 1em;
-    box-sizing: border-box;
-    background : lightgrey;
-    color: black;
-    margin-top: 20px;
-  }
-
-
-#basics{
-    width: 200px;
+    width: 100px;
 }

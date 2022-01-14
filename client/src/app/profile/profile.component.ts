@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
         return EMPTY;
       })).subscribe(res => {
         sessionStorage.setItem("email",res["email"])
-        this.router.navigate(["login"])
+        this.router.navigate(["profile"])
       })
   }
 
