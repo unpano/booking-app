@@ -1,5 +1,5 @@
 package ftn.booking.service;
-import ftn.booking.dto.ReservationDTO;
+
 import ftn.booking.model.Boat;
 
 import java.time.LocalDateTime;
@@ -10,4 +10,8 @@ public interface BoatService {
     List<Boat> findAll();
     Boat findById(Long id);
     List<Boat> findFreeBoats(LocalDateTime startTime, LocalDateTime endTime);
+
+    Boat add(Boat boat);
+
+    List<Boat> findAllOwnerBoats(Long id);
 }

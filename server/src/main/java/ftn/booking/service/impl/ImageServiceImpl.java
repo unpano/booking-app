@@ -1,8 +1,7 @@
 package ftn.booking.service.impl;
 
-import ftn.booking.model.Cottage;
-import ftn.booking.model.Image;
-import ftn.booking.repository.ImageRepository;
+import ftn.booking.model.CottageImage;
+import ftn.booking.repository.CottageImageRepository;
 import ftn.booking.service.ImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,19 +13,19 @@ import java.util.List;
 @AllArgsConstructor
 public class ImageServiceImpl implements ImageService {
 
-    private ImageRepository imageRepository;
+    private CottageImageRepository imageRepository;
 
     @Override
-    public Image add(Image image) {
+    public CottageImage add(CottageImage image) {
         return imageRepository.save(image);
     }
 
     @Override
     public List<String> findImagesByCottageId(Long cottageId) {
-        List<Image> images = imageRepository.findAllByCottageId(cottageId);
+        List<CottageImage> images = imageRepository.findAllByCottageId(cottageId);
         List<String> paths = new ArrayList<>();
 
-        for(Image image : images){
+        for(CottageImage image : images){
             paths.add(image.getPath());
         }
 

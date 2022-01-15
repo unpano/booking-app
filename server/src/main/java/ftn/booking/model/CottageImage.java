@@ -8,12 +8,12 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "images")
+@Table(name = "cottage_images")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class Image {
+public class CottageImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +23,5 @@ public class Image {
 
     @ManyToOne
     private Cottage cottage;
+
 }

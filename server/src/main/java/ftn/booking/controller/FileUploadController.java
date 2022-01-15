@@ -1,10 +1,7 @@
 package ftn.booking.controller;
 
-import ftn.booking.model.User;
 import ftn.booking.service.StorageService;
-import ftn.booking.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +17,6 @@ import java.security.Principal;
 public class FileUploadController {
 
     private StorageService storageService;
-    private UserService userService;
 
     @PostMapping("/set-profile-picture")
     @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")

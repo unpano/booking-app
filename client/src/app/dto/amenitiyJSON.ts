@@ -1,4 +1,4 @@
 export class AmenityJSON{
-    name !: String;
-    icon !: String;
+    name !: String
+    icon !: String
 }

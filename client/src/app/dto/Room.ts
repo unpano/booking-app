@@ -1,5 +1,5 @@
 export class Room{
     id !: Number
-    name !: String;
-    bedTypes !: String;
+    name !: String
+    bedTypes !: String
 }

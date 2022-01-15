@@ -22,5 +22,8 @@ public enum Amenity {
     WASHER,
     AIR_CONDITIONING,
     SMOKE_ALARM,
-    CARBON_MONOXID_ALARM
+    CARBON_MONOXID_ALARM,
+    GRILL,
+    BUNK_BED,
+    BOW_THRUSTER
 }

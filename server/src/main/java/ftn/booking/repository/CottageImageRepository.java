@@ -1,15 +1,14 @@
 package ftn.booking.repository;
 
-import ftn.booking.model.Image;
+import ftn.booking.model.CottageImage;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Transactional
-public interface ImageRepository extends JpaRepository<Image, Long> {
+public interface CottageImageRepository extends JpaRepository<CottageImage, Long> {
 
-    List<Image> findAllByCottageId(Long cottageId);
+    List<CottageImage> findAllByCottageId(Long cottageId);
     void deleteByCottageId(Long id);
 }

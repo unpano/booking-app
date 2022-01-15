@@ -4,22 +4,51 @@ import { Boat } from "../dto/boat";
 import { Cottage } from "../dto/cottage";
 import { AdditionalService } from "../dto/enums/AdditionalService";
 import { Amenity } from "../dto/enums/Amenity";
+import { FishingEquipment } from "../dto/enums/FishingEquipment";
+import { NavigationEquipment } from "../dto/enums/NavigationEquipment";
 import { Token } from "../dto/token";
 import { User } from "../dto/user";
 
 export namespace Global {
-    export var token: Token = new Token();
-    export var clickedBoat : Boat;
-    export var clickedInstructor : User;
-    export var cottage: Cottage = new Cottage();
+    export var token: Token = new Token()
+    export var clickedBoat : Boat
+    export var clickedInstructor : User
+    export var cottage: Cottage = new Cottage()
     export var forbiddenDates: any
+
+    export var fishingEquipment = [
+      {value: FishingEquipment[0], icon: '', display: 'Stick'},
+      {value: FishingEquipment[1], icon: '', display: 'Rope'},
+    ]
+
+    export var navigationEquipment = [
+      {value: NavigationEquipment[0], icon: '', display: 'GPS'},
+      {value: NavigationEquipment[1], icon: '', display: 'Radar'},
+      {value: NavigationEquipment[2], icon: '', display: 'VHF Radio'},
+      {value: NavigationEquipment[3], icon: '', display: 'Fishfinder'}
+    ]
+
+    export var boatRules = [
+      {value: AdditionalService[4], icon: '', display: ''},
+
+    ]
 
     export var services = [
       {value: AdditionalService[0], icon: 'smoking_rooms', display: 'No smoking'},
       {value: AdditionalService[1], icon: 'pets', display: 'Pet friendly'},
       {value: AdditionalService[2], icon: 'party_mode', display: 'No parties'},
       {value: AdditionalService[3], icon: 'calendar_today', display: 'Allowed long term stays'},
-    ];
+    ]
+
+    export var amenitiesBoat = [
+      { value: Amenity[3], icon: 'live_tv', display: 'TV'},
+      { value: Amenity[5], icon: 'fireplace', display: 'Heating'},
+      { value: Amenity[19], icon: 'sunny', display: 'Airconditioning'},
+      { value: Amenity[22], icon: 'fireplace', display: 'Grill'},
+      { value: Amenity[23], icon: '', display: 'Bunk bed'},
+      { value: Amenity[24], icon: '', display: 'Bow thruster'},
+      { value: Amenity[9], icon: 'kitchen', display: 'Refrigerator'}
+    ]
 
     export var amenities = [
         { value: Amenity[0],  icon: 'bathroom',       display: 'Hair dryer'},
@@ -44,5 +73,5 @@ export namespace Global {
         { value: Amenity[19], icon: 'sunny',          display: 'Airconditioning'},
         { value: Amenity[20], icon: 'alarm_on',       display: 'Smoke alarm (This place may not have a smoke detector. )'},
         { value: Amenity[21], icon: 'alarm_on',       display: 'Carbon monoxid alarm (This place may not have a carbon monoxide detector.)'}
-      ];
+      ]
 }

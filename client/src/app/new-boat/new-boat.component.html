@@ -1,0 +1,115 @@
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <mat-card fxFlex="50">
+        <mat-toolbar color="primary">Register new boat</mat-toolbar>
+        <form fxLayoutAlign="stretch" fxLayout="column" class="register-form">
+
+            <mat-form-field>
+              <input [(ngModel)]="name" name="name" matInput placeholder="Boat name">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input [(ngModel)]="address" name="address" matInput placeholder="Address">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input [(ngModel)]="description" name="description" matInput placeholder="Description">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Choose boat type</mat-label>
+              <mat-select>
+                  <mat-option (click)="selectFerry()" value="Ferry">Ferry</mat-option>
+                  <mat-option (click)="selectCatamaran()" value="Catamaran">Catamaran</mat-option>
+                  <mat-option (click)="selectYacht()" value="Yacht">Yacht</mat-option>
+              </mat-select> 
+            </mat-form-field>
+
+            <mat-form-field id="maxNumPers">
+              <input [(ngModel)]="length" name="length" matInput placeholder="Length">
+            </mat-form-field>
+
+            <mat-form-field id="maxNumPers">
+              <input [(ngModel)]="numberOfMotors" type="number" min="1" max="20" name="numOfMotors" matInput placeholder="Number of motors">
+            </mat-form-field>
+
+            <mat-form-field id="maxNumPers">
+              <input [(ngModel)]="motorPower" name="motorPower" matInput placeholder="Engine power (hp)">
+            </mat-form-field>
+
+            <mat-form-field id="maxNumPers">
+              <input [(ngModel)]="maxSpeed" name="maxSpeed" matInput placeholder="Max boat speed (mi/s)">
+            </mat-form-field>
+
+            <mat-form-field id="maxNumPers">
+              <input [(ngModel)]="capacity" name="capacity" type="number" min="1" max="100" matInput placeholder="Capacity">
+            </mat-form-field>
+
+            <div>
+              <h4>Select navigation equipment</h4>
+              <select multiple name="navigationEquipment" [(ngModel)]="boat.navigationEquipment">
+                
+                <option *ngFor="let navEquip of navigationEquipment" [value]="navEquip.value">
+                  {{navEquip.display}}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <h4>Select fishing equipment</h4>
+              <select multiple name="fishingEquipment" [(ngModel)]="boat.fishingEquipment">
+                
+                <option *ngFor="let fishEquip of fishingEquipment" [value]="fishEquip.value">
+                  {{fishEquip.display}}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <h4>Comfort</h4>
+              <select multiple name="amenities" [(ngModel)]="boat.amenities">
+                
+                <option *ngFor="let amenity of amenities" [value]="amenity.value">
+                  {{amenity.display}}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <h4>Select rules</h4>
+              <select multiple name="services" [(ngModel)]="boat.additionalServices" id="secondSelect">
+                
+                <option *ngFor="let service of services" [value]="service.value">
+                  {{service.display}}
+                </option>
+              </select>
+            </div>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Choose cancelation type</mat-label>
+              <mat-select>
+                  <mat-option (click)="selectFree()" value="Ferry">Free</mat-option>
+                  <mat-option (click)="selectPercentage()" value="Catamaran">Owner retains percentage</mat-option>
+              </mat-select> 
+            </mat-form-field>
+
+            <form  id="uploadForm">
+                <h4>Add boat images</h4>
+                <div class="row">
+                  <div class="col-8">
+                    <label class="btn btn-default p-0">
+                      <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+                    </label>
+                </div>
+                
+                
+                </div>
+                
+                <div>
+                  <img *ngFor='let preview of previews' [src]="preview" class="preview">
+                </div>
+            </form>
+
+            <button mat-raised-button type="submit" (click)="addNewBoat()">Register</button>
+          </form>  
+    </mat-card>
+</div>

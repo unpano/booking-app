@@ -57,6 +57,7 @@ import { ListCottageFutureReservationsComponent } from './list-cottage-future-re
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileClientComponent } from './profile-client/profile-client.component';
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
+import { NewBoatComponent } from './new-boat/new-boat.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { ReportReservationComponent } from './report-reservation/report-reservat
     ListCottagePastReservationsComponent,
     ListCottageFutureReservationsComponent,
     ProfileClientComponent,
-    ReportReservationComponent
+    ReportReservationComponent,
+    NewBoatComponent
 
 
   ],

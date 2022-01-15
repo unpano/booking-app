@@ -7,5 +7,6 @@ import java.util.List;
 
 
 public interface BoatRepository extends JpaRepository<Boat, Long> {
+    List<Boat> findAllByBoatOwnerId(Long id);
 }
 

@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['cottages'])
           }
           if (sessionStorage.getItem('role') == "ROLE_BOAT_OWNER"){
-            this.router.navigate(['boatOwner'])
+            this.router.navigate(['boats'])
           }
           if (sessionStorage.getItem('role') == "ROLE_INSTRUCTOR"){
             this.router.navigate(["instructor"])

@@ -18,6 +18,7 @@ import { ListCottageFutureReservationsComponent } from './list-cottage-future-re
 import { ListCottagePastReservationsComponent } from './list-cottage-past-reservations/list-cottage-past-reservations.component';
 import { LoginComponent } from './login/login.component';
 import { NewActionComponent } from './new-action/new-action.component';
+import { NewBoatComponent } from './new-boat/new-boat.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -33,8 +34,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
 
-  
-  {path: 'boatOwner', component: HomePageBoatOwnerComponent},
   {path: 'instructor', component: HomePageInstructorComponent},
   {path: 'admin', component: HomePageAdminComponent},
   {path: 'client', component: HomePageClientComponent},
@@ -43,12 +42,15 @@ const routes: Routes = [
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
 
-  {path: 'boats', component: AllBoatsComponent},
   {path: 'allCottages', component: AllCottagesComponent},
   {path: 'allInstructors', component: AllInstructorsComponent},
 
-  {path: 'cottage', component: ProfileCottageComponent},
   {path: 'boat', component: ProfileBoatComponent},
+  {path: 'boats', component: HomePageBoatOwnerComponent},
+  {path: 'Boats', component: AllBoatsComponent},
+  {path: 'boats/new-boat', component: NewBoatComponent},
+
+  {path: 'cottage', component: ProfileCottageComponent},
   {path: 'cottage/reserve', component: NewReservationComponent},
   {path: 'cottage/action', component: NewActionComponent},
   {path: 'cottage/future-reservations', component: ListCottageFutureReservationsComponent},

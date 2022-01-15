@@ -1,7 +1,6 @@
 package ftn.booking.model;
 
-import ftn.booking.model.enums.BoatType;
-import ftn.booking.model.enums.NavigationEquipment;
+import ftn.booking.model.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,43 +24,57 @@ public class Boat {
 
     private String name;
 
-    private String address;
+    private Float length;
 
-    private String behaviorRules;
-
-    private String cancellationConditions;
-
-    private Integer capacity;
-
-    private String fishingEquipment;
-
-    private Long maxSpeed;
+    private Integer numberOfMotors;
 
     private Long motorPower;
 
+    private Float maxSpeed;
+
+    private String address;
+
     private String description;
 
-    private Long numberOfMotors;
+    private Integer capacity;
 
-    private Long rating;
+    private Float rate;
 
-    @Enumerated(EnumType.STRING)
-    private BoatType type;
-
-    private Long length;
+    @ManyToOne
+    private BoatOwner boatOwner;
 
     @Enumerated(EnumType.STRING)
-    private NavigationEquipment navigationEquipment;
+    private BoatType boatType;
 
-    ///pictures
+    @Enumerated(EnumType.STRING)
+    private CancelationType cancellationType;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "boat_service",
-            joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
-    )
-    private List<AdditionalService> boatAdditionalServices = new ArrayList<>();
+    @Enumerated
+    @ElementCollection(targetClass = NavigationEquipment.class)
+    private List<NavigationEquipment> navigationEquipment = new ArrayList<>();
+
+    //Pravila ponasanja
+    @Enumerated
+    @ElementCollection(targetClass = Service.class)
+    private List<Service> additionalServices = new ArrayList<>();
+
+    //Pecaroska oprema
+    @Enumerated
+    @ElementCollection(targetClass = FishingEquipment.class)
+    private List<FishingEquipment> fishingEquipment = new ArrayList<>();
+
+    //Dodatne usluge
+    @Enumerated
+    @ElementCollection(targetClass = Amenity.class)
+    private List<Amenity> amenities = new ArrayList<>();
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "boat_service",
+//            joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
+//    )
+//    private List<AdditionalService> boatAdditionalServices = new ArrayList<>();
 
 
     //@OneToOne

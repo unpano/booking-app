@@ -4,32 +4,32 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Cottage } from '../dto/cottage';
-import { Room } from '../dto/Room';
+import { Boat } from '../dto/boat';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
 @Component({
-  selector: 'app-new-cottage',
-  templateUrl: './new-cottage.component.html',
-  styleUrls: ['./new-cottage.component.css']
+  selector: 'app-new-boat',
+  templateUrl: './new-boat.component.html',
+  styleUrls: ['./new-boat.component.css']
 })
-export class NewCottageComponent implements OnInit {
+export class NewBoatComponent implements OnInit {
 
-  amenities = Global.amenities
-  
+  amenities = Global.amenitiesBoat
   services = Global.services
+  navigationEquipment = Global.navigationEquipment
+  fishingEquipment = Global.fishingEquipment
 
   name !: String
+  length !: Number
+  numberOfMotors !: Number
+  motorPower !: Number
+  maxSpeed !: Number
   address !: String
-  city !: String
   description !: String
-  maxNumPers !: Number
-  oneDayPrice !: Number
-  roomNum !: Number 
-  rooms : Room[] = []
+  capacity !: Number
 
-  cottage: Cottage = new Cottage()
+  boat: Boat = new Boat()
 
   endpoint = Endpoint; 
 
@@ -41,33 +41,41 @@ export class NewCottageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changeNumOfRooms(){
-    this.rooms = []
-    for(let i=0; i< this.roomNum;i++){
-      var room = new Room()
-      this.rooms.push(room)
-    }
+  selectFerry(){
+    this.boat.boatType = 0
+  }
+  selectCatamaran(){
+    this.boat.boatType = 1
+  }
+  selectYacht(){
+    this.boat.boatType = 2
+  }
+  selectFree(){
+    this.boat.cancelationType = 0
+  }
+  selectPercentage(){
+    this.boat.cancelationType = 1
   }
 
-  addNewCottage(){
+  addNewBoat(){
     //cottage dto object
-      this.cottage.address = this.address
-      this.cottage.city = this.city
-      this.cottage.name = this.name
-      this.cottage.description = this.description
-      this.cottage.maxNumOfPersons = this.maxNumPers
-      this.cottage.rooms = this.rooms
-      this.cottage.oneDayPrice = this.oneDayPrice
-      
+    this.boat.name = this.name
+    this.boat.length = this.length
+    this.boat.numberOfMotors = this.numberOfMotors
+    this.boat.motorPower = this.motorPower
+    this.boat.maxSpeed = this.maxSpeed
+    this.boat.address = this.address
+    this.boat.description = this.description
+    this.boat.capacity = this.capacity
 
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     
-    const body=JSON.stringify(this.cottage);
+    const body=JSON.stringify(this.boat);
     
   //create new cottage
-    this.http.post<any>(this.endpoint.COTTAGES, body, options).pipe(
+    this.http.post<any>(this.endpoint.BOATS, body, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
@@ -77,16 +85,15 @@ export class NewCottageComponent implements OnInit {
 
         return EMPTY;
       }),
-      map(returnedCottage => {
-        this.cottage.id = returnedCottage['id']
+      map(returnedBoat => {
+        this.boat.id = returnedBoat['id']
 
 })
     ).subscribe( () => {
-      //add pictures of cottage to db
+      //add pictures of boat to db
       this.uploadFiles()
-      alert("Successfully created cottage profile.")
-      this.router.navigate(["cottages"])
-
+      alert("Successfully created boat profile.")
+      this.router.navigate(["boats"])
     })
                       
   }
@@ -126,10 +133,12 @@ export class NewCottageComponent implements OnInit {
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     
-    this.http.post<any>(this.endpoint.UPLOAD + 'add-cottage-picture/' + this.cottage.id, formData, options)
+    this.http.post<any>(this.endpoint.UPLOAD + 'add-boat-picture/' + this.boat.id, formData, options)
             .subscribe()
     
       
       }  
 
 }
+
+

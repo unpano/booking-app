@@ -1,7 +1,7 @@
 package ftn.booking.service.impl;
 
 import ftn.booking.model.Cottage;
-import ftn.booking.model.Image;
+import ftn.booking.model.CottageImage;
 import ftn.booking.model.User;
 import ftn.booking.service.ImageService;
 import ftn.booking.service.StorageService;
@@ -16,9 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Service
@@ -86,7 +83,7 @@ public class StorageServiceImpl implements StorageService {
         file.transferTo(outputFile);
 
         //treba ubeleziti da cottageId-ju odgovara ta slika
-        Image image = new Image();
+        CottageImage image = new CottageImage();
         Cottage cottage = new Cottage();
         cottage.setId(cottageId);
         image.setCottage(cottage);

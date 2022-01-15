@@ -9,10 +9,11 @@
 
 
 <form (ngSubmit)="onSubmit()">
-    <div *ngIf="whoIsLogged() == 'cottageOwner'">
-        <h3>Cottage owner</h3>
+    <div >
+        <h3 *ngIf="whoIsLogged() == 'cottageOwner'">Cottage owner</h3>
+        <h3 *ngIf="whoIsLogged() == 'boatOwner'">Boat owner</h3>
         
-        <label for="username">Username: {{user.email}}</label>
+        <label for="username">Username: {{mail}}</label>
         <input type="text" id="username" *ngIf="editButtonClicked" name="email" [(ngModel)]="email">
 
         <label for="phone">Phone number: {{user.phoneNumber}}</label>

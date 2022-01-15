@@ -1,6 +1,7 @@
 package ftn.booking.controller;
-import ftn.booking.dto.ReservationDTO;
+
 import ftn.booking.dto.CottageDTO;
+import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.model.*;
 import ftn.booking.service.*;
@@ -12,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController

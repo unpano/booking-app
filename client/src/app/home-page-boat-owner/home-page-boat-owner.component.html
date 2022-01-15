@@ -1,1 +1,42 @@
-<p>home-page-boat-owner works!</p>
+<mat-card> 
+    <mat-card-content>
+      <form novalidate class="form-inline">
+          <div class="container">
+              <div class="row">
+                
+                <button id="addBtn" routerLink="new-boat"><mat-icon>add</mat-icon> Add boat</button>
+                <div class="search-hero">
+                  <input class="form-control" type="text" style="font-family:Arial, FontAwesome" name="search"  [(ngModel)]="searchText" autocomplete="off" placeholder="&#xF002; Search">
+                </div>
+                <table matSort (matSortChange)="sortData($event)">
+                  <thead>
+                  <tr> 
+                    <th mat-sort-header="name">Boat</th>
+                    <th mat-sort-header="address">Address</th>
+                    <th mat-sort-header="city">City</th>
+                    <th mat-sort-header="rate"></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let boat of sortedData | filter:searchText">
+                    <td>{{boat.name}}</td>
+                    <td>{{boat.address}}</td>
+                    <td>{{boat.city}}</td>
+                    <td>
+                      <div id="starsRow" *ngFor="let i of starNamesFunc(boat.rate)">
+                        <i class="material-icons">star_{{i}}</i>
+                      </div>
+                    </td>
+                    
+                    <button id="eyeBtn" (click)="boatDetails(boat)"> View</button>
+                    
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+      </form> 
+    </mat-card-content>
+  </mat-card>
+

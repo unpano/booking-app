@@ -1,12 +1,13 @@
 package ftn.booking.service;
 
 import ftn.booking.model.Cottage;
-import ftn.booking.model.Image;
+import ftn.booking.model.CottageImage;
+import ftn.booking.model.CottageImage;
 
 import java.util.List;
 
 public interface ImageService {
-    Image add(Image image);
+    CottageImage add(CottageImage image);
 
     List<String> findImagesByCottageId(Long cottageId);
 

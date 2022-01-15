@@ -60,4 +60,14 @@ public class BoatServiceImpl implements BoatService {
 
         return resultBoats;
     }
+
+    @Override
+    public Boat add(Boat boat) {
+        return boatRepository.save(boat);
+    }
+
+    @Override
+    public List<Boat> findAllOwnerBoats(Long id) {
+        return boatRepository.findAllByBoatOwnerId(id);
+    }
 }

@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
   user : any 
   user1: any
 
+  mail !: String
+
   email !: String
   address !: String
   city !: String
@@ -52,6 +54,7 @@ export class ProfileComponent implements OnInit {
         this.user = returnedUser
         this.user1 = returnedUser
         this.user1["email"] = undefined
+        this.mail = returnedUser["username"]
       })).subscribe()
   }
 

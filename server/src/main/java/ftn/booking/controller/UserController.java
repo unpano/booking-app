@@ -75,22 +75,17 @@ public class UserController {
             if (existUser != null)
                 throw new ResourceConflictException("User with same email already exists.");
         }
-        if(userDTO.getEmail() != null){
+        if(userDTO.getEmail() != null)
             user.setEmail(userDTO.getEmail());
-        }if(userDTO.getAddress() != null){
+        if(userDTO.getAddress() != null)
             user.setAddress(userDTO.getAddress());
-        }if(userDTO.getCity() != null){
+        if(userDTO.getCity() != null)
             user.setCity(userDTO.getCity());
-        }if(userDTO.getCountry() != null){
+        if(userDTO.getCountry() != null)
             user.setCountry(userDTO.getCountry());
-        }if(userDTO.getPhoneNumber() != null){
+        if(userDTO.getPhoneNumber() != null)
             user.setPhoneNumber(userDTO.getPhoneNumber());
-        }
 
-        //String password = user.getPassword();
-        //modelMapper.map(userDTO, user);
-       // user.setEmail(user.getEmail());
-        //user.setPassword(password);
 
         return new ResponseEntity<>(userService.updateUser(user),HttpStatus.OK);
     }
