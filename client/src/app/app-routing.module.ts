@@ -15,6 +15,8 @@ import { HomePageClientComponent } from './home-page-client/home-page-client.com
 import { HomePageCottageOwnerComponent } from './home-page-cottage-owner/home-page-cottage-owner.component';
 import { HomePageInstructorComponent } from './home-page-instructor/home-page-instructor.component';
 import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticated-user/home-page-unauthenticated-user.component';
+import { ListBoatFutureReservationsComponent } from './list-boat-future-reservations/list-boat-future-reservations.component';
+import { ListBoatPastReservationsComponent } from './list-boat-past-reservations/list-boat-past-reservations.component';
 import { ListCottageFutureReservationsComponent } from './list-cottage-future-reservations/list-cottage-future-reservations.component';
 import { ListCottagePastReservationsComponent } from './list-cottage-past-reservations/list-cottage-past-reservations.component';
 import { LoginComponent } from './login/login.component';
@@ -50,6 +52,8 @@ const routes: Routes = [
   {path: 'boat/delete', component: DeleteBoatComponent},
   {path: 'boat/action', component: NewActionComponent},
   {path: 'boat/reserve', component: NewReservationComponent},
+  {path: 'boat/future-reservations', component: ListBoatFutureReservationsComponent},
+  {path: 'boat/past-reservations', component: ListBoatPastReservationsComponent},
   {path: 'boats', component: HomePageBoatOwnerComponent},
   {path: 'boats/new-boat', component: NewBoatComponent},
 

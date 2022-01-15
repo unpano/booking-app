@@ -31,7 +31,7 @@ export class ListCottagePastReservationsComponent implements OnInit {
     let options = { headers: headers };
 
     this.http
-        .get(this.endpoint.RESERVATIONS + sessionStorage.getItem('cottageId') + '/past-reservations',options)
+        .get(this.endpoint.RESERVATIONS + sessionStorage.getItem('cottageId') + '/cottage-past-reservations',options)
           .pipe(
             map(returnedReservations=> {
               this.reservations = returnedReservations
@@ -61,7 +61,7 @@ export class ListCottagePastReservationsComponent implements OnInit {
 
   report(id: Number){
     sessionStorage.setItem("reservationId",id.toString());
-    this.router.navigate(["cottage/past-reservations/report"])
+    this.router.navigate(["cottage/cottage-past-reservations/report"])
   }
 
   sortData(sort: Sort) {

@@ -18,15 +18,15 @@ export namespace Global {
     export var forbiddenDatesBoat: any
 
     export var fishingEquipment = [
-      {value: FishingEquipment[0], icon: '', display: 'Stick'},
-      {value: FishingEquipment[1], icon: '', display: 'Rope'},
+      {value: FishingEquipment[0], icon: 'apple', display: 'Stick'},
+      {value: FishingEquipment[1], icon: 'apple', display: 'Rope'},
     ]
 
     export var navigationEquipment = [
-      {value: NavigationEquipment[0], icon: '', display: 'GPS'},
-      {value: NavigationEquipment[1], icon: '', display: 'Radar'},
-      {value: NavigationEquipment[2], icon: '', display: 'VHF Radio'},
-      {value: NavigationEquipment[3], icon: '', display: 'Fishfinder'}
+      {value: NavigationEquipment[0], icon: 'gps_fixed', display: 'GPS'},
+      {value: NavigationEquipment[1], icon: 'radar', display: 'Radar'},
+      {value: NavigationEquipment[2], icon: 'radio', display: 'VHF Radio'},
+      {value: NavigationEquipment[3], icon: 'water', display: 'Fishfinder'}
     ]
 
     export var services = [

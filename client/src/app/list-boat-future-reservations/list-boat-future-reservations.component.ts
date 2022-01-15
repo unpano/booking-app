@@ -9,11 +9,11 @@ import { ProfileClientComponent } from '../profile-client/profile-client.compone
 import { Endpoint } from '../util/endpoints-enum';
 
 @Component({
-  selector: 'app-list-cottage-future-reservations',
-  templateUrl: './list-cottage-future-reservations.component.html',
-  styleUrls: ['./list-cottage-future-reservations.component.css']
+  selector: 'app-list-boat-future-reservations',
+  templateUrl: './list-boat-future-reservations.component.html',
+  styleUrls: ['./list-boat-future-reservations.component.css']
 })
-export class ListCottageFutureReservationsComponent implements OnInit {
+export class ListBoatFutureReservationsComponent implements OnInit {
 
   reservations: any
 
@@ -30,11 +30,11 @@ export class ListCottageFutureReservationsComponent implements OnInit {
     let options = { headers: headers };
 
     this.http
-        .get(this.endpoint.RESERVATIONS + sessionStorage.getItem('cottageId') + '/cottage-future-reservations',options)
+        .get(this.endpoint.RESERVATIONS + sessionStorage.getItem('boatId') + '/boat-future-reservations',options)
           .pipe(
             map(returnedReservations=> {
               this.reservations = returnedReservations
-              console.log(this.reservations)
+              //console.log(this.reservations)
               this.sortedData = this.reservations.slice()
             })).subscribe()
   }

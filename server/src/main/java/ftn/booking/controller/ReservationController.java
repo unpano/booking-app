@@ -48,16 +48,28 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.findAllFutureActionsByBoatId(id), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/past-reservations")
+    @GetMapping("/{id}/cottage-past-reservations")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<List<Reservation>> findAllCottagePastReservations(@PathVariable Long id){
         return new ResponseEntity<>(reservationService.findAllPastReservationsByCottageId(id), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/future-reservations")
+    @GetMapping("/{id}/boat-past-reservations")
+    @PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<List<Reservation>> findAllBoatPastReservations(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.findAllPastReservationsByBoatId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/cottage-future-reservations")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<List<Reservation>> findAllCottageFutureReservations(@PathVariable Long id){
         return new ResponseEntity<>(reservationService.findAllFutureReservationsByCottageId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/boat-future-reservations")
+    @PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<List<Reservation>> findAllBoatFutureReservations(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.findAllFutureReservationsByBoatId(id), HttpStatus.OK);
     }
 
     @GetMapping("/isDateFree")

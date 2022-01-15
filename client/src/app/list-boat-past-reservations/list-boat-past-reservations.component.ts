@@ -4,16 +4,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { Reservation } from '../dto/reservation';
 import { User } from '../dto/user';
 import { ProfileClientComponent } from '../profile-client/profile-client.component';
 import { Endpoint } from '../util/endpoints-enum';
 
+
 @Component({
-  selector: 'app-list-cottage-future-reservations',
-  templateUrl: './list-cottage-future-reservations.component.html',
-  styleUrls: ['./list-cottage-future-reservations.component.css']
+  selector: 'app-list-boat-past-reservations',
+  templateUrl: './list-boat-past-reservations.component.html',
+  styleUrls: ['./list-boat-past-reservations.component.css']
 })
-export class ListCottageFutureReservationsComponent implements OnInit {
+export class ListBoatPastReservationsComponent implements OnInit {
 
   reservations: any
 
@@ -30,13 +32,23 @@ export class ListCottageFutureReservationsComponent implements OnInit {
     let options = { headers: headers };
 
     this.http
-        .get(this.endpoint.RESERVATIONS + sessionStorage.getItem('cottageId') + '/cottage-future-reservations',options)
+        .get(this.endpoint.RESERVATIONS + sessionStorage.getItem('boatId') + '/boat-past-reservations',options)
           .pipe(
             map(returnedReservations=> {
               this.reservations = returnedReservations
-              console.log(this.reservations)
               this.sortedData = this.reservations.slice()
-            })).subscribe()
+            })).subscribe(() =>{
+              //check if reservation is already reported by cottage owner
+              this.reservations.forEach((reservation: Reservation) => {
+                this.http
+                    .get(this.endpoint.RESERVATIONS + reservation.id + '/isReported',options)
+                      .pipe(
+                        map(isReported => {
+                          if(isReported) reservation.reported = true; else reservation.reported = false
+                        })).subscribe()
+              });
+              
+            })
   }
 
   clientProfile(client: User){
@@ -46,6 +58,11 @@ export class ListCottageFutureReservationsComponent implements OnInit {
       maxHeight: '90vh' //you can adjust the value as per your view
     })
     dialogRef.afterClosed().subscribe();
+  }
+
+  report(id: Number){
+    sessionStorage.setItem("reservationId",id.toString());
+    this.router.navigate(["boat/boat-past-reservations/report"])
   }
 
   sortData(sort: Sort) {

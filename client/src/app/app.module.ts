@@ -59,6 +59,8 @@ import { ProfileClientComponent } from './profile-client/profile-client.componen
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
 import { NewBoatComponent } from './new-boat/new-boat.component';
 import { DeleteBoatComponent } from './delete-boat/delete-boat.component';
+import { ListBoatFutureReservationsComponent } from './list-boat-future-reservations/list-boat-future-reservations.component';
+import { ListBoatPastReservationsComponent } from './list-boat-past-reservations/list-boat-past-reservations.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +102,9 @@ import { DeleteBoatComponent } from './delete-boat/delete-boat.component';
     ProfileClientComponent,
     ReportReservationComponent,
     NewBoatComponent,
-    DeleteBoatComponent
+    DeleteBoatComponent,
+    ListBoatFutureReservationsComponent,
+    ListBoatPastReservationsComponent
 
 
   ],

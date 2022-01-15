@@ -61,8 +61,18 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<Reservation> findAllPastReservationsByBoatId(Long id) {
+        return reservationRepository.findAllByBoatIdAndEndTimeBefore(id, LocalDateTime.now());
+    }
+
+    @Override
     public List<Reservation> findAllFutureReservationsByCottageId(Long id) {
         return reservationRepository.findAllByCottageIdAndStartTimeAfter(id,LocalDateTime.now());
+    }
+
+    @Override
+    public List<Reservation> findAllFutureReservationsByBoatId(Long id) {
+        return reservationRepository.findAllByBoatIdAndStartTimeAfter(id,LocalDateTime.now());
     }
 
     @Override
