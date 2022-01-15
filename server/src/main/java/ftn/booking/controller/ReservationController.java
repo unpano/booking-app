@@ -36,10 +36,16 @@ public class ReservationController {
         return reportService.isReservationReported(id);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/cottage/{id}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<List<Reservation>> findAllCottageActions(@PathVariable Long id){
         return new ResponseEntity<>(reservationService.findAllFutureActionsByCottageId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/boat/{id}")
+    @PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<List<Reservation>> findAllBoatActions(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.findAllFutureActionsByBoatId(id), HttpStatus.OK);
     }
 
     @GetMapping("/{id}/past-reservations")
@@ -83,7 +89,7 @@ public class ReservationController {
 
 
     @PutMapping("/{id}/{username}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")
     public ResponseEntity<Reservation> reserveActionForClient(@PathVariable Long id,
                                                               @PathVariable String username) {
 

@@ -31,11 +31,13 @@ export class NewReservationComponent implements OnInit {
   reservation : Reservation = new Reservation()
   reservationType !: ReservationType 
 
-  actions : any
+  cottageActions : any
+  boatActions    : any
 
-  reservedCottageName !: String
-
+  boat : any
+  reservedBoatName !: String
   
+  reservedCottageName !: String
 
   constructor(private router: Router, private http: HttpClient, private dateService: DateFilterService) { 
     const today = new Date();
@@ -55,10 +57,17 @@ export class NewReservationComponent implements OnInit {
     let options = { headers: headers };
 
     this.http
-        .get(this.endpoint.RESERVATIONS + sessionStorage.getItem('cottageId'),options)
+        .get(this.endpoint.RESERVATIONS + 'cottage/' + sessionStorage.getItem('cottageId'),options)
           .pipe(
             map(returnedActions => {
-              this.actions = returnedActions
+              this.cottageActions = returnedActions
+            })).subscribe(() =>{})
+
+    this.http
+        .get(this.endpoint.RESERVATIONS + 'boat/' + sessionStorage.getItem('boatId'),options)
+          .pipe(
+            map(returnedActions => {
+              this.boatActions = returnedActions
             })).subscribe(() =>{})
   }
 
@@ -68,7 +77,33 @@ export class NewReservationComponent implements OnInit {
     return true
   };
 
-  isFree(input: Date): boolean{
+  isFree(date: Date){
+    if(sessionStorage.getItem('role') == "ROLE_COTTAGE_OWNER"){
+      return this.isFreeCottage(date)
+    }else
+      return this.isFreeBoat(date)
+  }
+
+  isFreeBoat(input: Date){
+    let dateIsFree : boolean = true
+
+    input.setDate(input.getDate() +1)
+
+    let date1 = new Date(input).toISOString()
+    date1.toLocaleString();
+    date1 = date1.substring(0,date1.indexOf("T"))
+
+    Global.forbiddenDatesBoat.forEach((date: Date)=> {
+
+      if(date1 == date.toString()){
+      
+        dateIsFree = false
+      }
+    });
+     return dateIsFree
+  }
+
+  isFreeCottage(input: Date): boolean{
     let dateIsFree : boolean = true
 
     input.setDate(input.getDate() +1)
@@ -88,10 +123,33 @@ export class NewReservationComponent implements OnInit {
     
   }
 
+  whoIsLogged(): String{
+    if(sessionStorage.getItem('role') == 'ROLE_CLIENT'){
+      return 'client'
+    }
+    if(sessionStorage.getItem('role') == 'ROLE_ADMIN'){
+      return 'admin'
+    }
+    if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
+      return 'cottageOwner'
+    }
+    if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER'){
+      return 'boatOwner'
+    }
+    if(sessionStorage.getItem('role') == 'ROLE_INSTRUCTOR'){
+      return 'instructor'
+    }
+
+    return 'nobody'
+  }
+
   reserve(){
 
     if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
       this.reservation.reservationType = ReservationType.COTTAGE
+    }
+    if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER'){
+      this.reservation.reservationType = ReservationType.BOAT
     }
     this.reservation.startTime = this.pickPeriod.value["start"]
     this.reservation.endTime = this.pickPeriod.value["end"]
@@ -101,11 +159,11 @@ export class NewReservationComponent implements OnInit {
     let options = { headers: headers };
     
     const body=JSON.stringify(this.reservation);
-    console.log(body)
+    //console.log(body)
     
   //create new reservation
   if(this.username == undefined) alert("You did not fill the username for reservation.");
-  else{
+  else if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
     this.http.post<any>(this.endpoint.RESERVATIONS + this.username +
                                                       "/" + sessionStorage.getItem("cottageId") + "/" + false + '/' + undefined, body, options).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -137,7 +195,41 @@ export class NewReservationComponent implements OnInit {
       this.sendMail(this.username)
       alert("Successfully reserved cottage.")
       this.router.navigate(["cottage"])
-    })}
+    })}else if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER'){
+      {
+        this.http.post<any>(this.endpoint.RESERVATIONS + this.username +
+                                                          "/" + sessionStorage.getItem("boatId") + "/" + false + '/' + undefined, body, options).pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.error instanceof Error) {
+              alert("Bad request, please try again later.");
+            } else {
+              if(sessionStorage.getItem('boatId') == undefined)
+                this.router.navigate(["login"])
+               alert("Client does not exist.")
+            }
+    
+            return EMPTY;
+          }),map(reservedBoat => {
+    
+            const headers = { 'content-type': 'application/json',
+                          'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+            let options = { headers: headers };
+            this.http
+            .get(this.endpoint.BOATS + sessionStorage.getItem('boatId'),options)
+              .pipe(
+                map(returnedBoat => {
+                  this.boat = returnedBoat
+                  this.reservedBoatName = this.boat["name"]
+                })).subscribe()
+                
+          })
+        ).subscribe(() => {
+          
+          this.sendMail(this.username)
+          alert("Successfully reserved boat.")
+          this.router.navigate(["boat"])
+        })}
+    }
     
   }
 
@@ -147,7 +239,7 @@ export class NewReservationComponent implements OnInit {
     let options = { headers: headers };
     
     if(this.username == undefined) alert("You did not fill the username for reservation.");
-    else{
+    else if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
       this.http.put<any>(this.endpoint.RESERVATIONS + id +
                                                         "/" + this.username,null, options).pipe(
         catchError((error: HttpErrorResponse) => {
@@ -164,7 +256,23 @@ export class NewReservationComponent implements OnInit {
         alert("Successfully reserved cottage.")
         this.router.navigate(["cottage"])
       })}
-  }
+      else if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER'){
+        this.http.put<any>(this.endpoint.RESERVATIONS + id +
+          "/" + this.username,null, options).pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.error instanceof Error) {
+            alert("Bad request, please try again later.");
+          } else {
+            alert("Action does not exist.");
+          }
+
+          return EMPTY;
+          })
+          ).subscribe(() => {
+          this.sendMail(this.username)
+          alert("Successfully reserved boat.")
+          this.router.navigate(["boat"])
+          })}}
 
   sendMail(username: String){
     let mail = new MailDTO()
@@ -174,7 +282,7 @@ export class NewReservationComponent implements OnInit {
     //mail.mailTo = username
     mail.mailTo = "isaBooking56@gmail.com"
     mail.mailSubject = "-CONFIRMATION MAIL-"
-    mail.mailContent = "Successfully booked cottage " + this.reservedCottageName + ". Period: " + this.reservation.startTime + 
+    mail.mailContent = "Successfully booked "+ this.findName() + + this.reservedCottageName + ". Period: " + this.reservation.startTime + 
     "-" + this.reservation.endTime + ". Kind requards, Isa Team 56."
 
     const headers = { 'content-type': 'application/json',
@@ -194,6 +302,13 @@ export class NewReservationComponent implements OnInit {
         return EMPTY;
       })
     ).subscribe()
+  }
+
+  findName(){
+    if(this.reservedBoatName != undefined)
+    return "boat " + this.reservedBoatName
+    else
+    return "cottage " + this.reservedCottageName
   }
 
 }

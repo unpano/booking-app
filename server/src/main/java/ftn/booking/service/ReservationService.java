@@ -37,4 +37,6 @@ public interface ReservationService{
     List<Reservation> findAllByBoatId(Long id);
 
     List<LocalDate> findAllForbiddenDatesBoat();
+
+    List<Reservation> findAllFutureActionsByBoatId(Long id);
 }

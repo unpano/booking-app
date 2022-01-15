@@ -66,6 +66,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<Reservation> findAllFutureActionsByBoatId(Long id) {
+        return reservationRepository.findAllByBoatIdAndClientIdAndStartTimeAfter(id,null, LocalDateTime.now());
+    }
+
+    @Override
     public Boolean checkIfDateIsFree(LocalDateTime date) {
         return reservationRepository.checkIfDateIsFree(date) <= 0;
     }
