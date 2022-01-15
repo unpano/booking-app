@@ -61,7 +61,7 @@ export class ListCottagePastReservationsComponent implements OnInit {
 
   report(id: Number){
     sessionStorage.setItem("reservationId",id.toString());
-    this.router.navigate(["cottage/cottage-past-reservations/report"])
+    this.router.navigate(["cottage/past-reservations/report"])
   }
 
   sortData(sort: Sort) {

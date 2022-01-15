@@ -31,7 +31,7 @@ public class ReservationController {
     private BoatService boatService;
 
     @GetMapping("/{id}/isReported")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")
     public Boolean isReservationReported(@PathVariable Long id) {
         return reportService.isReservationReported(id);
     }

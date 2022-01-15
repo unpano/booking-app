@@ -72,12 +72,18 @@ export class ReportReservationComponent implements OnInit {
         return EMPTY;
       })).subscribe(() =>{
         alert("Successfully reported client visit.")
-        this.router.navigate(["cottage/past-reservations"])
+        if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER')
+          this.router.navigate(["cottage/past-reservations"])
+        else if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER')
+          this.router.navigate(["boat/past-reservations"])
       } )
   }
 
   cancel(){
-      this.router.navigate(["past-reservations"])
+    if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER')
+      this.router.navigate(["cottage/past-reservations"])
+    else if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER')
+      this.router.navigate(["boat/past-reservations"])
   }
 
 }

@@ -62,7 +62,7 @@ export class ListBoatPastReservationsComponent implements OnInit {
 
   report(id: Number){
     sessionStorage.setItem("reservationId",id.toString());
-    this.router.navigate(["boat/boat-past-reservations/report"])
+    this.router.navigate(["boat/past-reservations/report"])
   }
 
   sortData(sort: Sort) {

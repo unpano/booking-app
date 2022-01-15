@@ -54,6 +54,7 @@ const routes: Routes = [
   {path: 'boat/reserve', component: NewReservationComponent},
   {path: 'boat/future-reservations', component: ListBoatFutureReservationsComponent},
   {path: 'boat/past-reservations', component: ListBoatPastReservationsComponent},
+  {path: 'boat/past-reservations/report', component: ReportReservationComponent},
   {path: 'boats', component: HomePageBoatOwnerComponent},
   {path: 'boats/new-boat', component: NewBoatComponent},
 

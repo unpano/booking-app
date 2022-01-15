@@ -25,7 +25,7 @@ public class ReportController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")
     public ResponseEntity<Report> addReport(@RequestBody ReportDTO reportDTO){
 
         Reservation reservation = reservationService.findById(reportDTO.getReservationId());
