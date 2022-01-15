@@ -28,6 +28,7 @@ export class NewBoatComponent implements OnInit {
   address !: String
   description !: String
   capacity !: Number
+  oneDayPrice !: Number
 
   boat: Boat = new Boat()
 
@@ -67,6 +68,7 @@ export class NewBoatComponent implements OnInit {
     this.boat.address = this.address
     this.boat.description = this.description
     this.boat.capacity = this.capacity
+    this.boat.oneDayPrice = this.oneDayPrice
 
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  

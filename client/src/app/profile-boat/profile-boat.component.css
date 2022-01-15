@@ -4,7 +4,7 @@ label{
   width: 400px;
 }
 
-h1{
+h1,h4{
   margin-top: 5%;
   margin-bottom: 2%;
   font-weight: bold;
@@ -62,7 +62,7 @@ form{
   width: 200px;
 }
 select{
-  height: 400px;
+  
 }
 .demo-inline-calendar-card {
   width: 300px;

@@ -15,4 +15,8 @@ public interface BoatService {
     List<Boat> findAllOwnerBoats(Long id);
 
     void delete(Boat boat);
+
+    Boat update(Boat boat);
+
+    Boat findOne(Long entityId);
 }

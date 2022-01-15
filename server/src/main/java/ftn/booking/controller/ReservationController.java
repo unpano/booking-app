@@ -4,10 +4,7 @@ import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.PeriodConflictException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.ReservationType;
-import ftn.booking.service.CottageService;
-import ftn.booking.service.ReportService;
-import ftn.booking.service.ReservationService;
-import ftn.booking.service.UserService;
+import ftn.booking.service.*;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -31,6 +28,7 @@ public class ReservationController {
     private CottageService cottageService;
     private ModelMapper modelMapper;
     private ReportService reportService;
+    private BoatService boatService;
 
     @GetMapping("/{id}/isReported")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
@@ -70,12 +68,19 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.checkIfDateIsFree(dateTime), HttpStatus.OK);
     }
 
-    @GetMapping("/forbiddenDates")
+    @GetMapping("/forbiddenDatesCottage")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
-    public ResponseEntity<List<LocalDate>> findAllForbiddenDates(){
+    public ResponseEntity<List<LocalDate>> findAllForbiddenDatesForCottage(){
 
-        return new ResponseEntity<>(reservationService.findAllForbiddenDates(), HttpStatus.OK);
+        return new ResponseEntity<>(reservationService.findAllForbiddenDatesCottage(), HttpStatus.OK);
     }
+    @GetMapping("/forbiddenDatesBoat")
+    @PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<List<LocalDate>> findAllForbiddenDatesForBoat(){
+
+        return new ResponseEntity<>(reservationService.findAllForbiddenDatesBoat(), HttpStatus.OK);
+    }
+
 
     @PutMapping("/{id}/{username}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
@@ -103,7 +108,7 @@ public class ReservationController {
 
     //OBICNA REZERVACIJA SALJE FALSE ZA IS_ACTION
     @PostMapping("/{username}/{entityId}/{isAction}/{actionPrice}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")
     public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDTO reservationDTO,
                                                       @PathVariable String username,
                                                       @PathVariable Long entityId,
@@ -171,7 +176,14 @@ public class ReservationController {
                 reservation.setPrice(numOfDays*Long.parseLong(actionPrice));
 
         }else if(reservationDTO.getReservationType() == ReservationType.BOAT){
-            //TODO calculate price for renting boat
+            long numOfDays = ChronoUnit.DAYS.between(reservation.getStartTime(), reservation.getEndTime());
+            float oneDayPrice = boatService.findOne(entityId).getOneDayPrice();
+
+            //number of days x price for one day stay = price for cottage
+            if(Objects.equals(actionPrice, "undefined"))
+                reservation.setPrice((long) (numOfDays*oneDayPrice));
+            else
+                reservation.setPrice(numOfDays*Long.parseLong(actionPrice));
 
         }else{
             //TODO calculate price for adventure reservation

@@ -53,7 +53,7 @@ export class ProfileCottageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.dateService.findForbiddenDate()
+    this.dateService.findForbiddenDatesCottage()
 
     //cottage details
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
@@ -178,7 +178,7 @@ export class ProfileCottageComponent implements OnInit {
       this.starNames.push('rate')
     }
 
-    console.log(this.starNames)
+    //console.log(this.starNames)
     return this.starNames
   }
 

@@ -14,7 +14,8 @@ export namespace Global {
     export var clickedBoat : Boat
     export var clickedInstructor : User
     export var cottage: Cottage = new Cottage()
-    export var forbiddenDates: any
+    export var forbiddenDatesCottage: any
+    export var forbiddenDatesBoat: any
 
     export var fishingEquipment = [
       {value: FishingEquipment[0], icon: '', display: 'Stick'},
@@ -26,11 +27,6 @@ export namespace Global {
       {value: NavigationEquipment[1], icon: '', display: 'Radar'},
       {value: NavigationEquipment[2], icon: '', display: 'VHF Radio'},
       {value: NavigationEquipment[3], icon: '', display: 'Fishfinder'}
-    ]
-
-    export var boatRules = [
-      {value: AdditionalService[4], icon: '', display: ''},
-
     ]
 
     export var services = [

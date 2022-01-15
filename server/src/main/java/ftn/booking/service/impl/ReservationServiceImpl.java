@@ -19,7 +19,6 @@ public class ReservationServiceImpl implements ReservationService {
 
     private ReservationRepository reservationRepository;
 
-
     @Override
     public Reservation add(Reservation reservation) {
         return reservationRepository.save(reservation);
@@ -72,8 +71,21 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<LocalDate> findAllForbiddenDates() {
-        List<Reservation> reservations = reservationRepository.findAll();
+    public List<LocalDate> findAllForbiddenDatesCottage() {
+        List<Reservation> reservations = reservationRepository.findAllByReservationType(ReservationType.COTTAGE);
+        List<LocalDate> forbiddenDates = new ArrayList<>();
+
+        for (Reservation res: reservations) {
+            List<LocalDate> betweenDates = findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime());
+            forbiddenDates.addAll(betweenDates);
+        }
+
+        return forbiddenDates;
+    }
+
+    @Override
+    public List<LocalDate> findAllForbiddenDatesBoat() {
+        List<Reservation> reservations = reservationRepository.findAllByReservationType(ReservationType.BOAT);
         List<LocalDate> forbiddenDates = new ArrayList<>();
 
         for (Reservation res: reservations) {

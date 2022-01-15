@@ -1,13 +1,11 @@
 package ftn.booking.service.impl;
 
-import ftn.booking.dto.ReservationDTO;
 import ftn.booking.model.Boat;
 import ftn.booking.model.Reservation;
 import ftn.booking.repository.BoatRepository;
 import ftn.booking.repository.ReservationRepository;
 import ftn.booking.service.BoatService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -74,5 +72,15 @@ public class BoatServiceImpl implements BoatService {
     @Override
     public void delete(Boat boat) {
         boatRepository.delete(boat);
+    }
+
+    @Override
+    public Boat update(Boat boat) {
+        return boatRepository.save(boat);
+    }
+
+    @Override
+    public Boat findOne(Long entityId) {
+        return boatRepository.findById(entityId).get();
     }
 }

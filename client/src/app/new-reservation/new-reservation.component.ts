@@ -77,7 +77,7 @@ export class NewReservationComponent implements OnInit {
     date1.toLocaleString();
     date1 = date1.substring(0,date1.indexOf("T"))
 
-    Global.forbiddenDates.forEach((date: Date)=> {
+    Global.forbiddenDatesCottage.forEach((date: Date)=> {
 
       if(date1 == date.toString()){
       

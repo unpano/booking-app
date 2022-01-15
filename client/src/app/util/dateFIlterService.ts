@@ -14,15 +14,31 @@ export class DateFilterService {
   constructor(private http: HttpClient) { 
   }
 
-  findForbiddenDate(){
+  
+
+  findForbiddenDatesCottage(){
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     this.http
-                .get(this.endpoint.RESERVATIONS + "forbiddenDates",options)
+                .get(this.endpoint.RESERVATIONS + "forbiddenDatesCottage",options)
                   .pipe(
                     map(returnedDates => {
-                      Global.forbiddenDates = returnedDates
-                      console.log(Global.forbiddenDates)
-                    })).subscribe()
+                      Global.forbiddenDatesCottage = returnedDates
+                      //console.log(Global.forbiddenDatesCottage)
+                    })).subscribe(() =>{
+                      
+                    })
+  }
+
+  findForbiddenDatesBoat(){
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+    this.http
+                        .get(this.endpoint.RESERVATIONS + "forbiddenDatesBoat",options)
+                          .pipe(
+                            map(returnedDates => {
+                              Global.forbiddenDatesBoat = returnedDates
+                              //console.log(Global.forbiddenDatesBoat)
+                            })).subscribe()
   }
 }

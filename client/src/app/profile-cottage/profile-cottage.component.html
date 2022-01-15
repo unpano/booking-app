@@ -46,7 +46,7 @@
         <input type="text" id="city" *ngIf="editButtonClicked" name="city" [(ngModel)]="city">							
     </div>
     <div class="form-group">
-        <label>Number of persons</label>
+        <label>Price for one day stay</label>
         <label>{{cottage.maxNumOfPersons}}</label>
         <mat-form-field id="maxNumPers" *ngIf="editButtonClicked">
             <input [(ngModel)]="oneDayPrice" name="oneDayPrice" matInput placeholder="Price for one day stay $">

@@ -40,6 +40,8 @@ public class Boat {
 
     private Float rate;
 
+    private Float oneDayPrice;
+
     @ManyToOne
     private BoatOwner boatOwner;
 
@@ -47,7 +49,7 @@ public class Boat {
     private BoatType boatType;
 
     @Enumerated(EnumType.STRING)
-    private CancelationType cancellationType;
+    private CancelationType cancelationType;
 
     @Enumerated
     @ElementCollection(targetClass = NavigationEquipment.class)

@@ -1,6 +1,7 @@
 package ftn.booking.controller;
 
 import ftn.booking.dto.BoatDTO;
+import ftn.booking.dto.CottageDTO;
 import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.model.*;
 import ftn.booking.service.BoatImageService;
@@ -81,6 +82,23 @@ public class BoatController {
         boatImageService.deleteAll(boat.getId());
         boatService.delete(boat);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping
+    @PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<Boat> updateBoat(@RequestBody BoatDTO boatDTO){
+
+        Boat boat = boatService.findById(boatDTO.getId());
+
+        //update if cottage had or has no reservations
+        List<Reservation> reservations = reservationService.findAllByBoatId(boat.getId());
+        if(!reservations.isEmpty())
+            throw new ResourceConflictException("Boat has reservations.");
+
+
+        modelMapper.map(boatDTO, boat);
+
+        return new ResponseEntity<>(boatService.update(boat),HttpStatus.OK);
     }
 
     @GetMapping(value = "/findAll", produces = "application/json")

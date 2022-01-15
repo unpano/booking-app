@@ -48,6 +48,7 @@ const routes: Routes = [
 
   {path: 'boat', component: ProfileBoatComponent},
   {path: 'boat/delete', component: DeleteBoatComponent},
+  {path: 'boat/action', component: NewActionComponent},
   {path: 'boats', component: HomePageBoatOwnerComponent},
   {path: 'boats/new-boat', component: NewBoatComponent},
 

@@ -119,7 +119,7 @@ export class HomePageCottageOwnerComponent implements OnInit {
       this.starNames.push('rate')
     }
 
-    console.log(this.starNames)
+    //console.log(this.starNames)
     return this.starNames
   }
 

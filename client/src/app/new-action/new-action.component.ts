@@ -30,6 +30,9 @@ export class NewActionComponent implements OnInit {
   cottage : any
   reservedCottageName !: String
 
+  boat : any
+  reservedBoatName !: String
+
   subscribers : any
 
   price !: Number
@@ -52,6 +55,9 @@ export class NewActionComponent implements OnInit {
     if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
       this.reservation.reservationType = ReservationType.COTTAGE
     }
+    if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER'){
+      this.reservation.reservationType = ReservationType.BOAT
+    }
     this.reservation.startTime = this.pickPeriod.value["start"]
     this.reservation.endTime = this.pickPeriod.value["end"]
 
@@ -64,54 +70,111 @@ export class NewActionComponent implements OnInit {
   //create new action
   if (this.price != undefined){
   
-    this.http.post<any>(this.endpoint.RESERVATIONS + this.username +
-                                                      "/" + sessionStorage.getItem("cottageId") + "/" + true + '/' + this.price, body, options).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.error instanceof Error) {
-          alert("Bad request, please try again later.");
-        } else {
-          if(sessionStorage.getItem('cottageId') == undefined)
-            this.router.navigate(["login"])
-          alert("Conficting period.");
-        }
+    if(sessionStorage.getItem('role') == "ROLE_COTTAGE_OWNER"){
+      this.http.post<any>(this.endpoint.RESERVATIONS + this.username +
+        "/" + sessionStorage.getItem("cottageId") + "/" + true + '/' + this.price, body, options).pipe(
+          catchError((error: HttpErrorResponse) => {
+              if (error.error instanceof Error) {
+                  alert("Bad request, please try again later.");
+              } else {
+              if(sessionStorage.getItem('cottageId') == undefined)
+                  this.router.navigate(["login"])
+              alert("Conficting period.");
+          }
 
-        return EMPTY;
-      }),map(reservedCottage => {
+          return EMPTY;
+          }),map(reservedCottage => {
 
-        const headers = { 'content-type': 'application/json',
-                      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
-        let options = { headers: headers };
-        this.http
-        .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId'),options)
+          const headers = { 'content-type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+          let options = { headers: headers };
+          
+          this.http
+          .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId'),options)
           .pipe(
-            map(returnedCottage => {
+          map(returnedCottage => {
               this.cottage = returnedCottage
               this.reservedCottageName = this.cottage["name"]
-            })).subscribe()
+          })).subscribe()
           })
-    ).subscribe(() => {
-      //Mejl se salje pretpacenicima
-      //for petlja
-      //proci kroz listu username-ove koji su pretplaceni na vikendicu
-      //poslati mejl
-      const headers = { 'content-type': 'application/json',
-                      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
-        let options = { headers: headers };
-        this.http
-        .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId') + '/subscribers',options)
+          ).subscribe(() => {
+          //Mejl se salje pretpacenicima
+          //for petlja
+          //proci kroz listu username-ove koji su pretplaceni na vikendicu
+          //poslati mejl
+          const headers = { 'content-type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+          let options = { headers: headers };
+
+          this.http
+          .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId') + '/subscribers',options)
           .pipe(
-            map(returnedSubscribers => {
+          map(returnedSubscribers => {
               this.subscribers = returnedSubscribers
 
               this.subscribers.forEach((subscriber:any) => {
-                this.sendMail(subscriber["email"])
-              });
-            })).subscribe(()=>{
+              this.sendMail(subscriber["email"])
+          });
+          })).subscribe(()=>{
               alert("Successfully created new action.")
               this.router.navigate(["cottage/reserve"])
-            })
-    })  
-  }else alert("You did not fill in the action price.")
+              })
+          })  
+          }
+          if(sessionStorage.getItem('role') == "ROLE_BOAT_OWNER"){
+            this.http.post<any>(this.endpoint.RESERVATIONS + this.username +
+              "/" + sessionStorage.getItem("boatId") + "/" + true + '/' + this.price, body, options).pipe(
+                catchError((error: HttpErrorResponse) => {
+                    if (error.error instanceof Error) {
+                        alert("Bad request, please try again later.");
+                    } else {
+                    if(sessionStorage.getItem('boatId') == undefined)
+                        this.router.navigate(["login"])
+                    alert("Conficting period.");
+                }
+      
+                return EMPTY;
+                }),map(reservedBoat => {
+      
+                const headers = { 'content-type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+                let options = { headers: headers };
+                
+                this.http
+                .get(this.endpoint.BOATS + sessionStorage.getItem('boatId'),options)
+                .pipe(
+                map(returnedBoat => {
+                    this.boat = returnedBoat
+                    this.reservedBoatName = this.boat["name"]
+                })).subscribe()
+                })
+                ).subscribe(() => {
+                //Mejl se salje pretpacenicima
+                //for petlja
+                //proci kroz listu username-ove koji su pretplaceni na vikendicu
+                //poslati mejl
+                const headers = { 'content-type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+                let options = { headers: headers };
+      
+                this.http
+                .get(this.endpoint.BOATS + sessionStorage.getItem('boatId') + '/subscribers',options)
+                .pipe(
+                map(returnedSubscribers => {
+                    this.subscribers = returnedSubscribers
+      
+                    this.subscribers.forEach((subscriber:any) => {
+                    this.sendMail(subscriber["email"])
+                });
+                })).subscribe(()=>{
+                    alert("Successfully created new action.")
+                    this.router.navigate(["boat/reserve"])
+                    })
+                })  
+          }
+          
+          
+              }else alert("You did not fill in the action price.")
   }
 
   sendMail(username: String){
@@ -120,7 +183,7 @@ export class NewActionComponent implements OnInit {
     mail.mailFrom = "isaBooking56@gmail.com"
     mail.mailTo = username
     mail.mailSubject = "-CONFIRMATION MAIL-"
-    mail.mailContent = "Successfully booked cottage " + this.reservedCottageName + ". Period: " + this.reservation.startTime + 
+    mail.mailContent = "Successfully booked " + this.findName() + ". Period: " + this.reservation.startTime + 
     "-" + this.reservation.endTime + ". Kind requards, Isa Team 56."
 
     const headers = { 'content-type': 'application/json',
@@ -142,13 +205,26 @@ export class NewActionComponent implements OnInit {
     ).subscribe()
   }
 
+  findName(){
+    if(this.reservedBoatName != undefined)
+    return "boat " + this.reservedBoatName
+    else
+    return "cottage " + this.reservedCottageName
+  }
   rangeFilter: DateFilterFn<Date> = (date: Date | null) => {
   
     if (date != null) return this.isFree(date);
     return true
   };
 
-  isFree(input: Date): boolean{
+  isFree(date: Date){
+    if(sessionStorage.getItem('role') == "ROLE_COTTAGE_OWNER"){
+      return this.isFreeCottage(date)
+    }else
+      return this.isFreeBoat(date)
+  }
+
+  isFreeBoat(input: Date){
     let dateIsFree : boolean = true
 
     input.setDate(input.getDate() +1)
@@ -157,7 +233,26 @@ export class NewActionComponent implements OnInit {
     date1.toLocaleString();
     date1 = date1.substring(0,date1.indexOf("T"))
 
-    Global.forbiddenDates.forEach((date: Date)=> {
+    Global.forbiddenDatesBoat.forEach((date: Date)=> {
+
+      if(date1 == date.toString()){
+      
+        dateIsFree = false
+      }
+    });
+     return dateIsFree
+  }
+
+  isFreeCottage(input: Date): boolean{
+    let dateIsFree : boolean = true
+
+    input.setDate(input.getDate() +1)
+
+    let date1 = new Date(input).toISOString()
+    date1.toLocaleString();
+    date1 = date1.substring(0,date1.indexOf("T"))
+
+    Global.forbiddenDatesCottage.forEach((date: Date)=> {
 
       if(date1 == date.toString()){
       

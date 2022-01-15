@@ -32,7 +32,9 @@ public interface ReservationService{
 
     Boolean checkIfDateIsFree(LocalDateTime date);
 
-    List<LocalDate> findAllForbiddenDates();
+    List<LocalDate> findAllForbiddenDatesCottage();
 
     List<Reservation> findAllByBoatId(Long id);
+
+    List<LocalDate> findAllForbiddenDatesBoat();
 }

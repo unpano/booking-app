@@ -22,6 +22,7 @@ export class Boat{
   navigationEquipment !: NavigationEquipment[]
   fishingEquipment !: FishingEquipment[]
   cancelationType !: CancelationType
+  oneDayPrice !: Number
 }
 
 

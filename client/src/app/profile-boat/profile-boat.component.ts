@@ -1,10 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AmenityJSON } from '../dto/amenitiyJSON';
 import { Boat } from '../dto/boat';
+import { EquipmentJSON } from '../dto/EquimentJSON';
 import { RuleJSON } from '../dto/RuleJSON';
 import { DateFilterService } from '../util/dateFIlterService';
 import { Endpoint } from '../util/endpoints-enum';
@@ -19,17 +21,26 @@ export class ProfileBoatComponent implements OnInit {
 
   amenities : AmenityJSON[] = []
   rules : RuleJSON[] = []
+  fishEquipment : EquipmentJSON[] = []
+  navEquipment : EquipmentJSON[] = []
+
   boat : any
   endpoint = Endpoint
 
   name !: String
+  length !: Number
+  numberOfMotors !: Number
+  motorPower !: Number
+  maxSpeed !: Number
   address !: String
+  description !: String
   capacity !: Number
-  description !: Number
-  
   editButtonClicked !: boolean
   services = Global.services
-  amenities1 = Global.amenities
+  amenities1 = Global.amenitiesBoat
+  eq1 = Global.navigationEquipment
+  eq2 = Global.fishingEquipment
+  oneDayPrice !: Number
 
   selectedFiles?: FileList;
   previews: string[] = [];
@@ -45,10 +56,11 @@ export class ProfileBoatComponent implements OnInit {
     
   }
 
-  
-
   ngOnInit(): void {
-    //cottage details
+
+    this.dateService.findForbiddenDatesBoat()
+
+    //boat details
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
 
@@ -70,7 +82,15 @@ export class ProfileBoatComponent implements OnInit {
               this.boat.additionalServices.forEach((rule: string) => {
                 var ruleJSON = this.findRule(rule)
                 this.rules.push(ruleJSON)
-          });
+               });
+               this.boat.fishingEquipment.forEach((eq: string) => {
+                var eqJSON = this.findEquipment(eq,"fish")
+                this.fishEquipment.push(eqJSON)
+               });
+               this.boat.navigationEquipment.forEach((eq: string) => {
+                var eqJSON = this.findEquipment(eq,"nav")
+                this.navEquipment.push(eqJSON)
+               });
               
               //cottage images in imgCollection
               this.http
@@ -88,6 +108,66 @@ export class ProfileBoatComponent implements OnInit {
                         });
                       })).subscribe()
             })  
+  }
+
+  onSubmit(){
+    this.uploadFiles()
+    
+      this.editButtonClicked = false
+  
+      //update cottage
+      const headers = { 'content-type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+      let options = { headers: headers };
+  
+      if(this.name != undefined)
+        this.boat.name = this.name
+      if(this.address != undefined)
+        this.boat.address = this.address
+      if(this.description != undefined)
+        this.boat.description = this.description
+        if(this.length != undefined)
+        this.boat.length = this.length
+        if(this.numberOfMotors != undefined)
+        this.boat.numberOfMotors = this.numberOfMotors
+        if(this.motorPower != undefined)
+        this.boat.motorPower = this.motorPower
+        if(this.maxSpeed != undefined)
+        this.boat.maxSpeed = this.maxSpeed
+        if(this.capacity != undefined)
+        this.boat.capacity = this.capacity
+        if(this.oneDayPrice != undefined)
+        this.boat.oneDayPrice = this.oneDayPrice
+
+      this.boat.id = sessionStorage.getItem("boatId")
+
+      let body = JSON.stringify(this.boat)
+  
+      this.http.put<any>(this.endpoint.BOATS, body, options).pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.error instanceof Error) {
+            alert("Bad request, please try again later.");
+          } else {
+            alert("Boat has reservations, you can not change its data.")
+          }
+          return EMPTY;
+        })).subscribe()
+  }
+
+  selectFerry(){
+    this.boat.boatType = 0
+  }
+  selectCatamaran(){
+    this.boat.boatType = 1
+  }
+  selectYacht(){
+    this.boat.boatType = 2
+  }
+  selectFree(){
+    this.boat.cancelationType = 0
+  }
+  selectPercentage(){
+    this.boat.cancelationType = 1
   }
 
   private findAmenity(amenityName: string): AmenityJSON{
@@ -117,6 +197,29 @@ export class ProfileBoatComponent implements OnInit {
       })
 
       return ruleJSON
+  }
+  private findEquipment(equipmentName: string, type: String): EquipmentJSON{
+    var equipmentJSON = new EquipmentJSON()
+
+    if(type == "nav"){
+      Global.navigationEquipment.forEach((eq)=>{
+        if(equipmentName == eq.value){
+          equipmentJSON.name = eq.display
+          equipmentJSON.icon = eq.icon
+        }
+      })
+  
+    }else if(type == 'fish'){
+      Global.fishingEquipment.forEach((eq)=>{
+        if(equipmentName == eq.value){
+          equipmentJSON.name = eq.display
+          equipmentJSON.icon = eq.icon
+        }
+      })
+  
+    }
+    
+    return equipmentJSON
   }
 
   editBoat(){
@@ -244,7 +347,7 @@ export class ProfileBoatComponent implements OnInit {
           this.starNames.push('rate')
         }
     
-        console.log(this.starNames)
+       // console.log(this.starNames)
         return this.starNames
       }
 
