@@ -1,9 +1,8 @@
 package ftn.booking.service.impl;
 
-import ftn.booking.model.Cottage;
-import ftn.booking.model.CottageImage;
-import ftn.booking.model.User;
-import ftn.booking.service.ImageService;
+import ftn.booking.model.*;
+import ftn.booking.service.BoatImageService;
+import ftn.booking.service.CottageImageService;
 import ftn.booking.service.StorageService;
 import ftn.booking.service.UserService;
 import lombok.AllArgsConstructor;
@@ -24,7 +23,8 @@ public class StorageServiceImpl implements StorageService {
 
     private static final Logger logger = LoggerFactory.getLogger(StorageServiceImpl.class);
     private UserService userService;
-    private ImageService imageService;
+    private CottageImageService cottageImageService;
+    private BoatImageService boatImageService;
 
     @Override
     public String setProfilePicture(MultipartFile file, String username) throws IOException{
@@ -53,20 +53,6 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public String upload(File file) {
-        String fileName = file.getName();
-        //s3Client.putObject(new PutObjectRequest(bucketName, fileName, file).withCannedAcl(CannedAccessControlList.PublicRead));
-        file.delete();
-        return "File uploaded: " + fileName;
-    }
-
-    @Override
-    public String deleteFile(String fileName) {
-        //s3Client.deleteObject(bucketName,fileName);
-        return fileName + "removed...";
-    }
-
-    @Override
     public String addCottagePicture(MultipartFile file, Long cottageId) throws IOException {
         String fileName = file.getOriginalFilename();
         String pathName = "";
@@ -89,11 +75,38 @@ public class StorageServiceImpl implements StorageService {
         image.setCottage(cottage);
         image.setPath(pathName);
 
-        imageService.add(image);
-
+        cottageImageService.add(image);
 
         return "File uploaded: " + fileName;
 
+    }
+
+    @Override
+    public String addBoatPicture(MultipartFile file, Long boatId) throws IOException {
+        String fileName = file.getOriginalFilename();
+        String pathName = "";
+
+        String substring = fileName.substring(fileName.length() - 4);
+        if(!substring.equals("jpeg"))
+            pathName = generateUniqueFileName() + substring;
+        else
+            pathName = generateUniqueFileName() + '.' + substring;
+
+        String filePath = System.getProperty("user.dir");
+        filePath = filePath.replace("server","client");
+        File outputFile = new File(filePath + "\\src\\assets\\boat-pictures\\" + pathName);
+        file.transferTo(outputFile);
+
+        //treba ubeleziti da cottageId-ju odgovara ta slika
+        BoatImage image = new BoatImage();
+        Boat boat = new Boat();
+        boat.setId(boatId);
+        image.setBoat(boat);
+        image.setPath(pathName);
+
+        boatImageService.add(image);
+
+        return "File uploaded: " + fileName;
     }
 
     String generateUniqueFileName() {

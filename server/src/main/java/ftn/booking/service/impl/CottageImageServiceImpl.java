@@ -2,7 +2,7 @@ package ftn.booking.service.impl;
 
 import ftn.booking.model.CottageImage;
 import ftn.booking.repository.CottageImageRepository;
-import ftn.booking.service.ImageService;
+import ftn.booking.service.CottageImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +11,18 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ImageServiceImpl implements ImageService {
+public class CottageImageServiceImpl implements CottageImageService {
 
-    private CottageImageRepository imageRepository;
+    private CottageImageRepository cottageImageRepository;
 
     @Override
     public CottageImage add(CottageImage image) {
-        return imageRepository.save(image);
+        return cottageImageRepository.save(image);
     }
 
     @Override
     public List<String> findImagesByCottageId(Long cottageId) {
-        List<CottageImage> images = imageRepository.findAllByCottageId(cottageId);
+        List<CottageImage> images = cottageImageRepository.findAllByCottageId(cottageId);
         List<String> paths = new ArrayList<>();
 
         for(CottageImage image : images){
@@ -34,6 +34,6 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void deleteAll(Long id) {
-        imageRepository.deleteByCottageId(id);
+        cottageImageRepository.deleteByCottageId(id);
     }
 }

@@ -30,4 +30,11 @@ public class FileUploadController {
                                                     @PathVariable Long cottageId) throws IOException {
         return new ResponseEntity<>(storageService.addCottagePicture(file, cottageId), HttpStatus.OK);
     }
+
+    @PostMapping("/add-boat-picture/{boatId}")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")
+    public ResponseEntity<String> addBoatPicture(@RequestParam("file") MultipartFile file,
+                                                    @PathVariable Long boatId) throws IOException {
+        return new ResponseEntity<>(storageService.addBoatPicture(file, boatId), HttpStatus.OK);
+    }
 }

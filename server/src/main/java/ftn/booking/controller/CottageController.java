@@ -23,7 +23,7 @@ public class CottageController {
     private CottageService cottageService;
     private UserService userService;
     private ModelMapper modelMapper;
-    private ImageService imageService;
+    private CottageImageService imageService;
     private RoomService roomService;
     private ReservationService reservationService;
 
