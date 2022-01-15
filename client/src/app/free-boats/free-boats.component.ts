@@ -18,54 +18,31 @@ export class FreeBoatsComponent implements OnInit {
   endpoint = Endpoint
   searchText : any
   boats: any
-  sortedData : any
-  reservation : Reservation = new Reservation();
-  @Input() startTime : any
-  @Input() endTime : any
+
+  @Input() startDate : any
+  @Input() endDate : any
 
   constructor(private router: Router,private http: HttpClient) { }
 
   ngOnInit(): void {
 
-    this.reservation.reservationType = 2;
-    this.reservation.startTime = this.startTime
+      let params = new HttpParams();
+      params = params.append("startTime", this.startDate + "T12:59:11");
+      params = params.append("endTime", this.endDate + "T12:59:11");
+      
+      this.http.get<any>(this.endpoint.FREE_BOATS ,{params: params}).pipe(
+      map(returnedBoat => {
+            this.boats = returnedBoat
+      })).subscribe()
 
-    let params = new HttpParams();
-    params = params.append("startTime", this.startTime+ "T12:59:11.332");
-    params = params.append("endTime", this.endTime + "T12:59:11.332");
-    
-    this.http.get<any>(this.endpoint.FREE_BOATS ,{params: params}).pipe(
-    map(returnedBoat => {
-          this.boats = returnedBoat
-    })).subscribe()
   }
 
 
-  
-  sortData(sort: Sort) 
-  {
-    const data = this.boats.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
-    }
-
-    this.sortedData = data.sort((a : any, b : any) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'address': return compare(a.address, b.address, isAsc);
-        case 'city': return compare(a.city, b.city, isAsc);
-        case 'rate': return compare(a.rate, b.rate, isAsc);
-        default: return 0;
-      }
-    });
-  }
 
 
   viewDetails(boat : Boat)
   {
-    Global.clickedBoat = boat;
+    Global.boat = boat;
     this.router.navigate(["boat"]);
   }
 

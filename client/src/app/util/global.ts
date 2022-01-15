@@ -1,16 +1,18 @@
 
+import { InstantiateExpr } from "@angular/compiler";
 import { Boat } from "../dto/boat";
 
 import { Cottage } from "../dto/cottage";
 import { AdditionalService } from "../dto/enums/AdditionalService";
 import { Amenity } from "../dto/enums/Amenity";
+import { Instructor } from "../dto/instructor";
 import { Token } from "../dto/token";
 import { User } from "../dto/user";
 
 export namespace Global {
     export var token: Token = new Token();
-    export var clickedBoat : Boat;
-    export var clickedInstructor : User;
+    export var instructor : Instructor = new Instructor();
+    export var boat : Boat = new Boat();
     export var cottage: Cottage = new Cottage();
     export var forbiddenDates: any
 

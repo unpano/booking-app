@@ -36,7 +36,6 @@ import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cotta
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
-import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
@@ -57,6 +56,10 @@ import { ListCottageFutureReservationsComponent } from './list-cottage-future-re
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileClientComponent } from './profile-client/profile-client.component';
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
+import { FreeCottagesComponent } from './free-cottages/free-cottages.component';
+import { AllAdventuresComponent } from './all-adventures/all-adventures.component';
+import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
+import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +85,6 @@ import { ReportReservationComponent } from './report-reservation/report-reservat
     ChangePasswordComponent,
     ProfileComponent,
     DeactivationComponent,
-    AllInstructorsComponent,
     ProfileCottageComponent,
     NewCottageComponent,
     InstructorDetailsComponent,
@@ -96,9 +98,11 @@ import { ReportReservationComponent } from './report-reservation/report-reservat
     ListCottagePastReservationsComponent,
     ListCottageFutureReservationsComponent,
     ProfileClientComponent,
-    ReportReservationComponent
-
-
+    ReportReservationComponent,
+    FreeCottagesComponent,
+    AllAdventuresComponent,
+    AllInstructorsComponent,
+    ProfileInstructorComponent,
   ],
   imports: [
     BrowserModule,

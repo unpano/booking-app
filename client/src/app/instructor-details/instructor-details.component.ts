@@ -25,7 +25,7 @@ export class InstructorDetailsComponent implements OnInit {
     const headers = { 'content-type': 'application/json'} 
     let options = { headers: headers };
 
-    this.http.get<any>(this.endpoint.FIND_INSTRUCTOR + "/"+ Global.clickedInstructor.id, options).pipe(
+    this.http.get<any>(this.endpoint.FIND_INSTRUCTOR + "/"+ Global.instructor.id, options).pipe(
       map(returnedInst => {
         this.instructor = returnedInst
       })).subscribe()

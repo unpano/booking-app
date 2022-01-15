@@ -13,13 +13,16 @@ export class HomePageClientComponent implements OnInit {
 
   types = [ 'Boat','Instructor', 'Cottage']
   type !: String
+
   dateInput : any
   endDateInput : any
+
   startTimeInput : any
   endTimeInput : any
+
   endpoint = Endpoint
+
   boats : any
-  buttonClicked = new Boolean(false);
 
 
   constructor(private router: Router,private http: HttpClient) { }
@@ -33,10 +36,4 @@ export class HomePageClientComponent implements OnInit {
     this.type = type;
   }
 
-  findEntities()
-  {
-    alert(this.startTimeInput)
-    alert(this.endTimeInput)
-    this.buttonClicked = true
-  }
 }

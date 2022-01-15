@@ -1,36 +1,32 @@
 
-<mat-card class="example-card">    
+<mat-card> 
   <mat-card-content>
-
-        <form>
-          <div class="table-form">
-              <table>
+    <form novalidate class="form-inline">
+        <div class="container">
+            <div class="row">
+    
+              <table matSort (matSortChange)="sortData($event)">
                 <thead>
-                  <tr>
-                    <th>Boat name:</th>
-                    <th>Boat address:</th>
-                    <th>Boat rate:</th>
-                  </tr>
+                <tr> 
+                  <th mat-sort-header="name">Cottage</th>
+                  <th mat-sort-header="address">Address</th>
+                  <th mat-sort-header="rate">Rate</th>
+                  <th></th>
+                </tr>
                 </thead>
-
                 <tbody>
-                  <tr *ngFor="let boat of boats | filter:searchText">
-                                      
-                    <td>{{boat.name}}</td>
-                    <td>{{boat.address}}</td>
-                    <td>{{boat.rating}}</td>
-                  
-                    <td> 
-                      <button  (click)= "viewDetails(boat)" > View details </button>
-                    </td>
-                    
-                  </tr>
+                <tr *ngFor="let boat of sortedData | filter:searchText">
+                  <td>{{boat.name}}</td>
+                  <td>{{boat.address}}</td>
+                  <td>{{boat.rate}}</td>   
+                  <button id="eyeBtn" (click)="boatDetails(boat)">Details</button>
+                </tr>
                 </tbody>
               </table>
+
+            </div>
           </div>
-
-        </form>
-
+    </form> 
   </mat-card-content>
 </mat-card>
 

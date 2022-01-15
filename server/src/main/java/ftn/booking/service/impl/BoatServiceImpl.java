@@ -36,6 +36,7 @@ public class BoatServiceImpl implements BoatService {
     @Override
     public List<Boat> findFreeBoats(LocalDateTime startTime, LocalDateTime endTime)
     {
+        System.out.println("start i end time: " + startTime + " " + endTime);
         List<Boat> resultBoats = new ArrayList<>();
         List<Boat> allBoats = boatRepository.findAll();
         List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndStartTimeAndEndTime
@@ -46,18 +47,17 @@ public class BoatServiceImpl implements BoatService {
             Boolean taken = false;
             for (Reservation res : reservations)
             {
-                if( res.getBoat() == boat)
+                if( res.getBoat() == boat )
                 {
                     taken = true;
                 }
             }
             if( taken == false)
             {
+                System.out.println("Ubacuje se brod " + boat.getId());
                 resultBoats.add(boat);
             }
-
         }
-
         return resultBoats;
     }
 }

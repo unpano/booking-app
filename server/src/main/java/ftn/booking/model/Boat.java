@@ -1,6 +1,7 @@
 package ftn.booking.model;
 
 import ftn.booking.model.enums.BoatType;
+import ftn.booking.model.enums.CancelationPrice;
 import ftn.booking.model.enums.NavigationEquipment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class Boat {
 
     private String behaviorRules;
 
-    private String cancellationConditions;
+    private CancelationPrice cancellationPrice;
 
     private Integer capacity;
 
@@ -64,8 +65,5 @@ public class Boat {
     private List<AdditionalService> boatAdditionalServices = new ArrayList<>();
 
 
-    //@OneToOne
-    //@JoinColumn(name = "report_id", nullable = false)
-    //private BoatReport report;
 
 }

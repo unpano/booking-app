@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
-import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
 
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
@@ -23,6 +22,7 @@ import { NewReservationComponent } from './new-reservation/new-reservation.compo
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
+import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
@@ -40,12 +40,12 @@ const routes: Routes = [
   {path: 'client', component: HomePageClientComponent},
 
   {path: 'profile', component: ProfileComponent},
+  {path: 'instructorProfile', component: ProfileInstructorComponent},
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
 
   {path: 'boats', component: AllBoatsComponent},
   {path: 'allCottages', component: AllCottagesComponent},
-  {path: 'allInstructors', component: AllInstructorsComponent},
 
   {path: 'cottage', component: ProfileCottageComponent},
   {path: 'boat', component: ProfileBoatComponent},

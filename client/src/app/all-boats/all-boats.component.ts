@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input} from '@angular/core';
+import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Boat } from '../dto/boat';
-import { Reservation } from '../dto/reservation';
-import { HomePageClientComponent } from '../home-page-client/home-page-client.component';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
+
 
 @Component({
   selector: 'app-all-boats',
@@ -16,34 +16,55 @@ import { Global } from '../util/global';
 export class AllBoatsComponent implements OnInit {
 
   endpoint = Endpoint
-  searchText : any
-  boats: any
-  @Input() clickedValue : any;
+  boats: any;
+  sortedData: any
 
-  reservation : Reservation = new Reservation();
-
+  @Input() searchText : any
 
   constructor(private router: Router,private http: HttpClient) { }
 
+
   ngOnInit(): void 
   {
-
-    const body=JSON.stringify(this.reservation); 
-
+    
     const headers = { 'content-type': 'application/json'} 
     let options = { headers: headers };
 
-        this.http.get<any>(this.endpoint.ALL_BOATS, options).pipe(
-        map(returnedBoat => {
-          this.boats = returnedBoat
-        })).subscribe()
-  }
-  
+    this.http.get<any>(this.endpoint.ALL_BOATS, options).pipe(
+      map(returnedData => {
+        this.boats = returnedData
+        this.sortedData = this.boats.slice()
+      })).subscribe()
 
-  viewDetails(boat : Boat)
+  }
+
+  boatDetails(boat : Boat)
   {
-    Global.clickedBoat = boat;
+    Global.boat = boat;
     this.router.navigate(["boat"]);
   }
 
+  sortData(sort: Sort) 
+  {
+    const data = this.boats.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a : any, b : any) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name': return compare(a.name, b.name, isAsc);
+        case 'address': return compare(a.address, b.address, isAsc);
+        case 'rate': return compare(a.rate, b.rate, isAsc);
+        default: return 0;
+      }
+    });
+  }
 }
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+

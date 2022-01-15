@@ -12,30 +12,14 @@ export class HomePageUnauthenticatedUserComponent implements OnInit {
   type !: String
   dateInput : any
   timeInput : any
+  searchInput : any
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     
-    if(sessionStorage.getItem('token') != null){
-      
-      if(sessionStorage.getItem('role') == 'ROLE_CLIENT'){
-        this.router.navigate(['client'])
-      }
-      if(sessionStorage.getItem('role') == 'ROLE_ADMIN'){
-        this.router.navigate(['admin'])
-      }
-      if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
-        this.router.navigate(['cottageOwner'])
-      }
-      if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER'){
-        this.router.navigate(['boatOwner'])
-      }
-      if(sessionStorage.getItem('role') == 'ROLE_INSTRUCTOR'){
-        this.router.navigate(['instructor'])
-      }
-    }
   }
+
 
   onSelectType(type : String)
   {

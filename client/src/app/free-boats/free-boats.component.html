@@ -2,9 +2,9 @@
 <mat-card class="example-card">    
     <mat-card-content>
   
-          <form>
+          <form name = "boatForm">
             <div class="table-form">
-              <table matSort (matSortChange)="sortData($event)">
+              <table>
                   <thead>
                     <tr>
                       <th>Boat name:</th>
@@ -15,7 +15,7 @@
                   </thead>
   
                   <tbody>
-                    <tr *ngFor="let boat of sortedData | filter:searchText">
+                    <tr *ngFor="let boat of boats | filter:searchText">
                                         
                       <td>{{boat.name}}</td>
                       <td>{{boat.address}}</td>

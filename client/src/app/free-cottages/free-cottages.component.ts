@@ -1,42 +1,44 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
-import { Sort } from '@angular/material/sort';
+import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Endpoint } from '../util/endpoints-enum';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Cottage } from '../dto/cottage';
-import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
+import { Sort } from '@angular/material/sort';
 
 @Component({
-  selector: 'app-all-cottages',
-  templateUrl: './all-cottages.component.html',
-  styleUrls: ['./all-cottages.component.css']
+  selector: 'app-free-cottages',
+  templateUrl: './free-cottages.component.html',
+  styleUrls: ['./free-cottages.component.css']
 })
-export class AllCottagesComponent implements OnInit {
-
+export class FreeCottagesComponent implements OnInit {
+  
   endpoint = Endpoint
-  cottages: any;
-  cottage: any
-  sortedData: any
+  searchText : any
+  cottages: any
 
-  @Input() searchText : any
+  sortedData : any
+
+  @Input() startDate : any
+  @Input() endDate : any
 
   constructor(private router: Router,private http: HttpClient) { }
 
+  ngOnInit(): void {
 
-  ngOnInit(): void 
-  {
+    let params = new HttpParams();
+    params = params.append("startTime", this.startDate + "T12:59:11");
+    params = params.append("endTime", this.endDate + "T12:59:11");
     
-    const headers = { 'content-type': 'application/json'} 
-    let options = { headers: headers };
-
-    this.http.get<any>(this.endpoint.ALL_COTTAGES, options).pipe(
-      map(returnedCottages => {
-        this.cottages = returnedCottages
-        this.sortedData = this.cottages.slice()
-      })).subscribe()
+    this.http.get<any>(this.endpoint.FREE_COTTAGES ,{params: params}).pipe(
+    map(returnedData=> {
+          this.cottages = returnedData
+          this.sortedData = this.cottages.slice()
+    })).subscribe()
 
   }
+
 
   cottageDetails(cottage : Cottage)
   {
@@ -64,11 +66,9 @@ export class AllCottagesComponent implements OnInit {
       }
     });
   }
+
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
-
-
-
