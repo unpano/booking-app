@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { AmenityJSON } from '../dto/amenitiyJSON';
 import { Boat } from '../dto/boat';
+import { RuleJSON } from '../dto/RuleJSON';
+import { DateFilterService } from '../util/dateFIlterService';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
@@ -13,22 +17,235 @@ import { Global } from '../util/global';
 })
 export class ProfileBoatComponent implements OnInit {
 
-
-
+  amenities : AmenityJSON[] = []
+  rules : RuleJSON[] = []
+  boat : any
   endpoint = Endpoint
 
-  constructor(private router: Router,private http: HttpClient) { }
+  name !: String
+  address !: String
+  capacity !: Number
+  description !: Number
+  
+  editButtonClicked !: boolean
+  services = Global.services
+  amenities1 = Global.amenities
 
-  boat : Boat = new Boat()
+  selectedFiles?: FileList;
+  previews: string[] = [];
+
+  selected !: Date | null;
+
+  starNames : String[] = []
+  
+  imgCollection: Array<object> = [];
+
+  constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient, 
+    private dateService: DateFilterService) { 
+    
+  }
+
+  
 
   ngOnInit(): void {
-    const headers = { 'content-type': 'application/json'} 
+    //cottage details
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
 
-    this.http.get<any>(this.endpoint.FIND_BOAT + "/"+ Global.clickedBoat.id, options).pipe(
-      map(returnedBoat => {
-        this.boat = returnedBoat
-      })).subscribe()
+    if(sessionStorage.getItem('boatId') == undefined)
+      this.router.navigate(["login"])
+
+    this.http
+        .get(this.endpoint.BOATS + sessionStorage.getItem('boatId') ,options)
+          .pipe(
+            map(returnedBoat => {
+              this.boat = returnedBoat             
+            })).subscribe(() =>
+            {
+              this.boat.amenities.forEach((amenityInBoat: string) => {
+                    var amenityJSON = this.findAmenity(amenityInBoat)
+                    this.amenities.push(amenityJSON)
+              });
+
+              this.boat.additionalServices.forEach((rule: string) => {
+                var ruleJSON = this.findRule(rule)
+                this.rules.push(ruleJSON)
+          });
+              
+              //cottage images in imgCollection
+              this.http
+                  .get(this.endpoint.BOATS + sessionStorage.getItem('boatId') + '/images' ,options)
+                    .pipe(
+                      map(returnedImages=> {
+                        let imageUrls : any
+                        imageUrls = returnedImages
+                        imageUrls.forEach((path: string) => {
+                          let obj = {
+                            image: 'assets/boat-pictures/'+ path,
+                            thumbImage: 'assets/boat-pictures/'+ path
+                          }
+                          this.imgCollection.push(obj)
+                        });
+                      })).subscribe()
+            })  
   }
+
+  private findAmenity(amenityName: string): AmenityJSON{
+    
+    var amenityJSON = new AmenityJSON()
+
+      Global.amenities.forEach((amenity) => {
+        if(amenityName == amenity.value){
+          amenityJSON.name = amenity.display
+          amenityJSON.icon = amenity.icon
+        }
+          
+      })
+
+      return amenityJSON
+  }
+  private findRule(ruleName: string): RuleJSON{
+    
+    var ruleJSON = new RuleJSON()
+
+      Global.services.forEach((rule) => {
+        if(ruleName == rule.value){
+          ruleJSON.name = rule.display
+          ruleJSON.icon = rule.icon
+        }
+          
+      })
+
+      return ruleJSON
+  }
+
+  editBoat(){
+    this.editButtonClicked = true
+  }
+
+  selectFiles(event: any): void {
+    this.selectedFiles = event.target.files;
+  
+    this.previews = [];
+    if (this.selectedFiles && this.selectedFiles[0]) {
+      const numberOfFiles = this.selectedFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+  
+        reader.onload = (e: any) => {
+          this.previews.push(e.target.result);
+        };
+  
+        reader.readAsDataURL(this.selectedFiles[i]);
+      }
+    }
+  }
+
+  uploadFiles(): void {
+    if (this.selectedFiles) {
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        this.upload(this.selectedFiles[i]);
+      }
+    }
+  }
+
+  upload(file: File): void {
+  
+    const formData: FormData = new FormData(); 
+    formData.append('file', file);
+
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+    
+    this.http.post<any>(this.endpoint.UPLOAD + 'add-boat-picture/' + this.boat.id, formData, options)
+            .subscribe()
+    
+      
+      }  
+
+      starNamesFunc(rate: Number): String[]{
+        this.starNames = []
+       
+        if(rate == 0){
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+        
+        }else if(rate > 0 && rate < 1){
+          this.starNames.push('half')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+    
+        }else if(rate >= 1 && rate < 1.5){
+          this.starNames.push('rate')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+    
+        }else if (rate >= 1.5 && rate < 2){
+          this.starNames.push('rate')
+          this.starNames.push('half')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+    
+        }else if (rate >= 2 && rate < 2.5){
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+    
+        }else if (rate >= 2.5 && rate < 3){
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('half')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+    
+        }else if (rate >= 3 && rate < 3.5){
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('outline')
+          this.starNames.push('outline')
+          
+        }else if (rate >= 3.5 && rate < 4){
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('half')
+          this.starNames.push('outline')
+    
+        }else if (rate >= 4 && rate < 4.5){
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('outline')
+    
+        }else if (rate >= 4.5 && rate < 5){
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('half')
+    
+        }else if( rate == 5){
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+          this.starNames.push('rate')
+        }
+    
+        console.log(this.starNames)
+        return this.starNames
+      }
 
 }

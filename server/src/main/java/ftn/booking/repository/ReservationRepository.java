@@ -1,6 +1,5 @@
 package ftn.booking.repository;
 
-import ftn.booking.model.Boat;
 import ftn.booking.model.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -43,4 +42,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     Integer checkIfDateIsFree(LocalDateTime date);
 
 
+    List<Reservation> findAllByBoatId(Long id);
 }

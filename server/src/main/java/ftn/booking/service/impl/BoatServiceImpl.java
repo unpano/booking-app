@@ -70,4 +70,9 @@ public class BoatServiceImpl implements BoatService {
     public List<Boat> findAllOwnerBoats(Long id) {
         return boatRepository.findAllByBoatOwnerId(id);
     }
+
+    @Override
+    public void delete(Boat boat) {
+        boatRepository.delete(boat);
+    }
 }

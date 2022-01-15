@@ -8,10 +8,11 @@ import java.util.List;
 public interface BoatService {
 
     List<Boat> findAll();
-    Boat findById(Long id);
     List<Boat> findFreeBoats(LocalDateTime startTime, LocalDateTime endTime);
 
     Boat add(Boat boat);
-
+    Boat findById(Long id);
     List<Boat> findAllOwnerBoats(Long id);
+
+    void delete(Boat boat);
 }

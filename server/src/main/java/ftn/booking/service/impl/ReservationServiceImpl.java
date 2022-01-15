@@ -84,6 +84,11 @@ public class ReservationServiceImpl implements ReservationService {
         return forbiddenDates;
     }
 
+    @Override
+    public List<Reservation> findAllByBoatId(Long id) {
+        return reservationRepository.findAllByBoatId(id);
+    }
+
     private List<LocalDate> findAllDatesBetweenTwoDates(LocalDateTime start, LocalDateTime end){
 
         List<LocalDate> totalDates = new ArrayList<>();

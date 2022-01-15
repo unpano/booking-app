@@ -58,6 +58,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileClientComponent } from './profile-client/profile-client.component';
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
 import { NewBoatComponent } from './new-boat/new-boat.component';
+import { DeleteBoatComponent } from './delete-boat/delete-boat.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { NewBoatComponent } from './new-boat/new-boat.component';
     ListCottageFutureReservationsComponent,
     ProfileClientComponent,
     ReportReservationComponent,
-    NewBoatComponent
+    NewBoatComponent,
+    DeleteBoatComponent
 
 
   ],

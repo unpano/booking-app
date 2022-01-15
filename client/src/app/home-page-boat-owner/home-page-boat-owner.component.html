@@ -13,7 +13,7 @@
                   <tr> 
                     <th mat-sort-header="name">Boat</th>
                     <th mat-sort-header="address">Address</th>
-                    <th mat-sort-header="city">City</th>
+                    <th mat-sort-header="type">Type</th>
                     <th mat-sort-header="rate"></th>
                     <th></th>
                   </tr>
@@ -22,7 +22,7 @@
                   <tr *ngFor="let boat of sortedData | filter:searchText">
                     <td>{{boat.name}}</td>
                     <td>{{boat.address}}</td>
-                    <td>{{boat.city}}</td>
+                    <td>{{boat.boatType}}</td>
                     <td>
                       <div id="starsRow" *ngFor="let i of starNamesFunc(boat.rate)">
                         <i class="material-icons">star_{{i}}</i>

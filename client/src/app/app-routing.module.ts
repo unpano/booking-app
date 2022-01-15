@@ -7,6 +7,7 @@ import { AllInstructorsComponent } from './all-instructors/all-instructors.compo
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
+import { DeleteBoatComponent } from './delete-boat/delete-boat.component';
 import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
 import { HomePageAdminComponent } from './home-page-admin/home-page-admin.component';
 import { HomePageBoatOwnerComponent } from './home-page-boat-owner/home-page-boat-owner.component';
@@ -46,10 +47,12 @@ const routes: Routes = [
   {path: 'allInstructors', component: AllInstructorsComponent},
 
   {path: 'boat', component: ProfileBoatComponent},
+  {path: 'boat/delete', component: DeleteBoatComponent},
   {path: 'boats', component: HomePageBoatOwnerComponent},
-  {path: 'Boats', component: AllBoatsComponent},
   {path: 'boats/new-boat', component: NewBoatComponent},
 
+  {path: 'Boats', component: AllBoatsComponent},
+  
   {path: 'cottage', component: ProfileCottageComponent},
   {path: 'cottage/reserve', component: NewReservationComponent},
   {path: 'cottage/action', component: NewActionComponent},
