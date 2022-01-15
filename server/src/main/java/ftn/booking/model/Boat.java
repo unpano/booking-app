@@ -70,6 +70,14 @@ public class Boat {
     @ElementCollection(targetClass = Amenity.class)
     private List<Amenity> amenities = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "boat_subscriber",
+            joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+    )
+    private List<Client> subscribers = new ArrayList<>();
+
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    @JoinTable(
 //            name = "boat_service",

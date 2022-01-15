@@ -2,6 +2,10 @@
 
 FRONT se nalazi u folderu client, a BACK u folderu server.
 
+-----REGISTRACIJA VLASNIKA VIKENDICE-----
+Kada se registruje novi vlasnik vikendice, njegovo polje enabled treba promeniti na true. Adminova funkcionalnost 
+je da odbija ili prihvata zahteve za registraciju.
+
 -----POPUJAVANJE BAZE-----
 
 Baza se kreira na localhost:3306/booking. booking je naziv šeme baze podataka. U application.properties fajlu

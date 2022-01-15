@@ -68,6 +68,12 @@ public class BoatController {
         return new ResponseEntity<>(boatImageService.findImagesByBoatId(boatId), HttpStatus.OK);
     }
 
+    @GetMapping("/{boatId}/subscribers")
+    @PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<List<Client>> findBoatSubscribers(@PathVariable Long boatId){
+        return new ResponseEntity<>(boatService.findById(boatId).getSubscribers(), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('BOAT_OWNER')")
     public ResponseEntity<String> delete(@PathVariable Long id){

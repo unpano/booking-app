@@ -56,19 +56,21 @@ export class NewReservationComponent implements OnInit {
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
 
-    this.http
+    if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
+      this.http
         .get(this.endpoint.RESERVATIONS + 'cottage/' + sessionStorage.getItem('cottageId'),options)
           .pipe(
             map(returnedActions => {
               this.cottageActions = returnedActions
             })).subscribe(() =>{})
-
-    this.http
+    }else if(sessionStorage.getItem('role') == 'ROLE_BOAT_OWNER'){
+      this.http
         .get(this.endpoint.RESERVATIONS + 'boat/' + sessionStorage.getItem('boatId'),options)
           .pipe(
             map(returnedActions => {
               this.boatActions = returnedActions
             })).subscribe(() =>{})
+    }
   }
 
   rangeFilter: DateFilterFn<Date> = (date: Date | null) => {
