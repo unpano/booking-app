@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Boat } from '../dto/boat';
+import { PricelistComponent } from '../pricelist/pricelist.component';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
@@ -21,7 +23,7 @@ export class AllBoatsComponent implements OnInit {
 
   @Input() searchText : any
 
-  constructor(private router: Router,private http: HttpClient) { }
+  constructor(private router: Router,private http: HttpClient, private dialog: MatDialog) { }
 
 
   ngOnInit(): void 
@@ -42,6 +44,17 @@ export class AllBoatsComponent implements OnInit {
   {
     Global.boat = boat;
     this.router.navigate(["boat"]);
+  }
+
+
+
+
+  pricelist(boat : Boat)
+  {
+    sessionStorage.setItem('boatId', boat.id.toString())
+
+    let dialogRef = this.dialog.open(PricelistComponent)
+    dialogRef.afterClosed().subscribe();
   }
 
   sortData(sort: Sort) 

@@ -13,10 +13,11 @@ export class Boat{
     motorPower !: Number
     description !: String
     numberOfMotors !: Number
-    rate !: String
+    rate !: Number
     type !: BoatType
     length !: String
     navigationEquipment !: NavigationEquipment
+    price !: Number
   }
 
 

@@ -19,11 +19,16 @@ export enum Endpoint {
   UPLOAD = "http://localhost:8084/uploads/",
   COTTAGES = "http://localhost:8084/cottages/",
 
-
+  BOAT_SERVICES = "http://localhost:8084/boats/findAdditionalServices/",
+  CREATE_RESERVATION = "http://localhost:8084/reservations/createReservation/",
 
   RESERVATIONS = "http://localhost:8084/reservations/",
   REPORTS = "http://localhost:8084/reports/",
   MAIL = "http://localhost:8084/emails/",
-  ROOMS = "http://localhost:8084/rooms/"
+  ROOMS = "http://localhost:8084/rooms/",
+
+
+
+
 
 }

@@ -22,6 +22,8 @@ export class HomePageClientComponent implements OnInit {
 
   endpoint = Endpoint
 
+  searchInput : any
+
   boats : any
 
 

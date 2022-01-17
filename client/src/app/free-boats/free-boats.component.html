@@ -22,9 +22,8 @@
                       <td>{{boat.rating}}</td>
                       <td>{{boat.price}}</td>
                     
-                      <td> 
-                        <button  (click)= "viewDetails(boat)" > View details </button>
-                      </td>
+                      <td> <button id="eyeBtn" (click)="boatDetails(boat)">Details</button></td>
+                      <td><button id="eyeBtn" (click)="reserve(boat)">Reserve</button></td>
                       
                     </tr>
                   </tbody>

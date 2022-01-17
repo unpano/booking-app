@@ -20,6 +20,7 @@ import { NewActionComponent } from './new-action/new-action.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PricelistComponent } from './pricelist/pricelist.component';
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
@@ -61,6 +62,8 @@ const routes: Routes = [
 
   {path: 'report', component: ReportCottageOwnerComponent},
   {path: 'clientReservations', component: ClientReservationsComponent},
+
+  {path: 'pricelist', component: PricelistComponent},
 
   {path: '**', component: PageNotFoundComponent},
 

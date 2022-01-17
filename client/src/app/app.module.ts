@@ -60,6 +60,8 @@ import { FreeCottagesComponent } from './free-cottages/free-cottages.component';
 import { AllAdventuresComponent } from './all-adventures/all-adventures.component';
 import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
 import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
+import { PricelistComponent } from './pricelist/pricelist.component';
+import { ReservationFormComponent } from './reservation-form/reservation-form.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +105,8 @@ import { ProfileInstructorComponent } from './profile-instructor/profile-instruc
     AllAdventuresComponent,
     AllInstructorsComponent,
     ProfileInstructorComponent,
+    PricelistComponent,
+    ReservationFormComponent,
   ],
   imports: [
     BrowserModule,

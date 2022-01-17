@@ -15,13 +15,13 @@ import { Sort } from '@angular/material/sort';
 export class FreeCottagesComponent implements OnInit {
   
   endpoint = Endpoint
-  searchText : any
   cottages: any
 
   sortedData : any
 
   @Input() startDate : any
   @Input() endDate : any
+  @Input() searchText : any
 
   constructor(private router: Router,private http: HttpClient) { }
 

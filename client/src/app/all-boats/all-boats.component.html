@@ -8,9 +8,12 @@
               <table matSort (matSortChange)="sortData($event)">
                 <thead>
                 <tr> 
-                  <th mat-sort-header="name">Cottage</th>
-                  <th mat-sort-header="address">Address</th>
-                  <th mat-sort-header="rate">Rate</th>
+                  <th mat-sort-header="name">Boat name </th>
+                  <th mat-sort-header="address">Boat address</th>
+                  <th mat-sort-header="description">Boat description</th>
+                  <th mat-sort-header="rate">Average rate</th>
+                  <th >Pricelist</th>
+                  <th></th>
                   <th></th>
                 </tr>
                 </thead>
@@ -18,8 +21,13 @@
                 <tr *ngFor="let boat of sortedData | filter:searchText">
                   <td>{{boat.name}}</td>
                   <td>{{boat.address}}</td>
-                  <td>{{boat.rate}}</td>   
-                  <button id="eyeBtn" (click)="boatDetails(boat)">Details</button>
+                  <td>{{boat.description}}</td>
+                  <td>{{boat.rate}}</td>  
+                  <td>
+                     <button (click) = pricelist(boat)>Pricelist</button>
+                  </td>
+                  <td> <button id="eyeBtn" (click)="boatDetails(boat)">Details</button></td>
+                 
                 </tr>
                 </tbody>
               </table>

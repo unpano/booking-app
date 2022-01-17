@@ -37,7 +37,9 @@
         </form>
       </div> 
   
-  
+      <mat-form-field >
+        <input type="text" matInput placeholder="Search" [(ngModel)]="searchInput">
+      </mat-form-field>
     </div>
   </mat-card>
   
@@ -47,25 +49,25 @@
   
   <ng-template #thenBlock class = "entities">
       <div *ngIf= "type != 'Instructor' && type != 'Cottage'">
-          <app-all-boats ></app-all-boats>
+          <app-all-boats [searchText]="searchInput"></app-all-boats>
       </div>
       <div *ngIf = "type == 'Instructor'">
-        <app-all-instructors></app-all-instructors>
+        <app-all-instructors [searchText]="searchInput"></app-all-instructors>
       </div>
       <div *ngIf= "type == 'Cottage'">
-        <app-all-cottages></app-all-cottages>
+        <app-all-cottages [searchText]="searchInput"></app-all-cottages>
       </div>
  </ng-template>
 
  <ng-template #elseBlock class = "entities">
     <div *ngIf= "type != 'Instructor' && type != 'Cottage'">
-        <app-free-boats [startDate]="dateInput" [endDate]="endDateInput"></app-free-boats>
+        <app-free-boats [searchText]="searchInput" [startDate]="dateInput" [endDate]="endDateInput"></app-free-boats>
     </div>
     <div *ngIf = "type == 'Instructor'">
-      <app-all-instructors ></app-all-instructors>
+      <app-all-instructors [searchText]="searchInput"></app-all-instructors>
     </div>
     <div *ngIf= "type == 'Cottage'">
-      <app-free-cottages [startDate]="dateInput" [endDate]="endDateInput"></app-free-cottages>
+      <app-free-cottages [searchText]="searchInput" [startDate]="dateInput" [endDate]="endDateInput"></app-free-cottages>
     </div>
 
     
