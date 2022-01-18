@@ -1,13 +1,25 @@
+label{
+    margin-left: 5%;
+    margin-top: 2%;
+    width: 400px;
+}
+
+thead{
+    text-align: center;
+    height: 80px;
+}
+
+
 button{
     color: white;
-    background: lightskyblue;
+    background: indigo;
     border-radius: 1rem;
     border: none;
-    width: 120px;
-    height: 30px;
-    margin-left: 30px;
+    width: 170px;
+    height: 35px;
+    margin-left: 4px;
     font-weight: bold;
-    margin-top: 7px;
+    margin-top: 3px;
 }
 
 mat-card{
@@ -15,15 +27,16 @@ mat-card{
     height: inherit;
 }
 
-input,select{
-    
-    border-color: lightskyblue;
-    border-width: 2px;
-    border-radius: 10px;
-    margin: 10px 10px 10px 10px;
-    width: 300px;
-}
 
 table {
     width: 100%;
+    text-align: center;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    height: 60px;
   }
+
+
+  

@@ -12,4 +12,5 @@ export class User{
   reason !: String
   userType !: String
   picture !: String
+  lastPasswordResetDate !: String
 }

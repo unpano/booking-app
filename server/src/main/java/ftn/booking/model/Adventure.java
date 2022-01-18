@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "adventures")
@@ -31,5 +33,8 @@ public class Adventure {
     private String rules;
 
     private Integer rate;
+
+    @OneToMany
+    private List<EntityImage> images = new ArrayList<>();
 
 }

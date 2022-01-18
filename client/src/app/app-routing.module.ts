@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AllActionsComponent } from './all-actions/all-actions.component';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
 
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ClientProfileCottageComponent } from './client-profile-cottage/client-profile-cottage.component';
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
 import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
@@ -22,6 +24,7 @@ import { NewReservationComponent } from './new-reservation/new-reservation.compo
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
+import { ProfileClientComponent } from './profile-client/profile-client.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -41,6 +44,8 @@ const routes: Routes = [
   {path: 'client', component: HomePageClientComponent},
 
   {path: 'profile', component: ProfileComponent},
+  {path: 'clientProfile', component: ProfileClientComponent},
+
   {path: 'instructorProfile', component: ProfileInstructorComponent},
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
@@ -49,6 +54,9 @@ const routes: Routes = [
   {path: 'allCottages', component: AllCottagesComponent},
 
   {path: 'cottage', component: ProfileCottageComponent},
+  {path: 'actions', component: AllActionsComponent},
+
+  {path: 'cottageProfile', component: ClientProfileCottageComponent},
   {path: 'boat', component: ProfileBoatComponent},
   {path: 'cottage/reserve', component: NewReservationComponent},
   {path: 'cottage/action', component: NewActionComponent},

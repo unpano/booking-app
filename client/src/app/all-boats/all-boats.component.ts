@@ -42,10 +42,15 @@ export class AllBoatsComponent implements OnInit {
 
   boatDetails(boat : Boat)
   {
-    Global.boat = boat;
+    sessionStorage.setItem('entityId', boat.id.toString())
     this.router.navigate(["boat"]);
   }
 
+  actions(boat : Boat)
+  {
+    sessionStorage.setItem('entityId', boat.id.toString())
+    this.router.navigate(["actions"]);
+  }
 
 
 

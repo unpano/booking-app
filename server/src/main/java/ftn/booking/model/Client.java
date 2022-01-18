@@ -1,5 +1,6 @@
 package ftn.booking.model;
 
+import ftn.booking.model.enums.LoyaltyProgram;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +16,5 @@ import javax.persistence.Table;
 public class Client extends User{
 
     private Integer numOfPenalties;
+    private LoyaltyProgram loyaltyProgram;
 }

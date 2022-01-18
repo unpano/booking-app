@@ -1,42 +1,39 @@
 
-<mat-card> 
-  <mat-card-content>
-    <form novalidate class="form-inline">
-        <div class="container">
-            <div class="row">
-    
-              <table matSort (matSortChange)="sortData($event)">
-                <thead>
-                <tr> 
-                  <th mat-sort-header="name">Boat name </th>
-                  <th mat-sort-header="address">Boat address</th>
-                  <th mat-sort-header="description">Boat description</th>
-                  <th mat-sort-header="rate">Average rate</th>
-                  <th >Pricelist</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let boat of sortedData | filter:searchText">
-                  <td>{{boat.name}}</td>
-                  <td>{{boat.address}}</td>
-                  <td>{{boat.description}}</td>
-                  <td>{{boat.rate}}</td>  
-                  <td>
-                     <button (click) = pricelist(boat)>Pricelist</button>
-                  </td>
-                  <td> <button id="eyeBtn" (click)="boatDetails(boat)">Details</button></td>
-                 
-                </tr>
-                </tbody>
-              </table>
 
-            </div>
-          </div>
-    </form> 
-  </mat-card-content>
+
+
+
+<mat-card>
+
+<table matSort (matSortChange)="sortData($event)">
+  <thead>
+      <th mat-sort-header="name">Boat name </th>
+      <th mat-sort-header="address">Boat address</th>
+      <th mat-sort-header="description">Boat description</th>
+      <th mat-sort-header="rate">Average rate</th>
+      <th >Pricelist</th>
+      <th></th>
+      <th></th>
+      <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let boat of sortedData | filter:searchText">
+      <td>{{boat.name}}</td>
+      <td>{{boat.address}}</td>
+      <td>{{boat.description}}</td>
+      <td>{{boat.rate}}</td>  
+      <td>
+         <button (click) = pricelist(boat)>Pricelist</button>
+      </td>
+      <td><button (click) = actions(boat)>Actions</button></td>
+      <td> <button id="eyeBtn" (click)="boatDetails(boat)">Details</button></td>
+     
+    </tr>
+
+  </tbody>
+</table>
 </mat-card>
+
 
 
 

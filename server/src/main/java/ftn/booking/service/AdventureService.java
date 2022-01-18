@@ -10,4 +10,5 @@ public interface AdventureService {
 
     List<Adventure> findFreeAdventures(LocalDateTime startTime, LocalDateTime endTime);
     List<Adventure> findAll();
+    Adventure findById(Long id);
 }

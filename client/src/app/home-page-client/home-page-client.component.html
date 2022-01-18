@@ -16,12 +16,6 @@
             </form>
         </div>
 
-        <div>
-          <label class="label">Start time:</label>
-          <form >
-            <input name = "startTimeInput" type="time" class="input" value="13:00"  [(ngModel)]="startTimeInput" />    
-          </form>
-        </div> 
 
         <div>
           <label> End date: </label>
@@ -30,22 +24,19 @@
           </form>
       </div>
 
-      <div>
-        <label class="label">End time:</label>
-        <form >
-          <input name= "endtimeInput" type="time" class="input" value="13:00"  [(ngModel)]="endTimeInput" />    
-        </form>
-      </div> 
   
       <mat-form-field >
         <input type="text" matInput placeholder="Search" [(ngModel)]="searchInput">
       </mat-form-field>
+
     </div>
+
+    <div><button (click) = "find()">Find</button></div>
   </mat-card>
   
   
-
-  <div *ngIf="dateInput == undefined || endDateInput == undefined ; then thenBlock else elseBlock"></div>
+<mat-card>
+  <div *ngIf="buttonClicked == false ; then thenBlock else elseBlock"></div>
   
   <ng-template #thenBlock class = "entities">
       <div *ngIf= "type != 'Instructor' && type != 'Cottage'">
@@ -74,3 +65,4 @@
  </ng-template>
 
   
+</mat-card>

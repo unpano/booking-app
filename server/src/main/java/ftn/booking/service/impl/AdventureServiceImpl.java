@@ -27,6 +27,12 @@ public class AdventureServiceImpl implements AdventureService {
         return adventureRepository.findAll();
     }
 
+    @Override
+    public Adventure findById(Long id)
+    {
+        return adventureRepository.findById(id).get();
+    }
+
 
     @Override
     public List<Adventure> findFreeAdventures(LocalDateTime startTime, LocalDateTime endTime)

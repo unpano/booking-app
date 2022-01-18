@@ -1,27 +1,104 @@
-<div id="basics">
-    <img class="image" [src]="user.picture"/>
-    <h1>{{user.firstName + ' ' + user.lastName}}</h1>
-  </div>
-  
-  <form>
-      <div>
-          
-          <label for="username">Username: {{user.email}}</label>
-         
-          <label for="phone">Phone number: {{user.phoneNumber}}</label>
-         
-          <label>Password reseted on: {{user.lastPasswordResetDate}}</label>
+<div class="student-profile py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent text-center">
+            <img class="profile_img" src="..\\assets\\profile-pictures\\profilePicture.jpg " alt="student dp">
+            <h3>{{user.firstName + ' ' + user.lastName}}</h3>
+          </div>
+          <div class="card-body">
+
+            <button mat-button routerLink="change-password" id="firstButton">Change password</button>
+            <button mat-button routerLink="delete-account">Delete profile</button>
+            <button mat-button *ngIf="!editButtonClicked" (click)="clickOnEditButton()">Edit profile</button>
+            <button mat-button id="submitButton" type="submit" *ngIf="editButtonClicked">Submit</button>
+          </div>
+        </div>
       </div>
-    
-      <div>
-        <h3>Address</h3>
-  
-        <label for="address">Street: {{user.address}}</label>
-        
-        <label for="city">City: {{user.city}}</label>
-        
-        <label for="country">Country: {{user.country}}</label>
-       </div>
-  
-    </form>
-  
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
+          </div>
+          <div class="card-body pt-0">
+            <table class="table table-bordered">
+              <tr>
+                <th width="30%">Username: </th>
+                <td width="2%">:</td>
+                <td>{{user.email}}</td>
+                <input type="text" id="username" *ngIf="editButtonClicked" name="email" [(ngModel)]="email">
+              </tr>
+              <tr>
+                <th width="30%">Phone number:	</th>
+                <td width="2%">:</td>
+                <td>{{user.phoneNumber}}</td>
+                <input type="text" id="phone" *ngIf="editButtonClicked" name="phoneNumber" [(ngModel)]="phoneNumber">
+              </tr>
+              <tr>
+                <th width="30%">Password reseted on: </th>
+                <td width="2%">:</td>
+                <td>{{user.lastPasswordResetDate}}</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Address</h3>
+          </div>
+          <div class="card-body pt-0">
+            <table class="table table-bordered">
+              <tr>
+                <th width="30%">Street: </th>
+                <td width="2%">:</td>
+                <td>{{user.address}}</td>
+                <input type="text" id="address" *ngIf="editButtonClicked" name="address" [(ngModel)]="address">
+              </tr>
+              <tr>
+                <th width="30%">City:	</th>
+                <td width="2%">:</td>
+                <td> {{user.city}}</td>
+                <input type="text" id="city" *ngIf="editButtonClicked" name="city" [(ngModel)]="city">
+              </tr>
+              <tr>
+                <th width="30%">Country: </th>
+                <td width="2%">:</td>
+                <td>{{user.country}} </td>
+                <input type="text" id="country" *ngIf="editButtonClicked" name="country" [(ngModel)]="country">
+              </tr>
+
+            </table>
+          </div>
+        </div>
+
+        <div class = "loyalty">
+          <div style="height: 26px"></div>
+            <div class="card shadow-sm">
+              <div class="card-header bg-transparent border-0">
+                <h3 class="mb-0">Loyalty program</h3>
+              </div>
+            <div class="card-body pt-0">
+            <label>{{user.loyaltyProgram}}</label>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

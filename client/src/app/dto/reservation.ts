@@ -3,10 +3,10 @@ import { User } from "./user";
 
 export class Reservation{
     id !: Number
-    reservationType !: ReservationType;
-    startTime !: any;
-    endTime !: any;
+    reservationType !: String;
+    startTime !: String;
+    endTime !: String;
     client !: User;
     reported : Boolean = false
-    price !: Number
+    price !: String
 }

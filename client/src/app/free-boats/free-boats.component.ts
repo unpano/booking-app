@@ -20,6 +20,7 @@ export class FreeBoatsComponent implements OnInit {
 
   endpoint = Endpoint
   boats: any
+  sortedData: any
 
   reservation : Reservation = new Reservation()
 
@@ -43,6 +44,7 @@ export class FreeBoatsComponent implements OnInit {
       this.http.get<any>(this.endpoint.FREE_BOATS, options).pipe(
       map(returnedBoat => {
             this.boats = returnedBoat
+            this.sortedData = this.boats.slice()
       })).subscribe()
 
   }
@@ -62,6 +64,11 @@ export class FreeBoatsComponent implements OnInit {
     dialogRef.afterClosed().subscribe();
   }
 
+  actions(boat : Boat)
+  {
+    sessionStorage.setItem('entityId', boat.id.toString())
+    this.router.navigate(["actions"]);
+  }
 
 
   reserve(boat : Boat)
@@ -69,12 +76,8 @@ export class FreeBoatsComponent implements OnInit {
 
     this.reservation.startTime = this.startDate + "T11:00:00"
     this.reservation.endTime = this.endDate + "T11:00:00"
-    this.reservation.reservationType = ReservationType.BOAT
-    this.reservation.price = boat.price;
-
-    alert(this.reservation.reservationType)
-
-    
+    this.reservation.reservationType = "BOAT"
+    this.reservation.price = boat.price.toString();
 
 
     const body=JSON.stringify(this.reservation); 
@@ -83,18 +86,39 @@ export class FreeBoatsComponent implements OnInit {
     let options = { headers: headers,
                     body : body};
 
+    sessionStorage.setItem('entityId', boat.id.toString())
+    alert(sessionStorage.getItem('id'))
      
-    this.http.post<any>(this.endpoint.CREATE_RESERVATION + boat.id.toString() + "/" + '1',  options).pipe(
+    this.http.post<any>(this.endpoint.CREATE_RESERVATION + sessionStorage.getItem('entityId') + "/" + sessionStorage.getItem('id'),  options).pipe(
       map(returnedRes=> {
       })).subscribe()
 
-      alert("zavrseno!")
-      alert(this.reservation.startTime)
+
   }
 
 
+
+  sortData(sort: Sort) 
+  {
+    const data = this.boats.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a : any, b : any) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name': return compare(a.name, b.name, isAsc);
+        case 'address': return compare(a.address, b.address, isAsc);
+        case 'rate': return compare(a.rate, b.rate, isAsc);
+        default: return 0;
+      }
+    });
+  }
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
+

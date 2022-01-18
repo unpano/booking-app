@@ -13,7 +13,13 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
 
     @Override
+    public Client findClientById(Long id) {
+        return clientRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public Client add(Client client) {
         return clientRepository.save(client);
     }
+
 }

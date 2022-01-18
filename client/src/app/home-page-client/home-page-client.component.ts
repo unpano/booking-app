@@ -26,13 +26,21 @@ export class HomePageClientComponent implements OnInit {
 
   boats : any
 
+  buttonClicked = Boolean(false)
+
 
   constructor(private router: Router,private http: HttpClient) { }
 
   ngOnInit(): void {
+
+    this.buttonClicked = false
    
   }
 
+  find()
+  {
+    this.buttonClicked = true
+  }
   onSelectType(type : String)
   {
     this.type = type;

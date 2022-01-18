@@ -1,1 +1,21 @@
-<p>client-reservations works!</p>
+
+<mat-card>
+    <div>
+            My reservations
+    </div>
+  <table>
+    <thead>
+      <th >Start date : </th>
+      <th >End date :</th>
+      <th >Price </th>
+    </thead>
+    <tbody>
+          <tr *ngFor="let r of reservations">
+            <td>{{r.startTime}}</td>
+            <td>{{r.endTime}}</td>
+            <td>{{r.price}}</td>  
+          </tr>
+  
+    </tbody>
+  </table>
+  </mat-card>

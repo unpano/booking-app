@@ -1,0 +1,24 @@
+
+<mat-card>
+  <div>
+
+  </div>
+<table>
+  <thead>
+    <th >Start date : </th>
+    <th >End date :</th>
+    <th >Price </th>
+    <th >Number of persons :</th>
+  </thead>
+  <tbody>
+        <tr *ngFor="let action of actions">
+          <td>{{action.startDate}}</td>
+          <td>{{action.endDate}}</td>
+          <td>{{action.price}}</td>
+          <td>{{action.maxNumberOfPersons}}</td>   
+          <button>Reserve</button>     
+        </tr>
+
+  </tbody>
+</table>
+</mat-card>

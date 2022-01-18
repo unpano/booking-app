@@ -1,0 +1,62 @@
+<form role="form" novalidate class="form-inline" >
+    
+    
+        <div class="form-group">
+            <h1>{{cottage.name}}</h1>	
+            <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>							
+        </div>
+        
+        <div class="form-group">
+            <label>Address</label>
+            <label>{{cottage.address}}</label>	
+        </div>
+        <div class="form-group">
+            <label>City</label>
+            <label>{{cottage.city}}</label>					
+        </div>
+        <div class="form-group">
+            <label>Number of persons</label>
+            <label>{{cottage.maxNumOfPersons}}</label>							
+        </div> 
+        <div class="form-group">
+            <label>Rate</label>
+            <label>
+              <div id="starsRow" *ngFor="let i of starNamesFunc(cottage.rate)">
+                <i class="material-icons">star_{{i}}</i>
+              </div>
+            </label>							
+        </div>
+        <div class="form-group">
+            <h1>Our cottage</h1>
+            <label>{{cottage.description}}</label>								
+        </div>    
+    
+        <div class="form-group">
+            <h1>Where you'll sleep</h1>	
+            <div *ngFor="let room of cottage.rooms">
+                <label>{{room.name}}</label>
+                <label>{{room.bedTypes}}</label>
+            </div>							
+        </div>
+        <div class="form-group">
+            <h1>What this place offers</h1>	
+            <label *ngFor="let amenity of amenities">
+                <i class="material-icons">{{amenity.icon}}</i>
+                {{amenity.name}}</label>
+                                        
+        </div>
+       
+    
+        <div class="form-group">
+            <h1>Behavioral rules</h1>	
+            <label *ngFor="let rule of rules">
+                <i class="material-icons">{{rule.icon}}</i>
+                {{rule.name}}</label>
+                                        
+        </div>  
+     
+        
+    </form>
+    
+    
+    

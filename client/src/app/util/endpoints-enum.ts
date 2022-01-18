@@ -11,11 +11,17 @@ export enum Endpoint {
   FREE_COTTAGES = "http://localhost:8084/cottages/findFree/",
   FREE_ADVENTURES = "http://localhost:8084/adventures/findFree/",
 
+  MY_RESERVATIONS = "http://localhost:8084/reservations/findByUser/",
+
 
   FIND_INSTRUCTOR = "http://localhost:8084/instructors/findOne",
   FIND_BOAT = "http://localhost:8084/boats/findOne",
 
+  ACTIONS = "http://localhost:8084/actions/find/",
+
   USERS = "http://localhost:8084/users/",
+  FIND_CLIENT = "http://localhost:8084/client/findById/",
+  DELETE_CLIENT = "http://localhost:8084/client/delete",
   UPLOAD = "http://localhost:8084/uploads/",
   COTTAGES = "http://localhost:8084/cottages/",
 
@@ -26,6 +32,8 @@ export enum Endpoint {
   REPORTS = "http://localhost:8084/reports/",
   MAIL = "http://localhost:8084/emails/",
   ROOMS = "http://localhost:8084/rooms/",
+
+
 
 
 

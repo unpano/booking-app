@@ -19,16 +19,25 @@ export class ProfileBoatComponent implements OnInit {
 
   constructor(private router: Router,private http: HttpClient) { }
 
-  boat : Boat = new Boat()
+  boat : any
+  actions : any
 
   ngOnInit(): void {
     const headers = { 'content-type': 'application/json'} 
     let options = { headers: headers };
 
-    this.http.get<any>(this.endpoint.FIND_BOAT + "/"+ Global.boat.id, options).pipe(
+    this.http.get<any>(this.endpoint.FIND_BOAT + "/"+ sessionStorage.getItem('entityId'), options).pipe(
       map(returnedBoat => {
         this.boat = returnedBoat
       })).subscribe()
+
+
+      this.http.get<any>(this.endpoint.ACTIONS + sessionStorage.getItem('entityId'), options).pipe(
+        map(returnedData => {
+          this.actions = returnedData
+        })).subscribe()
+
+
   }
 
 }

@@ -4,10 +4,7 @@ import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.PeriodConflictException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.ReservationType;
-import ftn.booking.service.CottageService;
-import ftn.booking.service.ReportService;
-import ftn.booking.service.ReservationService;
-import ftn.booking.service.UserService;
+import ftn.booking.service.*;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -27,10 +24,55 @@ import java.util.Objects;
 public class ReservationController {
 
     private ReservationService reservationService;
+
     private UserService userService;
-    private CottageService cottageService;
+    private ClientService clientService;
+
     private ModelMapper modelMapper;
     private ReportService reportService;
+
+    private BoatService boatService;
+    private AdventureService adventureService;
+    private CottageService cottageService;
+
+    @GetMapping("/findByUser/{userId}")
+    public ResponseEntity<List<Reservation>> findReservationsByUser(@PathVariable Long userId)
+    {
+        return new ResponseEntity<>(reservationService.findAllByUser(userId), HttpStatus.OK);
+    }
+
+
+    @PostMapping("/createReservation/{entityId}/{clientId}")
+    //@PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<Reservation> makeReservation(@PathVariable Long entityId,
+                                                       @PathVariable Long clientId, @RequestBody ReservationDTO reservationDTO) {
+
+        Reservation new_reservation = new Reservation();
+
+        new_reservation.setReservationType( reservationDTO.getReservationType());
+        if( new_reservation.getReservationType() == ReservationType.BOAT)
+        {
+            new_reservation.setBoat( boatService.findById(entityId));
+        }
+        else if (new_reservation.getReservationType() == ReservationType.COTTAGE)
+        {
+            new_reservation.setCottage( cottageService.findById(entityId));
+        }
+        else if(new_reservation.getReservationType() == ReservationType.ADVENTURE)
+        {
+            new_reservation.setAdventure( adventureService.findById(entityId));
+        }
+
+        new_reservation.setClient( clientService.findClientById(clientId));
+        new_reservation.setStartTime(reservationDTO.getStartTime());
+        new_reservation.setEndTime(reservationDTO.getEndTime());
+        new_reservation.setPrice(reservationDTO.getPrice());
+
+
+        return new ResponseEntity<>(reservationService.add(new_reservation), HttpStatus.OK);
+    }
+
+
 
     @GetMapping("/{id}/isReported")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")

@@ -70,4 +70,7 @@ public class Cottage {
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
     )
     private List<Client> subscribers = new ArrayList<>();
+
+    @OneToMany
+    private List<EntityImage> images = new ArrayList<>();
 }

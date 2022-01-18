@@ -7,6 +7,7 @@ import ftn.booking.exception.NotFoundException;
 import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.exception.ValidationException;
 import ftn.booking.model.*;
+import ftn.booking.model.enums.LoyaltyProgram;
 import ftn.booking.model.enums.Role;
 import ftn.booking.service.AuthorityService;
 import ftn.booking.service.OwnerService;
@@ -62,7 +63,6 @@ public class AuthenticationController {
 
         if(Objects.equals(userDTO.getUserType(), Role.ROLE_CLIENT)) {
 
-            //namapiram dto podatke na klijenta
             Client client = new Client();
             modelMapper.map(userDTO, client);
 
@@ -76,6 +76,7 @@ public class AuthenticationController {
             client.setAuthorities(authorityList);
 
             //klijent aktivira profil preko linka
+            client.setLoyaltyProgram(LoyaltyProgram.REGULAR);
             client.setEnabled(false);
             client.setPicture("");
             client.setRole(Role.ROLE_CLIENT);

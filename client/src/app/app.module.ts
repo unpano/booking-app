@@ -62,6 +62,9 @@ import { AllInstructorsComponent } from './all-instructors/all-instructors.compo
 import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
 import { ReservationFormComponent } from './reservation-form/reservation-form.component';
+import { DeleteClientProfileComponent } from './delete-client-profile/delete-client-profile.component';
+import { ClientProfileCottageComponent } from './client-profile-cottage/client-profile-cottage.component';
+import { AllActionsComponent } from './all-actions/all-actions.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +110,9 @@ import { ReservationFormComponent } from './reservation-form/reservation-form.co
     ProfileInstructorComponent,
     PricelistComponent,
     ReservationFormComponent,
+    DeleteClientProfileComponent,
+    ClientProfileCottageComponent,
+    AllActionsComponent,
   ],
   imports: [
     BrowserModule,

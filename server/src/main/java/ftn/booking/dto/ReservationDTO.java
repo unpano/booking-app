@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class ReservationDTO {
 
     private ReservationType reservationType;
-
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private Long price;
 }

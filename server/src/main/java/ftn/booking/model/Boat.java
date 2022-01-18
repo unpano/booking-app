@@ -44,7 +44,7 @@ public class Boat {
 
     private Long numberOfMotors;
 
-    private Long rating;
+    private Long rate;
 
     @Enumerated(EnumType.STRING)
     private BoatType type;
@@ -64,6 +64,8 @@ public class Boat {
     )
     private List<AdditionalService> boatAdditionalServices = new ArrayList<>();
 
+    @OneToMany
+    private List<EntityImage> images = new ArrayList<>();
 
 
 }

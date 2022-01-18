@@ -34,4 +34,6 @@ public interface ReservationService{
 
     List<LocalDate> findAllForbiddenDates();
 
+    List<Reservation> findAllByUser(Long userId);
+
 }

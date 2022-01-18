@@ -38,11 +38,11 @@ export class AllCottagesComponent implements OnInit {
 
   }
 
-  cottageDetails(cottage : Cottage)
+  cottageProfile(cottage : Cottage)
   {
     Global.cottage = cottage;
-    this.router.navigate(["cottage"]);
-
+    sessionStorage.setItem('cottageId', cottage.id.toString())
+    this.router.navigate(["cottageProfile"]);
   }
 
   sortData(sort: Sort) 

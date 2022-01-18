@@ -1,55 +1,124 @@
-<mat-card class="example-card">
-    
-    <mat-card-content>
-          <form>
-  
-            <table>
-              <thead>
-                <tr>
-                  <th>Boat name:</th>
-                  <th>Boat address:</th>
-                  <th>Behavioral rules:</th>
-                  <th>Cancellation conditions:</th>
-                  <th>Capacity:</th>
-                  <th>Fishing equipment:</th>
-                  <th>Max speed:</th>
-                  <th>Motor power:</th>
-                  <th>Description:</th>
-                  <th>Mumber of motors:</th>
-                  <th>Rating:</th>
-                  <th>Type:</th>
-                  <th>Length:</th>
-                  <th>Navigation equipment:</th>
-                </tr>
-              </thead>
-  
+<div class="student-profile py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent text-center">
+            <img class="profile_img" src="https://source.unsplash.com/600x300/?student" alt="student dp">
+            <h3>{{boat.name}}</h3>
+          </div>
+          <div class="card-body">
+            <p class="mb-0"><strong class="pr-1">Address:  </strong>{{boat.address}}</p>
+            <p class="mb-0"><strong class="pr-1">Capacity:  </strong>{{boat.capacity}}  person</p>
+            <p class="mb-0"><strong class="pr-1">Description:  </strong>{{boat.description}}</p>
+            <button>Reserve</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
+          </div>
+          <div class="card-body pt-0">
+            <table class="table table-bordered">
+
+              <tr>
+                <th width="30%">Motor power</th>
+                <td width="2%">:</td>
+                <td>{{boat.motorPower}}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Navigation equipment</th>
+                <td width="2%">:</td>
+                <td>{{boat.navigationEquipment}}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Cancellation price</th>
+                <td width="2%">:</td>
+                <td>{{boat.cancellationPrice}}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Max speed</th>
+                <td width="2%">:</td>
+                <td>{{boat.maxSpeed}} mph</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Number of motors</th>
+                <td width="2%">:</td>
+                <td>{{boat.numberOfMotors}}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Type</th>
+                <td width="2%">:</td>
+                <td>{{boat.type}}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Length</th>
+                <td width="2%">:</td>
+                <td>{{boat.length}} m</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Fishing equipment</th>
+                <td width="2%">:</td>
+                <td>{{boat.fishingEquipment }}</td>
+              </tr>
               
-  
-              <tbody>
-                <tr>
-                                    
-                  <td>{{boat.name}}</td>
-                  <td>{{boat.address}}</td>
-                  <td>{{boat.behavioralRules}}</td>
-                  <td>{{boat.cancellationConditions}}</td>
-                  <td>{{boat.capacity}}</td>
-                  <td>{{boat.fishingEquipment}}</td>
-                  <td>{{boat.maxSpeed}}</td>
-                  <td>{{boat.motorPower}}</td>
-                  <td>{{boat.description}}</td>
-                  <td>{{boat.numberOfMotors}}</td>
-                  <td>{{boat.rate}}</td>
-                  <td>{{boat.type}}</td>
-                  <td>{{boat.length}}</td>
-                  <td>{{boat.navigationEquipment}}</td>
-                  
-                </tr>
-              </tbody>
+              
             </table>
-  
-          </form>
-  
-    </mat-card-content>
-  </mat-card>
-  
+          </div>
+        </div>
+
+          <div style="height: 26px"></div>
+
+          <div class="card shadow-sm">
+            <div class="card-header bg-transparent border-0">
+              <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Additional services</h3>
+            </div>
+            <div class="card-body pt-0">
+              <tr *ngFor="let service of boat.boatAdditionalServices">
+                <td>{{service.name}}</td>
+                <td>{{service.price}}</td>
+              </tr>
+            </div>
+          </div>
+
+
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Behavioral rules</h3>
+          </div>
+          <div class="card-body pt-0">
+              <p>{{boat.behaviorRules}}</p>
+          </div>
+        </div>
+
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ACTIONS</h3>
+          </div>
+          <div class="card-body pt-0">
+              <app-all-actions></app-all-actions>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 

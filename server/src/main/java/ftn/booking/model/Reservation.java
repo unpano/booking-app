@@ -39,20 +39,6 @@ public class Reservation {
 
     private Long price;
 
-    //private Boolean status;
-
-    //private String report;
-
-    //private String comment;
-
-
-//    @NotNull
-//    private String place;
-
-//    //Sta je ovo??
-//    private String praise;
-
-    //private Boolean isReportFilled;
 
     //if client is not set, then reservation is action
     @OneToOne

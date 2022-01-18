@@ -1,40 +1,34 @@
+<mat-card>
 
-<mat-card class="example-card">    
-    <mat-card-content>
+  <table matSort (matSortChange)="sortData($event)">
+    <thead>
+        <th mat-sort-header="name">Boat name </th>
+        <th mat-sort-header="address">Boat address</th>
+        <th mat-sort-header="description">Boat description</th>
+        <th mat-sort-header="rate">Average rate</th>
+        <th >Pricelist</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let boat of sortedData | filter:searchText">
+        <td>{{boat.name}}</td>
+        <td>{{boat.address}}</td>
+        <td>{{boat.description}}</td>
+        <td>{{boat.rate}}</td>  
+        <td>
+           <button (click) = pricelist(boat)>Pricelist</button>
+        </td>
+        <td><button (click) = actions(boat)>Actions</button></td>
+        <td> <button id="eyeBtn" (click)="boatDetails(boat)">Details</button></td>
+       
+      </tr>
   
-          <form name = "boatForm">
-            <div class="table-form">
-              <table>
-                  <thead>
-                    <tr>
-                      <th>Boat name:</th>
-                      <th>Boat address:</th>
-                      <th>Boat rate:</th>
-                      <th>Boat price:</th>
-                    </tr>
-                  </thead>
-  
-                  <tbody>
-                    <tr *ngFor="let boat of boats | filter:searchText">
-                                        
-                      <td>{{boat.name}}</td>
-                      <td>{{boat.address}}</td>
-                      <td>{{boat.rating}}</td>
-                      <td>{{boat.price}}</td>
-                    
-                      <td> <button id="eyeBtn" (click)="boatDetails(boat)">Details</button></td>
-                      <td><button id="eyeBtn" (click)="reserve(boat)">Reserve</button></td>
-                      
-                    </tr>
-                  </tbody>
-                </table>
-            </div>
-  
-          </form>
-  
-    </mat-card-content>
+    </tbody>
+  </table>
   </mat-card>
-  
+
   
   
   

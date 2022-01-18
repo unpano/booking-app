@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface AdventureRepository extends JpaRepository<Adventure, Long> {
 
-    List<Adventure> findAll();
 }
