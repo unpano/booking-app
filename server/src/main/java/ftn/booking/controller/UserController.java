@@ -10,7 +10,6 @@ import ftn.booking.service.DeactivationRequestService;
 import ftn.booking.service.UserService;
 import ftn.booking.utils.ValidationUtils;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -31,14 +29,12 @@ public class UserController {
 
     private UserService userService;
     private DeactivationRequestService deactivationRequestService;
-    private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/{username}")
     @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
 
     public ResponseEntity<User> checkIfUsernameIsAvailable(@PathVariable String username){
-        System.out.println(userService.loadUserByUsername(username));
         return new ResponseEntity<>(userService.loadUserByUsername(username), HttpStatus.OK);
     }
     

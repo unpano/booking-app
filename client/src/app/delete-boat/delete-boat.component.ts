@@ -34,7 +34,10 @@ export class DeleteBoatComponent implements OnInit {
           alert("Boat is or has been reserved and could not be deleted.");
         }
         return EMPTY;
-      })).subscribe(() => alert("Your boat is deleted."))
+      })).subscribe(() => {
+        alert("Your boat is deleted.");
+        this.router.navigate(["boats"])
+      })
   }
 
   cancel(){

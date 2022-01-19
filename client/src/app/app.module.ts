@@ -61,6 +61,7 @@ import { NewBoatComponent } from './new-boat/new-boat.component';
 import { DeleteBoatComponent } from './delete-boat/delete-boat.component';
 import { ListBoatFutureReservationsComponent } from './list-boat-future-reservations/list-boat-future-reservations.component';
 import { ListBoatPastReservationsComponent } from './list-boat-past-reservations/list-boat-past-reservations.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,8 @@ import { ListBoatPastReservationsComponent } from './list-boat-past-reservations
     MatNativeDateModule,
 
     NgImageSliderModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxMaterialTimepickerModule
     
   ],
   providers: [HttpClientModule],

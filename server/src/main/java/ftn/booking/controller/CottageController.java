@@ -13,6 +13,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -93,12 +96,27 @@ public class CottageController {
     @PostMapping
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<Cottage> addCottage(@RequestBody CottageDTO cottageDTO,Principal loggedUser){
+
         User user = userService.loadUserByUsername(loggedUser.getName());
         CottageOwner cottageOwner = new CottageOwner();
         cottageOwner.setId(user.getId());
 
         Cottage cottage = new Cottage();
         modelMapper.map(cottageDTO,cottage);
+
+        //checkout time for cottage
+        String time = "11:00:00";
+
+        if(cottageDTO.getCheckout().contains("AM")){
+            time = cottageDTO.getCheckout().replace(" AM","") + ":00";
+        }else if(cottageDTO.getCheckout().contains("PM")){
+            Integer hours = Integer.parseInt(cottageDTO.getCheckout().substring(0,2));
+            hours += 12;
+            time = hours + cottageDTO.getCheckout().substring(2,5) + ":00";
+        }
+
+        cottage.setCheckout(LocalTime.parse(time));
+
         //first save rooms to db, bcs of many-to-many link with cottage
         for (Room room: cottageDTO.getRooms()) {
             roomService.addRoom(room);
@@ -130,6 +148,19 @@ public class CottageController {
             throw new ResourceConflictException("Cottage has reservations.");
 
         modelMapper.map(cottageDTO, cottage);
+
+        //checkout time for cottage
+        String time = "11:00:00";
+
+        if(cottageDTO.getCheckout().contains("AM")){
+            time = cottageDTO.getCheckout().replace(" AM","") + ":00";
+        }else if(cottageDTO.getCheckout().contains("PM")){
+            Integer hours = Integer.parseInt(cottageDTO.getCheckout().substring(0,2));
+            hours += 12;
+            time = hours + cottageDTO.getCheckout().substring(2,5) + ":00";
+        }
+
+        cottage.setCheckout(LocalTime.parse(time));
 
         return new ResponseEntity<>(cottageService.update(cottage),HttpStatus.OK);
     }

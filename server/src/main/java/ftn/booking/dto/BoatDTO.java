@@ -30,5 +30,6 @@ public class BoatDTO {
     private List<NavigationEquipment> navigationEquipment;
     private List<FishingEquipment> fishingEquipment;
     private CancelationType cancelationType;
+    private String checkout;
 
 }

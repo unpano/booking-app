@@ -1,7 +1,9 @@
+import { Time } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { NgxTimepickerFieldComponent } from 'ngx-material-timepicker';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Cottage } from '../dto/cottage';
@@ -28,6 +30,7 @@ export class NewCottageComponent implements OnInit {
   oneDayPrice !: Number
   roomNum !: Number 
   rooms : Room[] = []
+  time !: Time
 
   cottage: Cottage = new Cottage()
 
@@ -58,6 +61,7 @@ export class NewCottageComponent implements OnInit {
       this.cottage.maxNumOfPersons = this.maxNumPers
       this.cottage.rooms = this.rooms
       this.cottage.oneDayPrice = this.oneDayPrice
+      this.cottage.checkout = this.time
       
 
     const headers = { 'content-type': 'application/json',

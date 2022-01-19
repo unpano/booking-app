@@ -1,3 +1,4 @@
+import { Time } from "@angular/common";
 import { AdditionalService } from "./enums/AdditionalService";
 import { Amenity } from "./enums/Amenity";
 import { BoatType } from "./enums/BoatType"
@@ -23,6 +24,7 @@ export class Boat{
   fishingEquipment !: FishingEquipment[]
   cancelationType !: CancelationType
   oneDayPrice !: Number
+  checkout !: Time
 }
 
 

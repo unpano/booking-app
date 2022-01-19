@@ -1,3 +1,4 @@
+import { Time } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -41,6 +42,8 @@ export class ProfileBoatComponent implements OnInit {
   eq1 = Global.navigationEquipment
   eq2 = Global.fishingEquipment
   oneDayPrice !: Number
+  
+  time !: Time
 
   selectedFiles?: FileList;
   previews: string[] = [];
@@ -138,6 +141,8 @@ export class ProfileBoatComponent implements OnInit {
         this.boat.capacity = this.capacity
         if(this.oneDayPrice != undefined)
         this.boat.oneDayPrice = this.oneDayPrice
+        if(this.time != undefined)
+        this.boat.checkout = this.time
 
       this.boat.id = sessionStorage.getItem("boatId")
 

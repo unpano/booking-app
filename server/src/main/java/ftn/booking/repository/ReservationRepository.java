@@ -45,11 +45,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findAllByBoatId(Long id);
 
-    List<Reservation> findAllByReservationType(ReservationType cottage);
-
     List<Reservation> findAllByBoatIdAndStartTimeAfter(Long id, LocalDateTime now);
 
     List<Reservation> findAllByBoatIdAndClientIdAndStartTimeAfter(Long id, Long clientId, LocalDateTime now);
 
     List<Reservation> findAllByBoatIdAndEndTimeBefore(Long id, LocalDateTime now);
+
+    List<Reservation> findAllByReservationTypeAndCottageId(ReservationType cottage, Long id);
+
+    List<Reservation> findAllByReservationTypeAndBoatId(ReservationType boat, Long id);
 }

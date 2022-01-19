@@ -9,8 +9,8 @@ import ftn.booking.exception.ValidationException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.Role;
 import ftn.booking.service.AuthorityService;
-import ftn.booking.service.OwnerService;
 import ftn.booking.service.ClientService;
+import ftn.booking.service.OwnerService;
 import ftn.booking.service.UserService;
 import ftn.booking.utils.TokenUtils;
 import ftn.booking.utils.ValidationUtils;
@@ -27,7 +27,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;

@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -86,17 +87,17 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.checkIfDateIsFree(dateTime), HttpStatus.OK);
     }
 
-    @GetMapping("/forbiddenDatesCottage")
+    @GetMapping("/forbiddenDatesCottage/{id}")
     @PreAuthorize("hasRole('COTTAGE_OWNER')")
-    public ResponseEntity<List<LocalDate>> findAllForbiddenDatesForCottage(){
+    public ResponseEntity<List<LocalDate>> findAllForbiddenDatesForCottage(@PathVariable Long id){
 
-        return new ResponseEntity<>(reservationService.findAllForbiddenDatesCottage(), HttpStatus.OK);
+        return new ResponseEntity<>(reservationService.findAllForbiddenDatesCottage(id), HttpStatus.OK);
     }
-    @GetMapping("/forbiddenDatesBoat")
+    @GetMapping("/forbiddenDatesBoat/{id}")
     @PreAuthorize("hasRole('BOAT_OWNER')")
-    public ResponseEntity<List<LocalDate>> findAllForbiddenDatesForBoat(){
+    public ResponseEntity<List<LocalDate>> findAllForbiddenDatesForBoat(@PathVariable Long id){
 
-        return new ResponseEntity<>(reservationService.findAllForbiddenDatesBoat(), HttpStatus.OK);
+        return new ResponseEntity<>(reservationService.findAllForbiddenDatesBoat(id), HttpStatus.OK);
     }
 
 
@@ -161,15 +162,19 @@ public class ReservationController {
         //reserved entity
         if(reservationDTO.getReservationType() == ReservationType.COTTAGE){
 
-            Cottage cottage = new Cottage();
-            cottage.setId(entityId);
+            Cottage cottage = cottageService.findById(entityId);
+
+            reservation.setStartTime(reservation.getStartTime().with(cottage.getCheckout()));
+            reservation.setEndTime(reservation.getEndTime().with(cottage.getCheckout()));
 
             reservation.setCottage(cottage);
 
         }else if(reservationDTO.getReservationType() == ReservationType.BOAT){
 
-            Boat boat = new Boat();
-            boat.setId(entityId);
+            Boat boat = boatService.findById(entityId);
+
+            reservation.setStartTime(reservation.getStartTime().with(boat.getCheckout()));
+            reservation.setEndTime(reservation.getEndTime().with(boat.getCheckout()));
 
             reservation.setBoat(boat);
 

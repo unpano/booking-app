@@ -10,6 +10,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,8 @@ public class Cottage {
     private Float rate;
 
     private Float oneDayPrice;
+
+    private LocalTime checkout;
 
     @ManyToOne
     private CottageOwner cottageOwner;

@@ -20,7 +20,7 @@ export class DateFilterService {
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     this.http
-                .get(this.endpoint.RESERVATIONS + "forbiddenDatesCottage",options)
+                .get(this.endpoint.RESERVATIONS + "forbiddenDatesCottage/" + sessionStorage.getItem("cottageId"),options)
                   .pipe(
                     map(returnedDates => {
                       Global.forbiddenDatesCottage = returnedDates
@@ -34,7 +34,7 @@ export class DateFilterService {
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
     this.http
-                        .get(this.endpoint.RESERVATIONS + "forbiddenDatesBoat",options)
+                        .get(this.endpoint.RESERVATIONS + "forbiddenDatesBoat/" + sessionStorage.getItem("boatId"),options)
                           .pipe(
                             map(returnedDates => {
                               Global.forbiddenDatesBoat = returnedDates

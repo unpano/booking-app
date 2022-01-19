@@ -34,7 +34,10 @@ export class DeleteCottageComponent implements OnInit {
           alert("Cottage is or has been reserved and could not be deleted.");
         }
         return EMPTY;
-      })).subscribe(() => alert("Your cottage is deleted."))
+      })).subscribe(() => {
+        alert("Your cottage is deleted.");
+        this.router.navigate(["cottages"])
+      })
   }
 
   cancel(){

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class Boat {
     private Float rate;
 
     private Float oneDayPrice;
+
+    private LocalTime checkout;
 
     @ManyToOne
     private BoatOwner boatOwner;

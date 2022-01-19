@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -42,6 +43,19 @@ public class BoatController {
 
         Boat boat = new Boat();
         modelMapper.map(boatDTO,boat);
+
+        //checkout time for boat
+        String time = "11:00:00";
+
+        if(boatDTO.getCheckout().contains("AM")){
+            time = boatDTO.getCheckout().replace(" AM","") + ":00";
+        }else if(boatDTO.getCheckout().contains("PM")){
+            Integer hours = Integer.parseInt(boatDTO.getCheckout().substring(0,2));
+            hours += 12;
+            time = hours + boatDTO.getCheckout().substring(2,5) + ":00";
+        }
+
+        boat.setCheckout(LocalTime.parse(time));
 
         boat.setBoatOwner(boatOwner);
         boat.setRate(0f);
@@ -103,6 +117,20 @@ public class BoatController {
 
 
         modelMapper.map(boatDTO, boat);
+
+        //checkout time for boat
+        String time = "11:00:00";
+
+        if(boatDTO.getCheckout().contains("AM")){
+            time = boatDTO.getCheckout().replace(" AM","") + ":00";
+        }else if(boatDTO.getCheckout().contains("PM")){
+            Integer hours = Integer.parseInt(boatDTO.getCheckout().substring(0,2));
+            hours += 12;
+            time = hours + boatDTO.getCheckout().substring(2,5) + ":00";
+        }
+
+        boat.setCheckout(LocalTime.parse(time));
+
 
         return new ResponseEntity<>(boatService.update(boat),HttpStatus.OK);
     }

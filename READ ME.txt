@@ -1,30 +1,49 @@
--------------------------------------NAPOMENA---------------------------------------------
+-------------------------------------NAPOMENA---------------------------------------------------------------------------
 
 FRONT se nalazi u folderu client, a BACK u folderu server.
+------------------------------------------------------------------------------------------------------------------------
 
------REGISTRACIJA VLASNIKA VIKENDICE-----
-Kada se registruje novi vlasnik vikendice, njegovo polje enabled treba promeniti na true. Adminova funkcionalnost 
-je da odbija ili prihvata zahteve za registraciju.
+-------------------------------------3.3. REGISTRACIJA VLASNIKA VIKENDICE ILI BRODA-------------------------------------
 
------POPUJAVANJE BAZE-----
+U tabelu authorities ubaciti sledeće podatke:
+insert into authority (name) values ('ROLE_COTTAGE_OWNER');
+insert into authority (name) values ('ROLE_BOAT_OWNER');
+insert into authority (name) values ('ROLE_INSTRUCTOR');
+insert into authority (name) values ('ROLE_CLIENT');
+insert into authority (name) values ('ROLE_ADMIN');
+
+Kada se registruje novi vlasnik, polje enabled se set-uje na false. Tako sam modelovala zahtev za registraciju. Admin
+to polje može promeniti na true i tada korisnik postaje aktivan. Do tada se ne može logovati.
+
+Šifra mora imati jedno veliko, jedno malo slovo i bar jednu cifru. Sve ukupno od 8 do 20 karaktera...
+
+update users set enabled = true where id=? (navesti id registrovanog user-a).
+------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------BEZBEDNOST APLIKACIJE--------------------------------------------------------------
+
+Za bezbednost aplikacije korišćen je Spring Security.
+------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------MySQL BAZA PODATAKA----------------------------------------------------------------
 
 Baza se kreira na localhost:3306/booking. booking je naziv šeme baze podataka. U application.properties fajlu
 podesiti:
-spring.datasource.username=ovdeIdeUsername
-spring.datasource.password=ovdeIdeSifra
-Tako da odgovara korisničkom imenu i šifri koju ste koristili prilikom otvaranja konekcije na tom portu. Da bi se
-baza kreirala potrebno je kreirati šemu sa nazivom booking.
+spring.datasource.username= ?ovdeIdeUsername
+spring.datasource.password= ?ovdeIdeSifra
+Tako da odgovara korisničkom imenu i šifri koju ste koristili prilikom otvaranja konekcije na tom portu. 
 
-Kada pokrenete prvi put back, tabele se formiraju automatski. Kako bi ubacili potrebne početne info, prebacite fajl 
-data.sql sa putanje na kome su front i back, u src/main/resources folder. Ponovo pokrenite program kako bi se podaci
-uneli u bazu.
+Kada pokrenete prvi put back, tabele se formiraju automatski. 
+-------------------------------------------------------------------------------------------------------------------------
 
------SLANJE EMAIL-A-----
+-------------------------------------SLANJE MAIL-A-----------------------------------------------------------------------
 
 Za slanje email-a podesiti u application.properties fajlu email i password. Kreiran je poseban Google Account i vec je
 podeseno da se sa njega salju mejlovi. 
-spring.mail.username=ovdeIdeEmailPosiljaoca
-spring.mail.password=ovdeIdeSifraPosiljaoca
+
+spring.mail.username= isaBooking56@gmail.com
+spring.mail.password= isaBooking56Password
+-------------------------------------------------------------------------------------------------------------------------
 
 -----POKRETANJE FRONTEND-A-----
 

@@ -86,8 +86,8 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<LocalDate> findAllForbiddenDatesCottage() {
-        List<Reservation> reservations = reservationRepository.findAllByReservationType(ReservationType.COTTAGE);
+    public List<LocalDate> findAllForbiddenDatesCottage(Long id) {
+        List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndCottageId(ReservationType.COTTAGE,id);
         List<LocalDate> forbiddenDates = new ArrayList<>();
 
         for (Reservation res: reservations) {
@@ -99,8 +99,8 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<LocalDate> findAllForbiddenDatesBoat() {
-        List<Reservation> reservations = reservationRepository.findAllByReservationType(ReservationType.BOAT);
+    public List<LocalDate> findAllForbiddenDatesBoat(Long id) {
+        List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndBoatId(ReservationType.BOAT,id);
         List<LocalDate> forbiddenDates = new ArrayList<>();
 
         for (Reservation res: reservations) {

@@ -1,3 +1,5 @@
+import { Time } from "@angular/common";
+import { NgxTimepickerFieldComponent } from "ngx-material-timepicker";
 import { AdditionalService } from "./enums/AdditionalService";
 import { Amenity } from "./enums/Amenity";
 import { Room } from "./Room";
@@ -14,4 +16,5 @@ export class Cottage{
     additionalServices !: AdditionalService[]
     rooms !: Room[]
     oneDayPrice !: Number
+    checkout !: Time
 }

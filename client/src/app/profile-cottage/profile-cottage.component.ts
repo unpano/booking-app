@@ -1,3 +1,4 @@
+import { Time } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -23,6 +24,7 @@ export class ProfileCottageComponent implements OnInit {
   description !: String
   maxNumPers !: Number
   oneDayPrice !: Number
+  time !: Time
 
   roomName !: String
   roomBadTypes !: String
@@ -235,6 +237,10 @@ export class ProfileCottageComponent implements OnInit {
         this.cottage.oneDayPrice = this.oneDayPrice
       if(this.description != undefined)
         this.cottage.description = this.description
+      if(this.maxNumPers != undefined)
+        this.cottage.maxNumPers = this.maxNumPers
+      if(this.time != undefined)
+        this.cottage.checkout = this.time
 
       this.cottage.id = sessionStorage.getItem("cottageId")
 
@@ -264,7 +270,9 @@ export class ProfileCottageComponent implements OnInit {
             alert("Cottage is or has been reserved and could not be deleted.");
           }
           return EMPTY;
-        })).subscribe(() => alert("Room is deleted."))
+        })).subscribe(() => {
+          alert("Room is deleted.");
+          this.router.navigate(['cottage'])})
 
     }
 

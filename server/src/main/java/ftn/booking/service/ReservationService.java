@@ -6,10 +6,8 @@ import ftn.booking.model.enums.ReservationType;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ReservationService{
 
@@ -32,11 +30,11 @@ public interface ReservationService{
 
     Boolean checkIfDateIsFree(LocalDateTime date);
 
-    List<LocalDate> findAllForbiddenDatesCottage();
+    List<LocalDate> findAllForbiddenDatesCottage(Long id);
 
     List<Reservation> findAllByBoatId(Long id);
 
-    List<LocalDate> findAllForbiddenDatesBoat();
+    List<LocalDate> findAllForbiddenDatesBoat(Long id);
 
     List<Reservation> findAllFutureActionsByBoatId(Long id);
 

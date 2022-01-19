@@ -1,3 +1,4 @@
+import { Time } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -29,6 +30,7 @@ export class NewBoatComponent implements OnInit {
   description !: String
   capacity !: Number
   oneDayPrice !: Number
+  time !: Time
 
   boat: Boat = new Boat()
 
@@ -69,6 +71,7 @@ export class NewBoatComponent implements OnInit {
     this.boat.description = this.description
     this.boat.capacity = this.capacity
     this.boat.oneDayPrice = this.oneDayPrice
+    this.boat.checkout = this.time
 
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
