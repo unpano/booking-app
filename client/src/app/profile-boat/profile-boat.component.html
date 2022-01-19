@@ -9,8 +9,8 @@
   <button mat-button (click)="editBoat()" *ngIf="!editButtonClicked">Edit boat</button>
   
       <div class="form-group">
-          <h1>{{boat.name}}</h1>	
-          <input type="text" id="name" *ngIf="editButtonClicked" name="name" [(ngModel)]="name">
+          <h1 id="name">{{boat.name}}</h1>	
+          <input type="text" id="name1" *ngIf="editButtonClicked" name="name" [(ngModel)]="name">
           <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>							
       </div>
 

@@ -32,9 +32,12 @@ export class DeactivationComponent implements OnInit {
           alert("Bad request, please try again later.");
         } else {
           alert("User with username " + sessionStorage.getItem('email') + ' has already sent deactivation request.');
+          this.router.navigate(["profile"])
         }
         return EMPTY;
-      })).subscribe(() => alert("Successfully sent request for deleting profile."))
+      })).subscribe(() => {
+        alert("Successfully sent request for deleting profile.")
+        this.router.navigate(["profile"])})
   }
 
   cancel(){

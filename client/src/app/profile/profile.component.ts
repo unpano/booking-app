@@ -88,7 +88,7 @@ export class ProfileComponent implements OnInit {
           alert("Bad request, please try again later.");
         } else {
           alert("User with username " + this.email + ' already exists.');
-          this.router.navigate(["login"])
+          this.router.navigate(["profile"])
         }
         return EMPTY;
       })).subscribe(res => {

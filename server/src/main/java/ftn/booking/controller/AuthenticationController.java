@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -80,7 +81,7 @@ public class AuthenticationController {
             client.setRole(Role.ROLE_CLIENT);
             client.setNumOfPenalties(0);
             client.setPassword(passwordEncoder.encode(client.getPassword()));
-            client.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            client.setLastPasswordResetDate(LocalDate.now());
 
             //kreiram klijenta
             clientService.add(client);
@@ -106,7 +107,7 @@ public class AuthenticationController {
             boatOwner.setPicture("");
             boatOwner.setReasonForRegistration(userDTO.getReason());
             boatOwner.setPassword(passwordEncoder.encode(boatOwner.getPassword()));
-            boatOwner.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            boatOwner.setLastPasswordResetDate(LocalDate.now());
 
             //kreiram vlasnika broda
             ownerService.addBoatOwner(boatOwner);
@@ -132,7 +133,7 @@ public class AuthenticationController {
             cottageOwner.setPicture("");
             cottageOwner.setReasonForRegistration(userDTO.getReason());
             cottageOwner.setPassword(passwordEncoder.encode(cottageOwner.getPassword()));
-            cottageOwner.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            cottageOwner.setLastPasswordResetDate(LocalDate.now());
 
             //kreiram vlasnika vikendice
             ownerService.addCottageOwner(cottageOwner);
@@ -157,7 +158,7 @@ public class AuthenticationController {
             instructor.setPicture("");
             instructor.setReasonForRegistration(userDTO.getReason());
             instructor.setPassword(passwordEncoder.encode(instructor.getPassword()));
-            instructor.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            instructor.setLastPasswordResetDate(LocalDate.now());
 
             //kreiram instruktora
             ownerService.addInstructor(instructor);

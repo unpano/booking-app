@@ -108,6 +108,9 @@ public class CottageController {
         String time = "11:00:00";
 
         if(cottageDTO.getCheckout().contains("AM")){
+            if(!"0".equals(cottageDTO.getCheckout().substring(0,1)) && !":".equals(cottageDTO.getCheckout().substring(2,3))){
+                cottageDTO.setCheckout("0"+cottageDTO.getCheckout());
+            }
             time = cottageDTO.getCheckout().replace(" AM","") + ":00";
         }else if(cottageDTO.getCheckout().contains("PM")){
             Integer hours = Integer.parseInt(cottageDTO.getCheckout().substring(0,2));
@@ -153,6 +156,9 @@ public class CottageController {
         String time = "11:00:00";
 
         if(cottageDTO.getCheckout().contains("AM")){
+            if(!"0".equals(cottageDTO.getCheckout().substring(0,1)) && !":".equals(cottageDTO.getCheckout().substring(2,3))){
+                cottageDTO.setCheckout("0"+cottageDTO.getCheckout());
+            }
             time = cottageDTO.getCheckout().replace(" AM","") + ":00";
         }else if(cottageDTO.getCheckout().contains("PM")){
             Integer hours = Integer.parseInt(cottageDTO.getCheckout().substring(0,2));

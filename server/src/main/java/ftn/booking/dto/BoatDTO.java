@@ -31,5 +31,6 @@ public class BoatDTO {
     private List<FishingEquipment> fishingEquipment;
     private CancelationType cancelationType;
     private String checkout;
+    private Float oneDayPrice;
 
 }

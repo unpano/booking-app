@@ -69,7 +69,6 @@ public class BoatServiceImpl implements BoatService {
         return boatRepository.findAllByBoatOwnerId(id);
     }
 
-    @Override
     public void delete(Boat boat) {
         boatRepository.delete(boat);
     }

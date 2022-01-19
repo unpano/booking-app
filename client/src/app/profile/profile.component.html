@@ -14,10 +14,10 @@
         <h3 *ngIf="whoIsLogged() == 'boatOwner'">Boat owner</h3>
         
         <label for="username">Username: {{mail}}</label>
-        <input type="text" id="username" *ngIf="editButtonClicked" name="email" [(ngModel)]="email">
+        <input placeholder="Username" type="text" id="username" *ngIf="editButtonClicked" name="email" [(ngModel)]="email">
 
         <label for="phone">Phone number: {{user.phoneNumber}}</label>
-        <input type="text" id="phone" *ngIf="editButtonClicked" name="phoneNumber" [(ngModel)]="phoneNumber">
+        <input placeholder="Phone number" type="text" id="phone" *ngIf="editButtonClicked" name="phoneNumber" [(ngModel)]="phoneNumber">
 
         <label>Password reseted on: {{user.lastPasswordResetDate}}</label>
     </div>
@@ -37,13 +37,13 @@
       <h3>Address</h3>
 
       <label for="address">Street: {{user.address}}</label>
-      <input type="text" id="address" *ngIf="editButtonClicked" name="address" [(ngModel)]="address">
+      <input placeholder="Street" type="text" id="address" *ngIf="editButtonClicked" name="address" [(ngModel)]="address">
 
       <label for="city">City: {{user.city}}</label>
-      <input type="text" id="city" *ngIf="editButtonClicked" name="city" [(ngModel)]="city">
+      <input placeholder="City" type="text" id="city" *ngIf="editButtonClicked" name="city" [(ngModel)]="city">
 
       <label for="country">Country: {{user.country}}</label>
-      <input type="text" id="country" *ngIf="editButtonClicked" name="country" [(ngModel)]="country">
+      <input placeholder="Country" type="text" id="country" *ngIf="editButtonClicked" name="country" [(ngModel)]="country">
     </div>
 
     <form *ngIf="editButtonClicked" id="uploadForm">

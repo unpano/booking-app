@@ -1,7 +1,7 @@
 package ftn.booking.service.impl;
+
 import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.NotFoundException;
-import ftn.booking.model.Boat;
 import ftn.booking.model.Cottage;
 import ftn.booking.model.Reservation;
 import ftn.booking.repository.CottageRepository;
@@ -10,7 +10,6 @@ import ftn.booking.service.CottageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -76,6 +75,7 @@ public class CottageServiceImpl implements CottageService {
 
         return resultCottages;
     }
+
     public void delete(Cottage cottage) {
         cottageRepository.delete(cottage);
     }

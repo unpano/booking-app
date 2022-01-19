@@ -71,3 +71,11 @@ select{
   display: inline-block;
   text-align: left;
 }
+
+#name{
+  display: inline-block;
+}
+
+#name1{
+  margin-left: 20px;
+}

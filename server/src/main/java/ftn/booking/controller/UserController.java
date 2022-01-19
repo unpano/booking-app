@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -55,7 +56,7 @@ public class UserController {
             throw new ValidationException("Password is not valid.");
 
         user.setPassword(passwordEncoder.encode(newPassword));
-        user.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+        user.setLastPasswordResetDate(LocalDate.now());
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }

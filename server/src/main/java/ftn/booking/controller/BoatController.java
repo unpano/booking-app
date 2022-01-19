@@ -48,6 +48,9 @@ public class BoatController {
         String time = "11:00:00";
 
         if(boatDTO.getCheckout().contains("AM")){
+            if(boatDTO.getCheckout().substring(0,1) != "0" && !":".equals(boatDTO.getCheckout().substring(2,3))){
+                boatDTO.setCheckout("0"+boatDTO.getCheckout());
+            }
             time = boatDTO.getCheckout().replace(" AM","") + ":00";
         }else if(boatDTO.getCheckout().contains("PM")){
             Integer hours = Integer.parseInt(boatDTO.getCheckout().substring(0,2));
@@ -122,6 +125,9 @@ public class BoatController {
         String time = "11:00:00";
 
         if(boatDTO.getCheckout().contains("AM")){
+            if(boatDTO.getCheckout().substring(0,1) != "0" && !":".equals(boatDTO.getCheckout().substring(2,3))){
+                boatDTO.setCheckout("0"+boatDTO.getCheckout());
+            }
             time = boatDTO.getCheckout().replace(" AM","") + ":00";
         }else if(boatDTO.getCheckout().contains("PM")){
             Integer hours = Integer.parseInt(boatDTO.getCheckout().substring(0,2));

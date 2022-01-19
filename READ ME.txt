@@ -20,6 +20,17 @@ to polje može promeniti na true i tada korisnik postaje aktivan. Do tada se ne 
 update users set enabled = true where id=? (navesti id registrovanog user-a).
 ------------------------------------------------------------------------------------------------------------------------
 
+-------------------------------------3.6. VLASNIK VIKENDICE-------------------------------------------------------------
+
+Za potrebe testiranja spiska završenih rezervacija i pisanja izveštaja o završenim rezervacijama neophodno je uneti u 
+bazu:
+insert into reservations (start_time, end_time, price, reservation_type, client_id, cottage_id)
+values ('2021-12-12 11:00:00','2021-12-15 11:00:00',40,'COTTAGE',2,1);
+insert into reservations (start_time, end_time, price, reservation_type, client_id, boat_id)
+values ('2021-12-12 11:00:00','2021-12-15 11:00:00',40,'BOAT',2,1);
+------------------------------------------------------------------------------------------------------------------------
+
+
 -------------------------------------BEZBEDNOST APLIKACIJE--------------------------------------------------------------
 
 Za bezbednost aplikacije korišćen je Spring Security.
@@ -43,6 +54,8 @@ podeseno da se sa njega salju mejlovi.
 
 spring.mail.username= isaBooking56@gmail.com
 spring.mail.password= isaBooking56Password
+
+Da bi mejlovi stizali na gmail, mora se u podesiti da se primaju mejlovi od manje sigurnih izvora!
 -------------------------------------------------------------------------------------------------------------------------
 
 -----POKRETANJE FRONTEND-A-----
