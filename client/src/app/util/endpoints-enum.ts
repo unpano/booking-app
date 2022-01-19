@@ -12,7 +12,7 @@ export enum Endpoint {
   FREE_ADVENTURES = "http://localhost:8084/adventures/findFree/",
 
   MY_RESERVATIONS = "http://localhost:8084/reservations/findByUser/",
-
+  UPCOMING_RESERVATIONS = "http://localhost:8084/reservations/upcomingByUser/",
 
   FIND_INSTRUCTOR = "http://localhost:8084/instructors/findOne",
   FIND_BOAT = "http://localhost:8084/boats/findOne",
@@ -27,6 +27,7 @@ export enum Endpoint {
 
   BOAT_SERVICES = "http://localhost:8084/boats/findAdditionalServices/",
   CREATE_RESERVATION = "http://localhost:8084/reservations/createReservation/",
+  DELETE_RESERVATION = "http://localhost:8084/reservations/delete/",
 
   RESERVATIONS = "http://localhost:8084/reservations/",
   REPORTS = "http://localhost:8084/reports/",

@@ -1,1 +1,34 @@
-<p>reservation-form works!</p>
+
+  <mat-card class="mat-filters">
+    <div >
+
+
+  
+        <div>
+            <label> Start date: </label>
+            <form>
+              <input name = "startDateInput" type="date" class="input" name="examinationDateInput" value="2022-08-13" [(ngModel)]="startTime" />
+            </form>
+        </div>
+
+
+        <div>
+          <label> End date: </label>
+          <form >
+            <input name= "starttimeInput" type="date" class="input" name="examinationDateInput" value="2022-08-15" [(ngModel)]="endTime" />
+          </form>
+      </div>
+
+      <div>
+        <label> Number of persons: </label>
+        <form >
+          <input name = "numOfPersons" value="5" [(ngModel)]="numOfPersons" />
+        </form>
+    </div>
+
+    </div>
+
+    <div><button (click) = "create()">Reserve</button></div>
+  </mat-card>
+  
+  

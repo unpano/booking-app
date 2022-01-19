@@ -65,6 +65,7 @@ import { ReservationFormComponent } from './reservation-form/reservation-form.co
 import { DeleteClientProfileComponent } from './delete-client-profile/delete-client-profile.component';
 import { ClientProfileCottageComponent } from './client-profile-cottage/client-profile-cottage.component';
 import { AllActionsComponent } from './all-actions/all-actions.component';
+import { UpcomingReservationsComponent } from './upcoming-reservations/upcoming-reservations.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { AllActionsComponent } from './all-actions/all-actions.component';
     DeleteClientProfileComponent,
     ClientProfileCottageComponent,
     AllActionsComponent,
+    UpcomingReservationsComponent,
   ],
   imports: [
     BrowserModule,

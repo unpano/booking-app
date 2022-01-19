@@ -31,6 +31,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
+import { UpcomingReservationsComponent } from './upcoming-reservations/upcoming-reservations.component';
 
 const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
@@ -72,6 +73,7 @@ const routes: Routes = [
   {path: 'clientReservations', component: ClientReservationsComponent},
 
   {path: 'pricelist', component: PricelistComponent},
+  {path: 'upcomingRes', component: UpcomingReservationsComponent},
 
   {path: '**', component: PageNotFoundComponent},
 

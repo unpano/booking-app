@@ -32,5 +32,20 @@ export class ClientReservationsComponent implements OnInit {
 
   }
 
+  upcomingRes()
+  {
+    this.router.navigate(["upcomingRes"]);
+  }
+
+  rate()
+  {
+
+  }
+
+  review()
+  {
+
+  }
+
 
 }

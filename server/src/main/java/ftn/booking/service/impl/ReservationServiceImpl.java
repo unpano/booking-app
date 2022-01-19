@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,6 +27,48 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.findAllByClientId(userId);
     }
 
+    @Override
+    public void delete(Long reservationId) {
+
+        Reservation r = reservationRepository.findById(reservationId).orElse(null);
+        reservationRepository.delete(r);
+    }
+
+    @Override
+    public List<Reservation> upcomingByUser(Long userId) {
+
+        List<Reservation> all_reservations =  reservationRepository.findAllByClientId(userId);
+        List<Reservation> return_reservations = new ArrayList<>();
+
+        LocalDateTime now = LocalDateTime.now();
+
+        for (Reservation res: all_reservations)
+        {
+                if(res.getStartTime().isAfter(now))
+                {
+                    return_reservations.add(res);
+                }
+        }
+        return return_reservations;
+    }
+
+    @Override
+    public List<Reservation> pastByUser(Long userId) {
+
+        List<Reservation> all_reservations =  reservationRepository.findAllByClientId(userId);
+        List<Reservation> return_reservations = new ArrayList<>();
+
+        LocalDateTime now = LocalDateTime.now();
+
+        for (Reservation res: all_reservations)
+        {
+            if(res.getStartTime().isBefore(now))
+            {
+                return_reservations.add(res);
+            }
+        }
+        return return_reservations;
+    }
     @Override
     public Reservation add(Reservation reservation) {
         return reservationRepository.save(reservation);

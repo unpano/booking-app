@@ -76,20 +76,20 @@ export class FreeBoatsComponent implements OnInit {
 
     this.reservation.startTime = this.startDate + "T11:00:00"
     this.reservation.endTime = this.endDate + "T11:00:00"
-    this.reservation.reservationType = "BOAT"
+
+    this.reservation.reservationType = ReservationType.BOAT
     this.reservation.price = boat.price.toString();
 
 
     const body=JSON.stringify(this.reservation); 
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
 
-    let options = { headers: headers,
-                    body : body};
+    let options = { headers: headers};
 
     sessionStorage.setItem('entityId', boat.id.toString())
     alert(sessionStorage.getItem('id'))
      
-    this.http.post<any>(this.endpoint.CREATE_RESERVATION + sessionStorage.getItem('entityId') + "/" + sessionStorage.getItem('id'),  options).pipe(
+    this.http.post<any>(this.endpoint.CREATE_RESERVATION + sessionStorage.getItem('entityId') + "/" + sessionStorage.getItem('id'),body,  options).pipe(
       map(returnedRes=> {
       })).subscribe()
 

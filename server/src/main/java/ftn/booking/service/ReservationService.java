@@ -2,6 +2,8 @@ package ftn.booking.service;
 
 import ftn.booking.model.Reservation;
 import java.time.LocalDateTime;
+
+import ftn.booking.model.Room;
 import ftn.booking.model.enums.ReservationType;
 
 
@@ -35,5 +37,11 @@ public interface ReservationService{
     List<LocalDate> findAllForbiddenDates();
 
     List<Reservation> findAllByUser(Long userId);
+
+    List<Reservation> upcomingByUser(Long userId);
+
+    List<Reservation> pastByUser(Long userId);
+
+    void delete(Long reservationId);
 
 }

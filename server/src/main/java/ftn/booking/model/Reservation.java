@@ -39,6 +39,8 @@ public class Reservation {
 
     private Long price;
 
+    private Integer numOfPersons;
+
 
     //if client is not set, then reservation is action
     @OneToOne

@@ -12,8 +12,7 @@
             <td>{{r.startTime}}</td>
             <td>{{r.endTime}}</td>
             <td>{{r.price}}</td>  
-            <button (click) = "rate()">Rate</button>
-            <button (click) = "review()">Give a review</button>
+            <button (click) = "checkforCancelation(r,r.startTime)">Cancel</button>
           </tr>
   
     </tbody>

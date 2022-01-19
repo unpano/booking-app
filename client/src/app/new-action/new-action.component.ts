@@ -50,7 +50,7 @@ export class NewActionComponent implements OnInit {
 
   createAction(){
     if(sessionStorage.getItem('role') == 'ROLE_COTTAGE_OWNER'){
-      this.reservation.reservationType = "COTTAGE"
+      this.reservation.reservationType = ReservationType.COTTAGE
     }
     this.reservation.startTime = this.pickPeriod.value["start"]
     this.reservation.endTime = this.pickPeriod.value["end"]

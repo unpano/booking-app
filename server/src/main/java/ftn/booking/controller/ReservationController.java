@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
+import ftn.booking.model.enums.ReservationType;
 
 @RestController
 @AllArgsConstructor
@@ -35,38 +36,74 @@ public class ReservationController {
     private AdventureService adventureService;
     private CottageService cottageService;
 
-    @GetMapping("/findByUser/{userId}")
-    public ResponseEntity<List<Reservation>> findReservationsByUser(@PathVariable Long userId)
+    @GetMapping("/delete/{reservationId}")
+    public void deleteReservation(@PathVariable Long reservationId)
     {
-        return new ResponseEntity<>(reservationService.findAllByUser(userId), HttpStatus.OK);
+        reservationService.delete(reservationId);
+    }
+
+    @GetMapping("/findByUser/{userId}")
+    public ResponseEntity<List<Reservation>> pastReservationsByUser(@PathVariable Long userId)
+    {
+        return new ResponseEntity<>(reservationService.pastByUser(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/upcomingByUser/{userId}")
+    public ResponseEntity<List<Reservation>> upcomingReservationsByUser(@PathVariable Long userId)
+    {
+        return new ResponseEntity<>(reservationService.upcomingByUser(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/findByPeriod/")
+    public @ResponseBody List<Reservation> findReservationsInPeriod(@RequestBody ReservationDTO reservationDTO)
+    {
+        return reservationService.findAllinPeriod(reservationDTO.getStartTime(), reservationDTO.getEndTime());
     }
 
 
-    @PostMapping("/createReservation/{entityId}/{clientId}")
+    @PostMapping("/createReservation/")
     //@PreAuthorize("hasRole('CLIENT')")
-    public ResponseEntity<Reservation> makeReservation(@PathVariable Long entityId,
-                                                       @PathVariable Long clientId, @RequestBody ReservationDTO reservationDTO) {
+    public  @ResponseBody ResponseEntity<Reservation> makeReservation(@RequestBody ReservationDTO reservationDTO) {
 
         Reservation new_reservation = new Reservation();
 
-        new_reservation.setReservationType( reservationDTO.getReservationType());
-        if( new_reservation.getReservationType() == ReservationType.BOAT)
+
+        System.out.println(reservationDTO.getStartTime());
+        System.out.println(reservationDTO.getEndTime());
+
+        if(reservationDTO.getReservationType() == ReservationType.BOAT)
         {
-            new_reservation.setBoat( boatService.findById(entityId));
+            new_reservation.setReservationType(ReservationType.BOAT);
+            new_reservation.setBoat(reservationDTO.getBoat());
         }
-        else if (new_reservation.getReservationType() == ReservationType.COTTAGE)
+        else if (reservationDTO.getReservationType() == ReservationType.COTTAGE)
         {
-            new_reservation.setCottage( cottageService.findById(entityId));
+            new_reservation.setReservationType(ReservationType.COTTAGE);
         }
         else if(new_reservation.getReservationType() == ReservationType.ADVENTURE)
         {
-            new_reservation.setAdventure( adventureService.findById(entityId));
+            new_reservation.setReservationType(ReservationType.ADVENTURE);
         }
 
-        new_reservation.setClient( clientService.findClientById(clientId));
+        new_reservation.setClient( reservationDTO.getClient());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        reservationDTO.getStartTime().format(formatter);
+        reservationDTO.getEndTime().format(formatter);
+
         new_reservation.setStartTime(reservationDTO.getStartTime());
         new_reservation.setEndTime(reservationDTO.getEndTime());
-        new_reservation.setPrice(reservationDTO.getPrice());
+        System.out.println("USPELOO");
+
+        /*
+        int numOfDays = reservationDTO.getEndTime().getDayOfYear() - reservationDTO.getStartTime().getDayOfYear();
+        Long price = reservationDTO.getPrice() * numOfDays;
+
+        new_reservation.setPrice(price);
+
+        System.out.println("Number of days :");
+        System.out.println(numOfDays);*/
 
 
         return new ResponseEntity<>(reservationService.add(new_reservation), HttpStatus.OK);
@@ -136,12 +173,9 @@ public class ReservationController {
     }
 
 
-    @GetMapping("/findByPeriod/")
-    public @ResponseBody
-    List<Reservation> findReservationsInPeriod(@RequestBody ReservationDTO reservationDTO)
-    {
-        return reservationService.findAllinPeriod(reservationDTO.getStartTime(), reservationDTO.getEndTime());
-    }
+
+
+
 
     //OBICNA REZERVACIJA SALJE FALSE ZA IS_ACTION
     @PostMapping("/{username}/{entityId}/{isAction}/{actionPrice}")
