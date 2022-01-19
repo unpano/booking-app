@@ -100,6 +100,13 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.findAllForbiddenDatesBoat(id), HttpStatus.OK);
     }
 
+    @PostMapping("/findIncome/{id}")
+    @PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<Long> findBoatIncome(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO){
+
+        return new ResponseEntity<>(reservationService.findIncome(id,reservationDTO.getStartTime(),reservationDTO.getEndTime()), HttpStatus.OK);
+    }
+
 
     @PutMapping("/{id}/{username}")
     @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")

@@ -29,7 +29,6 @@ import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
 
 const routes: Routes = [
@@ -71,7 +70,6 @@ const routes: Routes = [
   {path: 'cottages', component: HomePageCottageOwnerComponent},
   {path: 'cottages/new-cottage', component: NewCottageComponent},
 
-  {path: 'report', component: ReportCottageOwnerComponent},
   {path: 'clientReservations', component: ClientReservationsComponent},
 
   {path: '**', component: PageNotFoundComponent},

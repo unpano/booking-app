@@ -32,7 +32,6 @@ import { HeaderInstructorComponent } from './header-instructor/header-instructor
 import { HeaderBoatOwnerComponent } from './header-boat-owner/header-boat-owner.component';
 import { HeaderAdminComponent } from './header-admin/header-admin.component';
 import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticated-user/home-page-unauthenticated-user.component';
-import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
@@ -49,6 +48,7 @@ import { NewActionComponent } from './new-action/new-action.component';
 
 import { NgImageSliderModule } from 'ng-image-slider';
 import { FreeBoatsComponent } from './free-boats/free-boats.component';
+import { NgxChartsModule }from '@swimlane/ngx-charts';
 
 
 import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
@@ -83,7 +83,6 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     HeaderBoatOwnerComponent,
     HeaderAdminComponent,
     HomePageUnauthenticatedUserComponent,
-    ReportCottageOwnerComponent,
     ChangePasswordComponent,
     ProfileComponent,
     DeactivationComponent,
@@ -128,7 +127,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     Ng2SearchPipeModule,
     MatDatepickerModule,
     MatNativeDateModule,
-
+    NgxChartsModule,
     NgImageSliderModule,
     MatDialogModule,
     NgxMaterialTimepickerModule

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { Parameter } from '../dto/parameter';
 import { Endpoint } from './endpoints-enum';
 import { Global } from './global';
 
@@ -40,5 +41,47 @@ export class DateFilterService {
                               Global.forbiddenDatesBoat = returnedDates
                               //console.log(Global.forbiddenDatesBoat)
                             })).subscribe()
+  }
+
+  populateChartMonthly(){
+    //populate chart
+    let monthly : any[] = []
+
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+  
+   //console.log(this.monthly)
+   this.http
+   .get(this.endpoint.CHARTS + "monthly/" + sessionStorage.getItem('boatId') ,options)
+     .pipe(
+       map(returnedListOfMonths => {
+         let array:any = returnedListOfMonths
+         array.forEach((element: Parameter) => {
+           monthly.push(element)
+         });
+         console.log(monthly)      
+       })).subscribe()
+    return monthly
+  }
+
+  populateChartWeekly(){
+    //populate chart
+    let weekly : any[] = []
+
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+  
+   //console.log(this.monthly)
+   this.http
+   .get(this.endpoint.CHARTS + "weekly/" + sessionStorage.getItem('boatId') ,options)
+     .pipe(
+       map(returnedListOfMonths => {
+         let array:any = returnedListOfMonths
+         array.forEach((element: Parameter) => {
+           weekly.push(element)
+         });
+         console.log(weekly)      
+       })).subscribe()
+    return weekly
   }
 }

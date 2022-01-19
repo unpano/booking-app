@@ -182,7 +182,48 @@
               {{service.display}}
             </option>
           </select>
-      </div>  
+      </div>
+      
+      <div class="form-group">
+        <h1>Income from this cottage</h1>	
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>Pick period</mat-label>
+          <mat-date-range-input
+            [formGroup]="pickPeriod"
+            [rangePicker]="periodPicker">
+            <input matStartDate placeholder="Start date" formControlName="start">
+            <input matEndDate placeholder="End date" formControlName="end">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+          <mat-date-range-picker touchUi  #periodPicker></mat-date-range-picker>
+        </mat-form-field>
+      <button mat-raised-button type="submit" (click)="findIncome()" >Submit</button> 
+      <label><b>Income for this period is {{income}}$.</b></label>       
+    </div>
+
+    <ngx-charts-bar-vertical 
+      [view]="[1000,400]"
+      [results]="weekly"
+      [xAxisLabel]="'Weekday'"
+      [yAxisLabel]="'Number'"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [gradient]="true">
+    </ngx-charts-bar-vertical>
+
+    <ngx-charts-bar-vertical 
+      [view]="[1000,400]"
+      [results]="monthly"
+      [xAxisLabel]="'Month'"
+      [yAxisLabel]="'Number'"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [gradient]="true">
+    </ngx-charts-bar-vertical>
       
     <button mat-button id="submitButton" type="submit" (click)="onSubmit()" *ngIf="editButtonClicked">Submit</button>
   </form>

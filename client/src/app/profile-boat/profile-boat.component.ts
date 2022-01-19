@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
@@ -8,6 +9,8 @@ import { catchError, map } from 'rxjs/operators';
 import { AmenityJSON } from '../dto/amenitiyJSON';
 import { Boat } from '../dto/boat';
 import { EquipmentJSON } from '../dto/EquimentJSON';
+import { Parameter } from '../dto/parameter';
+import { Reservation } from '../dto/reservation';
 import { RuleJSON } from '../dto/RuleJSON';
 import { DateFilterService } from '../util/dateFIlterService';
 import { Endpoint } from '../util/endpoints-enum';
@@ -28,6 +31,8 @@ export class ProfileBoatComponent implements OnInit {
   boat : any
   endpoint = Endpoint
 
+  pickPeriod !: FormGroup
+
   name !: String
   length !: Number
   numberOfMotors !: Number
@@ -45,6 +50,12 @@ export class ProfileBoatComponent implements OnInit {
   
   time !: Time
 
+  monthly : Parameter[] = []
+  weekly  : Parameter[] = [] 
+
+  reservation : Reservation = new Reservation()
+  income : any = "..."
+
   selectedFiles?: FileList;
   previews: string[] = [];
 
@@ -57,15 +68,29 @@ export class ProfileBoatComponent implements OnInit {
   constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient, 
     private dateService: DateFilterService) { 
     
+      const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+
+    this.pickPeriod = new FormGroup({
+      start: new FormControl(new Date(year, month, 28)),
+      end: new FormControl(new Date(year, month, 29)),
+    });
+
   }
 
   ngOnInit(): void {
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+
+    //poziv funkcije koja vraca po mesecima koliko je poseceno
+    this.monthly = this.dateService.populateChartMonthly()
+    this.weekly = this.dateService.populateChartWeekly()
 
     this.dateService.findForbiddenDatesBoat()
 
     //boat details
-    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
-    let options = { headers: headers };
+    
 
     if(sessionStorage.getItem('boatId') == undefined)
       this.router.navigate(["login"])
@@ -174,6 +199,32 @@ export class ProfileBoatComponent implements OnInit {
   selectPercentage(){
     this.boat.cancelationType = 1
   }
+
+  findIncome(){
+    this.reservation.startTime = this.pickPeriod.value["start"]
+    this.reservation.endTime = this.pickPeriod.value["end"]
+
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+    
+    const body=JSON.stringify(this.reservation);
+
+    this.http.post<any>(this.endpoint.RESERVATIONS + "findIncome/" + sessionStorage.getItem("boatId"), body, options).pipe(
+          catchError((error: HttpErrorResponse) => {
+              if (error.error instanceof Error) {
+              alert("Bad request, please try again later.");
+          } else {
+              if(sessionStorage.getItem('boatId') == undefined)
+              this.router.navigate(["login"])
+              alert("Boat does not exist.")
+          }
+
+          return EMPTY;
+          }),map(income => {
+            this.income = income
+          })).subscribe()
+}
 
   private findAmenity(amenityName: string): AmenityJSON{
     

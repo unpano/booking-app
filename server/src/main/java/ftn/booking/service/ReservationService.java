@@ -3,6 +3,7 @@ package ftn.booking.service;
 import ftn.booking.model.Reservation;
 import java.time.LocalDateTime;
 import ftn.booking.model.enums.ReservationType;
+import ftn.booking.utils.ChartMapper;
 
 
 import java.time.LocalDate;
@@ -41,4 +42,10 @@ public interface ReservationService{
     List<Reservation> findAllFutureReservationsByBoatId(Long id);
 
     List<Reservation> findAllPastReservationsByBoatId(Long id);
+
+    Long findIncome(Long id, LocalDateTime startTime, LocalDateTime endTime);
+
+    List<ChartMapper> findMonthlyBoatData(Long id);
+
+    List<ChartMapper> findWeeklyBoatData(Long id);
 }

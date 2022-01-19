@@ -280,9 +280,9 @@ export class NewReservationComponent implements OnInit {
     let mail = new MailDTO()
 
     mail.mailFrom = "isaBooking56@gmail.com"
-    //OVDE MI TREBALO PODESITI DA MEJL BUDE USERNAME KORISNIKA KOJI ZAKAZUJE
-    //mail.mailTo = username
-    mail.mailTo = "isaBooking56@gmail.com"
+    mail.mailTo = username
+    //za svrhe testiranja da li mejl stize koriscena je sledeca adresa
+    //mail.mailTo = "isaBooking56@gmail.com"
     mail.mailSubject = "-CONFIRMATION MAIL-"
     mail.mailContent = "Successfully booked "+ this.findName() + + this.reservedCottageName + ". Period: " + this.reservation.startTime + 
     "-" + this.reservation.endTime + ". Kind requards, Isa Team 56."

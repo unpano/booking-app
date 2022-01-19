@@ -5,6 +5,7 @@ import ftn.booking.model.Reservation;
 import ftn.booking.model.enums.ReservationType;
 import ftn.booking.repository.ReservationRepository;
 import ftn.booking.service.ReservationService;
+import ftn.booking.utils.ChartMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +64,191 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<Reservation> findAllPastReservationsByBoatId(Long id) {
         return reservationRepository.findAllByBoatIdAndEndTimeBefore(id, LocalDateTime.now());
+    }
+
+    @Override
+    public Long findIncome(Long id, LocalDateTime startTime, LocalDateTime endTime) {
+        return reservationRepository.findCottageIncome(id, startTime, endTime);
+    }
+
+    @Override
+    public List<ChartMapper> findMonthlyBoatData(Long id) {
+        List<ChartMapper> retList = new ArrayList<>();
+        List<LocalDate> dates = new ArrayList<>();
+        List<Reservation> reservations = reservationRepository.findAllByBoatId(id);
+
+        for (Reservation res :
+                reservations) {
+            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
+        }
+
+        //kreiraj chartMapper instancu
+        ChartMapper month1 = new ChartMapper();
+        month1.setName("January");
+
+        ChartMapper month2 = new ChartMapper();
+        month2.setName("February");
+
+        ChartMapper month3 = new ChartMapper();
+        month3.setName("March");
+
+        ChartMapper month4 = new ChartMapper();
+        month4.setName("April");
+
+        ChartMapper month5 = new ChartMapper();
+        month5.setName("May");
+
+        ChartMapper month6 = new ChartMapper();
+        month6.setName("June");
+
+        ChartMapper month7 = new ChartMapper();
+        month7.setName("July");
+
+        ChartMapper month8 = new ChartMapper();
+        month8.setName("August");
+
+        ChartMapper month9 = new ChartMapper();
+        month9.setName("September");
+
+        ChartMapper month10 = new ChartMapper();
+        month10.setName("October");
+
+        ChartMapper month11 = new ChartMapper();
+        month11.setName("November");
+
+        ChartMapper month12 = new ChartMapper();
+        month12.setName("December");
+
+        int januaryCounter = 0;
+        int februaryCounter = 0;
+        int marchCounter = 0;
+        int aprilCounter = 0;
+        int mayCounter = 0;
+        int juneCounter = 0;
+        int julyCounter = 0;
+        int augustCounter = 0;
+        int septemberCounter = 0;
+        int octoberCounter = 0;
+        int novemberCounter = 0;
+        int decemberCounter = 0;
+
+        for (LocalDate date:
+                dates
+             ) {
+            //koji je mesec
+            int month = date.getMonth().getValue();
+            if(month == 1) januaryCounter++;
+            if(month == 2) februaryCounter++;
+            if(month == 3) marchCounter++;
+            if(month == 4) aprilCounter++;
+            if(month == 5) mayCounter++;
+            if(month == 6) juneCounter++;
+            if(month == 7) julyCounter++;
+            if(month == 8) augustCounter++;
+            if(month == 9) septemberCounter++;
+            if(month == 10) octoberCounter++;
+            if(month == 11) novemberCounter++;
+            if(month == 12) decemberCounter++;
+        }
+        month1.setValue(januaryCounter);
+        retList.add(month1);
+        month2.setValue(februaryCounter);
+        retList.add(month2);
+        month3.setValue(marchCounter);
+        retList.add(month3);
+        month4.setValue(aprilCounter);
+        retList.add(month4);
+        month5.setValue(mayCounter);
+        retList.add(month5);
+        month6.setValue(juneCounter);
+        retList.add(month6);
+        month7.setValue(julyCounter);
+        retList.add(month7);
+        month8.setValue(augustCounter);
+        retList.add(month8);
+        month9.setValue(septemberCounter);
+        retList.add(month9);
+        month10.setValue(octoberCounter);
+        retList.add(month10);
+        month11.setValue(novemberCounter);
+        retList.add(month11);
+        month12.setValue(decemberCounter);
+        retList.add(month12);
+
+        return retList;
+    }
+
+    @Override
+    public List<ChartMapper> findWeeklyBoatData(Long id) {
+        List<ChartMapper> retList = new ArrayList<>();
+        List<LocalDate> dates = new ArrayList<>();
+        List<Reservation> reservations = reservationRepository.findAllByBoatId(id);
+
+        for (Reservation res :
+                reservations) {
+            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
+        }
+
+        //kreiraj chartMapper instancu
+        ChartMapper day1 = new ChartMapper();
+        day1.setName("Monday");
+
+        ChartMapper day2 = new ChartMapper();
+        day2.setName("Tuesday");
+
+        ChartMapper day3 = new ChartMapper();
+        day3.setName("Wednesday");
+
+        ChartMapper day4 = new ChartMapper();
+        day4.setName("Thursday");
+
+        ChartMapper day5 = new ChartMapper();
+        day5.setName("Friday");
+
+        ChartMapper day6 = new ChartMapper();
+        day6.setName("Saturday");
+
+        ChartMapper day7 = new ChartMapper();
+        day7.setName("Sunday");
+
+        int mondayCounter = 0;
+        int tuesdayCounter = 0;
+        int wednesdayCounter = 0;
+        int thursdayCounter = 0;
+        int fridayCounter = 0;
+        int saturdayCounter = 0;
+        int sundayCounter = 0;
+
+        for (LocalDate date:
+                dates
+        ) {
+            //koji je mesec
+            int dayOfWeek = date.getDayOfWeek().getValue();
+            if(dayOfWeek == 1) mondayCounter++;
+            if(dayOfWeek == 2) tuesdayCounter++;
+            if(dayOfWeek == 3) wednesdayCounter++;
+            if(dayOfWeek == 4) thursdayCounter++;
+            if(dayOfWeek == 5) fridayCounter++;
+            if(dayOfWeek == 6) saturdayCounter++;
+            if(dayOfWeek == 7) sundayCounter++;
+            if(dayOfWeek == 7) sundayCounter++;
+        }
+        day1.setValue(mondayCounter);
+        retList.add(day1);
+        day2.setValue(tuesdayCounter);
+        retList.add(day2);
+        day3.setValue(wednesdayCounter);
+        retList.add(day3);
+        day4.setValue(thursdayCounter);
+        retList.add(day4);
+        day5.setValue(fridayCounter);
+        retList.add(day5);
+        day6.setValue(saturdayCounter);
+        retList.add(day6);
+        day7.setValue(sundayCounter);
+        retList.add(day7);
+
+        return retList;
     }
 
     @Override

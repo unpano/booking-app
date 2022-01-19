@@ -2,6 +2,7 @@ package ftn.booking.repository;
 
 import ftn.booking.model.Reservation;
 import ftn.booking.model.enums.ReservationType;
+import ftn.booking.utils.ChartMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -54,4 +55,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findAllByReservationTypeAndCottageId(ReservationType cottage, Long id);
 
     List<Reservation> findAllByReservationTypeAndBoatId(ReservationType boat, Long id);
+
+    //custom query
+    @Query(value = "select sum(r.price) " +
+            "from reservations r " +
+            "where r.boat_id = ?1 AND " +
+            "(?2 <= r.end_time) AND (r.start_time <= ?3)", nativeQuery = true)
+    Long findCottageIncome(Long id, LocalDateTime startTime, LocalDateTime endTime);
+
 }
