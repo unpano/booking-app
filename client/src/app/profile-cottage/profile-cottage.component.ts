@@ -1,11 +1,14 @@
 import { Time } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AmenityJSON } from '../dto/amenitiyJSON';
+import { Parameter } from '../dto/parameter';
+import { Reservation } from '../dto/reservation';
 import { Room } from '../dto/Room';
 import { RuleJSON } from '../dto/RuleJSON';
 import { DateFilterService } from '../util/dateFIlterService';
@@ -49,11 +52,30 @@ export class ProfileCottageComponent implements OnInit {
 
   starNames : String[] = []
 
+  
+  pickPeriod !: FormGroup
+  reservation : Reservation = new Reservation()
+  income : any = "..."
+
+  monthly : Parameter[] = []
+  weekly  : Parameter[] = [] 
+
   constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient, private dateService: DateFilterService) { 
-    
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+
+    this.pickPeriod = new FormGroup({
+      start: new FormControl(new Date(year, month, 28)),
+      end: new FormControl(new Date(year, month, 29)),
+    });
   }
 
   ngOnInit(): void {
+
+    //poziv funkcije koja vraca po mesecima koliko je poseceno
+    this.monthly = this.dateService.populateChartMonthlyCottage()
+    this.weekly = this.dateService.populateChartWeeklyCottage()
 
     this.dateService.findForbiddenDatesCottage()
 
@@ -183,6 +205,33 @@ export class ProfileCottageComponent implements OnInit {
     //console.log(this.starNames)
     return this.starNames
   }
+
+  findIncome(){
+    this.reservation.startTime = this.pickPeriod.value["start"]
+    this.reservation.endTime = this.pickPeriod.value["end"]
+
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+    
+    const body=JSON.stringify(this.reservation);
+
+    this.http.post<any>(this.endpoint.RESERVATIONS + "findIncomeCottage/" + sessionStorage.getItem("cottageId"), body, options).pipe(
+          catchError((error: HttpErrorResponse) => {
+              if (error.error instanceof Error) {
+              alert("Bad request, please try again later.");
+          } else {
+              if(sessionStorage.getItem('boatId') == undefined)
+              this.router.navigate(["login"])
+              alert("Boat does not exist.")
+          }
+
+          return EMPTY;
+          }),map(income => {
+            this.income = income
+          })).subscribe()
+}
+
 
   private findAmenity(amenityName: string): AmenityJSON{
     

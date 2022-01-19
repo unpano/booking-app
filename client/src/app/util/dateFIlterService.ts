@@ -43,7 +43,7 @@ export class DateFilterService {
                             })).subscribe()
   }
 
-  populateChartMonthly(){
+  populateChartMonthlyBoat(){
     //populate chart
     let monthly : any[] = []
 
@@ -52,7 +52,7 @@ export class DateFilterService {
   
    //console.log(this.monthly)
    this.http
-   .get(this.endpoint.CHARTS + "monthly/" + sessionStorage.getItem('boatId') ,options)
+   .get(this.endpoint.CHARTS + "monthly-boat/" + sessionStorage.getItem('boatId') ,options)
      .pipe(
        map(returnedListOfMonths => {
          let array:any = returnedListOfMonths
@@ -64,7 +64,28 @@ export class DateFilterService {
     return monthly
   }
 
-  populateChartWeekly(){
+  populateChartMonthlyCottage(){
+    //populate chart
+    let monthly : any[] = []
+
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+  
+   //console.log(this.monthly)
+   this.http
+   .get(this.endpoint.CHARTS + "monthly-cottage/" + sessionStorage.getItem('cottageId') ,options)
+     .pipe(
+       map(returnedListOfMonths => {
+         let array:any = returnedListOfMonths
+         array.forEach((element: Parameter) => {
+           monthly.push(element)
+         });
+         console.log(monthly)      
+       })).subscribe()
+    return monthly
+  }
+
+  populateChartWeeklyBoat(){
     //populate chart
     let weekly : any[] = []
 
@@ -73,7 +94,28 @@ export class DateFilterService {
   
    //console.log(this.monthly)
    this.http
-   .get(this.endpoint.CHARTS + "weekly/" + sessionStorage.getItem('boatId') ,options)
+   .get(this.endpoint.CHARTS + "weekly-boat/" + sessionStorage.getItem('boatId') ,options)
+     .pipe(
+       map(returnedListOfMonths => {
+         let array:any = returnedListOfMonths
+         array.forEach((element: Parameter) => {
+           weekly.push(element)
+         });
+         console.log(weekly)      
+       })).subscribe()
+    return weekly
+  }
+
+  populateChartWeeklyCottage(){
+    //populate chart
+    let weekly : any[] = []
+
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+  
+   //console.log(this.monthly)
+   this.http
+   .get(this.endpoint.CHARTS + "weekly-cottage/" + sessionStorage.getItem('cottageId') ,options)
      .pipe(
        map(returnedListOfMonths => {
          let array:any = returnedListOfMonths

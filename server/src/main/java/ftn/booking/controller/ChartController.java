@@ -22,17 +22,31 @@ public class ChartController {
 
     private ReservationService reservationService;
 
-    @GetMapping("/monthly/{id}")
+    @GetMapping("/monthly-boat/{id}")
     @PreAuthorize("hasRole('BOAT_OWNER')")
-    public ResponseEntity<List<ChartMapper>> generateMonthlyData(@PathVariable Long id){
+    public ResponseEntity<List<ChartMapper>> generateMonthlyDataBoat(@PathVariable Long id){
 
         return new ResponseEntity<>(reservationService.findMonthlyBoatData(id), HttpStatus.OK);
     }
 
-    @GetMapping("/weekly/{id}")
+    @GetMapping("/weekly-boat/{id}")
     @PreAuthorize("hasRole('BOAT_OWNER')")
-    public ResponseEntity<List<ChartMapper>> generateWeeklyData(@PathVariable Long id){
+    public ResponseEntity<List<ChartMapper>> generateWeeklyDataBoat(@PathVariable Long id){
 
         return new ResponseEntity<>(reservationService.findWeeklyBoatData(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/monthly-cottage/{id}")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<ChartMapper>> generateMonthlyDataCottage(@PathVariable Long id){
+
+        return new ResponseEntity<>(reservationService.findMonthlyCottageData(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/weekly-cottage/{id}")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<List<ChartMapper>> generateWeeklyDataCottage(@PathVariable Long id){
+
+        return new ResponseEntity<>(reservationService.findWeeklyCottageData(id), HttpStatus.OK);
     }
 }

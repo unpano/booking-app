@@ -48,4 +48,10 @@ public interface ReservationService{
     List<ChartMapper> findMonthlyBoatData(Long id);
 
     List<ChartMapper> findWeeklyBoatData(Long id);
+
+    List<ChartMapper> findMonthlyCottageData(Long id);
+
+    List<ChartMapper> findWeeklyCottageData(Long id);
+
+    Long findIncomeCottage(Long id, LocalDateTime startTime, LocalDateTime endTime);
 }

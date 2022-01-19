@@ -84,8 +84,8 @@ export class ProfileBoatComponent implements OnInit {
     let options = { headers: headers };
 
     //poziv funkcije koja vraca po mesecima koliko je poseceno
-    this.monthly = this.dateService.populateChartMonthly()
-    this.weekly = this.dateService.populateChartWeekly()
+    this.monthly = this.dateService.populateChartMonthlyBoat()
+    this.weekly = this.dateService.populateChartWeeklyBoat()
 
     this.dateService.findForbiddenDatesBoat()
 

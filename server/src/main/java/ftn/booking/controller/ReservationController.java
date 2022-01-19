@@ -107,6 +107,13 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.findIncome(id,reservationDTO.getStartTime(),reservationDTO.getEndTime()), HttpStatus.OK);
     }
 
+    @PostMapping("/findIncomeCottage/{id}")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<Long> findBoatIncomeCottage(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO){
+
+        return new ResponseEntity<>(reservationService.findIncomeCottage(id,reservationDTO.getStartTime(),reservationDTO.getEndTime()), HttpStatus.OK);
+    }
+
 
     @PutMapping("/{id}/{username}")
     @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")

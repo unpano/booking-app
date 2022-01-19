@@ -61,6 +61,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "from reservations r " +
             "where r.boat_id = ?1 AND " +
             "(?2 <= r.end_time) AND (r.start_time <= ?3)", nativeQuery = true)
-    Long findCottageIncome(Long id, LocalDateTime startTime, LocalDateTime endTime);
+    Long findBoatIncome(Long id, LocalDateTime startTime, LocalDateTime endTime);
 
+    //custom query
+    @Query(value = "select sum(r.price) " +
+            "from reservations r " +
+            "where r.cottage_id = ?1 AND " +
+            "(?2 <= r.end_time) AND (r.start_time <= ?3)", nativeQuery = true)
+    Long findCottageIncome(Long id, LocalDateTime startTime, LocalDateTime endTime);
 }

@@ -68,126 +68,25 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Long findIncome(Long id, LocalDateTime startTime, LocalDateTime endTime) {
-        return reservationRepository.findCottageIncome(id, startTime, endTime);
+        return reservationRepository.findBoatIncome(id, startTime, endTime);
     }
 
     @Override
     public List<ChartMapper> findMonthlyBoatData(Long id) {
-        List<ChartMapper> retList = new ArrayList<>();
-        List<LocalDate> dates = new ArrayList<>();
         List<Reservation> reservations = reservationRepository.findAllByBoatId(id);
+
+        List<LocalDate> dates = new ArrayList<>();
 
         for (Reservation res :
                 reservations) {
             dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
         }
 
-        //kreiraj chartMapper instancu
-        ChartMapper month1 = new ChartMapper();
-        month1.setName("January");
-
-        ChartMapper month2 = new ChartMapper();
-        month2.setName("February");
-
-        ChartMapper month3 = new ChartMapper();
-        month3.setName("March");
-
-        ChartMapper month4 = new ChartMapper();
-        month4.setName("April");
-
-        ChartMapper month5 = new ChartMapper();
-        month5.setName("May");
-
-        ChartMapper month6 = new ChartMapper();
-        month6.setName("June");
-
-        ChartMapper month7 = new ChartMapper();
-        month7.setName("July");
-
-        ChartMapper month8 = new ChartMapper();
-        month8.setName("August");
-
-        ChartMapper month9 = new ChartMapper();
-        month9.setName("September");
-
-        ChartMapper month10 = new ChartMapper();
-        month10.setName("October");
-
-        ChartMapper month11 = new ChartMapper();
-        month11.setName("November");
-
-        ChartMapper month12 = new ChartMapper();
-        month12.setName("December");
-
-        int januaryCounter = 0;
-        int februaryCounter = 0;
-        int marchCounter = 0;
-        int aprilCounter = 0;
-        int mayCounter = 0;
-        int juneCounter = 0;
-        int julyCounter = 0;
-        int augustCounter = 0;
-        int septemberCounter = 0;
-        int octoberCounter = 0;
-        int novemberCounter = 0;
-        int decemberCounter = 0;
-
-        for (LocalDate date:
-                dates
-             ) {
-            //koji je mesec
-            int month = date.getMonth().getValue();
-            if(month == 1) januaryCounter++;
-            if(month == 2) februaryCounter++;
-            if(month == 3) marchCounter++;
-            if(month == 4) aprilCounter++;
-            if(month == 5) mayCounter++;
-            if(month == 6) juneCounter++;
-            if(month == 7) julyCounter++;
-            if(month == 8) augustCounter++;
-            if(month == 9) septemberCounter++;
-            if(month == 10) octoberCounter++;
-            if(month == 11) novemberCounter++;
-            if(month == 12) decemberCounter++;
-        }
-        month1.setValue(januaryCounter);
-        retList.add(month1);
-        month2.setValue(februaryCounter);
-        retList.add(month2);
-        month3.setValue(marchCounter);
-        retList.add(month3);
-        month4.setValue(aprilCounter);
-        retList.add(month4);
-        month5.setValue(mayCounter);
-        retList.add(month5);
-        month6.setValue(juneCounter);
-        retList.add(month6);
-        month7.setValue(julyCounter);
-        retList.add(month7);
-        month8.setValue(augustCounter);
-        retList.add(month8);
-        month9.setValue(septemberCounter);
-        retList.add(month9);
-        month10.setValue(octoberCounter);
-        retList.add(month10);
-        month11.setValue(novemberCounter);
-        retList.add(month11);
-        month12.setValue(decemberCounter);
-        retList.add(month12);
-
-        return retList;
+        return findMonthlyData(dates);
     }
 
-    @Override
-    public List<ChartMapper> findWeeklyBoatData(Long id) {
+    private List<ChartMapper> findWeeklyData(List<LocalDate> dates){
         List<ChartMapper> retList = new ArrayList<>();
-        List<LocalDate> dates = new ArrayList<>();
-        List<Reservation> reservations = reservationRepository.findAllByBoatId(id);
-
-        for (Reservation res :
-                reservations) {
-            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
-        }
 
         //kreiraj chartMapper instancu
         ChartMapper day1 = new ChartMapper();
@@ -249,6 +148,151 @@ public class ReservationServiceImpl implements ReservationService {
         retList.add(day7);
 
         return retList;
+    }
+
+    private List<ChartMapper> findMonthlyData(List<LocalDate> dates){
+        List<ChartMapper> retList = new ArrayList<>();
+
+        //kreiraj chartMapper instancu
+        ChartMapper month1 = new ChartMapper();
+        month1.setName("January");
+
+        ChartMapper month2 = new ChartMapper();
+        month2.setName("February");
+
+        ChartMapper month3 = new ChartMapper();
+        month3.setName("March");
+
+        ChartMapper month4 = new ChartMapper();
+        month4.setName("April");
+
+        ChartMapper month5 = new ChartMapper();
+        month5.setName("May");
+
+        ChartMapper month6 = new ChartMapper();
+        month6.setName("June");
+
+        ChartMapper month7 = new ChartMapper();
+        month7.setName("July");
+
+        ChartMapper month8 = new ChartMapper();
+        month8.setName("August");
+
+        ChartMapper month9 = new ChartMapper();
+        month9.setName("September");
+
+        ChartMapper month10 = new ChartMapper();
+        month10.setName("October");
+
+        ChartMapper month11 = new ChartMapper();
+        month11.setName("November");
+
+        ChartMapper month12 = new ChartMapper();
+        month12.setName("December");
+
+        int januaryCounter = 0;
+        int februaryCounter = 0;
+        int marchCounter = 0;
+        int aprilCounter = 0;
+        int mayCounter = 0;
+        int juneCounter = 0;
+        int julyCounter = 0;
+        int augustCounter = 0;
+        int septemberCounter = 0;
+        int octoberCounter = 0;
+        int novemberCounter = 0;
+        int decemberCounter = 0;
+
+        for (LocalDate date:
+                dates
+        ) {
+            //koji je mesec
+            int month = date.getMonth().getValue();
+            if(month == 1) januaryCounter++;
+            if(month == 2) februaryCounter++;
+            if(month == 3) marchCounter++;
+            if(month == 4) aprilCounter++;
+            if(month == 5) mayCounter++;
+            if(month == 6) juneCounter++;
+            if(month == 7) julyCounter++;
+            if(month == 8) augustCounter++;
+            if(month == 9) septemberCounter++;
+            if(month == 10) octoberCounter++;
+            if(month == 11) novemberCounter++;
+            if(month == 12) decemberCounter++;
+        }
+        month1.setValue(januaryCounter);
+        retList.add(month1);
+        month2.setValue(februaryCounter);
+        retList.add(month2);
+        month3.setValue(marchCounter);
+        retList.add(month3);
+        month4.setValue(aprilCounter);
+        retList.add(month4);
+        month5.setValue(mayCounter);
+        retList.add(month5);
+        month6.setValue(juneCounter);
+        retList.add(month6);
+        month7.setValue(julyCounter);
+        retList.add(month7);
+        month8.setValue(augustCounter);
+        retList.add(month8);
+        month9.setValue(septemberCounter);
+        retList.add(month9);
+        month10.setValue(octoberCounter);
+        retList.add(month10);
+        month11.setValue(novemberCounter);
+        retList.add(month11);
+        month12.setValue(decemberCounter);
+        retList.add(month12);
+
+        return retList;
+    }
+
+    @Override
+    public List<ChartMapper> findWeeklyBoatData(Long id) {
+
+        List<LocalDate> dates = new ArrayList<>();
+        List<Reservation> reservations = reservationRepository.findAllByBoatId(id);
+
+        for (Reservation res :
+                reservations) {
+            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
+        }
+
+        return findWeeklyData(dates);
+    }
+
+    @Override
+    public List<ChartMapper> findMonthlyCottageData(Long id) {
+        List<Reservation> reservations = reservationRepository.findAllByCottageId(id);
+
+        List<LocalDate> dates = new ArrayList<>();
+
+        for (Reservation res :
+                reservations) {
+            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
+        }
+
+        return findMonthlyData(dates);
+    }
+
+    @Override
+    public List<ChartMapper> findWeeklyCottageData(Long id) {
+        List<LocalDate> dates = new ArrayList<>();
+        List<Reservation> reservations = reservationRepository.findAllByCottageId(id);
+
+        for (Reservation res :
+                reservations) {
+            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
+        }
+
+        return findWeeklyData(dates);
+    }
+
+    @Override
+    public Long findIncomeCottage(Long id, LocalDateTime startTime, LocalDateTime endTime) {
+        return reservationRepository.findCottageIncome(id, startTime, endTime);
     }
 
     @Override
