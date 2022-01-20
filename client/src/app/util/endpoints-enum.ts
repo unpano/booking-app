@@ -28,12 +28,17 @@ export enum Endpoint {
   BOAT_SERVICES = "http://localhost:8084/boats/findAdditionalServices/",
   CREATE_RESERVATION = "http://localhost:8084/reservations/createReservation/",
   DELETE_RESERVATION = "http://localhost:8084/reservations/delete/",
+  DELETE_ACTION = "http://localhost:8084/actions/delete/",
   CHECK_BOAT_RESERVATION = "http://localhost:8084/reservations/checkBoatReservation/",
 
   RESERVATIONS = "http://localhost:8084/reservations/",
   REPORTS = "http://localhost:8084/reports/",
   MAIL = "http://localhost:8084/emails/",
   ROOMS = "http://localhost:8084/rooms/",
+
+  FIND_BOAT_SUBSCRIPTIONS = "http://localhost:8084/boatSubscriptions/findAll/",
+  UNSUBSCRIBE = "http://localhost:8084/boatSubscriptions/delete/",
+  SUBSCRIBE = "http://localhost:8084/boatSubscriptions/createSubscription/"
 
 
 

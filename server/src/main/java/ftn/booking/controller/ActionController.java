@@ -18,6 +18,12 @@ public class ActionController {
 
     private ActionService actionService;
 
+    @GetMapping("/delete/{actionId}")
+    public void deleteAction(@PathVariable Long actionId)
+    {
+        actionService.delete(actionId);
+    }
+
     @GetMapping(value = "/findAll", produces = "application/json")
     public @ResponseBody List<Action> findAll() {
         return actionService.findAll();

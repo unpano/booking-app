@@ -7,16 +7,18 @@
   <thead>
     <th >Start date : </th>
     <th >End date :</th>
-    <th >Price </th>
+    <th >Regular price </th>
+    <th >Action price </th>
     <th >Number of persons :</th>
   </thead>
   <tbody>
         <tr *ngFor="let action of actions">
           <td>{{action.startDate}}</td>
           <td>{{action.endDate}}</td>
+          <td>{{action.oldPrice}}</td>
           <td>{{action.price}}</td>
           <td>{{action.maxNumberOfPersons}}</td>   
-          <button>Reserve</button>     
+          <button (click) = "reserve(action)">Reserve</button>     
         </tr>
 
   </tbody>

@@ -1,0 +1,42 @@
+label{
+    margin-left: 5%;
+    margin-top: 2%;
+    width: 400px;
+}
+
+thead{
+    text-align: center;
+    height: 80px;
+}
+
+
+button{
+    color: white;
+    background: indigo;
+    border-radius: 1rem;
+    border: none;
+    width: 170px;
+    height: 35px;
+    margin-left: 4px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+mat-card{
+    margin: 2% 10% 10% 10%;
+    height: inherit;
+}
+
+
+table {
+    width: 100%;
+    text-align: center;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    height: 60px;
+  }
+
+
+  

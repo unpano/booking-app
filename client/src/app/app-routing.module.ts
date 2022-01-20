@@ -31,6 +31,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
+import { SubscribedBoatsComponent } from './subscribed-boats/subscribed-boats.component';
 import { UpcomingReservationsComponent } from './upcoming-reservations/upcoming-reservations.component';
 
 const routes: Routes = [
@@ -75,6 +76,8 @@ const routes: Routes = [
   {path: 'pricelist', component: PricelistComponent},
   {path: 'upcomingRes', component: UpcomingReservationsComponent},
   {path: 'homePageClient', component: HomePageClientComponent},
+
+  {path: 'subscribedBoats', component: SubscribedBoatsComponent},
 
   {path: '**', component: PageNotFoundComponent},
 

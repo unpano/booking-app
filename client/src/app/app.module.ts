@@ -66,6 +66,7 @@ import { DeleteClientProfileComponent } from './delete-client-profile/delete-cli
 import { ClientProfileCottageComponent } from './client-profile-cottage/client-profile-cottage.component';
 import { AllActionsComponent } from './all-actions/all-actions.component';
 import { UpcomingReservationsComponent } from './upcoming-reservations/upcoming-reservations.component';
+import { SubscribedBoatsComponent } from './subscribed-boats/subscribed-boats.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { UpcomingReservationsComponent } from './upcoming-reservations/upcoming-
     ClientProfileCottageComponent,
     AllActionsComponent,
     UpcomingReservationsComponent,
+    SubscribedBoatsComponent,
   ],
   imports: [
     BrowserModule,

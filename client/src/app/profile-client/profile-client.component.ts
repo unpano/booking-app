@@ -6,6 +6,7 @@ import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { DeleteClientProfileComponent } from '../delete-client-profile/delete-client-profile.component';
 import { Client } from '../dto/client';
+import { SubscribedBoatsComponent } from '../subscribed-boats/subscribed-boats.component';
 import { Endpoint } from '../util/endpoints-enum';
 
 @Component({
@@ -41,9 +42,18 @@ export class ProfileClientComponent implements OnInit {
                this.user = returnedUser
       })).subscribe()
 
-      alert(this.user.picture)
   }
 
+  findSubscribed()
+  {
+
+    let dialogRef = this.dialog.open(SubscribedBoatsComponent,{
+      autoFocus: false,
+      maxHeight: '90vh' 
+    })
+    dialogRef.afterClosed().subscribe();
+
+  }
 
   clickOnEditButton(){
     this.editButtonClicked = true;

@@ -4,16 +4,17 @@
       <div class="col-lg-4">
         <div class="card shadow-sm">
           <div class="card-header bg-transparent text-center">
-            <img class="profile_img" src="..\\assets\\profile-pictures\\profilePicture.jpg " alt="student dp">
+            <img class="profile_img" src="https://source.unsplash.com/600x300/?student" alt="student dp">
             <h3>{{user.firstName + ' ' + user.lastName}}</h3>
           </div>
           <div class="card-body">
 
             <button mat-button routerLink="change-password" id="firstButton">Change password</button>
-            <button mat-button routerLink="delete-account">profile</button>
+            <button mat-button routerLink="delete-account">Delete profile</button>
             <button mat-button *ngIf="!editButtonClicked" (click)="clickOnEditButton()">Edit profile</button>
             <button mat-button id="submitButton" type="submit" *ngIf="editButtonClicked">Submit</button>
           </div>
+          <button class = "specialButton" (click) = "findSubscribed()"> View subscribed entities</button>
         </div>
       </div>
       <div class="col-lg-8">

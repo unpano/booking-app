@@ -25,6 +25,8 @@ public class Action {
     private LocalDateTime startDate;
 
     private LocalDateTime endDate;
+    
+    private  Long oldPrice;
 
     private Long price;
 

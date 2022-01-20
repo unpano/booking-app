@@ -11,6 +11,6 @@ export class Reservation{
     client !: Client;
     reported : Boolean = false
     price !: Number
-    numOfPersons !: String
+    numOfPersons !: Number
     boat !: Boat 
 }

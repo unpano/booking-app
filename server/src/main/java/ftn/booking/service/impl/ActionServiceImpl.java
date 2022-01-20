@@ -2,6 +2,7 @@ package ftn.booking.service.impl;
 
 
 import ftn.booking.model.Action;
+import ftn.booking.model.Reservation;
 import ftn.booking.repository.ActionRepository;
 import ftn.booking.service.ActionService;
 import lombok.AllArgsConstructor;
@@ -25,5 +26,12 @@ public class ActionServiceImpl implements ActionService {
     public List<Action> findByEntityId(Long id)
     {
         return actionRepository.findAllActionsByEntityId(id);
+    }
+
+    @Override
+    public void delete(Long actionId) {
+
+        Action a = actionRepository.findById(actionId).orElse(null);
+        actionRepository.delete(a);
     }
 }

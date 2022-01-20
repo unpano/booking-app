@@ -9,4 +9,6 @@ public interface ActionService {
     List<Action> findAll();
 
     List<Action> findByEntityId(Long id);
+
+    void delete(Long actionId);
 }

@@ -43,6 +43,20 @@ export class ProfileBoatComponent implements OnInit {
 
   }
 
+  subscribe(boat : Boat)
+  {
+    const headers = { 'content-type': 'application/json'} 
+    let options = { headers: headers };
+
+    this.http.post<any>(this.endpoint.SUBSCRIBE+ boat.id + "/" + sessionStorage.getItem('id'), options).pipe(
+      map(returnedBoat => {
+        this.boat = returnedBoat
+      })).subscribe(() =>
+      {
+          alert( "You're subscribed on that boat")
+      })
+
+  }
   reserve(boat : Boat)
   {
     sessionStorage.setItem('boatId', boat.id.toString())

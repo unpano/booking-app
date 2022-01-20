@@ -1,0 +1,25 @@
+
+
+
+<mat-card>
+
+    <table>
+      <thead>
+          <th>Boat name </th>
+          <th> Boat address</th>
+          <th> Boat description</th>
+          <th> Average rate</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let boatSubscription of boatSubscriptions">
+          <td>{{boatSubscription.boat.name}}</td>
+          <td>{{boatSubscription.boat.address}}</td>
+          <td>{{boatSubscription.boat.description}}</td>
+          <td>{{boatSubscription.boat.rate}}</td>  
+          <button (click)= "unsubscribe(boatSubscription)">Unsubscribe</button>
+        </tr>
+      </tbody>
+
+    </table>
+    </mat-card>

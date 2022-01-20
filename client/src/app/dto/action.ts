@@ -8,6 +8,7 @@ export class Action{
     startDate !: String
     endDate !: String
     price !: Number
+    oldPrice !: Number
     boat !: Boat
     cottage !: Cottage
     adventure !: Adventure
