@@ -22,6 +22,8 @@ export class ReservationFormComponent implements OnInit {
   endTime : any
   numOfPersons : any
 
+  checkRes : any
+
   constructor(private router: Router,private http: HttpClient, private dialog: MatDialog) { }
 
 
@@ -36,25 +38,62 @@ export class ReservationFormComponent implements OnInit {
     this.reservation.reservationType = ReservationType.BOAT
     this.reservation.startTime = this.startTime + "T11:00:00"
     this.reservation.endTime = this.endTime + "T11:00:00"
-
-
- 
-
+    this.reservation.numOfPersons = this.numOfPersons
 
     const headers = { 'content-type': 'application/json'} 
     let options = { headers: headers };
 
-    const body = JSON.stringify(this.reservation);  
+    if( this.startTime == undefined || this.endTime == undefined)
+    {
+      alert("Fill all the fields, please!")
+    }
+    else
+    {
 
-      this.http.post<any>(this.endpoint.CREATE_RESERVATION, body, options).pipe(
-        map(returnedData => {
-          this.reservation = returnedData
-        })).subscribe()
+              this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
+                map(returnedUser => {
+                  this.reservation.client = returnedUser
+                })).subscribe(  () => 
+                {
+        
+                  this.http.get<any>(this.endpoint.FIND_BOAT + "/"+ sessionStorage.getItem('entityId'), options).pipe(
+                    map(returnedBoat => {
+                      this.reservation.boat = returnedBoat
+                    })).subscribe( () => 
+                      {
+                          this.reservation.price = this.reservation.boat.price
+                          const body = JSON.stringify(this.reservation);  
+
+                          
+                          this.http.post<any>(this.endpoint.CHECK_BOAT_RESERVATION, body, options).pipe(
+                            map(returnedData => {
+                              this.checkRes = returnedData
+                            })).subscribe( () =>
+                            {
+                                if( this.checkRes == false)
+                                {
+                                  alert( "Sorry, the boat is not free, please pick another date")
+                                }
+                                else
+                                {
+                                          this.http.post<any>(this.endpoint.CREATE_RESERVATION, body, options).pipe(
+                                            map(returnedData => {
+                                              this.reservation = returnedData
+                                            })).subscribe()
 
 
-
-
-
+                                            alert("You created reservation seccessfuly!")
+                                }
+                              }
+                              )
+            
+                       
+        
+                      })
+                  
+                } )
+      
+      }
   }
 
 }

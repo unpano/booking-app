@@ -55,12 +55,15 @@ export class UpcomingReservationsComponent implements OnInit {
       this.http.get<any>(this.endpoint.DELETE_RESERVATION + reservation.id, options).pipe(
         map(returnedData => {
 
-        })).subscribe()
-      
+        })).subscribe( () =>
+
         this.http.get<any>(this.endpoint.UPCOMING_RESERVATIONS + sessionStorage.getItem('id'), options).pipe(
           map(returnedData => {
             this.reservations = returnedData
           })).subscribe()
+
+        )
+      
     }
     else
     {

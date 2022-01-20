@@ -42,6 +42,12 @@ public class ReservationController {
         reservationService.delete(reservationId);
     }
 
+    @GetMapping("/findByBoat/{boatId}")
+    public ResponseEntity<List<Reservation>> allReservationsByBoat(@PathVariable Long boatId)
+    {
+        return new ResponseEntity<>(reservationService.findAllByBoat(boatId), HttpStatus.OK);
+    }
+
     @GetMapping("/findByUser/{userId}")
     public ResponseEntity<List<Reservation>> pastReservationsByUser(@PathVariable Long userId)
     {
@@ -60,16 +66,17 @@ public class ReservationController {
         return reservationService.findAllinPeriod(reservationDTO.getStartTime(), reservationDTO.getEndTime());
     }
 
+    @PostMapping("/checkBoatReservation/")
+    public @ResponseBody ResponseEntity<Boolean> checkReservation(@RequestBody ReservationDTO reservationDTO)
+    {
+        return new ResponseEntity<>(reservationService.checkBoatReservation(reservationDTO), HttpStatus.OK);
+    }
 
     @PostMapping("/createReservation/")
     //@PreAuthorize("hasRole('CLIENT')")
     public  @ResponseBody ResponseEntity<Reservation> makeReservation(@RequestBody ReservationDTO reservationDTO) {
 
         Reservation new_reservation = new Reservation();
-
-
-        System.out.println(reservationDTO.getStartTime());
-        System.out.println(reservationDTO.getEndTime());
 
         if(reservationDTO.getReservationType() == ReservationType.BOAT)
         {
@@ -87,6 +94,7 @@ public class ReservationController {
 
         new_reservation.setClient( reservationDTO.getClient());
 
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         reservationDTO.getStartTime().format(formatter);
@@ -94,16 +102,13 @@ public class ReservationController {
 
         new_reservation.setStartTime(reservationDTO.getStartTime());
         new_reservation.setEndTime(reservationDTO.getEndTime());
-        System.out.println("USPELOO");
 
-        /*
+
         int numOfDays = reservationDTO.getEndTime().getDayOfYear() - reservationDTO.getStartTime().getDayOfYear();
         Long price = reservationDTO.getPrice() * numOfDays;
 
         new_reservation.setPrice(price);
 
-        System.out.println("Number of days :");
-        System.out.println(numOfDays);*/
 
 
         return new ResponseEntity<>(reservationService.add(new_reservation), HttpStatus.OK);

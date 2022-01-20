@@ -24,6 +24,7 @@ public class ReservationDTO {
     private LocalDateTime endTime;
     private Long price;
     private Integer numOfPersons;
+    private Boolean reported;
 
     private Client client;
     private Boat boat;

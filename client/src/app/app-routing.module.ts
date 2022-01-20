@@ -74,6 +74,7 @@ const routes: Routes = [
 
   {path: 'pricelist', component: PricelistComponent},
   {path: 'upcomingRes', component: UpcomingReservationsComponent},
+  {path: 'homePageClient', component: HomePageClientComponent},
 
   {path: '**', component: PageNotFoundComponent},
 

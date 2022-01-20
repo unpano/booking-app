@@ -28,6 +28,7 @@ export enum Endpoint {
   BOAT_SERVICES = "http://localhost:8084/boats/findAdditionalServices/",
   CREATE_RESERVATION = "http://localhost:8084/reservations/createReservation/",
   DELETE_RESERVATION = "http://localhost:8084/reservations/delete/",
+  CHECK_BOAT_RESERVATION = "http://localhost:8084/reservations/checkBoatReservation/",
 
   RESERVATIONS = "http://localhost:8084/reservations/",
   REPORTS = "http://localhost:8084/reports/",

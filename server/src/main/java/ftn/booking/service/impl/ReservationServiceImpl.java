@@ -1,6 +1,8 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.NotFoundException;
+import ftn.booking.model.Boat;
 import ftn.booking.model.Reservation;
 import ftn.booking.model.enums.ReservationType;
 import ftn.booking.repository.ReservationRepository;
@@ -26,6 +28,41 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> findAllByUser(Long userId) {
         return reservationRepository.findAllByClientId(userId);
     }
+
+    @Override
+    public List<Reservation> findAllByBoat(Long boatId) {
+        return reservationRepository.findAllByBoatId(boatId);
+    }
+
+    @Override
+    public Boolean checkBoatReservation(ReservationDTO reservationDTO) {
+
+        List<Reservation> allReservations = reservationRepository.findAllByBoatId(reservationDTO.getBoat().getId());
+
+
+        for (Reservation res: allReservations)
+        {
+            if(reservationDTO.getStartTime().isEqual( res.getStartTime()) || reservationDTO.getEndTime().isEqual( res.getEndTime()))
+            {
+                return false;
+            }
+            if(reservationDTO.getStartTime().isAfter( res.getStartTime()) && reservationDTO.getStartTime().isBefore( res.getEndTime()))
+            {
+                return false;
+            }
+            if(reservationDTO.getEndTime().isAfter( res.getStartTime()) && reservationDTO.getEndTime().isBefore( res.getEndTime()))
+            {
+                return false;
+            }
+            if(reservationDTO.getStartTime().isBefore( res.getStartTime()) && reservationDTO.getEndTime().isAfter( res.getEndTime()))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
     @Override
     public void delete(Long reservationId) {

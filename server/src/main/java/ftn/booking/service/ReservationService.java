@@ -1,5 +1,6 @@
 package ftn.booking.service;
 
+import ftn.booking.dto.ReservationDTO;
 import ftn.booking.model.Reservation;
 import java.time.LocalDateTime;
 
@@ -37,6 +38,10 @@ public interface ReservationService{
     List<LocalDate> findAllForbiddenDates();
 
     List<Reservation> findAllByUser(Long userId);
+
+    List<Reservation> findAllByBoat(Long boatId);
+
+    Boolean checkBoatReservation(ReservationDTO reservationDTO);
 
     List<Reservation> upcomingByUser(Long userId);
 

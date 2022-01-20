@@ -26,6 +26,8 @@ public class Boat {
 
     private String name;
 
+    private Long price;
+
     private String address;
 
     private String behaviorRules;

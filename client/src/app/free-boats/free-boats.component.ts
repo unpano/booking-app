@@ -78,7 +78,7 @@ export class FreeBoatsComponent implements OnInit {
     this.reservation.endTime = this.endDate + "T11:00:00"
 
     this.reservation.reservationType = ReservationType.BOAT
-    this.reservation.price = boat.price.toString();
+    this.reservation.price = boat.price;
 
 
     const body=JSON.stringify(this.reservation); 

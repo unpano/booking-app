@@ -1,4 +1,5 @@
 import { Boat } from "./boat";
+import { Client } from "./client";
 import { ReservationType } from "./enums/ReservationType";
 import { User } from "./user";
 
@@ -7,10 +8,9 @@ export class Reservation{
     reservationType !: ReservationType;
     startTime !: String;
     endTime !: String;
-    client !: User;
+    client !: Client;
     reported : Boolean = false
-    price !: String
+    price !: Number
     numOfPersons !: String
-    clientId !: string
-    boatId !: string
+    boat !: Boat 
 }
