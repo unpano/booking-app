@@ -58,7 +58,7 @@ spring.mail.password= isaBooking56Password
 Da bi mejlovi stizali na gmail, mora se u podesiti da se primaju mejlovi od manje sigurnih izvora!
 -------------------------------------------------------------------------------------------------------------------------
 
------POKRETANJE FRONTEND-A-----
+-------------------------------------POKRETANJE FRONTEND-A---------------------------------------------------------------
 
 Pozicionirati se u folder client i pokrenuti sledece komande.
 npm install -g @angular/cli
@@ -67,15 +67,12 @@ npm start
 
 Po potrebi pre pokretanja pokrenuti komandu (ako dodje do greske prilikom pokretanja)
 npm install --save-dev @angular-devkit/build-angular
+-------------------------------------------------------------------------------------------------------------------------
 
------POKRETANJE BACKEND-A-----
+-------------------------------------POKRETANJE BACKEND-A----------------------------------------------------------------
 
 server
 Otvoriti projekat u IntelliJ-u. Podesiti konfiguraciju da prepozna main class-u. Pokrenuti na Run.
 Aplikacija se pokrece na portu 8084. Nije preporucljivo menjati port, jer je front takodje podesen da gadja
 taj port, u suprotnom moralo bi se i tamo menjati.
-
------REŠAVANE KONFLIKTNE SITUACIJE-----
-
-U Word dokumentu korenskog direktorijuma projekta nalazi se opis konfliktnih situacija koje su rešavane kad je
-u pitanju konkurentni pristup resursima baze u ulozi vlasnika vikendice/broda.
+-------------------------------------------------------------------------------------------------------------------------
