@@ -38,7 +38,10 @@ export enum Endpoint {
 
   FIND_BOAT_SUBSCRIPTIONS = "http://localhost:8084/boatSubscriptions/findAll/",
   UNSUBSCRIBE = "http://localhost:8084/boatSubscriptions/delete/",
-  SUBSCRIBE = "http://localhost:8084/boatSubscriptions/createSubscription/"
+  SUBSCRIBE = "http://localhost:8084/boatSubscriptions/createSubscription/",
+
+  ACTIVATE_LINK = "http://localhost:8084/auth/activationLink/",
+  GET_ACTIVE_USER = "http://localhost:8084/users/getActive/"
 
 
 

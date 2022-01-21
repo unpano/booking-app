@@ -13,7 +13,7 @@ public interface CottageService {
     List<Cottage> findAllOwnerCottages(Long id);
     Cottage findById(Long cottageId);
     Cottage add(Cottage cottage);
-    List<Cottage> findFreeCottages(ReservationDTO reservationDTO);
+    List<Cottage> findFreeCottages(LocalDateTime startTime, LocalDateTime endTime);
     void delete(Cottage cottage);
     Cottage update(Cottage cottage);
 }

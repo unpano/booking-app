@@ -38,6 +38,12 @@ public class UserController {
     public ResponseEntity<User> checkIfUsernameIsAvailable(@PathVariable String username){
         return new ResponseEntity<>(userService.loadUserByUsername(username), HttpStatus.OK);
     }
+
+
+    @GetMapping("/getActive/")
+    public ResponseEntity<User> findActive(){
+        return new ResponseEntity<>(userService.findActive(), HttpStatus.OK);
+    }
     
     @GetMapping("/checkPassword/{oldPassword}")
     @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")

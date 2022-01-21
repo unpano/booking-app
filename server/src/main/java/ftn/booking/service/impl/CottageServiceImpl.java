@@ -4,6 +4,7 @@ import ftn.booking.exception.NotFoundException;
 import ftn.booking.model.Boat;
 import ftn.booking.model.Cottage;
 import ftn.booking.model.Reservation;
+import ftn.booking.model.enums.ReservationType;
 import ftn.booking.repository.CottageRepository;
 import ftn.booking.repository.ReservationRepository;
 import ftn.booking.service.CottageService;
@@ -55,27 +56,38 @@ public class CottageServiceImpl implements CottageService {
     }
 
     @Override
-    public List<Cottage> findFreeCottages(ReservationDTO reservationDTO) {
-        List<Cottage> resultCottages = new ArrayList<>();
+    public List<Cottage> findFreeCottages(LocalDateTime startTime, LocalDateTime endTime) {
+
         List<Cottage> allCottages = cottageRepository.findAll();
-        List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndStartTimeAndEndTime
-                ("COTTAGE", reservationDTO.getStartTime(), reservationDTO.getEndTime());
+        List<Reservation> all_reservations = reservationRepository.findAllByReservationType(ReservationType.COTTAGE);
 
-        for (Cottage cottage : allCottages) {
-            Boolean taken = false;
-            for (Reservation res : reservations) {
-                if (res.getCottage() == cottage) {
-                    taken = true;
-                }
+        for (Reservation res: all_reservations) {
+            if(res.getStartTime().isEqual( startTime) || res.getEndTime().isEqual( endTime))
+            {
+                allCottages.remove(res.getBoat());
             }
-            if (taken == false) {
-                resultCottages.add(cottage);
+            else if(res.getStartTime().isAfter( startTime) && res.getStartTime().isBefore( endTime))
+            {
+                allCottages.remove(res.getBoat());
             }
-
+            if(res.getEndTime().isAfter( startTime) && res.getEndTime().isBefore( endTime))
+            {
+                allCottages.remove(res.getBoat());
+            }
+            if(res.getStartTime().isBefore( startTime) && res.getEndTime().isAfter( endTime))
+            {
+                allCottages.remove(res.getBoat());
+            }
         }
 
-        return resultCottages;
+
+
+        return allCottages;
     }
+
+
+
+
     public void delete(Cottage cottage) {
         cottageRepository.delete(cottage);
     }

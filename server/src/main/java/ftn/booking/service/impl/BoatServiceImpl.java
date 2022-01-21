@@ -47,26 +47,30 @@ public class BoatServiceImpl implements BoatService {
     @Override
     public List<Boat> findFreeBoats(LocalDateTime startTime, LocalDateTime endTime)
     {
-        List<Boat> resultBoats = new ArrayList<>();
         List<Boat> allBoats = boatRepository.findAll();
-        List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndStartTimeAndEndTime
-                (ReservationType.BOAT.toString(), startTime, endTime);
+        List<Reservation> all_reservations = reservationRepository.findAllByReservationType(ReservationType.BOAT);
 
-        for (Boat boat : allBoats)
-        {
-            Boolean taken = false;
-            for (Reservation res : reservations)
+        for (Reservation res: all_reservations) {
+            if(res.getStartTime().isEqual( startTime) || res.getEndTime().isEqual( endTime))
             {
-                if( res.getBoat().getId() == boat.getId() )
-                {
-                    taken = true;
-                }
+                allBoats.remove(res.getBoat());
             }
-            if( taken == false)
+            else if(res.getStartTime().isAfter( startTime) && res.getStartTime().isBefore( endTime))
             {
-                resultBoats.add(boat);
+                allBoats.remove(res.getBoat());
+            }
+            if(res.getEndTime().isAfter( startTime) && res.getEndTime().isBefore( endTime))
+            {
+                allBoats.remove(res.getBoat());
+            }
+            if(res.getStartTime().isBefore( startTime) && res.getEndTime().isAfter( endTime))
+            {
+                allBoats.remove(res.getBoat());
             }
         }
-        return resultBoats;
+
+
+
+        return allBoats;
     }
 }

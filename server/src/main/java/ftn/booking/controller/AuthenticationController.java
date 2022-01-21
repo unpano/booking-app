@@ -9,6 +9,7 @@ import ftn.booking.exception.ValidationException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.LoyaltyProgram;
 import ftn.booking.model.enums.Role;
+import ftn.booking.repository.UserRepository;
 import ftn.booking.service.AuthorityService;
 import ftn.booking.service.OwnerService;
 import ftn.booking.service.ClientService;
@@ -42,14 +43,29 @@ public class AuthenticationController {
     private TokenUtils tokenUtils;
     private AuthenticationManager authenticationManager;
     private UserService userService;
+    private UserRepository userRepository;
     private ModelMapper modelMapper;
     private AuthorityService authorityService;
     private ClientService clientService;
     private OwnerService ownerService;
     private final PasswordEncoder passwordEncoder;
 
-    @PostMapping("/signup")
+    @PostMapping("/activationLink/{email}")
+    public void activateUser(@PathVariable String email)
+    {
+        User u = userService.loadUserByUsername(email);
 
+        userRepository.delete(u);
+        u.setEnabled(true);
+        u.setActive(false);
+        userRepository.save(u);
+        System.out.println(u.getEmail());
+        System.out.println(u.isEnabled());
+
+
+    }
+
+    @PostMapping("/signup")
     public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO){
 
         User existUser = this.userService.loadUserByUsername(userDTO.getEmail());
@@ -83,6 +99,7 @@ public class AuthenticationController {
             client.setNumOfPenalties(0);
             client.setPassword(passwordEncoder.encode(client.getPassword()));
             client.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            client.setActive(true);
 
             //kreiram klijenta
             clientService.add(client);

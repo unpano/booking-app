@@ -51,6 +51,8 @@ public class User implements UserDetails {
 
     private boolean enabled;
 
+    private boolean active;
+
     //profilna slika
     private String picture;
 

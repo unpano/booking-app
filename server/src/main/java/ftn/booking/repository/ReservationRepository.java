@@ -2,6 +2,7 @@ package ftn.booking.repository;
 
 import ftn.booking.model.Boat;
 import ftn.booking.model.Reservation;
+import ftn.booking.model.enums.ReservationType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,12 +12,8 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
 
-    @Query(value = "select * " +
-            "from reservations r " +
-            "where (r.reservation_type like ?1) and " +
-            "((r.start_time  >= ?2) and (r.end_time <= ?3))", nativeQuery = true)
-    List<Reservation> findAllByReservationTypeAndStartTimeAndEndTime
-            (String ReservationType, LocalDateTime startTime, LocalDateTime endTime);
+
+    List<Reservation> findAllByReservationType(ReservationType reservationType);
 
     @Query(value = "select * " +
             "from reservations r " +

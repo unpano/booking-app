@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { MailDTO } from '../dto/mailDTO';
 import { User } from '../dto/user';
 import { Endpoint } from '../util/endpoints-enum';
+import { Global } from '../util/global';
 
 @Component({
   selector: 'app-register',
@@ -49,6 +51,10 @@ export class RegisterComponent implements OnInit {
   signUp(){
     let user: User = new User
     user.email = this.email
+
+    sessionStorage.setItem('email', this.email)
+    Global.email = this.email
+
     user.password = this.password
     user.firstName = this.name
     user.lastName = this.surname
@@ -74,13 +80,35 @@ export class RegisterComponent implements OnInit {
 
         return EMPTY;
       }),
-      map(returnedPersonId => {
-        //after sign up redirect to login
-        if(confirm("Successfully created account.")) {
-          this.router.navigate(["login"]);}
+      map(returnedPersonId => 
+          {
+            //after sign up send email
+            if(confirm("Successfully created account, we sent you activation link on your email!")) 
+            { 
 
-})
-    ).subscribe()
+            }
+
+          })
+    ).subscribe( () => 
+                      {
+                        alert(this.email)
+                        
+                        let mail = new MailDTO()
+                        mail.mailFrom = "isaBooking56@gmail.com"
+                        mail.mailTo = this.email
+                        mail.mailSubject = "-ACTIVATION MAIL-"
+                        mail.mailContent = "Here is activation link http://localhost:4200/profile-activation . Kind requards, Isa Team 56."
+                      
+
+                        const headers = { 'content-type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+                      
+                        let options = { headers: headers };
+                        let body = JSON.stringify(mail)
+                        this.http.post<any>(this.endpoint.MAIL + "send-mail",body, options).pipe().subscribe();
+
+                      })
+
   }
 
   confirmPassword(){

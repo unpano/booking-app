@@ -17,7 +17,7 @@ import java.util.Optional;
 public interface ReservationService{
 
     Reservation add(Reservation reservation);
-    List<Reservation> findAllinPeriod(LocalDateTime startDate, LocalDateTime endDate);
+
     // List<Reservation> findOneByEntityIdAndClientIdAndReservationType(Long entityId, Long id, ReservationType reservationType, LocalDateTime startTime, LocalDateTime endTime);
     List<Reservation> findAllByCottageId(Long id);
 

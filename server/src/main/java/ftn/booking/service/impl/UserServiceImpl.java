@@ -8,12 +8,36 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public User findById(Long id)
+    {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public User findActive()
+    {
+       List<User> allUsers = userRepository.findAll();
+        for (User u :allUsers)
+        {
+            if(u.isActive())
+            {
+                return u;
+            }
+        }
+        return null;
+    }
+
+
 
     @Override
     public User loadUserByUsername(String username) {

@@ -23,6 +23,7 @@ import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
+import { ProfileActivationComponent } from './profile-activation/profile-activation.component';
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { ProfileClientComponent } from './profile-client/profile-client.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
@@ -37,6 +38,7 @@ import { UpcomingReservationsComponent } from './upcoming-reservations/upcoming-
 const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'profile-activation', component: ProfileActivationComponent},
   {path: 'register', component: RegisterComponent},
 
   

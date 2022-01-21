@@ -60,11 +60,7 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.upcomingByUser(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/findByPeriod/")
-    public @ResponseBody List<Reservation> findReservationsInPeriod(@RequestBody ReservationDTO reservationDTO)
-    {
-        return reservationService.findAllinPeriod(reservationDTO.getStartTime(), reservationDTO.getEndTime());
-    }
+
 
     @PostMapping("/checkBoatReservation/")
     public @ResponseBody ResponseEntity<Boolean> checkReservation(@RequestBody ReservationDTO reservationDTO)

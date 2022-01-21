@@ -8,5 +8,7 @@ public interface UserService {
     User loadUserByUsername(String username);
     Boolean checkExistingPassword(String oldPassword, String password);
     User updateUser(User user);
+    User findById(Long id);
+    User findActive();
 }
 

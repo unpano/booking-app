@@ -3,6 +3,7 @@ package ftn.booking.service.impl;
 import ftn.booking.model.Adventure;
 import ftn.booking.model.Boat;
 import ftn.booking.model.Reservation;
+import ftn.booking.model.enums.ReservationType;
 import ftn.booking.repository.AdventureRepository;
 import ftn.booking.repository.ReservationRepository;
 import ftn.booking.service.AdventureService;
@@ -37,30 +38,28 @@ public class AdventureServiceImpl implements AdventureService {
     @Override
     public List<Adventure> findFreeAdventures(LocalDateTime startTime, LocalDateTime endTime)
     {
-        List<Adventure> resultAdventures = new ArrayList<>();
         List<Adventure> allAdventures = adventureRepository.findAll();
+        List<Reservation> all_reservations = reservationRepository.findAllByReservationType(ReservationType.ADVENTURE);
 
-        List<Reservation> reservations = reservationRepository.findAllByReservationTypeAndStartTimeAndEndTime
-                ("ADVENTURE", startTime, endTime);
-
-        for (Adventure adventure : allAdventures)
-        {
-            Boolean taken = false;
-            for (Reservation res : reservations)
+        for (Reservation res: all_reservations) {
+            if(res.getStartTime().isEqual( startTime) || res.getEndTime().isEqual( endTime))
             {
-                if( res.getAdventure() == adventure)
-                {
-                    taken = true;
-                    break;
-                }
+                allAdventures.remove(res.getBoat());
             }
-            if( taken == false)
+            else if(res.getStartTime().isAfter( startTime) && res.getStartTime().isBefore( endTime))
             {
-                resultAdventures.add(adventure);
+                allAdventures.remove(res.getBoat());
             }
-
+            if(res.getEndTime().isAfter( startTime) && res.getEndTime().isBefore( endTime))
+            {
+                allAdventures.remove(res.getBoat());
+            }
+            if(res.getStartTime().isBefore( startTime) && res.getEndTime().isAfter( endTime))
+            {
+                allAdventures.remove(res.getBoat());
+            }
         }
 
-        return resultAdventures;
+        return allAdventures;
     }
 }

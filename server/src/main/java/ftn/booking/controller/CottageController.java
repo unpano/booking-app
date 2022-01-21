@@ -110,13 +110,13 @@ public class CottageController {
     }
 
     ///Searching for cottages that are not reserved on that period
-    @GetMapping("/findFree/")
+ /*   @GetMapping("/findFree/")
     @PreAuthorize("hasRole('CLIENT')")
     public @ResponseBody
     List<Cottage> freeCottages(@RequestBody ReservationDTO reservationDTO)
     {
         return cottageService.findFreeCottages(reservationDTO);
-    }
+    }*/
 
     @PutMapping
     @PreAuthorize("hasRole('COTTAGE_OWNER')")

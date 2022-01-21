@@ -111,10 +111,7 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    @Override
-    public List<Reservation> findAllinPeriod(LocalDateTime startDate, LocalDateTime endDate) {
-        return reservationRepository.findAllByReservationTypeAndStartTimeAndEndTime(ReservationType.BOAT.toString(), startDate, endDate);
-    }
+
 
 
     @Override
