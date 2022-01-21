@@ -1,6 +1,8 @@
 .map {
     height: 55vh;
-    width: 55%;
+    width: 30%;
+    position: absolute;
+    margin-left: 795px;
   }
   .ol-mouse-position {
     top: inherit;

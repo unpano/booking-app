@@ -28,7 +28,7 @@
           </div>
       </form>
 
-      <app-map></app-map>
+      <app-map *ngIf="!editButtonClicked"></app-map>
   
       <div class="form-group">
           <label>Address</label>
