@@ -29,5 +29,3 @@ public class EntityImage {
     @ManyToOne
     private Adventure adventure;
 }
-
-

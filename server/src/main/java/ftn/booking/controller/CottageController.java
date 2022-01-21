@@ -46,7 +46,6 @@ public class CottageController {
     }
 
     @GetMapping("/{cottageId}/images")
-    @PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<List<String>> findCottageImages(@PathVariable Long cottageId){
         return new ResponseEntity<>(imageService.findImagesByCottageId(cottageId), HttpStatus.OK);
     }

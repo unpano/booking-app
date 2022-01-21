@@ -16,6 +16,7 @@ export enum Endpoint {
 
   FIND_INSTRUCTOR = "http://localhost:8084/instructors/findOne",
   FIND_BOAT = "http://localhost:8084/boats/findOne",
+  FIND_ADVENTURE = "http://localhost:8084/adventures/findOne",
 
   ACTIONS = "http://localhost:8084/actions/find/",
 

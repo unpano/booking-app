@@ -1,3 +1,12 @@
+<form role="form" novalidate class="form-inline" >
+    
+  
+      <div class="form-group">
+          <h1 id="name">{{cottage.name}}</h1>	
+     
+          <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>							
+      </div>
+</form>
 
 
     <div class="student-profile py-4">
@@ -16,6 +25,8 @@
                   <button *ngIf="role == 'ROLE_CLIENT'"  (click) = "reserve(cottage)">Reserve</button>
                   <button *ngIf="role == 'ROLE_CLIENT'" (click) = "subscribe(cottage)">Subscribe</button>
                 </div>
+
+             
               </div>
             </div>
             <div class="col-lg-8">

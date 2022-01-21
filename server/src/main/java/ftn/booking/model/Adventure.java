@@ -26,13 +26,14 @@ public class Adventure {
 
     private Integer maxNumOfPersons;
 
-    private Integer roomNum;
-
     private Long price;
 
     private String rules;
 
     private Integer rate;
+
+    @ManyToOne
+    private Instructor instructor;
 
     @OneToMany
     private List<EntityImage> images = new ArrayList<>();

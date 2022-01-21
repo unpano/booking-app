@@ -24,6 +24,7 @@ import { NewReservationComponent } from './new-reservation/new-reservation.compo
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
 import { ProfileActivationComponent } from './profile-activation/profile-activation.component';
+import { ProfileAdventureComponent } from './profile-adventure/profile-adventure.component';
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { ProfileClientComponent } from './profile-client/profile-client.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
@@ -61,6 +62,8 @@ const routes: Routes = [
 
   {path: 'cottage', component: ProfileCottageComponent},
   {path: 'actions', component: AllActionsComponent},
+
+  {path: 'adventure', component: ProfileAdventureComponent},
 
   {path: 'cottageProfile', component: ClientProfileCottageComponent},
   {path: 'boat', component: ProfileBoatComponent},

@@ -7,7 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 
 @Entity
@@ -21,4 +23,7 @@ public class Instructor extends User{
 
     private String biography;
     private String reasonForRegistration;
+
+    @OneToMany
+    private List<Adventure> adventures;
 }

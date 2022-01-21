@@ -32,7 +32,7 @@ export class ClientProfileCottageComponent implements OnInit {
 
   endpoint = Endpoint
 
-
+  imgCollection: Array<object> = [];
 
   cottage:any
 
@@ -82,9 +82,29 @@ export class ClientProfileCottageComponent implements OnInit {
                       var ruleJSON = this.findRule(rule)
                       this.rules.push(ruleJSON)
                                                                                 });
+
+
+                                                                                this.http
+                                                                                .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId') + '/images' ,options)
+                                                                                  .pipe(
+                                                                                    map(returnedImages=> {
+                                                                                      let imageUrls : any
+                                                                                      imageUrls = returnedImages
+                                                                                      imageUrls.forEach((path: string) => {
+                                                                                        let obj = {
+                                                                                          image: 'assets/cottage-pictures/'+ path,
+                                                                                          thumbImage: 'assets/cottage-pictures/'+ path
+                                                                                        }
+                                                                                        this.imgCollection.push(obj)
+                                                                                      });
+                                                                                    })).subscribe()
               
            
             })  
+
+
+           
+         
   }
 
 

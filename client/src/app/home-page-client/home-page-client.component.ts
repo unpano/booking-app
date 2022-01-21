@@ -11,7 +11,7 @@ import { Endpoint } from '../util/endpoints-enum';
 })
 export class HomePageClientComponent implements OnInit {
 
-  types = [ 'Boat','Instructor', 'Cottage']
+  types = [ 'Boat','Adventure', 'Cottage']
   type !: String
 
   dateInput : any

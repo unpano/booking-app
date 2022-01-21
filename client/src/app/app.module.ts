@@ -70,6 +70,8 @@ import { SubscribedBoatsComponent } from './subscribed-boats/subscribed-boats.co
 import { ProfileActivationComponent } from './profile-activation/profile-activation.component';
 import { ComplainFormComponent } from './complain-form/complain-form.component';
 import { CottageReservationFormComponent } from './cottage-reservation-form/cottage-reservation-form.component';
+import { ProfileAdventureComponent } from './profile-adventure/profile-adventure.component';
+import { AdventureReservationFormComponent } from './adventure-reservation-form/adventure-reservation-form.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +125,8 @@ import { CottageReservationFormComponent } from './cottage-reservation-form/cott
     ProfileActivationComponent,
     ComplainFormComponent,
     CottageReservationFormComponent,
+    ProfileAdventureComponent,
+    AdventureReservationFormComponent,
   ],
   imports: [
     BrowserModule,
