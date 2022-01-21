@@ -79,7 +79,13 @@ public class ReservationServiceImpl implements ReservationService {
 
         for (Reservation res :
                 reservations) {
-            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
+            List<LocalDate> arrayOfDates = findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime());
+            //add if not exist
+            for(LocalDate date: arrayOfDates){
+                if(!dates.contains(date)){
+                    dates.add(date);
+                }
+            }
         }
 
         return findMonthlyData(dates);
@@ -130,7 +136,6 @@ public class ReservationServiceImpl implements ReservationService {
             if(dayOfWeek == 5) fridayCounter++;
             if(dayOfWeek == 6) saturdayCounter++;
             if(dayOfWeek == 7) sundayCounter++;
-            if(dayOfWeek == 7) sundayCounter++;
         }
         day1.setValue(mondayCounter);
         retList.add(day1);
@@ -151,6 +156,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     private List<ChartMapper> findMonthlyData(List<LocalDate> dates){
+
         List<ChartMapper> retList = new ArrayList<>();
 
         //kreiraj chartMapper instancu
@@ -257,7 +263,13 @@ public class ReservationServiceImpl implements ReservationService {
 
         for (Reservation res :
                 reservations) {
-            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
+            List<LocalDate> arrayOfDates = findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime());
+            //add if not exist
+            for(LocalDate date: arrayOfDates){
+                if(!dates.contains(date)){
+                    dates.add(date);
+                }
+            }
         }
 
         return findWeeklyData(dates);

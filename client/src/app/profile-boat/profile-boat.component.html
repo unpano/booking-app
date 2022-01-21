@@ -185,7 +185,8 @@
       </div>
       
       <div class="form-group">
-        <h1>Income from this cottage</h1>	
+        <h1>Statistics</h1>	
+        <h2><b>Periodic income</b></h2>
         <mat-form-field class="example-form-field" appearance="fill">
           <mat-label>Pick period</mat-label>
           <mat-date-range-input
@@ -201,11 +202,12 @@
       <label><b>Income for this period is {{income}}$.</b></label>       
     </div>
 
+    <h2><b>Weekly attendance</b></h2>
     <ngx-charts-bar-vertical 
-      [view]="[1000,400]"
+      [view]="[1150,400]"
       [results]="weekly"
       [xAxisLabel]="'Weekday'"
-      [yAxisLabel]="'Number'"
+      [yAxisLabel]="'Attendees'"
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
       [xAxis]="true"
@@ -213,11 +215,12 @@
       [gradient]="true">
     </ngx-charts-bar-vertical>
 
+    <h2><b>Monthly attendance</b></h2>
     <ngx-charts-bar-vertical 
-      [view]="[1000,400]"
+      [view]="[1150,400]"
       [results]="monthly"
       [xAxisLabel]="'Month'"
-      [yAxisLabel]="'Number'"
+      [yAxisLabel]="'Attendees'"
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
       [xAxis]="true"
