@@ -71,8 +71,8 @@ npm install --save-dev @angular-devkit/build-angular
 
 -------------------------------------POKRETANJE BACKEND-A----------------------------------------------------------------
 
-server
-Otvoriti projekat u IntelliJ-u. Podesiti konfiguraciju da prepozna main class-u. Pokrenuti na Run.
-Aplikacija se pokrece na portu 8084. Nije preporucljivo menjati port, jer je front takodje podesen da gadja
-taj port, u suprotnom moralo bi se i tamo menjati.
+Otvoriti projekat u IntelliJ-u (folder server). Desnim klikom na BookinApplication.java pokrenuti aplikaciju, kako bi se
+kreirala konfiguracija.
+Aplikacija se pokrece na portu 8084. Nije preporucljivo menjati port, jer je front takodje podesen da gadjataj port, u 
+suprotnom moralo bi se i tamo menjati.
 -------------------------------------------------------------------------------------------------------------------------
