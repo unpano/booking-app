@@ -7,7 +7,7 @@ import { Room } from "./Room";
 export class Cottage{
     id !: Number
     name !: String
-    address !: String
+    address !: string
     city !: String
     description !: String
     maxNumOfPersons !: Number

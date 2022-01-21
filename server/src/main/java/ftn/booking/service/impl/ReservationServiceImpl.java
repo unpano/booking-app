@@ -283,7 +283,13 @@ public class ReservationServiceImpl implements ReservationService {
 
         for (Reservation res :
                 reservations) {
-            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
+            List<LocalDate> arrayOfDates = findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime());
+            //add if not exist
+            for(LocalDate date: arrayOfDates){
+                if(!dates.contains(date)){
+                    dates.add(date);
+                }
+            }
         }
 
         return findMonthlyData(dates);
@@ -296,7 +302,13 @@ public class ReservationServiceImpl implements ReservationService {
 
         for (Reservation res :
                 reservations) {
-            dates.addAll(findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime()));
+            List<LocalDate> arrayOfDates = findAllDatesBetweenTwoDates(res.getStartTime(),res.getEndTime());
+            //add if not exist
+            for(LocalDate date: arrayOfDates){
+                if(!dates.contains(date)){
+                    dates.add(date);
+                }
+            }
         }
 
         return findWeeklyData(dates);

@@ -65,6 +65,8 @@ export class ProfileBoatComponent implements OnInit {
   
   imgCollection: Array<object> = [];
 
+  
+
   constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient, 
     private dateService: DateFilterService) { 
     
@@ -76,6 +78,7 @@ export class ProfileBoatComponent implements OnInit {
       start: new FormControl(new Date(year, month, 28)),
       end: new FormControl(new Date(year, month, 29)),
     });
+    
 
   }
 

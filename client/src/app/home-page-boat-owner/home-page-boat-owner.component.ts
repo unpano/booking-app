@@ -125,6 +125,7 @@ export class HomePageBoatOwnerComponent implements OnInit {
 
   boatDetails(boat: Boat){
     sessionStorage.setItem('boatId', boat.id.toString())
+    sessionStorage.setItem('location', boat.address)
     this.router.navigate(['boat'])
 
   }

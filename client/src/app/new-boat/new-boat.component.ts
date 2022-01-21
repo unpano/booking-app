@@ -26,7 +26,7 @@ export class NewBoatComponent implements OnInit {
   numberOfMotors !: Number
   motorPower !: Number
   maxSpeed !: Number
-  address !: String
+  address !: string
   description !: String
   capacity !: Number
   oneDayPrice !: Number

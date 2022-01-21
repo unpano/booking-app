@@ -23,7 +23,7 @@ export class NewCottageComponent implements OnInit {
   services = Global.services
 
   name !: String
-  address !: String
+  address !: string
   city !: String
   description !: String
   maxNumPers !: Number

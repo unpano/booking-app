@@ -125,6 +125,7 @@ export class HomePageCottageOwnerComponent implements OnInit {
 
   cottageDetails(cottage: Cottage){
     sessionStorage.setItem('cottageId', cottage.id.toString())
+    sessionStorage.setItem('location', cottage.address)
     this.router.navigate(['cottage'])
 
   }

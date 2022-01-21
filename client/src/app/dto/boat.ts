@@ -10,7 +10,7 @@ export class Boat{
   id !: Number
   name !: String
   boatType !: BoatType
-  address !: String
+  address !: string
   description !: String
   rate !: Number
   amenities !: Amenity[]

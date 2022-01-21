@@ -27,12 +27,17 @@
             <img *ngFor='let preview of previews' [src]="preview" class="preview">
           </div>
       </form>
+
+      <app-map></app-map>
   
       <div class="form-group">
           <label>Address</label>
           <label>{{boat.address}}</label>
           <input type="text" id="address" *ngIf="editButtonClicked" name="address" [(ngModel)]="address">								
       </div>
+
+
+
       <div class="form-group">
         <label>Type</label>
         <label>{{boat.boatType}}</label>
