@@ -41,7 +41,6 @@ public class CottageController {
     }
 
     @GetMapping("/{cottageId}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('CLIENT')")
     public ResponseEntity<Cottage> findById(@PathVariable Long cottageId){
         return new ResponseEntity<>(cottageService.findById(cottageId), HttpStatus.OK);
     }

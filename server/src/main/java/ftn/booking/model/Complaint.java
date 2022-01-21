@@ -25,4 +25,14 @@ public class Complaint {
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    private Boat boat;
+
+    @ManyToOne
+    private Cottage cottage;
+
+    @ManyToOne
+    private Adventure adventure;
+
+
 }

@@ -27,11 +27,18 @@ export class ProfileClientComponent implements OnInit {
   city !: String
   country !: String
   phoneNumber !: String
+  role : any
+
 
 
   constructor(private router: Router, private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    this.role = sessionStorage.getItem('role')
+
+
+
     const headers = { 'content-type': 'application/json',
     'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
 

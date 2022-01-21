@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { CottageReservationFormComponent } from '../cottage-reservation-form/cottage-reservation-form.component';
 import { AmenityJSON } from '../dto/amenitiyJSON';
+import { Cottage } from '../dto/cottage';
 import { RuleJSON } from '../dto/RuleJSON';
 import { DateFilterService } from '../util/dateFIlterService';
 import { Endpoint } from '../util/endpoints-enum';
@@ -26,10 +29,14 @@ export class ClientProfileCottageComponent implements OnInit {
   roomName !: String
   roomBadTypes !: String
 
-  imgCollection: Array<object> = [];
 
   endpoint = Endpoint
+
+
+
   cottage:any
+
+
 
   amenities : AmenityJSON[] = []
   rules : RuleJSON[] = []
@@ -38,18 +45,20 @@ export class ClientProfileCottageComponent implements OnInit {
   amenities1 = Global.amenities
 
 
+  role : any
 
-  selected !: Date | null;
+
 
   starNames : String[] = []
 
-  constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient, private dateService: DateFilterService) { 
+  constructor(private router: Router,private sanitizer: DomSanitizer, private http: HttpClient, private dateService: DateFilterService, private dialog: MatDialog) { 
     
   }
 
   ngOnInit(): void {
 
-    this.dateService.findForbiddenDate()
+    this.role = sessionStorage.getItem('role')
+
 
     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
@@ -64,32 +73,44 @@ export class ClientProfileCottageComponent implements OnInit {
               this.cottage = returnedCottage              
             })).subscribe(() =>
             {
-              this.cottage.amenities.forEach((amenityInCottage: string) => {
-                    var amenityJSON = this.findAmenity(amenityInCottage)
-                    this.amenities.push(amenityJSON)
-              });
+                    this.cottage.amenities.forEach((amenityInCottage: string) => {
+                          var amenityJSON = this.findAmenity(amenityInCottage)
+                          this.amenities.push(amenityJSON)
+                                                                                  });
 
-              this.cottage.additionalServices.forEach((rule: string) => {
-                var ruleJSON = this.findRule(rule)
-                this.rules.push(ruleJSON)
-          });
+                    this.cottage.additionalServices.forEach((rule: string) => {
+                      var ruleJSON = this.findRule(rule)
+                      this.rules.push(ruleJSON)
+                                                                                });
               
-              //cottage images in imgCollection
-              this.http
-                  .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId') + '/images' ,options)
-                    .pipe(
-                      map(returnedImages=> {
-                        let imageUrls : any
-                        imageUrls = returnedImages
-                        imageUrls.forEach((path: string) => {
-                          let obj = {
-                            image: 'assets/cottage-pictures/'+ path,
-                            thumbImage: 'assets/cottage-pictures/'+ path
-                          }
-                          this.imgCollection.push(obj)
-                        });
-                      })).subscribe()
+           
             })  
+  }
+
+
+
+  
+  subscribe(cottage : Cottage)
+  {
+    const headers = { 'content-type': 'application/json'} 
+    let options = { headers: headers };
+
+    this.http.post<any>(this.endpoint.COTTAGE_SUBSCRIBE+ cottage.id + "/" + sessionStorage.getItem('id'), options).pipe(
+      map(returnedcottage => {
+        this.cottage = returnedcottage
+      })).subscribe(() =>
+      {
+          alert( "You're subscribed on that cottage")
+      })
+
+  }
+  reserve(cottage : Cottage)
+  {
+    sessionStorage.setItem('cottageId', cottage.id.toString())
+
+    let dialogRef = this.dialog.open(CottageReservationFormComponent)
+    dialogRef.afterClosed().subscribe();
+
   }
 
   starNamesFunc(rate: Number): String[]{

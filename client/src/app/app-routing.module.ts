@@ -51,8 +51,10 @@ const routes: Routes = [
   {path: 'clientProfile', component: ProfileClientComponent},
 
   {path: 'instructorProfile', component: ProfileInstructorComponent},
-  {path: 'profile/change-password', component: ChangePasswordComponent},
+  {path: 'change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
+
+  {path: 'profileDeactivation', component: DeactivationComponent},
 
   {path: 'boats', component: AllBoatsComponent},
   {path: 'allCottages', component: AllCottagesComponent},

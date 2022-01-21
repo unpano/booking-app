@@ -51,6 +51,9 @@ public class Boat {
     @Enumerated(EnumType.STRING)
     private BoatType type;
 
+    @ManyToOne
+    private BoatOwner boatOwner;
+
     private Long length;
 
     @Enumerated(EnumType.STRING)

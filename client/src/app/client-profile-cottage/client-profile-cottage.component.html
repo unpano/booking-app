@@ -1,62 +1,156 @@
-<form role="form" novalidate class="form-inline" >
-    
-    
-        <div class="form-group">
-            <h1>{{cottage.name}}</h1>	
-            <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>							
-        </div>
-        
-        <div class="form-group">
-            <label>Address</label>
-            <label>{{cottage.address}}</label>	
-        </div>
-        <div class="form-group">
-            <label>City</label>
-            <label>{{cottage.city}}</label>					
-        </div>
-        <div class="form-group">
-            <label>Number of persons</label>
-            <label>{{cottage.maxNumOfPersons}}</label>							
-        </div> 
-        <div class="form-group">
-            <label>Rate</label>
-            <label>
-              <div id="starsRow" *ngFor="let i of starNamesFunc(cottage.rate)">
-                <i class="material-icons">star_{{i}}</i>
+
+
+    <div class="student-profile py-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card shadow-sm">
+                <div class="card-header bg-transparent text-center">
+                  <img class="profile_img" src="https://source.unsplash.com/600x300/?student" alt="student dp">
+                  <h3>{{cottage.name}}</h3>
+                </div>
+                <div class="card-body">
+                  <p class="mb-0"><strong class="pr-1">Address:  </strong>{{cottage.address}}</p>
+                  <p class="mb-0"><strong class="pr-1">Capacity:  </strong>{{cottage.maxNumOfPersons}}  person</p>
+                  <p class="mb-0"><strong class="pr-1">Description:  </strong>{{cottage.description}}</p>
+                  <button *ngIf="role == 'ROLE_CLIENT'"  (click) = "reserve(cottage)">Reserve</button>
+                  <button *ngIf="role == 'ROLE_CLIENT'" (click) = "subscribe(cottage)">Subscribe</button>
+                </div>
               </div>
-            </label>							
-        </div>
-        <div class="form-group">
-            <h1>Our cottage</h1>
-            <label>{{cottage.description}}</label>								
-        </div>    
-    
-        <div class="form-group">
-            <h1>Where you'll sleep</h1>	
-            <div *ngFor="let room of cottage.rooms">
-                <label>{{room.name}}</label>
-                <label>{{room.bedTypes}}</label>
-            </div>							
-        </div>
-        <div class="form-group">
-            <h1>What this place offers</h1>	
-            <label *ngFor="let amenity of amenities">
-                <i class="material-icons">{{amenity.icon}}</i>
-                {{amenity.name}}</label>
-                                        
-        </div>
-       
-    
-        <div class="form-group">
-            <h1>Behavioral rules</h1>	
-            <label *ngFor="let rule of rules">
-                <i class="material-icons">{{rule.icon}}</i>
-                {{rule.name}}</label>
-                                        
-        </div>  
-     
+            </div>
+            <div class="col-lg-8">
+              <div class="card shadow-sm">
+                <div class="card-header bg-transparent border-0">
+                  <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
+                </div>
+                <div class="card-body pt-0">
+                  <table class="table table-bordered">
+      
+                    <tr>
+                        <th width="30%">Rate</th>
+                        <td width="2%">:</td>
+                        <td>{{cottage.rate}} </td>
+                      </tr>
+                    
+                    <tr>
+                      <th width="30%">Price</th>
+                      <td width="2%">:</td>
+                      <td>{{cottage.oneDayPrice}} din per day</td>
+                    </tr>
+      
+ 
+      
+                    <tr>
+                      <th width="30%">Cancellation price</th>
+                      <td width="2%">:</td>
+                      <td>{{cottage.cancellationPrice}}</td>
+                    </tr>
+                    <tr>
+                      <th width="30%">City</th>
+                      <td width="2%">:</td>
+                      <td>{{cottage.city}}</td>
+                    </tr>
+
+                    
+                    
+                  </table>
+                </div>
+              </div>
+      
+              <div class="col-lg-8">
+                <div class="card shadow-sm">
+                  <div class="card-header bg-transparent border-0">
+                    <h3 class="mb-0"><i class="far fa-clone pr-1"></i>cottage owner</h3>
+                  </div>
+                  <div class="card-body pt-0">
+                    <table class="table table-bordered">
         
-    </form>
-    
+                      <tr>
+                        <th width="30%">Name :</th>
+                        <td width="2%">:</td>
+                        <td>{{cottage.cottageOwner.firstName}}</td>
+                      </tr>
+      
+                      <tr>
+                        <th width="30%">Last name :</th>
+                        <td width="2%">:</td>
+                        <td>{{cottage.cottageOwner.lastName}}</td>
+                      </tr>
+                      
+                    </table>
+                  </div>
+                </div>
+      
+                <div style="height: 26px"></div>
+      
+                <div class="card shadow-sm">
+                  <div class="card-header bg-transparent border-0">
+                    <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Additional services</h3>
+                  </div>
+                  <div class="card-body pt-0">
+                    <tr *ngFor="let service of cottage.cottageAdditionalServices">
+                      <td>{{service.name}}</td>
+                      <td>{{service.price}}</td>
+                    </tr>
+                  </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Rooms</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                      <tr *ngFor="let room of cottage.rooms">
+                        <td>{{room.name}}</td>
+                        <td>{{room.bedTypes}}</td>
+                      </tr>
+                    </div>
+                  </div>
+
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>What this place offers</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                      <tr *ngFor="let amenity of cottage.amenities">
+                        <td>{{amenity.name}}</td>
+                      </tr>
+                    </div>
+                  </div>
+      
+      
+              <div class="card shadow-sm">
+                <div class="card-header bg-transparent border-0">
+                  <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Behavioral rules</h3>
+                </div>
+                <div class="card-body pt-0">
+                    <p>{{cottage.behaviorRules}}</p>
+                </div>
+              </div>
+      
+              <div class="card shadow-sm">
+                <div class="card-header bg-transparent border-0">
+                  <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ACTIONS</h3>
+                </div>
+                <div class="card-body pt-0">
+                    <app-all-actions></app-all-actions>
+                </div>
+              </div>
+      
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
     
     

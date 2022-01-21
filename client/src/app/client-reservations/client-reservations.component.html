@@ -3,17 +3,24 @@
 
   <table>
     <thead>
+      <th >Reservation type : </th>
+      <th >Name : </th>
       <th >Start date : </th>
       <th >End date :</th>
       <th >Price </th>
     </thead>
     <tbody>
           <tr *ngFor="let r of reservations">
+            <td>{{r.reservationType}}</td> 
+            <td>{{r.boat.name}}</td>  
             <td>{{r.startTime}}</td>
             <td>{{r.endTime}}</td>
             <td>{{r.price}}</td>  
+
+ 
             <button (click) = "rate()">Rate</button>
             <button (click) = "review()">Give a review</button>
+            <button (click) = "complain(r.boat.id)">Write complain</button>
           </tr>
   
     </tbody>

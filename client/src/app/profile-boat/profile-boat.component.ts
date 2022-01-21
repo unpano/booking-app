@@ -24,8 +24,14 @@ export class ProfileBoatComponent implements OnInit {
 
   boat : any
   actions : any
+  
+  role : any
 
   ngOnInit(): void {
+
+    this.role = sessionStorage.getItem('role')
+
+
     const headers = { 'content-type': 'application/json'} 
     let options = { headers: headers };
 

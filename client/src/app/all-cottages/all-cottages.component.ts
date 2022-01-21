@@ -40,7 +40,7 @@ export class AllCottagesComponent implements OnInit {
 
   cottageProfile(cottage : Cottage)
   {
-    Global.cottage = cottage;
+
     sessionStorage.setItem('cottageId', cottage.id.toString())
     this.router.navigate(["cottageProfile"]);
   }

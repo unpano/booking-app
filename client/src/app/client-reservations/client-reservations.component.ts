@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { ComplainFormComponent } from '../complain-form/complain-form.component';
+import { Boat } from '../dto/boat';
 import { Endpoint } from '../util/endpoints-enum';
 
 @Component({
@@ -44,6 +46,15 @@ export class ClientReservationsComponent implements OnInit {
 
   review()
   {
+
+  }
+
+  complain(boatId : any)
+  {
+    sessionStorage.setItem('entityId', boatId)
+
+    let dialogRef = this.dialog.open(ComplainFormComponent)
+    dialogRef.afterClosed().subscribe();
 
   }
 

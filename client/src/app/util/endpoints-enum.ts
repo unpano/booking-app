@@ -37,11 +37,20 @@ export enum Endpoint {
   ROOMS = "http://localhost:8084/rooms/",
 
   FIND_BOAT_SUBSCRIPTIONS = "http://localhost:8084/boatSubscriptions/findAll/",
+  FIND_COTTAGE_SUBSCRIPTIONS = "http://localhost:8084/cottageSubscriptions/findAll/",
+  FIND_ADVENTURE_SUBSCRIPTIONS = "http://localhost:8084/adventureSubscriptions/findAll/",
+
   UNSUBSCRIBE = "http://localhost:8084/boatSubscriptions/delete/",
   SUBSCRIBE = "http://localhost:8084/boatSubscriptions/createSubscription/",
+  COTTAGE_UNSUBSCRIBE = "http://localhost:8084/cottageSubscriptions/delete/",
+  COTTAGE_SUBSCRIBE = "http://localhost:8084/cottageSubscriptions/createSubscription/",
+  ADVENTURE_UNSUBSCRIBE = "http://localhost:8084/adventureSubscriptions/delete/",
+  ADVENTURE_SUBSCRIBE = "http://localhost:8084/adventureSubscriptions/createSubscription/",
 
   ACTIVATE_LINK = "http://localhost:8084/auth/activationLink/",
-  GET_ACTIVE_USER = "http://localhost:8084/users/getActive/"
+  GET_ACTIVE_USER = "http://localhost:8084/users/getActive/",
+
+  ADD_COMPLAINT = "http://localhost:8084/complaints/add/"
 
 
 
