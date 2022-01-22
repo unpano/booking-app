@@ -27,7 +27,7 @@ export class PricelistComponent implements OnInit {
     let options = { headers: headers };
 
 
-    this.http.get<any>(this.endpoint.BOAT_SERVICES + sessionStorage.getItem('boatId') , options).pipe(
+    this.http.get<any>(this.endpoint.ALL_SERVICES +  sessionStorage.getItem('reservationType') +'/'+ sessionStorage.getItem('entityId') , options).pipe(
       map(returnedData => {
         this.services = returnedData
       })).subscribe()

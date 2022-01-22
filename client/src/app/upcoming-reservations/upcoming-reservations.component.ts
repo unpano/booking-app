@@ -47,7 +47,8 @@ let options = { headers: headers };
     let timeInMilisec: number = newDate.getTime() - _now.getTime();
     let daysBetweenDates: number = Math.ceil(timeInMilisec / (1000 * 60 * 60 * 24));
 
-    const headers = { 'content-type': 'application/json'} 
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
 
 

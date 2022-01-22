@@ -28,8 +28,8 @@ export enum Endpoint {
   UPLOAD = "http://localhost:8084/uploads/",
   COTTAGES = "http://localhost:8084/cottages/",
 
-  BOAT_SERVICES = "http://localhost:8084/boats/findAdditionalServices/",
-  COTTAGE_SERVICES = "http://localhost:8084/cottages/findAdditionalServices/",
+
+  ALL_SERVICES =  "http://localhost:8084/services/find/",
 
 
   ADD_CLIENT_RATE = "http://localhost:8084/clientRate/add/",

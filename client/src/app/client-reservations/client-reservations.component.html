@@ -1,21 +1,21 @@
 
 <mat-card>
-  <table>
+  <table matSort (matSortChange)="sortData($event)">
     <thead>
       <th >Reservation type : </th>
-      <th >Name : </th>
-      <th >Start date : </th>
-      <th >End date :</th>
-      <th >Price </th>
+      <th mat-sort-header="startTime">Start date : </th>
+      <th mat-sort-header="endTime">End date :</th>
+      <th mat-sort-header="price">Price </th>
+      <th></th>
+      <th></th>
     </thead>
     <tbody>
-          <tr *ngFor="let r of reservations">
+          <tr *ngFor="let r of sortedData">
             <td>{{r.reservationType}}</td>  
             <td>{{r.startTime}}</td>
             <td>{{r.endTime}}</td>
             <td>{{r.price}}</td>  
 
- 
             <button (click) = "rate(r)">Rate</button>
             <button (click) = "complain(r)">Write complain</button>
           </tr>

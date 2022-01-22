@@ -3,12 +3,16 @@ package ftn.booking.service.impl;
 
 import ftn.booking.model.Action;
 import ftn.booking.model.Reservation;
+import ftn.booking.model.User;
 import ftn.booking.model.enums.ReservationType;
 import ftn.booking.repository.ActionRepository;
 import ftn.booking.service.ActionService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,27 +30,36 @@ public class ActionServiceImpl implements ActionService {
     @Override
     public List<Action> findByEntityIdAndEntityType(ReservationType entityType, Long id)
     {
+        List<Action> return_actions = new ArrayList<>();
+
+
         if(entityType == ReservationType.BOAT)
         {
-            return actionRepository.findAllActionsByBoatId(id);
+            System.out.println(entityType);
+            return_actions =  actionRepository.findAllActionsByBoatIdAndTaken(id, false);
         }
        else if(entityType == ReservationType.COTTAGE)
         {
-            return actionRepository.findAllActionsByCottageId(id);
+            return_actions =  actionRepository.findAllActionsByCottageId(id);
+        }
+        else if(entityType == ReservationType.ADVENTURE)
+        {
+            return_actions =  actionRepository.findAllActionsByAdventureIdAndTaken(id, false);
         }
 
 
-        return actionRepository.findAllActionsByAdventureId(id);
+
+        return return_actions;
     }
 
 
 
 
-
     @Override
-    public void delete(Long actionId) {
+    public Action delete(Long actionId) {
 
         Action a = actionRepository.findById(actionId).orElse(null);
-        actionRepository.delete(a);
+        a.setTaken(true);
+        return actionRepository.save(a);
     }
 }

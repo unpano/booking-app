@@ -28,7 +28,6 @@ import { ProfileAdventureComponent } from './profile-adventure/profile-adventure
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { ProfileClientComponent } from './profile-client/profile-client.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
-import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
@@ -51,7 +50,6 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'clientProfile', component: ProfileClientComponent},
 
-  {path: 'instructorProfile', component: ProfileInstructorComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
 

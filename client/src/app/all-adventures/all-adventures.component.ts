@@ -57,9 +57,11 @@ export class AllAdventuresComponent implements OnInit {
 
 
 
+
   pricelist(adventure : Adventure)
-  {
-    sessionStorage.setItem('boatId', adventure.id.toString())
+  {    
+    sessionStorage.setItem('reservationType', 'ADVENTURE')
+    sessionStorage.setItem('entityId', adventure.id.toString())
 
     let dialogRef = this.dialog.open(PricelistComponent)
     dialogRef.afterClosed().subscribe();
@@ -68,6 +70,8 @@ export class AllAdventuresComponent implements OnInit {
   sortData(sort: Sort) 
   {
     const data = this.adventures.slice();
+
+    
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;

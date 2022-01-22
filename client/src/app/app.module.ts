@@ -58,8 +58,6 @@ import { ProfileClientComponent } from './profile-client/profile-client.componen
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
 import { FreeCottagesComponent } from './free-cottages/free-cottages.component';
 import { AllAdventuresComponent } from './all-adventures/all-adventures.component';
-import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
-import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
 import { ReservationFormComponent } from './reservation-form/reservation-form.component';
 import { DeleteClientProfileComponent } from './delete-client-profile/delete-client-profile.component';
@@ -72,7 +70,6 @@ import { ComplainFormComponent } from './complain-form/complain-form.component';
 import { CottageReservationFormComponent } from './cottage-reservation-form/cottage-reservation-form.component';
 import { ProfileAdventureComponent } from './profile-adventure/profile-adventure.component';
 import { AdventureReservationFormComponent } from './adventure-reservation-form/adventure-reservation-form.component';
-import { PricelistCottageComponent } from './pricelist-cottage/pricelist-cottage.component';
 import { RateFormComponent } from './rate-form/rate-form.component';
 
 @NgModule({
@@ -115,8 +112,6 @@ import { RateFormComponent } from './rate-form/rate-form.component';
     ReportReservationComponent,
     FreeCottagesComponent,
     AllAdventuresComponent,
-    AllInstructorsComponent,
-    ProfileInstructorComponent,
     PricelistComponent,
     ReservationFormComponent,
     DeleteClientProfileComponent,
@@ -129,7 +124,6 @@ import { RateFormComponent } from './rate-form/rate-form.component';
     CottageReservationFormComponent,
     ProfileAdventureComponent,
     AdventureReservationFormComponent,
-    PricelistCottageComponent,
     RateFormComponent,
   ],
   imports: [

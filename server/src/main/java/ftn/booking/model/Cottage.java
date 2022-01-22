@@ -36,6 +36,8 @@ public class Cottage {
 
     private String description;
 
+    private Long price;
+
     private int maxNumOfPersons;
 
     private Float rate;

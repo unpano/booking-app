@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ComplainFormComponent } from '../complain-form/complain-form.component';
@@ -19,6 +20,9 @@ import { Endpoint } from '../util/endpoints-enum';
 export class ClientReservationsComponent implements OnInit {
 
   reservations : any
+
+  sortedData : any
+
   endpoint = Endpoint
 
   constructor(private router: Router,private http: HttpClient, private dialog: MatDialog) { }
@@ -33,6 +37,7 @@ let options = { headers: headers };
     this.http.get<any>(this.endpoint.MY_RESERVATIONS + sessionStorage.getItem('id'), options).pipe(
       map(returnedData => {
         this.reservations = returnedData
+        this.sortedData = this.reservations.slice()
       })).subscribe()
 
 
@@ -88,4 +93,28 @@ let options = { headers: headers };
   }
 
 
+  sortData(sort: Sort) 
+  {
+    const data = this.reservations.slice();
+
+    
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a : any, b : any) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'startTime': return compare(a.startTime, b.startTime, isAsc);
+        case 'endTime': return compare(a.endTime, b.endTime, isAsc);
+        case 'price': return compare(a.price, b.price, isAsc);
+        default: return 0;
+      }
+    });
+  }
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

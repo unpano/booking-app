@@ -18,7 +18,7 @@
           <td>{{action.oldPrice}}</td>
           <td>{{action.price}}</td>
           <td>{{action.maxNumberOfPersons}}</td>   
-          <button (click) = "reserve(action)">Reserve</button>     
+          <button *ngIf="role == 'ROLE_CLIENT'"  (click) = "reserve(action)">Reserve</button>     
         </tr>
 
   </tbody>

@@ -20,11 +20,11 @@ public class ActionController {
 
     private ActionService actionService;
 
-    @GetMapping("/delete/{actionId}")
+    @PutMapping("/delete/{actionId}")
     @PreAuthorize("hasRole('CLIENT')")
-    public void deleteAction(@PathVariable Long actionId)
+    public Action deleteAction(@PathVariable Long actionId)
     {
-        actionService.delete(actionId);
+        return actionService.delete(actionId);
     }
 
     @GetMapping(value = "/findAll", produces = "application/json")

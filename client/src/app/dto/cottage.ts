@@ -6,6 +6,7 @@ export class Cottage{
     id !: Number;
     name !: String;
     address !: String;
+    price !: Number;
     city !: String;
     description !: String;
     maxNumOfPersons !: Number;

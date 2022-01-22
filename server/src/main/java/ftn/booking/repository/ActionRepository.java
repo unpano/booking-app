@@ -13,7 +13,7 @@ import java.util.List;
 public interface ActionRepository extends JpaRepository<Action, Long> {
 
 
-    List<Action> findAllActionsByBoatId(Long id);
+    List<Action> findAllActionsByBoatIdAndTaken(Long id, Boolean taken);
     List<Action> findAllActionsByCottageId(Long id);
-    List<Action> findAllActionsByAdventureId(Long id);
+    List<Action> findAllActionsByAdventureIdAndTaken(Long id, Boolean taken);
 }

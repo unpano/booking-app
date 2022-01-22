@@ -5,7 +5,6 @@ import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Cottage } from '../dto/cottage';
-import { PricelistCottageComponent } from '../pricelist-cottage/pricelist-cottage.component';
 import { PricelistComponent } from '../pricelist/pricelist.component';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
@@ -58,10 +57,11 @@ export class AllCottagesComponent implements OnInit {
 
 
   pricelist(cottage : Cottage)
-  {
+  {    
+    sessionStorage.setItem('reservationType', 'COTTAGE')
     sessionStorage.setItem('entityId', cottage.id.toString())
 
-    let dialogRef = this.dialog.open(PricelistCottageComponent)
+    let dialogRef = this.dialog.open(PricelistComponent)
     dialogRef.afterClosed().subscribe();
   }
 

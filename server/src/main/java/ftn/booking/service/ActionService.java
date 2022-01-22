@@ -8,7 +8,7 @@ import java.util.List;
 public interface ActionService {
 
     List<Action> findAll();
-    void delete(Long actionId);
+    Action delete(Long actionId);
     List<Action> findByEntityIdAndEntityType(ReservationType entityType, Long id);
 
 }

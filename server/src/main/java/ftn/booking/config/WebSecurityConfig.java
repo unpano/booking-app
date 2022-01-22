@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/boats/**").permitAll()
                 .antMatchers("/instructors/**").permitAll()
                 .antMatchers("/cottages/**").permitAll()
-                .antMatchers("/reservations**").permitAll()
+                .antMatchers("/reservations/**").permitAll()
                 .antMatchers("/boats/**").permitAll()
                 .antMatchers("/client/**").permitAll()
                 .antMatchers("/actions/**").permitAll()
@@ -70,6 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/activationLink/**").permitAll()
                 .antMatchers("/users/**").permitAll()
                 .antMatchers("/adventures/**").permitAll()
+                .antMatchers("/services/**").permitAll()
+                .antMatchers("/actions/**").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userServiceImpl), BasicAuthenticationFilter.class);

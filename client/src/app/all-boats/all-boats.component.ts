@@ -57,7 +57,8 @@ export class AllBoatsComponent implements OnInit {
 
   pricelist(boat : Boat)
   {
-    sessionStorage.setItem('boatId', boat.id.toString())
+    sessionStorage.setItem('reservationType', 'BOAT')
+    sessionStorage.setItem('entityId', boat.id.toString())
 
     let dialogRef = this.dialog.open(PricelistComponent)
     dialogRef.afterClosed().subscribe();

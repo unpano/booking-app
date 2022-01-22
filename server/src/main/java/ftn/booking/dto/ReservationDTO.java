@@ -28,6 +28,9 @@ public class ReservationDTO {
 
     private Client client;
     private Boat boat;
+    private Cottage cottage;
+    private Adventure adventure;
+
 
 
 }

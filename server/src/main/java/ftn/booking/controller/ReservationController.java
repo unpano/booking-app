@@ -37,6 +37,7 @@ public class ReservationController {
     private CottageService cottageService;
 
     @GetMapping("/delete/{reservationId}")
+    @PreAuthorize("hasRole('CLIENT')")
     public void deleteReservation(@PathVariable Long reservationId)
     {
         reservationService.delete(reservationId);
@@ -85,10 +86,13 @@ public class ReservationController {
         else if (reservationDTO.getReservationType() == ReservationType.COTTAGE)
         {
             new_reservation.setReservationType(ReservationType.COTTAGE);
+            new_reservation.setCottage(reservationDTO.getCottage());
         }
         else if(new_reservation.getReservationType() == ReservationType.ADVENTURE)
         {
             new_reservation.setReservationType(ReservationType.ADVENTURE);
+            new_reservation.setAdventure(reservationDTO.getAdventure());
+
         }
 
         new_reservation.setClient( reservationDTO.getClient());
