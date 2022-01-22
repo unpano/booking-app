@@ -24,13 +24,14 @@ export class AllActionsComponent implements OnInit {
 
   constructor(private router: Router,private http: HttpClient, private dialog: MatDialog) { }
 
+
   ngOnInit(): void {
 
 
     const headers = { 'content-type': 'application/json'} 
     let options = { headers: headers };
 
-    this.http.get<any>(this.endpoint.ACTIONS + sessionStorage.getItem('entityId'), options).pipe(
+    this.http.get<any>(this.endpoint.ACTIONS +  sessionStorage.getItem('reservationType') +'/'+ sessionStorage.getItem('entityId'), options).pipe(
       map(returnedData => {
         this.actions = returnedData
       })).subscribe()

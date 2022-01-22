@@ -17,6 +17,7 @@ export class AllAdventuresComponent implements OnInit {
 
   
   endpoint = Endpoint
+
   adventures: any;
   sortedData: any
 
@@ -31,7 +32,7 @@ export class AllAdventuresComponent implements OnInit {
     const headers = { 'content-type': 'application/json'} 
     let options = { headers: headers };
 
-    this.http.get<any>(this.endpoint.ALL_COTTAGES, options).pipe(
+    this.http.get<any>(this.endpoint.ALL_ADVENTURES, options).pipe(
       map(returnedData => {
         this.adventures = returnedData
         this.sortedData = this.adventures.slice()
@@ -48,7 +49,9 @@ export class AllAdventuresComponent implements OnInit {
 
   actions(adventure : Adventure)
   {
+    sessionStorage.setItem('reservationType', 'ADVENTURE')
     sessionStorage.setItem('entityId', adventure.id.toString())
+    
     this.router.navigate(["actions"]);
   }
 

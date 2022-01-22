@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Cottage } from '../dto/cottage';
+import { PricelistCottageComponent } from '../pricelist-cottage/pricelist-cottage.component';
+import { PricelistComponent } from '../pricelist/pricelist.component';
 import { Endpoint } from '../util/endpoints-enum';
 import { Global } from '../util/global';
 
@@ -21,7 +24,7 @@ export class AllCottagesComponent implements OnInit {
 
   @Input() searchText : any
 
-  constructor(private router: Router,private http: HttpClient) { }
+  constructor(private router: Router,private http: HttpClient, private dialog: MatDialog) { }
 
 
   ngOnInit(): void 
@@ -43,6 +46,23 @@ export class AllCottagesComponent implements OnInit {
 
     sessionStorage.setItem('cottageId', cottage.id.toString())
     this.router.navigate(["cottageProfile"]);
+  }
+
+  actions(cottage : Cottage)
+  {
+    sessionStorage.setItem('reservationType', 'COTTAGE')
+    sessionStorage.setItem('entityId', cottage.id.toString())
+    this.router.navigate(["actions"]);
+  }
+
+
+
+  pricelist(cottage : Cottage)
+  {
+    sessionStorage.setItem('entityId', cottage.id.toString())
+
+    let dialogRef = this.dialog.open(PricelistCottageComponent)
+    dialogRef.afterClosed().subscribe();
   }
 
   sortData(sort: Sort) 

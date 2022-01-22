@@ -25,6 +25,66 @@ values('Instructor', false, 'Starine Novaka 1' , 'Belgrade', 'Serbia', 'marija@g
 
 
 
+insert into additional_services(info, name, price)
+values('Dinner starts at 20pm', 'DINNER', '1400');
+
+insert into additional_services(info, name, price)
+values('Sailing starts at 20pm', 'SAILING', '1400');
+
+
+insert into additional_services(info, name, price)
+values('Short adventure', 'ADVENTURE +', '1400');
+
+insert into additional_services(info, name, price)
+values('Your friends may join you', '2+ PERSONS', '1400');
+
+
+insert into boat_service(boat_id, service_id)
+values(1,1);
+
+insert into boat_service(boat_id, service_id)
+values(1,2)
+
+insert into boat_service(boat_id, service_id)
+values(1,3);
+
+insert into boat_service(boat_id, service_id)
+values(2,2)
+
+insert into boat_service(boat_id, service_id)
+values(2,3)
+
+insert into boat_service(boat_id, service_id)
+values(2,4)
+
+insert into boat_service(boat_id, service_id)
+values(3,1)
+
+insert into boat_service(boat_id, service_id)
+values(3,3)
+
+insert into boat_service(boat_id, service_id)
+values(4,4)
+
+
+insert into cottage_additional_services(cottage_id, additional_services)
+values(1, 1 )
+insert into cottage_additional_services(cottage_id, additional_services)
+values(2, 1 )
+insert into cottage_additional_services(cottage_id, additional_services)
+values(2, 2 )
+
+insert into cottage_additional_services(cottage_id, additional_services)
+values(3, 1 )
+insert into cottage_additional_services(cottage_id, additional_services)
+values(3, 2 )
+
+
+
+
+
+
+
 
 insert into user_authority (user_id, authority_id)
 values (1, 1);
@@ -85,25 +145,25 @@ values('you will have amazing time', 15, 'Sailing', 1000, 10, 'No negative energ
 
 
 insert into reservations(end_time, price, reservation_type, start_time, adventure_id, boat_id, client_id, cottage_id)
-values('2022-03-13T17:09:42', 1000, 1,'2022-01-13T17:09:42', null, 1, 1, null);
+values('2022-03-13T17:09:42', 1000, 'BOAT','2022-01-13T17:09:42', null, 1, 1, null);
 
 insert into reservations(end_time, price, reservation_type, start_time, adventure_id, boat_id, client_id, cottage_id)
-values('2022-05-01T17:09:42', 1000, 1,'2022-04-01T17:09:42', null, 2, 1, null);
+values('2022-05-01T17:09:42', 1000, 'BOAT','2022-04-01T17:09:42', null, 2, 1, null);
 
 insert into reservations(end_time, price, reservation_type, start_time, adventure_id, boat_id, client_id, cottage_id)
-values('2022-10-01T17:09:42', 1000, 1,'2022-11-01T17:09:42', null, 3, 3, null);
+values('2022-10-01T17:09:42', 1000, 'BOAT','2022-11-01T17:09:42', null, 3, 3, null);
 
 
 
 
 insert into reservations(end_time, price, reservation_type, start_time, adventure_id, boat_id, client_id, cottage_id)
-values('2022-03-13T17:09:42', 1000, 1,'2022-01-13T17:09:42', null, null, 1, 1);
+values('2022-03-13T17:09:42', 1000, 'COTTAGE','2022-01-13T17:09:42', null, null, 1, 1);
 
 insert into reservations(end_time, price, reservation_type, start_time, adventure_id, boat_id, client_id, cottage_id)
-values('2022-05-01T17:09:42', 1000, 1,'2022-04-01T17:09:42', null, null, 1, 2);
+values('2022-05-01T17:09:42', 1000, 'COTTAGE','2022-04-01T17:09:42', null, null, 1, 2);
 
 insert into reservations(end_time, price, reservation_type, start_time, adventure_id, boat_id, client_id, cottage_id)
-values('2022-10-01T17:09:42', 1000, 1,'2022-11-01T17:09:42', null, null, 1, 3);
+values('2022-10-01T17:09:42', 1000, 'COTTAGE','2022-11-01T17:09:42', null, null, 1, 3);
 
 
 

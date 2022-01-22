@@ -48,6 +48,7 @@ export class AllBoatsComponent implements OnInit {
 
   actions(boat : Boat)
   {
+    sessionStorage.setItem('reservationType', 'BOAT')
     sessionStorage.setItem('entityId', boat.id.toString())
     this.router.navigate(["actions"]);
   }

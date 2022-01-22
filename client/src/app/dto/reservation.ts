@@ -1,5 +1,7 @@
+import { Adventure } from "./adventure";
 import { Boat } from "./boat";
 import { Client } from "./client";
+import { Cottage } from "./cottage";
 import { ReservationType } from "./enums/ReservationType";
 import { User } from "./user";
 
@@ -13,4 +15,6 @@ export class Reservation{
     price !: Number
     numOfPersons !: Number
     boat !: Boat 
+    cottage !: Cottage
+    adventure !: Adventure
 }

@@ -3,23 +3,23 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Complaint } from '../dto/complaint';
-import { ReservationType } from '../dto/enums/ReservationType';
+import { ClientRate } from '../dto/clientRate';
 import { Endpoint } from '../util/endpoints-enum';
 
 @Component({
-  selector: 'app-complain-form',
-  templateUrl: './complain-form.component.html',
-  styleUrls: ['./complain-form.component.css']
+  selector: 'app-rate-form',
+  templateUrl: './rate-form.component.html',
+  styleUrls: ['./rate-form.component.css']
 })
-export class ComplainFormComponent implements OnInit {
+export class RateFormComponent implements OnInit {
 
   endpoint = Endpoint
 
-  name : any
-  content :any
+  rate !: Number
 
-  complaint : Complaint = new Complaint()
+  review!: String
+
+  clientRate : ClientRate = new ClientRate()
 
 
 
@@ -32,8 +32,8 @@ export class ComplainFormComponent implements OnInit {
 
   add()
   {
-    this.complaint.content = this.content
-    this.complaint.name = this.name
+    this.clientRate.rate = this.rate
+    this.clientRate.review = this.review
 
     const headers = { 'content-type': 'application/json',
     'Authorization': 'Bearer ' + sessionStorage.getItem("token")}
@@ -41,7 +41,7 @@ export class ComplainFormComponent implements OnInit {
     let options = { headers: headers };
           this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
             map(returnedUser => {
-              this.complaint.client = returnedUser
+              this.clientRate.client = returnedUser
         })).subscribe( () => 
         {
 
@@ -49,20 +49,20 @@ export class ComplainFormComponent implements OnInit {
           {
                 this.http.get<any>(this.endpoint.FIND_BOAT + "/"+ sessionStorage.getItem('entityId'), options).pipe(
                   map(returnedBoat => {
-                    this.complaint.boat = returnedBoat
+                    this.clientRate.boat = returnedBoat
                   })).subscribe( () => 
                     {
-                      const body = JSON.stringify(this.complaint);  
+                      const body = JSON.stringify(this.clientRate);  
       
                         
                       
-                                this.http.post<any>(this.endpoint.ADD_COMPLAINT, body, options).pipe(
+                                this.http.post<any>(this.endpoint.ADD_CLIENT_RATE, body, options).pipe(
                                   map(returnedData => {
-                                    this.complaint = returnedData
+                                    this.clientRate = returnedData
                                   })).subscribe()
       
       
-                                  alert("You add complaint seccessfuly!")
+                                  alert("Your rate is send seccessfuly !")
         
       
                     })
@@ -71,20 +71,20 @@ export class ComplainFormComponent implements OnInit {
           {
             this.http.get<any>(this.endpoint.FIND_COTTAGE + sessionStorage.getItem('entityId'), options).pipe(
               map(returnedBoat => {
-                this.complaint.cottage = returnedBoat
+                this.clientRate.cottage = returnedBoat
               })).subscribe( () => 
                 {
-                  const body = JSON.stringify(this.complaint);  
+                  const body = JSON.stringify(this.clientRate);  
   
                     
                   
-                            this.http.post<any>(this.endpoint.ADD_COMPLAINT, body, options).pipe(
+                            this.http.post<any>(this.endpoint.ADD_CLIENT_RATE, body, options).pipe(
                               map(returnedData => {
-                                this.complaint = returnedData
+                                this.clientRate= returnedData
                               })).subscribe()
   
   
-                              alert("You add complaint seccessfuly!")
+                              alert("Your rate is send seccessfuly !")
     
   
                 })
@@ -94,20 +94,20 @@ export class ComplainFormComponent implements OnInit {
           {
             this.http.get<any>(this.endpoint.FIND_ADVENTURE + "/"+ sessionStorage.getItem('entityId'), options).pipe(
               map(returnedBoat => {
-                this.complaint.adventure = returnedBoat
+                this.clientRate.adventure = returnedBoat
               })).subscribe( () => 
                 {
-                  const body = JSON.stringify(this.complaint);  
+                  const body = JSON.stringify(this.clientRate);  
   
                     
                   
-                            this.http.post<any>(this.endpoint.ADD_COMPLAINT, body, options).pipe(
+                            this.http.post<any>(this.endpoint.ADD_CLIENT_RATE, body, options).pipe(
                               map(returnedData => {
-                                this.complaint = returnedData
+                                this.clientRate= returnedData
                               })).subscribe()
   
   
-                              alert("You add complaint seccessfuly!")
+                              alert("Your rate is send seccessfuly !")
     
   
                 })
@@ -122,7 +122,6 @@ export class ComplainFormComponent implements OnInit {
 
 
   }
-
 
 
 

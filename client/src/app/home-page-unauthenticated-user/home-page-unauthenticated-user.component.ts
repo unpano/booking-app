@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HomePageUnauthenticatedUserComponent implements OnInit {
 
-  types = [ 'Boat','Instructor', 'Cottage']
+  types = [ 'Boat','Adventure', 'Cottage']
   type !: String
   dateInput : any
   timeInput : any

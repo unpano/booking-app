@@ -72,6 +72,8 @@ import { ComplainFormComponent } from './complain-form/complain-form.component';
 import { CottageReservationFormComponent } from './cottage-reservation-form/cottage-reservation-form.component';
 import { ProfileAdventureComponent } from './profile-adventure/profile-adventure.component';
 import { AdventureReservationFormComponent } from './adventure-reservation-form/adventure-reservation-form.component';
+import { PricelistCottageComponent } from './pricelist-cottage/pricelist-cottage.component';
+import { RateFormComponent } from './rate-form/rate-form.component';
 
 @NgModule({
   declarations: [
@@ -127,6 +129,8 @@ import { AdventureReservationFormComponent } from './adventure-reservation-form/
     CottageReservationFormComponent,
     ProfileAdventureComponent,
     AdventureReservationFormComponent,
+    PricelistCottageComponent,
+    RateFormComponent,
   ],
   imports: [
     BrowserModule,

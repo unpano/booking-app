@@ -16,11 +16,11 @@
   </mat-card> 
   
   <div class = "entities">
-      <div *ngIf= "type != 'Instructor' && type != 'Cottage'">
+      <div *ngIf= "type != 'Adventure' && type != 'Cottage'">
           <app-all-boats  [searchText]="searchInput" ></app-all-boats>
       </div>
-      <div *ngIf = "type == 'Instructor'">
-        <app-all-instructors  [searchText]="searchInput"></app-all-instructors>
+      <div *ngIf = "type == 'Adventure'">
+        <app-all-adventures  [searchText]="searchInput"></app-all-adventures>
       </div>
       <div *ngIf= "type == 'Cottage'">
         <app-all-cottages  [searchText]="searchInput"></app-all-cottages>

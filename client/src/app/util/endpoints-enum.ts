@@ -6,6 +6,7 @@ export enum Endpoint {
   ALL_BOATS = "http://localhost:8084/boats/findAll",
   ALL_COTTAGES = "http://localhost:8084/cottages/findAll",
   ALL_INSTRUCTORS = "http://localhost:8084/instructors/findAll",
+  ALL_ADVENTURES = "http://localhost:8084/adventures/findAll",
 
   FREE_BOATS = "http://localhost:8084/boats/findFree/",
   FREE_COTTAGES = "http://localhost:8084/cottages/findFree/",
@@ -15,6 +16,7 @@ export enum Endpoint {
   UPCOMING_RESERVATIONS = "http://localhost:8084/reservations/upcomingByUser/",
 
   FIND_INSTRUCTOR = "http://localhost:8084/instructors/findOne",
+  FIND_COTTAGE = "http://localhost:8084/cottages/",
   FIND_BOAT = "http://localhost:8084/boats/findOne",
   FIND_ADVENTURE = "http://localhost:8084/adventures/findOne",
 
@@ -27,6 +29,11 @@ export enum Endpoint {
   COTTAGES = "http://localhost:8084/cottages/",
 
   BOAT_SERVICES = "http://localhost:8084/boats/findAdditionalServices/",
+  COTTAGE_SERVICES = "http://localhost:8084/cottages/findAdditionalServices/",
+
+
+  ADD_CLIENT_RATE = "http://localhost:8084/clientRate/add/",
+
   CREATE_RESERVATION = "http://localhost:8084/reservations/createReservation/",
   DELETE_RESERVATION = "http://localhost:8084/reservations/delete/",
   DELETE_ACTION = "http://localhost:8084/actions/delete/",

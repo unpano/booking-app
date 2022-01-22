@@ -16,6 +16,14 @@ public interface AdditionalServiceRepository extends JpaRepository<AdditionalSer
     List<AdditionalService> findAllByBoatId
             (Long boatId);
 
+    @Query(value = "SELECT * " +
+            "FROM additional_services ads INNER JOIN cottage_additional_services bs ON ads.id = bs.additional_services" +
+            " WHERE (bs.cottage_id LIKE ?1)", nativeQuery = true)
+    List<AdditionalService> findAllByCottageId
+            (Long cottageId);
+
+
+
 }
 
 

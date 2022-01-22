@@ -1,5 +1,6 @@
 package ftn.booking.service;
 import ftn.booking.dto.ReservationDTO;
+import ftn.booking.model.AdditionalService;
 import ftn.booking.model.Boat;
 import ftn.booking.model.Cottage;
 
@@ -16,4 +17,5 @@ public interface CottageService {
     List<Cottage> findFreeCottages(LocalDateTime startTime, LocalDateTime endTime);
     void delete(Cottage cottage);
     Cottage update(Cottage cottage);
+    List<AdditionalService> findAdditionalServices(Long cottageId);
 }

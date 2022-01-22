@@ -8,7 +8,7 @@
               <h3>{{adventure.name}}</h3>
             </div>
             <div class="card-body">
-              <p class="mb-0"><strong class="pr-1">Address:  </strong>{{adventure.address}}</p>
+              <p class="mb-0"><strong class="pr-1">Max persons:  </strong>{{adventure.maxNumOfPersons}}</p>
               <p class="mb-0"><strong class="pr-1">Capacity:  </strong>{{adventure.capacity}}  person</p>
               <p class="mb-0"><strong class="pr-1">Description:  </strong>{{adventure.description}}</p>
               <button *ngIf="role == 'ROLE_CLIENT'"  (click) = "reserve(adventure)">Reserve</button>
@@ -65,19 +65,7 @@
               </div>
             </div>
   
-            <div style="height: 26px"></div>
-  
-            <div class="card shadow-sm">
-              <div class="card-header bg-transparent border-0">
-                <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Additional services</h3>
-              </div>
-              <div class="card-body pt-0">
-                <tr *ngFor="let service of adventure.adventureAdditionalServices">
-                  <td>{{service.name}}</td>
-                  <td>{{service.price}}</td>
-                </tr>
-              </div>
-            </div>
+
   
   
           <div class="card shadow-sm">
@@ -85,18 +73,15 @@
               <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Behavioral rules</h3>
             </div>
             <div class="card-body pt-0">
-                <p>{{adventure.behaviorRules}}</p>
+              <tr>
+                <th width="30%">Name :</th>
+                <td width="2%">:</td>
+                <td>{{adventure.rules}}</td>
+              </tr>
             </div>
           </div>
   
-          <div class="card shadow-sm">
-            <div class="card-header bg-transparent border-0">
-              <h3 class="mb-0"><i class="far fa-clone pr-1"></i>ACTIONS</h3>
-            </div>
-            <div class="card-body pt-0">
-                <app-all-actions></app-all-actions>
-            </div>
-          </div>
+      
   
         </div>
       </div>

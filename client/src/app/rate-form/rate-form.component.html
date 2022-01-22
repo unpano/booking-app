@@ -1,0 +1,24 @@
+<mat-card class="mat-filters">
+    <div >
+
+
+  
+        <div>
+            <label> Input rate : </label>
+            <form>
+              <input  class="input" name="name" [(ngModel)]="rate" />
+            </form>
+
+            <label> Review : </label>
+            <form>
+              <input  class="input" name="name" [(ngModel)]="review" />
+            </form>
+
+           
+        </div>
+
+
+    </div>
+
+    <div><button (click) = "add()">Send</button></div>
+  </mat-card>

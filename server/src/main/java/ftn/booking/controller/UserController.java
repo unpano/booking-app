@@ -72,12 +72,13 @@ public class UserController {
         User user = userService.loadUserByUsername(loggedUser.getName());
         User existUser = userService.loadUserByUsername(userDTO.getEmail());
 
-        if(userDTO.getEmail().equals(user.getEmail()) || existUser.getId()!=null)
-            throw new ResourceConflictException("User with same email already exists.");
 
+        existUser.setAddress( userDTO.getAddress());
+        existUser.setCity( userDTO.getCity());
+        existUser.setCountry( userDTO.getCountry());
+        existUser.setPhoneNumber( userDTO.getPhoneNumber());
 
-        modelMapper.map(userDTO, user);
-        userService.updateUser(user);
+        userService.updateUser(existUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

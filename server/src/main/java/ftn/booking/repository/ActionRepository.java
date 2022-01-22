@@ -12,8 +12,8 @@ import java.util.List;
 
 public interface ActionRepository extends JpaRepository<Action, Long> {
 
-    @Query(value = "select * " +
-            "from action a " +
-            "where (a.boat_id like ?1) or (a.cottage_id like ?1) or (a.adventure_id like ?1)", nativeQuery = true)
-    List<Action> findAllActionsByEntityId(Long id);
+
+    List<Action> findAllActionsByBoatId(Long id);
+    List<Action> findAllActionsByCottageId(Long id);
+    List<Action> findAllActionsByAdventureId(Long id);
 }

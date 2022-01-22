@@ -40,6 +40,11 @@ public class CottageController {
         return new ResponseEntity<>(cottageService.findAllOwnerCottages(user.getId()), HttpStatus.OK);
     }
 
+    @GetMapping("/findAdditionalServices/{cottageId}")
+    public @ResponseBody List<AdditionalService> findAdditionalServices(@PathVariable Long cottageId){
+        return cottageService.findAdditionalServices(cottageId);
+    }
+
     @GetMapping("/{cottageId}")
     public ResponseEntity<Cottage> findById(@PathVariable Long cottageId){
         return new ResponseEntity<>(cottageService.findById(cottageId), HttpStatus.OK);

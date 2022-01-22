@@ -22,6 +22,8 @@ export class ReservationFormComponent implements OnInit {
   endTime : any
   numOfPersons : any
 
+  client : any
+
   checkRes : any
 
   constructor(private router: Router,private http: HttpClient, private dialog: MatDialog) { }
@@ -29,32 +31,48 @@ export class ReservationFormComponent implements OnInit {
 
   ngOnInit(): void {
 
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+
+    let options = { headers: headers };
+
+    this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
+      map(returnedUser => {
+        this.client = returnedUser
+      })).subscribe(  () => 
+      {
+        if(this.client.numOfPersons > 3)
+        {
+          alert( 'You can not make reservations this month!')
+        }
+
+      })
+
   }
 
   create()
   {
-    console.log(this.reservation)
+
     
     this.reservation.reservationType = ReservationType.BOAT
     this.reservation.startTime = this.startTime + "T11:00:00"
     this.reservation.endTime = this.endTime + "T11:00:00"
     this.reservation.numOfPersons = this.numOfPersons
 
-    const headers = { 'content-type': 'application/json'} 
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+
     let options = { headers: headers };
 
     if( this.startTime == undefined || this.endTime == undefined)
     {
+      alert(this.startTime)
       alert("Fill all the fields, please!")
     }
     else
     {
 
-              this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
-                map(returnedUser => {
-                  this.reservation.client = returnedUser
-                })).subscribe(  () => 
-                {
+      this.reservation.client = this.client
         
                   this.http.get<any>(this.endpoint.FIND_BOAT + "/"+ sessionStorage.getItem('entityId'), options).pipe(
                     map(returnedBoat => {
@@ -91,7 +109,7 @@ export class ReservationFormComponent implements OnInit {
         
                       })
                   
-                } )
+                    
       
       }
   }

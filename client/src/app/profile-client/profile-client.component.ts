@@ -20,13 +20,8 @@ export class ProfileClientComponent implements OnInit {
   endpoint = Endpoint
   editButtonClicked !: boolean
 
-  user1: any
 
-  email !: String
-  address !: String
-  city !: String
-  country !: String
-  phoneNumber !: String
+
   role : any
 
 
@@ -75,36 +70,41 @@ deleteProfile()
 
   
   onSubmit() {
-    this.editButtonClicked = false
 
-    //update user info
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
 
-    if(this.email != undefined)
-      this.user1.email = this.email
-    if(this.address != undefined)
-      this.user1.address = this.address
-    if(this.city != undefined)
-      this.user1.city = this.city
-    if(this.country != undefined)
-      this.user1.country = this.country
-    if(this.phoneNumber != undefined)
-      this.user1.phoneNumber = this.phoneNumber
+    alert(this.user.address)
 
-    let body = JSON.stringify(this.user1)
+    let user1 : Client = new Client()
+
+
+
+
+
+
+    user1.email = this.user.email
+    user1.phoneNumber = this.user.phoneNumber
+    user1.address = this.user.address
+    user1.country = this.user.country
+    user1.city = this.user.city
+
+
+    let body = JSON.stringify(user1)
 
     this.http.put<any>(this.endpoint.USERS, body, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
-          alert("User with username " + this.email + ' already exists.');
+          alert("Something went wrong");
           this.router.navigate(["login"])
         }
         return EMPTY;
       })).subscribe()
+      this.editButtonClicked = false
+
   }
 
 }

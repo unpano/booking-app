@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AdventureReservationFormComponent } from '../adventure-reservation-form/adventure-reservation-form.component';
 import { Adventure } from '../dto/adventure';
+import { Client } from '../dto/client';
+import { ClientRate } from '../dto/clientRate';
 import { Endpoint } from '../util/endpoints-enum';
 
 @Component({
@@ -20,6 +22,8 @@ export class ProfileAdventureComponent implements OnInit {
   endpoint = Endpoint
 
   constructor(private router: Router,private http: HttpClient, private dialog: MatDialog) { }
+
+  client : Client = new Client()
 
   adventure : any
   actions : any
@@ -40,10 +44,7 @@ export class ProfileAdventureComponent implements OnInit {
       })).subscribe()
 
 
-      this.http.get<any>(this.endpoint.ACTIONS + sessionStorage.getItem('entityId'), options).pipe(
-        map(returnedData => {
-          this.actions = returnedData
-        })).subscribe()
+  
 
 
   }
@@ -65,10 +66,33 @@ export class ProfileAdventureComponent implements OnInit {
   }
   reserve( adventure : Adventure)
   {
-    sessionStorage.setItem('boatId', adventure.id.toString())
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
 
-    let dialogRef = this.dialog.open(AdventureReservationFormComponent)
-    dialogRef.afterClosed().subscribe();
+    let options = { headers: headers };
+
+    this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
+      map(returnedUser => {
+        this.client = returnedUser
+      })).subscribe(  () => 
+      {
+        if(this.client.numOfPenalties> 3)
+        {
+          alert( 'You can not make reservations this month!')
+        }
+        else
+        {
+          sessionStorage.setItem('adventureId', adventure.id.toString())
+
+          let dialogRef = this.dialog.open(AdventureReservationFormComponent)
+          dialogRef.afterClosed().subscribe();
+      
+        }
+
+      })
+
+
+  
 
   }
 

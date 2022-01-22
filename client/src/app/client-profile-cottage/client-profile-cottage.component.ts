@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { CottageReservationFormComponent } from '../cottage-reservation-form/cottage-reservation-form.component';
 import { AmenityJSON } from '../dto/amenitiyJSON';
+import { Client } from '../dto/client';
 import { Cottage } from '../dto/cottage';
 import { RuleJSON } from '../dto/RuleJSON';
 import { DateFilterService } from '../util/dateFIlterService';
@@ -47,7 +48,7 @@ export class ClientProfileCottageComponent implements OnInit {
 
   role : any
 
-
+  client : Client = new Client()
 
   starNames : String[] = []
 
@@ -73,32 +74,14 @@ export class ClientProfileCottageComponent implements OnInit {
               this.cottage = returnedCottage              
             })).subscribe(() =>
             {
-                    this.cottage.amenities.forEach((amenityInCottage: string) => {
+                    this.cottage.amenities.forEach((amenityInCottage: string) => 
+                    {
                           var amenityJSON = this.findAmenity(amenityInCottage)
                           this.amenities.push(amenityJSON)
-                                                                                  });
+                    });
 
-                    this.cottage.additionalServices.forEach((rule: string) => {
-                      var ruleJSON = this.findRule(rule)
-                      this.rules.push(ruleJSON)
-                                                                                });
-
-
-                                                                                this.http
-                                                                                .get(this.endpoint.COTTAGES + sessionStorage.getItem('cottageId') + '/images' ,options)
-                                                                                  .pipe(
-                                                                                    map(returnedImages=> {
-                                                                                      let imageUrls : any
-                                                                                      imageUrls = returnedImages
-                                                                                      imageUrls.forEach((path: string) => {
-                                                                                        let obj = {
-                                                                                          image: 'assets/cottage-pictures/'+ path,
-                                                                                          thumbImage: 'assets/cottage-pictures/'+ path
-                                                                                        }
-                                                                                        this.imgCollection.push(obj)
-                                                                                      });
-                                                                                    })).subscribe()
-              
+                
+  
            
             })  
 
@@ -126,10 +109,32 @@ export class ClientProfileCottageComponent implements OnInit {
   }
   reserve(cottage : Cottage)
   {
-    sessionStorage.setItem('cottageId', cottage.id.toString())
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
 
-    let dialogRef = this.dialog.open(CottageReservationFormComponent)
-    dialogRef.afterClosed().subscribe();
+    let options = { headers: headers };
+
+    this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
+      map(returnedUser => {
+        this.client = returnedUser
+      })).subscribe(  () => 
+      {
+        if(this.client.numOfPenalties> 3)
+        {
+          alert( 'You can not make reservations this month!')
+        }
+        else
+        {
+     
+          sessionStorage.setItem('cottageId', cottage.id.toString())
+
+          let dialogRef = this.dialog.open(CottageReservationFormComponent)
+          dialogRef.afterClosed().subscribe();
+        }
+
+      })
+
+ 
 
   }
 

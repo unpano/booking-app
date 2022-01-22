@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Boat } from '../dto/boat';
+import { Client } from '../dto/client';
 import { Reservation } from '../dto/reservation';
 import { ReservationFormComponent } from '../reservation-form/reservation-form.component';
 import { Endpoint } from '../util/endpoints-enum';
@@ -24,7 +25,10 @@ export class ProfileBoatComponent implements OnInit {
 
   boat : any
   actions : any
+  client : Client = new Client()
   
+  
+
   role : any
 
   ngOnInit(): void {
@@ -38,14 +42,13 @@ export class ProfileBoatComponent implements OnInit {
     this.http.get<any>(this.endpoint.FIND_BOAT + "/"+ sessionStorage.getItem('entityId'), options).pipe(
       map(returnedBoat => {
         this.boat = returnedBoat
-      })).subscribe()
+      })).subscribe( () =>
+      {
 
 
-      this.http.get<any>(this.endpoint.ACTIONS + sessionStorage.getItem('entityId'), options).pipe(
-        map(returnedData => {
-          this.actions = returnedData
-        })).subscribe()
+      })
 
+    
 
   }
 
@@ -65,11 +68,31 @@ export class ProfileBoatComponent implements OnInit {
   }
   reserve(boat : Boat)
   {
-    sessionStorage.setItem('boatId', boat.id.toString())
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
 
-    let dialogRef = this.dialog.open(ReservationFormComponent)
-    dialogRef.afterClosed().subscribe();
+    let options = { headers: headers };
 
+    this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
+      map(returnedUser => {
+        this.client = returnedUser
+      })).subscribe(  () => 
+      {
+        if(this.client.numOfPenalties> 3)
+        {
+          alert( 'You can not make reservations this month!')
+        }
+        else
+        {
+          sessionStorage.setItem('boatId', boat.id.toString())
+
+          let dialogRef = this.dialog.open(ReservationFormComponent)
+          dialogRef.afterClosed().subscribe();
+      
+        }
+
+      })
+  
   }
 
 }

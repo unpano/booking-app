@@ -21,8 +21,9 @@ export class UpcomingReservationsComponent implements OnInit {
   ngOnInit(): void {
 
 
-    const headers = { 'content-type': 'application/json'} 
-    let options = { headers: headers };
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+let options = { headers: headers };
 
     this.http.get<any>(this.endpoint.UPCOMING_RESERVATIONS + sessionStorage.getItem('id'), options).pipe(
       map(returnedData => {

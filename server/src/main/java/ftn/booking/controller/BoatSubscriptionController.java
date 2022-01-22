@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,19 +26,21 @@ public class BoatSubscriptionController {
     private ClientService clientService;
 
     @GetMapping("/delete/{boatSubscriptionId}")
+    @PreAuthorize("hasRole('CLIENT')")
     public void deleteSubscription(@PathVariable Long boatSubscriptionId)
     {
         boatSubscriptionService.delete(boatSubscriptionId);
     }
 
     @GetMapping("/findAll/{clientId}")
+    @PreAuthorize("hasRole('CLIENT')")
     public List<BoatSubscription> findAllSubscriptions(@PathVariable Long clientId)
     {
         return boatSubscriptionService.findAllByClinet(clientId);
     }
 
     @PostMapping("/createSubscription/{boatId}/{clientId}")
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasRole('CLIENT')")
     public  @ResponseBody
     ResponseEntity<BoatSubscription> makeSubscription(@PathVariable Long boatId, @PathVariable Long clientId) {
 

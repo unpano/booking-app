@@ -1,10 +1,12 @@
 package ftn.booking.service.impl;
 import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.NotFoundException;
+import ftn.booking.model.AdditionalService;
 import ftn.booking.model.Boat;
 import ftn.booking.model.Cottage;
 import ftn.booking.model.Reservation;
 import ftn.booking.model.enums.ReservationType;
+import ftn.booking.repository.AdditionalServiceRepository;
 import ftn.booking.repository.CottageRepository;
 import ftn.booking.repository.ReservationRepository;
 import ftn.booking.service.CottageService;
@@ -22,6 +24,7 @@ public class CottageServiceImpl implements CottageService {
 
     private CottageRepository cottageRepository;
     private ReservationRepository reservationRepository;
+    private AdditionalServiceRepository additionalServiceRepository;
 
     @Override
     public List<Cottage> findAll()
@@ -37,6 +40,12 @@ public class CottageServiceImpl implements CottageService {
 
     public List<Cottage> findAllOwnerCottages(Long id) {
         return cottageRepository.findAllByCottageOwnerId(id);
+    }
+
+    @Override
+    public List<AdditionalService> findAdditionalServices(Long cottageId)
+    {
+        return additionalServiceRepository.findAllByCottageId(cottageId);
     }
 
     @Override

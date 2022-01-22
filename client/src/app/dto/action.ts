@@ -2,9 +2,11 @@ import { AdditionalService } from "./additionalService"
 import { Adventure } from "./adventure"
 import { Boat } from "./boat"
 import { Cottage } from "./cottage"
+import { ReservationType } from "./enums/ReservationType"
 
 export class Action{
     id !: Number
+    reservationType !: ReservationType;
     startDate !: String
     endDate !: String
     price !: Number

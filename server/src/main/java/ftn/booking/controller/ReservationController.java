@@ -49,12 +49,14 @@ public class ReservationController {
     }
 
     @GetMapping("/findByUser/{userId}")
+    @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<List<Reservation>> pastReservationsByUser(@PathVariable Long userId)
     {
         return new ResponseEntity<>(reservationService.pastByUser(userId), HttpStatus.OK);
     }
 
     @GetMapping("/upcomingByUser/{userId}")
+    @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<List<Reservation>> upcomingReservationsByUser(@PathVariable Long userId)
     {
         return new ResponseEntity<>(reservationService.upcomingByUser(userId), HttpStatus.OK);
@@ -63,13 +65,14 @@ public class ReservationController {
 
 
     @PostMapping("/checkBoatReservation/")
+    @PreAuthorize("hasRole('CLIENT')")
     public @ResponseBody ResponseEntity<Boolean> checkReservation(@RequestBody ReservationDTO reservationDTO)
     {
         return new ResponseEntity<>(reservationService.checkBoatReservation(reservationDTO), HttpStatus.OK);
     }
 
     @PostMapping("/createReservation/")
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasRole('CLIENT')")
     public  @ResponseBody ResponseEntity<Reservation> makeReservation(@RequestBody ReservationDTO reservationDTO) {
 
         Reservation new_reservation = new Reservation();
