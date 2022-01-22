@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,19 +25,21 @@ public class CottageSubscriptionController {
     private ClientService clientService;
 
     @GetMapping("/delete/{cottageSubscriptionId}")
+    @PreAuthorize("hasRole('CLIENT')")
     public void deleteSubscription(@PathVariable Long cottageSubscriptionId)
     {
         cottageSubscriptionService.delete(cottageSubscriptionId);
     }
 
     @GetMapping("/findAll/{clientId}")
+    @PreAuthorize("hasRole('CLIENT')")
     public List<CottageSubscription> findAllSubscriptions(@PathVariable Long clientId)
     {
         return cottageSubscriptionService.findAllByClinet(clientId);
     }
 
     @PostMapping("/createSubscription/{cottageId}/{clientId}")
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasRole('CLIENT')")
     public  @ResponseBody
     ResponseEntity<CottageSubscription> makeSubscription(@PathVariable Long cottageId, @PathVariable Long clientId) {
 

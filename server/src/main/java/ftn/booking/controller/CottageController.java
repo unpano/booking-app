@@ -112,14 +112,12 @@ public class CottageController {
         return new ResponseEntity<>(cottageService.add(cottage), HttpStatus.OK);
     }
 
-    ///Searching for cottages that are not reserved on that period
- /*   @GetMapping("/findFree/")
+    @GetMapping("/findFree/")
     @PreAuthorize("hasRole('CLIENT')")
-    public @ResponseBody
-    List<Cottage> freeCottages(@RequestBody ReservationDTO reservationDTO)
+    public @ResponseBody List<Cottage> freeBoats(Principal loggedUser, @RequestParam String startTime, @RequestParam String endTime)
     {
-        return cottageService.findFreeCottages(reservationDTO);
-    }*/
+        return cottageService.findFreeCottages(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
+    }
 
     @PutMapping
     @PreAuthorize("hasRole('COTTAGE_OWNER')")

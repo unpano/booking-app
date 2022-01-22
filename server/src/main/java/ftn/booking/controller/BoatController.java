@@ -47,7 +47,7 @@ public class BoatController {
 
     ///Searching for boats that are not reserved on that period
     @GetMapping("/findFree/")
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasRole('CLIENT')")
     public @ResponseBody List<Boat> freeBoats(Principal loggedUser, @RequestParam String startTime, @RequestParam String endTime)
     {
         return boatService.findFreeBoats(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));

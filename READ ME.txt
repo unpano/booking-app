@@ -39,7 +39,5 @@ Otvoriti projekat u IntelliJ-u. Podesiti konfiguraciju da prepozna main class-u.
 Aplikacija se pokrece na portu 8084. Nije preporucljivo menjati port, jer je front takodje podesen da gadja
 taj port, u suprotnom moralo bi se i tamo menjati.
 
------REŠAVANE KONFLIKTNE SITUACIJE-----
-
-U Word dokumentu korenskog direktorijuma projekta nalazi se opis konfliktnih situacija koje su rešavane kad je
-u pitanju konkurentni pristup resursima baze u ulozi vlasnika vikendice/broda.
+----SIFRE USER-A------
+Sifre su hesirane i sifra svakog od user-a u bazi je Hristina1998

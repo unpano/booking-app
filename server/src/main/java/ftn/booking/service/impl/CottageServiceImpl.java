@@ -48,6 +48,8 @@ public class CottageServiceImpl implements CottageService {
         return additionalServiceRepository.findAllByCottageId(cottageId);
     }
 
+
+
     @Override
     public Cottage findById(Long cottageId)
     {

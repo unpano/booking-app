@@ -43,6 +43,10 @@ public interface ReservationService{
 
     Boolean checkBoatReservation(ReservationDTO reservationDTO);
 
+    Boolean checkCottageReservation(ReservationDTO reservationDTO);
+
+    Boolean checkAdventureReservation(ReservationDTO reservationDTO);
+
     List<Reservation> upcomingByUser(Long userId);
 
     List<Reservation> pastByUser(Long userId);

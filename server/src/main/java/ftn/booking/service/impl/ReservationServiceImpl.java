@@ -63,6 +63,64 @@ public class ReservationServiceImpl implements ReservationService {
         return true;
     }
 
+    @Override
+    public Boolean checkCottageReservation(ReservationDTO reservationDTO) {
+
+        List<Reservation> allReservations = reservationRepository.findAllByCottageId(reservationDTO.getCottage().getId());
+
+
+        for (Reservation res: allReservations)
+        {
+            if(reservationDTO.getStartTime().isEqual( res.getStartTime()) || reservationDTO.getEndTime().isEqual( res.getEndTime()))
+            {
+                return false;
+            }
+            if(reservationDTO.getStartTime().isAfter( res.getStartTime()) && reservationDTO.getStartTime().isBefore( res.getEndTime()))
+            {
+                return false;
+            }
+            if(reservationDTO.getEndTime().isAfter( res.getStartTime()) && reservationDTO.getEndTime().isBefore( res.getEndTime()))
+            {
+                return false;
+            }
+            if(reservationDTO.getStartTime().isBefore( res.getStartTime()) && reservationDTO.getEndTime().isAfter( res.getEndTime()))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean checkAdventureReservation(ReservationDTO reservationDTO) {
+
+        List<Reservation> allReservations = reservationRepository.findAllByAdventureId(reservationDTO.getAdventure().getId());
+
+
+        for (Reservation res: allReservations)
+        {
+            if(reservationDTO.getStartTime().isEqual( res.getStartTime()) || reservationDTO.getEndTime().isEqual( res.getEndTime()))
+            {
+                return false;
+            }
+            if(reservationDTO.getStartTime().isAfter( res.getStartTime()) && reservationDTO.getStartTime().isBefore( res.getEndTime()))
+            {
+                return false;
+            }
+            if(reservationDTO.getEndTime().isAfter( res.getStartTime()) && reservationDTO.getEndTime().isBefore( res.getEndTime()))
+            {
+                return false;
+            }
+            if(reservationDTO.getStartTime().isBefore( res.getStartTime()) && reservationDTO.getEndTime().isAfter( res.getEndTime()))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
     @Override
     public void delete(Long reservationId) {

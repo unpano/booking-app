@@ -137,75 +137,76 @@ values('2022-10-01T17:09:42', 1000, 'COTTAGE','2022-11-01T17:09:42', null, null,
 
 
 
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
-values('2022-02-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null, 1, null , BOAT)
 
 insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
-values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null, 1, null )
+values('2022-02-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null, 1, null , 'BOAT')
+
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null, 1, null, 'BOAT' )
 
 
 insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
-values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, null, 1, null )
+values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, null, 1, null , 'BOAT')
 
 insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
-values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, null, 1, null )
+values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, null, 1, null , 'BOAT')
 
 
 
 
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-02-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null, 2, null )
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-02-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null, 2, null , 'BOAT')
 
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null, 2, null )
-
-
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, null, 2, null )
-
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, null, 3, null )
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null, 2, null , 'BOAT')
 
 
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, null, 2, null , 'BOAT')
 
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-01-15 17:09:42', 3, 1300, 1000,'2022-01-13 17:09:42', false, null,  null, 2)
-
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null,  null, 2 )
-
-
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, null,  null, 3 )
-
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, null,  null, 4 )
-
-
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-01-15 17:09:42', 3, 1300, 1000,'2022-01-13 17:09:42', false, null,  null, 1)
-
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null,  null, 1 )
-
-
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, null,  null, 1 )
-
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, null,  null, 1 )
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, null, 3, null , 'BOAT')
 
 
 
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-01-15 17:09:42', 3, 1300, 1000,'2022-01-13 17:09:42', false, 1,null, null)
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-01-15 17:09:42', 3, 1300, 1000,'2022-01-13 17:09:42', false, null,  null, 2, 'COTTAGE')
 
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, 2,null,  null)
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null,  null, 2 , 'COTTAGE')
 
 
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, 3,null,  null)
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, null,  null, 3 , 'COTTAGE')
 
-insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id)
-values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, 1,null,  null)
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, null,  null, 4 , 'COTTAGE')
+
+
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-01-15 17:09:42', 3, 1300, 1000,'2022-01-13 17:09:42', false, null,  null, 1, 'COTTAGE')
+
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, null,  null, 1 , 'COTTAGE')
+
+
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, null,  null, 1 , 'COTTAGE')
+
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, null,  null, 1 , 'COTTAGE')
+
+
+
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-01-15 17:09:42', 3, 1300, 1000,'2022-01-13 17:09:42', false, 1,null, null, 'ADVENTURE')
+
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-03-15 17:09:42', 3, 1300, 1000,'2022-02-13 17:09:42', false, 2,null,  null, 'ADVENTURE')
+
+
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-07-15 17:09:42', 3, 1300, 1000,'2022-04-13 17:09:42', false, 3,null,  null, 'ADVENTURE')
+
+insert into action(end_date, max_number_of_persons, old_price, price, start_date, taken, adventure_id, boat_id, cottage_id, reservation_type)
+values('2022-04-21 17:09:42', 3, 1300, 1000,'2022-04-17 17:09:42', false, 1,null,  null, 'ADVENTURE')

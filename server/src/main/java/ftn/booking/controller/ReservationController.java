@@ -72,6 +72,20 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.checkBoatReservation(reservationDTO), HttpStatus.OK);
     }
 
+    @PostMapping("/checkCottageReservation/")
+    @PreAuthorize("hasRole('CLIENT')")
+    public @ResponseBody ResponseEntity<Boolean> checkCottageReservation(@RequestBody ReservationDTO reservationDTO)
+    {
+        return new ResponseEntity<>(reservationService.checkCottageReservation(reservationDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/checkAdventureReservation/")
+    @PreAuthorize("hasRole('CLIENT')")
+    public @ResponseBody ResponseEntity<Boolean> checkAdventureReservation(@RequestBody ReservationDTO reservationDTO)
+    {
+        return new ResponseEntity<>(reservationService.checkAdventureReservation(reservationDTO), HttpStatus.OK);
+    }
+
     @PostMapping("/createReservation/")
     @PreAuthorize("hasRole('CLIENT')")
     public  @ResponseBody ResponseEntity<Reservation> makeReservation(@RequestBody ReservationDTO reservationDTO) {

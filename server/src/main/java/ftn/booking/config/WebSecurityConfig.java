@@ -58,20 +58,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/signup").permitAll()
                 .antMatchers("/auth/check-username/**").permitAll()
                 .antMatchers("/auth/role").permitAll()
-                .antMatchers("/boats/**").permitAll()
-                .antMatchers("/instructors/**").permitAll()
-                .antMatchers("/cottages/**").permitAll()
-                .antMatchers("/reservations/**").permitAll()
-                .antMatchers("/boats/**").permitAll()
-                .antMatchers("/client/**").permitAll()
-                .antMatchers("/actions/**").permitAll()
+
+                .antMatchers("/instructors/findOne/**").permitAll()
+
+                .antMatchers("/cottages/findOne/**").permitAll()
+                .antMatchers("/cottages/findAll").permitAll()
+
+                .antMatchers("/boats/findOne/**").permitAll()
+                .antMatchers("/boats/findAll").permitAll()
+                .antMatchers("/boats/findAdditionalServices/**").permitAll()
+                .antMatchers("/boats/findFree").permitAll()
+
+
+
+                .antMatchers("/adventures/findOne/**").permitAll()
+                .antMatchers("/adventures/findAll").permitAll()
+                .antMatchers("/adventures/findFree").permitAll()
+
+                .antMatchers("/actions/findAll/**").permitAll()
+                .antMatchers("/actions/find/**").permitAll()
+
+
                 .antMatchers("/boatSubscriptions/**").permitAll()
-                .antMatchers("/emails/**").permitAll()
+                .antMatchers("/adventureSubscriptions/").permitAll()
+                .antMatchers("/cottageSubscriptions/**").permitAll()
+
                 .antMatchers("/auth/activationLink/**").permitAll()
-                .antMatchers("/users/**").permitAll()
-                .antMatchers("/adventures/**").permitAll()
-                .antMatchers("/services/**").permitAll()
-                .antMatchers("/actions/**").permitAll()
+
+                .antMatchers("/services/find/**").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userServiceImpl), BasicAuthenticationFilter.class);
