@@ -8,18 +8,19 @@ import { Reservation } from '../dto/reservation';
 import { Endpoint } from '../util/endpoints-enum';
 
 @Component({
-  selector: 'app-reservation-form',
-  templateUrl: './reservation-form.component.html',
-  styleUrls: ['./reservation-form.component.css']
+  selector: 'app-form-reservation',
+  templateUrl: './form-reservation.component.html',
+  styleUrls: ['./form-reservation.component.css']
 })
-export class ReservationFormComponent implements OnInit {
+export class FormReservationComponent implements OnInit {
+
 
 
 
   endpoint = Endpoint
   reservation : Reservation = new Reservation()
-  startTime : any
-  endTime : any
+  startDate : any
+  endDate : any
   numOfPersons : any
 
   client : any
@@ -50,23 +51,26 @@ export class ReservationFormComponent implements OnInit {
 
   }
 
-  create()
+  add()
   {
 
     
     this.reservation.reservationType = ReservationType.BOAT
-    this.reservation.startTime = this.startTime + "T11:00:00"
-    this.reservation.endTime = this.endTime + "T11:00:00"
+    this.reservation.startTime = this.startDate+ "T11:00:00"
+    this.reservation.endTime = this.endDate+ "T11:00:00"
     this.reservation.numOfPersons = this.numOfPersons
+
+
+    console.log(this.reservation)
 
     const headers = { 'content-type': 'application/json',
     'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
 
     let options = { headers: headers };
 
-    if( this.startTime == undefined || this.endTime == undefined)
+    if( this.startDate == undefined || this.endDate == undefined)
     {
-      alert(this.startTime)
+      alert(this.startDate)
       alert("Fill all the fields, please!")
     }
     else

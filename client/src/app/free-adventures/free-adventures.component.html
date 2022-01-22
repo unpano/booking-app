@@ -1,0 +1,34 @@
+
+
+<mat-card>
+
+    <table matSort (matSortChange)="sortData($event)">
+      <thead>
+          <th mat-sort-header="name">Adventure name </th>
+          <th mat-sort-header="address">Adventure address</th>
+          <th mat-sort-header="description">Adventure description</th>
+          <th mat-sort-header="rate">Average rate</th>
+          <th >Pricelist</th>
+          <th></th>
+          <th></th>
+          <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let adventure of sortedData | filter:searchText">
+          <td>{{adventure.name}}</td>
+          <td>{{adventure.address}}</td>
+          <td>{{adventure.description}}</td>
+          <td>{{adventure.rate}}</td>  
+          <td>
+             <button (click) = pricelist(adventure)>Pricelist</button>
+          </td>
+          <td><button (click) = actions(adventure)>Actions</button></td>
+          <td> <button id="eyeBtn" (click)="adventureDetails(adventure)">Details</button></td>
+          <td> <button id="eyeBtn" (click)="reserve(adventure)">Reserve</button></td>
+         
+        </tr>
+    
+      </tbody>
+    </table>
+    </mat-card>
+    

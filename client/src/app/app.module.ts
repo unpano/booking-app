@@ -50,6 +50,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { FreeBoatsComponent } from './free-boats/free-boats.component';
 
 
+
 import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
 import { ListCottagePastReservationsComponent } from './list-cottage-past-reservations/list-cottage-past-reservations.component';
 import { ListCottageFutureReservationsComponent } from './list-cottage-future-reservations/list-cottage-future-reservations.component';
@@ -59,7 +60,6 @@ import { ReportReservationComponent } from './report-reservation/report-reservat
 import { FreeCottagesComponent } from './free-cottages/free-cottages.component';
 import { AllAdventuresComponent } from './all-adventures/all-adventures.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
-import { ReservationFormComponent } from './reservation-form/reservation-form.component';
 import { DeleteClientProfileComponent } from './delete-client-profile/delete-client-profile.component';
 import { ClientProfileCottageComponent } from './client-profile-cottage/client-profile-cottage.component';
 import { AllActionsComponent } from './all-actions/all-actions.component';
@@ -71,6 +71,8 @@ import { CottageReservationFormComponent } from './cottage-reservation-form/cott
 import { ProfileAdventureComponent } from './profile-adventure/profile-adventure.component';
 import { AdventureReservationFormComponent } from './adventure-reservation-form/adventure-reservation-form.component';
 import { RateFormComponent } from './rate-form/rate-form.component';
+import { FormReservationComponent } from './form-reservation/form-reservation.component';
+import { FreeAdventuresComponent } from './free-adventures/free-adventures.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +115,6 @@ import { RateFormComponent } from './rate-form/rate-form.component';
     FreeCottagesComponent,
     AllAdventuresComponent,
     PricelistComponent,
-    ReservationFormComponent,
     DeleteClientProfileComponent,
     ClientProfileCottageComponent,
     AllActionsComponent,
@@ -125,6 +126,8 @@ import { RateFormComponent } from './rate-form/rate-form.component';
     ProfileAdventureComponent,
     AdventureReservationFormComponent,
     RateFormComponent,
+    FormReservationComponent,
+    FreeAdventuresComponent,
   ],
   imports: [
     BrowserModule,

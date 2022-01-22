@@ -95,10 +95,12 @@ export class ClientProfileCottageComponent implements OnInit {
   
   subscribe(cottage : Cottage)
   {
-    const headers = { 'content-type': 'application/json'} 
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+
     let options = { headers: headers };
 
-    this.http.post<any>(this.endpoint.COTTAGE_SUBSCRIBE+ cottage.id + "/" + sessionStorage.getItem('id'), options).pipe(
+    this.http.post<any>(this.endpoint.COTTAGE_SUBSCRIBE + cottage.id + "/" + sessionStorage.getItem('id'), options).pipe(
       map(returnedcottage => {
         this.cottage = returnedcottage
       })).subscribe(() =>
@@ -107,36 +109,7 @@ export class ClientProfileCottageComponent implements OnInit {
       })
 
   }
-  reserve(cottage : Cottage)
-  {
-    const headers = { 'content-type': 'application/json',
-    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
 
-    let options = { headers: headers };
-
-    this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
-      map(returnedUser => {
-        this.client = returnedUser
-      })).subscribe(  () => 
-      {
-        if(this.client.numOfPenalties> 3)
-        {
-          alert( 'You can not make reservations this month!')
-        }
-        else
-        {
-     
-          sessionStorage.setItem('cottageId', cottage.id.toString())
-
-          let dialogRef = this.dialog.open(CottageReservationFormComponent)
-          dialogRef.afterClosed().subscribe();
-        }
-
-      })
-
- 
-
-  }
 
   starNamesFunc(rate: Number): String[]{
     this.starNames = []

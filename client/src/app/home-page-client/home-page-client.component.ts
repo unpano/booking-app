@@ -24,6 +24,8 @@ export class HomePageClientComponent implements OnInit {
 
   searchInput : any
 
+  personsNum : any
+
   boats : any
 
   buttonClicked = Boolean(false)

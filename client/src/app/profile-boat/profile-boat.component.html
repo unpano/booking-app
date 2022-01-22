@@ -11,7 +11,6 @@
             <p class="mb-0"><strong class="pr-1">Address:  </strong>{{boat.address}}</p>
             <p class="mb-0"><strong class="pr-1">Capacity:  </strong>{{boat.capacity}}  person</p>
             <p class="mb-0"><strong class="pr-1">Description:  </strong>{{boat.description}}</p>
-            <button *ngIf="role == 'ROLE_CLIENT'"  (click) = "reserve(boat)">Reserve</button>
             <button *ngIf="role == 'ROLE_CLIENT'" (click) = "subscribe(boat)">Subscribe</button>
           </div>
         </div>

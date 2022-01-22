@@ -11,7 +11,6 @@
               <p class="mb-0"><strong class="pr-1">Max persons:  </strong>{{adventure.maxNumOfPersons}}</p>
               <p class="mb-0"><strong class="pr-1">Capacity:  </strong>{{adventure.capacity}}  person</p>
               <p class="mb-0"><strong class="pr-1">Description:  </strong>{{adventure.description}}</p>
-              <button *ngIf="role == 'ROLE_CLIENT'"  (click) = "reserve(adventure)">Reserve</button>
               <button *ngIf="role == 'ROLE_CLIENT'" (click) = "subscribe(adventure)">Subscribe</button>
             </div>
           </div>

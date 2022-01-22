@@ -12,7 +12,6 @@
                   <p class="mb-0"><strong class="pr-1">Address:  </strong>{{cottage.address}}</p>
                   <p class="mb-0"><strong class="pr-1">Capacity:  </strong>{{cottage.maxNumOfPersons}}  person</p>
                   <p class="mb-0"><strong class="pr-1">Description:  </strong>{{cottage.description}}</p>
-                  <button *ngIf="role == 'ROLE_CLIENT'"  (click) = "reserve(cottage)">Reserve</button>
                   <button *ngIf="role == 'ROLE_CLIENT'" (click) = "subscribe(cottage)">Subscribe</button>
                 </div>
 

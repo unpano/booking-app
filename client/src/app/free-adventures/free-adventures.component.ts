@@ -1,31 +1,32 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Boat } from '../dto/boat';
+import { Adventure } from '../dto/adventure';
 import { Client } from '../dto/client';
 import { ReservationType } from '../dto/enums/ReservationType';
 import { Reservation } from '../dto/reservation';
 import { PricelistComponent } from '../pricelist/pricelist.component';
 import { Endpoint } from '../util/endpoints-enum';
-import { Global } from '../util/global';
 
 @Component({
-  selector: 'app-free-boats',
-  templateUrl: './free-boats.component.html',
-  styleUrls: ['./free-boats.component.css']
+  selector: 'app-free-adventures',
+  templateUrl: './free-adventures.component.html',
+  styleUrls: ['./free-adventures.component.css']
 })
-export class FreeBoatsComponent implements OnInit {
+export class FreeAdventuresComponent implements OnInit {
 
+ 
   endpoint = Endpoint
-  boats: any
+  adventures: any
   sortedData: any
 
   reservation : Reservation = new Reservation()
 
-  client : Client = new Client()
+  client : Client= new Client()
   checkRes : any
 
   @Input() startDate : any
@@ -37,6 +38,7 @@ export class FreeBoatsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.reservation.numOfPersons = this.numOfPersons
       let params = new HttpParams();
 
       params = params.append("startTime", this.startDate + "T11:00:00");
@@ -46,10 +48,10 @@ export class FreeBoatsComponent implements OnInit {
       let options = { headers: headers,
                       params :params };
       
-      this.http.get<any>(this.endpoint.FREE_BOATS, options).pipe(
+      this.http.get<any>(this.endpoint.FREE_ADVENTURES, options).pipe(
       map(returnedBoat => {
-            this.boats = returnedBoat
-            this.sortedData = this.boats.slice()
+            this.adventures = returnedBoat
+            this.sortedData = this.adventures.slice()
       })).subscribe()
 
       this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
@@ -60,39 +62,45 @@ export class FreeBoatsComponent implements OnInit {
   }
 
 
-  boatDetails(boat : Boat)
+  adventureDetails(adventure : Adventure)
   {
-    Global.boat = boat;
-    this.router.navigate(["boat"]);
+    sessionStorage.setItem('entityId', adventure.id.toString())
+    this.router.navigate(["adventure"]);
   }
 
-  pricelist(boat : Boat)
+  actions(adventure : Adventure)
   {
-    sessionStorage.setItem('boatId', boat.id.toString())
+    sessionStorage.setItem('reservationType', 'ADVENTURE')
+    sessionStorage.setItem('entityId', adventure.id.toString())
+    
+    this.router.navigate(["actions"]);
+  }
+
+
+
+
+  pricelist(adventure : Adventure)
+  {    
+    sessionStorage.setItem('reservationType', 'ADVENTURE')
+    sessionStorage.setItem('entityId', adventure.id.toString())
 
     let dialogRef = this.dialog.open(PricelistComponent)
     dialogRef.afterClosed().subscribe();
   }
 
-  actions(boat : Boat)
+
+  reserve(adventure : Adventure)
   {
-    sessionStorage.setItem('entityId', boat.id.toString())
-    this.router.navigate(["actions"]);
-  }
+    sessionStorage.setItem('entityId', adventure.id.toString())
 
-
-  reserve(boat : Boat)
-  {
-    sessionStorage.setItem('entityId', boat.id.toString())
-
-    this.reservation.boat = boat;
+    this.reservation.adventure = adventure;
     this.reservation.numOfPersons = this.numOfPersons
 
     this.reservation.startTime = this.startDate + "T11:00:00"
     this.reservation.endTime = this.endDate + "T11:00:00"
 
-    this.reservation.reservationType = ReservationType.BOAT
-    this.reservation.price = boat.price;
+    this.reservation.reservationType = ReservationType.ADVENTURE
+    this.reservation.price = adventure.price;
   
     const headers = { 'content-type': 'application/json',
     'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
@@ -102,10 +110,9 @@ export class FreeBoatsComponent implements OnInit {
     const body=JSON.stringify(this.reservation); 
 
     this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
-      map(returnedUser => {
-        this.client = returnedUser
-        this.reservation.client = this.client
-      })).subscribe(  () => 
+            map(returnedUser => {
+              this.reservation.client = returnedUser
+        })).subscribe( () => 
       {
         if(this.reservation.client.numOfPenalties > 3)
         {
@@ -114,14 +121,14 @@ export class FreeBoatsComponent implements OnInit {
         else
         {
      
-          this.http.post<any>(this.endpoint.CHECK_BOAT_RESERVATION, body, options).pipe(
+          this.http.post<any>(this.endpoint.CHECK_ADVENTURE_RESERVATION, body, options).pipe(
             map(returnedData => {
                     this.checkRes = returnedData
            })).subscribe( () =>
               {
                 if( this.checkRes == false)
                                   {
-                                    alert( "Sorry, the boat is not free, please pick another date")
+                                    alert( "Sorry, the adventure is not free, please pick another date")
                                   }
                 else
                                   {
@@ -148,7 +155,7 @@ export class FreeBoatsComponent implements OnInit {
 
   sortData(sort: Sort) 
   {
-    const data = this.boats.slice();
+    const data = this.adventures.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;

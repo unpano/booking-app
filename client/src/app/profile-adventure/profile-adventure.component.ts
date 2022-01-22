@@ -52,7 +52,9 @@ export class ProfileAdventureComponent implements OnInit {
   
   subscribe(adventure : Adventure)
   {
-    const headers = { 'content-type': 'application/json'} 
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+
     let options = { headers: headers };
 
     this.http.post<any>(this.endpoint.SUBSCRIBE+ adventure.id + "/" + sessionStorage.getItem('id'), options).pipe(
@@ -64,36 +66,6 @@ export class ProfileAdventureComponent implements OnInit {
       })
 
   }
-  reserve( adventure : Adventure)
-  {
-    const headers = { 'content-type': 'application/json',
-    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
 
-    let options = { headers: headers };
-
-    this.http.get<any>(this.endpoint.FIND_CLIENT+ sessionStorage.getItem('id'), options).pipe(
-      map(returnedUser => {
-        this.client = returnedUser
-      })).subscribe(  () => 
-      {
-        if(this.client.numOfPenalties> 3)
-        {
-          alert( 'You can not make reservations this month!')
-        }
-        else
-        {
-          sessionStorage.setItem('adventureId', adventure.id.toString())
-
-          let dialogRef = this.dialog.open(AdventureReservationFormComponent)
-          dialogRef.afterClosed().subscribe();
-      
-        }
-
-      })
-
-
-  
-
-  }
 
 }

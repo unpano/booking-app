@@ -24,6 +24,12 @@
           </form>
       </div>
 
+      <div>
+        <label> Number of people: </label>
+        <form >
+          <input name= "starttimeInput" type="text" class="input" name="examinationDateInput" [(ngModel)]="personsNum" />
+        </form>
+    </div>
   
       <mat-form-field >
         <input type="text" matInput placeholder="Search" [(ngModel)]="searchInput">
@@ -52,13 +58,13 @@
 
  <ng-template #elseBlock class = "entities">
     <div *ngIf= "type != 'Adventure' && type != 'Cottage'">
-        <app-free-boats [searchText]="searchInput" [startDate]="dateInput" [endDate]="endDateInput"></app-free-boats>
+        <app-free-boats [searchText]="searchInput" [startDate]="dateInput" [endDate]="endDateInput" [numOfPersons]="personsNum"></app-free-boats>
     </div>
     <div *ngIf = "type == 'Adventure'">
-      <app-all-adventures [searchText]="searchInput"></app-all-adventures>
+      <app-free-adventures [searchText]="searchInput"  [startDate]="dateInput" [endDate]="endDateInput" [numOfPersons]="personsNum"></app-free-adventures>
     </div>
     <div *ngIf= "type == 'Cottage'">
-      <app-free-cottages [searchText]="searchInput" [startDate]="dateInput" [endDate]="endDateInput"></app-free-cottages>
+      <app-free-cottages [searchText]="searchInput" [startDate]="dateInput" [endDate]="endDateInput" [numOfPersons]="personsNum"></app-free-cottages>
     </div>
 
     

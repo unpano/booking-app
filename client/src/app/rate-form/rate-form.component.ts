@@ -35,6 +35,7 @@ export class RateFormComponent implements OnInit {
     this.clientRate.rate = this.rate
     this.clientRate.review = this.review
 
+
     const headers = { 'content-type': 'application/json',
     'Authorization': 'Bearer ' + sessionStorage.getItem("token")}
 
