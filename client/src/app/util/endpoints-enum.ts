@@ -61,6 +61,8 @@ export enum Endpoint {
   ACTIVATE_LINK = "http://localhost:8084/auth/activationLink/",
   GET_ACTIVE_USER = "http://localhost:8084/users/getActive/",
 
+  ADD_SERVICE_TO_RESERVATION = "http://localhost:8084/reservations/add/",
+
   ADD_COMPLAINT = "http://localhost:8084/complaints/add/"
 
 

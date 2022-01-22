@@ -85,6 +85,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/auth/activationLink/**").permitAll()
 
+                .antMatchers("/reservations/add/**").permitAll()
+
                 .antMatchers("/services/find/**").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()

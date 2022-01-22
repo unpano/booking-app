@@ -37,7 +37,7 @@ public class ReservationController {
     private CottageService cottageService;
 
     @PostMapping("/add/{reservationId}/{serviceId}")
-    @PreAuthorize("hasRole('CLIENT')")
+    //@PreAuthorize("hasRole('CLIENT')")
     public  @ResponseBody ResponseEntity<Reservation> addService(@PathVariable Long reservationId, @PathVariable Long serviceId) {
 
 

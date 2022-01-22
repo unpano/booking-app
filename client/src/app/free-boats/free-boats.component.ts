@@ -83,8 +83,8 @@ export class FreeBoatsComponent implements OnInit {
 
   reserve(boat : Boat)
   {
-    sessionStorage.setItem('entityId', boat.id.toString())
 
+    
     this.reservation.boat = boat;
     this.reservation.numOfPersons = this.numOfPersons
 
@@ -132,6 +132,11 @@ export class FreeBoatsComponent implements OnInit {
   
   
                                               alert("You created reservation seccessfuly!")
+                                              sessionStorage.setItem('boatId', boat.id.toString())
+                                              sessionStorage.setItem('reservationId', this.reservation.id.toString())
+                                          
+                                              let dialogRef = this.dialog.open(PricelistComponent)
+                                              dialogRef.afterClosed().subscribe();
                                   }
                })
 
@@ -141,8 +146,9 @@ export class FreeBoatsComponent implements OnInit {
 
 
 
-
   }
+
+
 
 
 

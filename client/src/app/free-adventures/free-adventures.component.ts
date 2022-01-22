@@ -139,6 +139,10 @@ export class FreeAdventuresComponent implements OnInit {
   
   
                                               alert("You created reservation seccessfuly!")
+                                              sessionStorage.setItem('reservationId', this.reservation.id.toString())
+                                          
+                                              let dialogRef = this.dialog.open(PricelistComponent)
+                                              dialogRef.afterClosed().subscribe();
                                   }
                })
 

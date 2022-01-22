@@ -10,7 +10,6 @@
           <th mat-sort-header="address">Adventure address</th>
           <th mat-sort-header="description">Adventure description</th>
           <th mat-sort-header="rate">Average rate</th>
-          <th >Pricelist</th>
           <th></th>
           <th></th>
           <th></th>
@@ -21,9 +20,7 @@
           <td>{{adventure.address}}</td>
           <td>{{adventure.description}}</td>
           <td>{{adventure.rate}}</td>  
-          <td>
-             <button (click) = pricelist(adventure)>Pricelist</button>
-          </td>
+
           <td><button (click) = actions(adventure)>Actions</button></td>
           <td> <button id="eyeBtn" (click)="adventureDetails(adventure)">Details</button></td>
          

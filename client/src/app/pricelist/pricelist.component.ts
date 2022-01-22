@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { AdditionalService } from '../dto/additionalService';
+import { Client } from '../dto/client';
+import { Reservation } from '../dto/reservation';
 import { Endpoint } from '../util/endpoints-enum';
 
 @Component({
@@ -15,6 +18,8 @@ export class PricelistComponent implements OnInit {
 
   boatId : any
   endpoint = Endpoint
+
+  reservation : Reservation = new Reservation()
 
   constructor(private router: Router,private http: HttpClient) { }
 
@@ -33,6 +38,23 @@ export class PricelistComponent implements OnInit {
       })).subscribe()
 
   }
+
+
+  add(s : AdditionalService)
+  {
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+
+      let options = { headers: headers };
+      
+    this.http.post<any>(this.endpoint.ADD_SERVICE_TO_RESERVATION + sessionStorage.getItem('reservationId') + "/" + s.id, options).pipe(
+      map(returnedUser => {
+        this.reservation
+      })).subscribe()
+  }
+
+
+
 
 
 

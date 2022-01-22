@@ -36,8 +36,8 @@ public class ReservationServiceImpl implements ReservationService {
         List<AdditionalService> services = r.getAdditionalServices();
 
         services.add(as);
+        r.setAdditionalServices(services);
         r.setPrice( r.getPrice() + as.getPrice());
-
 
         return reservationRepository.save(r);
     }

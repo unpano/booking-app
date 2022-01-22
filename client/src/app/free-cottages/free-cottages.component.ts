@@ -9,6 +9,8 @@ import { Sort } from '@angular/material/sort';
 import { Reservation } from '../dto/reservation';
 import { Client } from '../dto/client';
 import { ReservationType } from '../dto/enums/ReservationType';
+import { PricelistComponent } from '../pricelist/pricelist.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-free-cottages',
@@ -31,7 +33,7 @@ export class FreeCottagesComponent implements OnInit {
   @Input() searchText : any
   @Input() numOfPersons: any
 
-  constructor(private router: Router,private http: HttpClient) { }
+  constructor(private router: Router,private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -119,6 +121,11 @@ export class FreeCottagesComponent implements OnInit {
   
   
                                               alert("You created reservation seccessfuly!")
+
+                                              sessionStorage.setItem('reservationId', this.reservation.id.toString())
+                                          
+                                              let dialogRef = this.dialog.open(PricelistComponent)
+                                              dialogRef.afterClosed().subscribe();
                                   }
                })
 
