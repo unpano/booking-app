@@ -39,7 +39,6 @@ public class CottageSubscriptionController {
     }
 
     @PostMapping("/createSubscription/{cottageId}/{clientId}")
-    @PreAuthorize("hasRole('CLIENT')")
     public  @ResponseBody
     ResponseEntity<CottageSubscription> makeSubscription(@PathVariable Long cottageId, @PathVariable Long clientId) {
 

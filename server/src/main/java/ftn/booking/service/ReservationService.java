@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 import ftn.booking.model.Room;
 import ftn.booking.model.enums.ReservationType;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 import java.time.LocalDate;
@@ -28,6 +29,9 @@ public interface ReservationService{
     Reservation findById(Long id);
 
     Reservation update(Reservation reservation);
+
+    Reservation addService(Long reservationId, Long serviceId);
+
 
     List<Reservation> findAllPastReservationsByCottageId(Long id);
 

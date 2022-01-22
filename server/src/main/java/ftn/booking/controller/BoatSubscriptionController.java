@@ -40,7 +40,6 @@ public class BoatSubscriptionController {
     }
 
     @PostMapping("/createSubscription/{boatId}/{clientId}")
-    @PreAuthorize("hasRole('CLIENT')")
     public  @ResponseBody
     ResponseEntity<BoatSubscription> makeSubscription(@PathVariable Long boatId, @PathVariable Long clientId) {
 

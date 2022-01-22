@@ -36,6 +36,14 @@ public class ReservationController {
     private AdventureService adventureService;
     private CottageService cottageService;
 
+    @PostMapping("/add/{reservationId}/{serviceId}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public  @ResponseBody ResponseEntity<Reservation> addService(@PathVariable Long reservationId, @PathVariable Long serviceId) {
+
+
+        return new ResponseEntity<>( reservationService.addService(reservationId, serviceId) , HttpStatus.OK);
+    }
+
     @GetMapping("/delete/{reservationId}")
     @PreAuthorize("hasRole('CLIENT')")
     public void deleteReservation(@PathVariable Long reservationId)

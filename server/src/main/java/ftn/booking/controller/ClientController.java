@@ -24,6 +24,7 @@ public class ClientController {
     @GetMapping("/findById/{clientId}")
     @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<Client> findById(@PathVariable Long clientId){
+
         return new ResponseEntity(clientRepository.findById(clientId), HttpStatus.OK);
     }
 }

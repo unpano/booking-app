@@ -24,21 +24,20 @@ public class AdventureSubscriptionController {
     private ClientService clientService;
 
     @GetMapping("/delete/{adventureSubscriptionId}")
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasRole('CLIENT')")
     public void deleteSubscription(@PathVariable Long adventureSubscriptionId)
     {
         adventureSubscriptionService.delete(adventureSubscriptionId);
     }
 
     @GetMapping("/findAll/{clientId}")
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasRole('CLIENT')")
     public List<AdventureSubscription> findAllSubscriptions(@PathVariable Long clientId)
     {
         return adventureSubscriptionService.findAllByClinet(clientId);
     }
 
     @PostMapping("/createSubscription/{adventureId}/{clientId}")
-    //@PreAuthorize("hasRole('CLIENT')")
     public  @ResponseBody
     ResponseEntity<AdventureSubscription> makeSubscription(@PathVariable Long adventureId, @PathVariable Long clientId) {
 

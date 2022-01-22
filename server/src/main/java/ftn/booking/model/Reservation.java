@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "reservations")
@@ -54,4 +56,7 @@ public class Reservation {
 
     @OneToOne
     private Adventure adventure;
+
+    @OneToMany
+    private List<AdditionalService> additionalServices = new ArrayList<>();
 }

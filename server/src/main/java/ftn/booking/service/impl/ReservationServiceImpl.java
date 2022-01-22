@@ -2,9 +2,11 @@ package ftn.booking.service.impl;
 
 import ftn.booking.dto.ReservationDTO;
 import ftn.booking.exception.NotFoundException;
+import ftn.booking.model.AdditionalService;
 import ftn.booking.model.Boat;
 import ftn.booking.model.Reservation;
 import ftn.booking.model.enums.ReservationType;
+import ftn.booking.repository.AdditionalServiceRepository;
 import ftn.booking.repository.ReservationRepository;
 import ftn.booking.service.ReservationService;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,24 @@ import java.util.List;
 public class ReservationServiceImpl implements ReservationService {
 
     private ReservationRepository reservationRepository;
+    private AdditionalServiceRepository additionalServiceRepository;
+
+    @Override
+    public Reservation addService(Long reservationId, Long serviceId)
+    {
+        Reservation r = reservationRepository.findById(reservationId).get();
+        AdditionalService as = additionalServiceRepository.findById(serviceId).get();
+
+        List<AdditionalService> services = r.getAdditionalServices();
+
+        services.add(as);
+        r.setPrice( r.getPrice() + as.getPrice());
+
+
+        return reservationRepository.save(r);
+    }
+
+
 
     @Override
     public List<Reservation> findAllByUser(Long userId) {

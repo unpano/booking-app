@@ -9,6 +9,7 @@ import ftn.booking.exception.ValidationException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.LoyaltyProgram;
 import ftn.booking.model.enums.Role;
+import ftn.booking.repository.ClientRepository;
 import ftn.booking.repository.UserRepository;
 import ftn.booking.service.AuthorityService;
 import ftn.booking.service.OwnerService;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -49,6 +51,8 @@ public class AuthenticationController {
     private ClientService clientService;
     private OwnerService ownerService;
     private final PasswordEncoder passwordEncoder;
+
+    private ClientRepository clientRepository;
 
     @PostMapping("/activationLink/{email}")
     public void activateUser(@PathVariable String email)
@@ -198,6 +202,21 @@ public class AuthenticationController {
         String jwt = tokenUtils.generateToken(user.getUsername(), user.getRole().toString());
         int expiresIn = tokenUtils.getExpiredIn();
         UserTokenState userTokenState = new UserTokenState(jwt,expiresIn);
+
+
+        /// set penalties to 0
+        Client client = clientRepository.findById(user.getId()).get();
+
+        LocalDate lt = LocalDate.now();
+
+        if( lt.getDayOfMonth() == 0)
+        {
+            client.setNumOfPenalties(0);
+            clientRepository.save(client);
+        }
+
+
+
         return ResponseEntity.ok(new LoginDTO(userTokenState.getAccess_token(),userTokenState.getExpires_in(),user.getRole(), user.getId(),user.getEmail(),user.getPicture()));
     }
 
