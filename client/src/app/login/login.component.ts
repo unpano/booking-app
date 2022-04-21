@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
-          alert("User with username " + this.credentials.username + " does not exist.");
+          alert("User with username " + this.credentials.username + " does not exist,or it's account isn't verified.");
         }
         return EMPTY;
       }),

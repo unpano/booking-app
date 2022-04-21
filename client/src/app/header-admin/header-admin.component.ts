@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-admin',
@@ -7,9 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
+  }
+  homePageAdmin(){
+    this.router.navigate(['admin'])
+  }
+
+  adminProfile(){
+    this.router.navigate(['profile-admin'])  
+  }
+
+ 
+
+  unverifiedUsers(){
+      this.router.navigate(['unverified-users'])
+  }
+
+  verifiedUsers(){
+      this.router.navigate(['verified-users']);
+  }
+
+  logOut(){
+    sessionStorage.clear()
+    this.router.navigate([''])
+    
   }
 
 }

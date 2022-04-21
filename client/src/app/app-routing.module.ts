@@ -21,12 +21,15 @@ import { NewActionComponent } from './new-action/new-action.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
+import { UnverifiedUsersComponent } from './unverified-users/unverified-users.component';
+import { VerifiedUsersComponent } from './verified-users/verified-users.component';
 
 const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
@@ -43,6 +46,7 @@ const routes: Routes = [
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
 
+  {path: 'profile-admin',component:ProfileAdminComponent},
   {path: 'boats', component: AllBoatsComponent},
   {path: 'allCottages', component: AllCottagesComponent},
   {path: 'allInstructors', component: AllInstructorsComponent},
@@ -62,7 +66,10 @@ const routes: Routes = [
   {path: 'report', component: ReportCottageOwnerComponent},
   {path: 'clientReservations', component: ClientReservationsComponent},
 
+  {path: 'unverified-users',component:UnverifiedUsersComponent},
+  {path:'verified-users',component:VerifiedUsersComponent},
   {path: '**', component: PageNotFoundComponent},
+  
 
 ];
 
