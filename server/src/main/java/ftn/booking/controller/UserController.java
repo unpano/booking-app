@@ -22,6 +22,7 @@ import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -33,6 +34,8 @@ public class UserController {
     private DeactivationRequestService deactivationRequestService;
     private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
+
+
 
     @GetMapping("/{username}")
     @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
@@ -101,4 +104,14 @@ public class UserController {
         request.setStatus(Status.PROCESSING);
         return new ResponseEntity<>(deactivationRequestService.add(request), HttpStatus.OK);
     }
+
+    @CrossOrigin
+    @GetMapping("/unverified")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<User>> getAllNonVerifUsers(Principal loggedUser){
+        User user = userService.loadUserByUsername(loggedUser.getName());
+        List<User> unverifiedUsers = userService.getAllNonVerifUsers();
+        return new ResponseEntity<>(unverifiedUsers,HttpStatus.OK);
+    }
 }
+

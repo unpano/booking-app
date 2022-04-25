@@ -1,6 +1,7 @@
 package ftn.booking.service.impl;
 
 import ftn.booking.model.User;
+import ftn.booking.model.enums.Role;
 import ftn.booking.repository.UserRepository;
 import ftn.booking.service.UserService;
 import lombok.AllArgsConstructor;
@@ -8,12 +9,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public User loadUserByUsername(String username) {
@@ -36,5 +41,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         //true when username available
         return user == null;
+    }
+
+    @Override
+    public List<User> getAllNonVerifUsers(){
+        List<User> allUsers = userRepository.findAll();
+        List<User> allNotRegUsers = new ArrayList<>();
+
+        for(User user: allUsers) {
+            if(!user.isEnabled()){
+                if(user.getRole().equals(Role.ROLE_COTTAGE_OWNER) ||
+                 user.getRole().equals(Role.ROLE_INSTRUCTOR) ||
+                user.getRole().equals(Role.ROLE_BOAT_OWNER)){
+                    allNotRegUsers.add(user);
+
+                }
+            }
+        }
+        return allNotRegUsers;
     }
 }

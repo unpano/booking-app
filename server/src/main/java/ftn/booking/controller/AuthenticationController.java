@@ -8,14 +8,14 @@ import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.exception.ValidationException;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.Role;
-import ftn.booking.service.AuthorityService;
-import ftn.booking.service.OwnerService;
-import ftn.booking.service.ClientService;
-import ftn.booking.service.UserService;
+import ftn.booking.service.*;
 import ftn.booking.utils.TokenUtils;
 import ftn.booking.utils.ValidationUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +46,13 @@ public class AuthenticationController {
     private ClientService clientService;
     private OwnerService ownerService;
     private final PasswordEncoder passwordEncoder;
+
+
+    private MailService mailService;
+
+    //ADDED
+
+    //private Mail mail;
 
     @PostMapping("/signup")
 
@@ -82,6 +89,11 @@ public class AuthenticationController {
             client.setNumOfPenalties(0);
             client.setPassword(passwordEncoder.encode(client.getPassword()));
             client.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+
+
+            //mailService.sendMailSimplified(client.getEmail(), "CAo","Uspeli smo!!");
+
+
 
             //kreiram klijenta
             clientService.add(client);

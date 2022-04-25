@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -48,5 +51,18 @@ public class MailServiceImpl implements MailService {
             logger.error("Exception while sending mail: {}", e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public boolean sendMailSimplified(String sendTo,String subject,String body){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("isaBooking56@gmail.com");
+        message.setTo(sendTo);
+        message.setSubject(subject);
+        message.setText(body);
+
+        javaMailSender.send(message);
+
+        return true;
     }
 }
