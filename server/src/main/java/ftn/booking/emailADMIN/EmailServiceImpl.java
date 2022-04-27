@@ -16,30 +16,9 @@ import javax.mail.internet.MimeMessage;
 @AllArgsConstructor
 public class EmailServiceImpl implements EmailService{
 
-    private final static Logger LOGGER =
-            LoggerFactory.getLogger(EmailServiceImpl.class);
-    private final JavaMailSender mailSender;
-
     @Override
-    @Async
-    public void send(String to) {
-            try{
-                MimeMessage mimeMessage = mailSender.createMimeMessage();
-                MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
-                        "utf-8");
-                helper.setText("Dear user " + to + " , your account is verified!!"
-                + "\n Hope you enjoy using our app!! \n \n" +
-                "IsaBoooking56 team",false);
-                helper.setTo(to);
-                helper.setSubject("Your account verified!!");
-                helper.setFrom("dejanpetrusic123@gmail.com");
-                mailSender.send(mimeMessage);
+    public void send(String to){
 
-
-            } catch (MessagingException e) {
-                LOGGER.error("failed to send email ", e);
-                throw new IllegalStateException("failed to send email");
-
-            }
     }
+
 }
