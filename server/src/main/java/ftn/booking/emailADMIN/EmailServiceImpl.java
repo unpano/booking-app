@@ -33,7 +33,7 @@ public class EmailServiceImpl implements EmailService{
                 helper.setTo(to);
                 helper.setSubject("Your account verified!!");
                 helper.setFrom("dejanpetrusic123@gmail.com");
-
+                mailSender.send(mimeMessage);
 
 
             } catch (MessagingException e) {
