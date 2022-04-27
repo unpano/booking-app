@@ -4,7 +4,7 @@
 <table>
     <thead>
         <tr>
-            <th>Id</th>
+           <!-- <th>Id</th>-->
             <th>First name</th>
             <th>Last name</th>
             <th>Email address</th>
@@ -13,13 +13,13 @@
             <th>City</th>
             <th>Country</th>
             <th>Phone number</th>
-            <th>Reason</th>
+            <!--<th>Reason</th>-->
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let userNonVerif of usersNonVerif">
-            <td>{{userNonVerif.id}}</td>
+            <!--<td>{{userNonVerif.id}}</td>-->
             <td>{{userNonVerif.firstName}}</td>
             <td>{{userNonVerif.lastName}}</td>
             <td>{{userNonVerif.email}}</td>
@@ -28,10 +28,10 @@
             <td>{{userNonVerif.city}}</td>
             <td>{{userNonVerif.country}}</td>
             <td>{{userNonVerif.phoneNumber}}</td>
-            <td>{{userNonVerif.reason}}</td>
+           <!-- <td>{{userNonVerif.reason}}</td> -->
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm">Verify</button>
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm" (click)="verifyOne(userNonVerif.email,userNonVerif)">Verify</button>
             
             </td>
         </tr>

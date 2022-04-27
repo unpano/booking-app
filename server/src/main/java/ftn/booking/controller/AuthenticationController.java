@@ -48,7 +48,7 @@ public class AuthenticationController {
     private final PasswordEncoder passwordEncoder;
 
 
-    private MailService mailService;
+
 
     //ADDED
 

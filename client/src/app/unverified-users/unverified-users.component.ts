@@ -26,4 +26,13 @@ export class UnverifiedUsersComponent implements OnInit {
 
   }
 
+  verifyOne(email: String,user:User){
+    this.unverifUsersService.verifyOne(email,user).subscribe(data=>{
+      alert("You verified user " + user.firstName + " " + user.lastName + " !" + "\n \n" +
+        "He will receive notification for verification on its email: \n" + user.email);
+      this.getNonVerifUsers();
+    })
+
+  }
+
 }

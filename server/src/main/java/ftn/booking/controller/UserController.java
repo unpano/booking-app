@@ -1,6 +1,7 @@
 package ftn.booking.controller;
 
 import ftn.booking.dto.UserDTO;
+import ftn.booking.emailADMIN.EmailService;
 import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.exception.ValidationException;
 import ftn.booking.model.DeactivationRequest;
@@ -35,6 +36,7 @@ public class UserController {
     private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
+    private EmailService emailService;
 
 
     @GetMapping("/{username}")
@@ -105,13 +107,26 @@ public class UserController {
         return new ResponseEntity<>(deactivationRequestService.add(request), HttpStatus.OK);
     }
 
-    @CrossOrigin
+
     @GetMapping("/unverified")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getAllNonVerifUsers(Principal loggedUser){
-        User user = userService.loadUserByUsername(loggedUser.getName());
-        List<User> unverifiedUsers = userService.getAllNonVerifUsers();
+    public ResponseEntity<List<UserDTO>> getAllNonVerifUsers(){
+        List<UserDTO> unverifiedUsers = userService.getAllNonVerifUsers();
         return new ResponseEntity<>(unverifiedUsers,HttpStatus.OK);
     }
+
+    @GetMapping("/verified")
+    public ResponseEntity<List<UserDTO>> getAllVerifiedUsers(){
+        List<UserDTO> verifiedUsers = userService.getAllVerifiedUsers();
+        return new ResponseEntity<>(verifiedUsers,HttpStatus.OK);
+    }
+
+    @PutMapping("/verify/{email}")
+    public ResponseEntity<UserDTO> verifyOne(@PathVariable String email){
+        UserDTO userVerifiedDTO = userService.verifyOne(email);
+
+        emailService.send(email);
+        return new ResponseEntity<>(userVerifiedDTO,HttpStatus.OK);
+    }
+
 }
 

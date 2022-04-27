@@ -4,7 +4,7 @@
 <table>
     <thead>
         <tr>
-            <th>Id</th>
+           <!-- <th>Id</th>-->
             <th>First name</th>
             <th>Last name</th>
             <th>Email address</th>
@@ -13,25 +13,21 @@
             <th>City</th>
             <th>Country</th>
             <th>Phone number</th>
-            <th>Reason</th>
-            <th>Actions</th>
+           <!-- <th>Reason</th> -->
+           
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              
-            </td>
+        <tr *ngFor="let userReg of usersReg" >
+            <td>{{userReg.firstName}}</td>
+            <td>{{userReg.lastName}}</td>
+            <td>{{userReg.email}}</td>
+            <td>{{userReg.userType}}</td>
+            <td>{{userReg.address}}</td>
+            <td>{{userReg.city}}</td>
+            <td>{{userReg.country}}</td>
+            <td>{{userReg.phoneNumber}}</td>
+            
         </tr>
     </tbody>
 </table>

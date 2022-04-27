@@ -1,7 +1,9 @@
 package ftn.booking.service;
 
+import ftn.booking.dto.UserDTO;
 import ftn.booking.model.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -13,8 +15,11 @@ public interface UserService {
     Boolean checkExistingPassword(String oldPassword, String password);
     User updateUser(User user);
 
-    List<User> getAllNonVerifUsers();
+    List<UserDTO> getAllNonVerifUsers();
 
+    List<UserDTO> getAllVerifiedUsers();
+
+    UserDTO verifyOne(String email);
 
 }
 
