@@ -8,6 +8,7 @@ import ftn.booking.model.DeactivationRequest;
 import ftn.booking.model.User;
 import ftn.booking.model.enums.Status;
 import ftn.booking.service.DeactivationRequestService;
+import ftn.booking.service.MailService;
 import ftn.booking.service.UserService;
 import ftn.booking.utils.ValidationUtils;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,7 @@ public class UserController {
     private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-
+    private MailService mailService;
 
 
     @GetMapping("/{username}")
@@ -124,7 +125,10 @@ public class UserController {
     public ResponseEntity<UserDTO> verifyOne(@PathVariable String email){
         UserDTO userVerifiedDTO = userService.verifyOne(email);
 
-
+        UserDTO informationVerUser = modelMapper.map(userService.loadUserByUsername(email),UserDTO.class);
+        mailService.sendMailSimplified(email,"Your account succesfully verified," + informationVerUser.getFirstName(),
+                "Your account is successfully verified by admin.\n Hope you will enjoy, "+
+                informationVerUser.getFirstName() + " "+ informationVerUser.getLastName() +"\n \n Isa Booking 56 team");
         return new ResponseEntity<>(userVerifiedDTO,HttpStatus.OK);
     }
 
