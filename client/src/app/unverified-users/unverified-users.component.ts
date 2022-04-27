@@ -27,12 +27,20 @@ export class UnverifiedUsersComponent implements OnInit {
   }
 
   verifyOne(email: String,user:User){
+    this.sendEmail(email,user);
     this.unverifUsersService.verifyOne(email,user).subscribe(data=>{
       alert("You verified user " + user.firstName + " " + user.lastName + " !" + "\n \n" +
         "He will receive notification for verification on its email: \n" + user.email);
-      this.getNonVerifUsers();
+        
+        this.getNonVerifUsers();
     })
 
+  }
+
+  sendEmail(email: String,user:User){
+    this.unverifUsersService.sendVerificationEmail(email,user).subscribe(data=>{
+      this.getNonVerifUsers();
+    })
   }
 
 }

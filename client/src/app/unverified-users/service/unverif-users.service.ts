@@ -9,6 +9,7 @@ import { User } from 'src/app/dto/user';
 export class UnverifUsersService {
 
   private baseURL = "http://localhost:8084/users";
+  private baseURLmail = "http://localhost:8084/emails/send-mail-simplified/";
   constructor(private http:HttpClient) { }
 
   getNonVerifUsers(): Observable<User[]>{
@@ -19,5 +20,9 @@ export class UnverifUsersService {
   verifyOne(email: String,user:User) : Observable<Object>{
     return this.http.put(`${this.baseURL}` + "/verify/" + `${email}`,user);
 
+  }
+
+  sendVerificationEmail(email: String,user: User) : Observable<Object> {
+    return this.http.post(`${this.baseURLmail}` + `${email}`,user);
   }
 }

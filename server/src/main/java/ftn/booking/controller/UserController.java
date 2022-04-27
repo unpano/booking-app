@@ -37,9 +37,7 @@ public class UserController {
     private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-    private MailService mailService;
-
-   // private EmailService emailService;
+   
 
 
     @GetMapping("/{username}")
@@ -126,12 +124,6 @@ public class UserController {
     @PutMapping("/verify/{email}")
     public ResponseEntity<UserDTO> verifyOne(@PathVariable String email){
         UserDTO userVerifiedDTO = userService.verifyOne(email);
-
-        UserDTO informationVerUser = modelMapper.map(userService.loadUserByUsername(email),UserDTO.class);
-        mailService.sendMailSimplified(email,"Your account succesfully verified," + informationVerUser.getFirstName(),
-                "Your account is successfully verified by admin.\n Hope you will enjoy, "+
-                informationVerUser.getFirstName() + " "+ informationVerUser.getLastName() +"\n \n Isa Booking 56 team");
-
 
         return new ResponseEntity<>(userVerifiedDTO,HttpStatus.OK);
     }

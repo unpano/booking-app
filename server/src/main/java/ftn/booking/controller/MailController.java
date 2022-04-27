@@ -1,8 +1,11 @@
 package ftn.booking.controller;
 
 import ftn.booking.dto.MailDTO;
+import ftn.booking.dto.UserDTO;
 import ftn.booking.model.Mail;
 import ftn.booking.service.MailService;
+import ftn.booking.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,10 +17,18 @@ public class MailController {
 
 	private MailService emailService;
 
+	private ModelMapper modelMapper;
+
+	private UserService userService;
+
 	@Autowired
-	public MailController(MailService emailService) {
+	public MailController(MailService emailService,ModelMapper modelMapper,UserService userService) {
 		this.emailService = emailService;
+		this.modelMapper = modelMapper;
+		this.userService = userService;
 	}
+
+
 
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(value = "/send-mail", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -26,5 +37,15 @@ public class MailController {
 				emailDTO.getMailSubject(),emailDTO.getMailContent(),emailDTO.getContentType(),emailDTO.getAttachments());
 		return emailService.sendMail(mail);
 	}
-	
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value = "/send-mail-simplified/{toEmail}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendMail(@PathVariable String toEmail){
+
+		UserDTO informationVerUser = modelMapper.map(userService.loadUserByUsername(toEmail),UserDTO.class);
+		return emailService.sendMailSimplified(toEmail,"Your account succesfully verified," + informationVerUser.getFirstName(),
+				"Your account is successfully verified by admin.\n Hope you will enjoy, "+
+						informationVerUser.getFirstName() + " "+ informationVerUser.getLastName() +"\n \n Isa Booking 56 team");
+
+	}
+
 }
