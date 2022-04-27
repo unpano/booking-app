@@ -39,6 +39,8 @@ public class UserController {
 
     private MailService mailService;
 
+   // private EmailService emailService;
+
 
     @GetMapping("/{username}")
     @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
@@ -129,6 +131,8 @@ public class UserController {
         mailService.sendMailSimplified(email,"Your account succesfully verified," + informationVerUser.getFirstName(),
                 "Your account is successfully verified by admin.\n Hope you will enjoy, "+
                 informationVerUser.getFirstName() + " "+ informationVerUser.getLastName() +"\n \n Isa Booking 56 team");
+
+
         return new ResponseEntity<>(userVerifiedDTO,HttpStatus.OK);
     }
 

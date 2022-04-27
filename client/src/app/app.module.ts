@@ -60,6 +60,7 @@ import { ReportReservationComponent } from './report-reservation/report-reservat
 import { UnverifiedUsersComponent } from './unverified-users/unverified-users.component';
 import { VerifiedUsersComponent } from './verified-users/verified-users.component';
 import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
+import { ProfileAdventureFishingClassComponent } from './profile-adventure-fishing-class/profile-adventure-fishing-class.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
     ReportReservationComponent,
     UnverifiedUsersComponent,
     VerifiedUsersComponent,
-    ProfileAdminComponent
+    ProfileAdminComponent,
+    ProfileAdventureFishingClassComponent
 
 
   ],

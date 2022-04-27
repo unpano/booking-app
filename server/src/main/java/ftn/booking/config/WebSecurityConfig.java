@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/verified").permitAll()
                 .antMatchers("/users/verify/**").permitAll()
                 .anyRequest().authenticated().and()
-                .cors().and().oauth2Login().and()
+                .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userServiceImpl), BasicAuthenticationFilter.class);
         http.csrf().disable();
     }
