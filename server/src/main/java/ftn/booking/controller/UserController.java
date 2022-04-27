@@ -36,7 +36,7 @@ public class UserController {
     private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-    private EmailService emailService;
+
 
 
     @GetMapping("/{username}")
@@ -124,7 +124,7 @@ public class UserController {
     public ResponseEntity<UserDTO> verifyOne(@PathVariable String email){
         UserDTO userVerifiedDTO = userService.verifyOne(email);
 
-        emailService.send(email);
+
         return new ResponseEntity<>(userVerifiedDTO,HttpStatus.OK);
     }
 
