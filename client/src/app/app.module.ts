@@ -61,6 +61,13 @@ import { UnverifiedUsersComponent } from './unverified-users/unverified-users.co
 import { VerifiedUsersComponent } from './verified-users/verified-users.component';
 import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
 import { ProfileAdventureFishingClassComponent } from './profile-adventure-fishing-class/profile-adventure-fishing-class.component';
+import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
+import { NewAdventureFishingComponent } from './new-adventure-fishing/new-adventure-fishing.component';
+import { MatCheckboxModule} from '@angular/material/checkbox';
+import { FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { FormArray } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -104,7 +111,9 @@ import { ProfileAdventureFishingClassComponent } from './profile-adventure-fishi
     UnverifiedUsersComponent,
     VerifiedUsersComponent,
     ProfileAdminComponent,
-    ProfileAdventureFishingClassComponent
+    ProfileAdventureFishingClassComponent,
+    ProfileInstructorComponent,
+    NewAdventureFishingComponent
 
 
   ],
@@ -129,7 +138,10 @@ import { ProfileAdventureFishingClassComponent } from './profile-adventure-fishi
     MatNativeDateModule,
 
     NgImageSliderModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule,
+    MatIconModule,
+    
     
   ],
   providers: [HttpClientModule],

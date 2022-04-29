@@ -18,12 +18,15 @@ import { ListCottageFutureReservationsComponent } from './list-cottage-future-re
 import { ListCottagePastReservationsComponent } from './list-cottage-past-reservations/list-cottage-past-reservations.component';
 import { LoginComponent } from './login/login.component';
 import { NewActionComponent } from './new-action/new-action.component';
+import { NewAdventureFishingComponent } from './new-adventure-fishing/new-adventure-fishing.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
+import { ProfileAdventureFishingClassComponent } from './profile-adventure-fishing-class/profile-adventure-fishing-class.component';
 import { ProfileBoatComponent } from './profile-boat/profile-boat.component';
 import { ProfileCottageComponent } from './profile-cottage/profile-cottage.component';
+import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
@@ -45,6 +48,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'profile/change-password', component: ChangePasswordComponent},
   {path: 'profile/delete-account', component: DeactivationComponent},
+  
 
   {path: 'profile-admin',component:ProfileAdminComponent},
   {path: 'boats', component: AllBoatsComponent},
@@ -68,7 +72,13 @@ const routes: Routes = [
 
   {path: 'unverified-users',component:UnverifiedUsersComponent},
   {path:'verified-users',component:VerifiedUsersComponent},
+  {path:'profile-adventure-fishing-class',component:ProfileAdventureFishingClassComponent},
+  {path:'profile-instructor',component:ProfileInstructorComponent},
+  {path: 'new-adventure-fishing',component:NewAdventureFishingComponent},
+
+
   {path: '**', component: PageNotFoundComponent},
+  
   
 
 ];

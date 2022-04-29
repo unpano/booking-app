@@ -1,0 +1,89 @@
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <mat-card fxFlex="45">
+        <mat-toolbar color="primary">Add new adventure</mat-toolbar>
+        <form fxLayoutAlign="stretch" fxLayout="column" class="register-form">
+
+            <mat-form-field >
+              <input [(ngModel)]="name" name="name" matInput placeholder="Adventure name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input [(ngModel)]="address" name="address" matInput placeholder="Address">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input [(ngModel)]="description" name="description" matInput placeholder="Promo description">
+            </mat-form-field> 
+
+
+            <mat-form-field >
+              <input [(ngModel)]="maxNumOfPersons" type="number" min="1" max="100" name="maxNumOfPersons" matInput placeholder="Max number of persons">
+          </mat-form-field>
+
+          <mat-form-field >
+            <input [(ngModel)]="price" type="number" min="1" max="100" name="price" matInput placeholder="Costs in $">
+        </mat-form-field>
+
+            
+            <div>
+                <p>______________________________________________________________________</p>
+              <h4>Select rules of behaviour</h4>
+                <form>
+                    <div class="container">
+                        <div *ngFor = "let item of rules" class="row">
+                            
+                            <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}" (change)="onChange()" [(ngModel)]="item.isSelected">
+                            <div class="col-35"><label>{{item.name}}</label></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>      
+                    
+                
+            </div>
+
+            <div>
+                <p>______________________________________________________________________</p>
+              <h4>Select fishing equipment</h4>
+              <form>
+                <div class="container">
+                    <div *ngFor = "let item of equipment" class="row">
+                        
+                        <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}" (change)="onChange()" [(ngModel)]="item.isSelected">
+                        <div class="col-35"><label>{{item.name}}</label></div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </form> 
+                       
+            </div>
+
+       
+            <p>______________________________________________________________________</p>
+           <!-- <form  id="uploadForm">
+                <h4>Add images for adventure</h4>
+                <div class="row">
+                  <div class="col-8">
+                    <label class="btn btn-default p-0">
+                      <input type="file"  />
+                    </label>
+                </div>
+                
+                
+                </div>
+                
+                <div>
+                  <img>
+                </div>
+            </form>
+        -->
+            <button mat-raised-button type="submit" (click)="addAdventure()">Add adventure</button>
+          </form>  
+    </mat-card>
+</div>

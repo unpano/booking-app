@@ -1,4 +1,6 @@
-package ftn.booking.model;
+package ftn.booking.dto;
+
+
 import ftn.booking.model.enums.InstructorEquipment;
 import ftn.booking.model.enums.RulesBehavior;
 import lombok.AllArgsConstructor;
@@ -11,16 +13,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "adventures")
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
-public class Adventure {
+@Setter
+public class AdventureDTO {
 
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -31,21 +29,10 @@ public class Adventure {
 
     private Integer maxNumOfPersons;
 
+    private List<RulesBehavior> rules;
+    private List<InstructorEquipment> equipment;
 
-    @Enumerated
-    @ElementCollection(targetClass = RulesBehavior.class)
-    private List<RulesBehavior> rules = new ArrayList<>();
-
-    @Enumerated
-    @ElementCollection(targetClass = InstructorEquipment.class)
-    private List<InstructorEquipment> equipment = new ArrayList<>();
-
-    @Nullable
     private Integer roomNum;
-
     private Long price;
-
-    @Nullable
     private Integer rate;
-
 }

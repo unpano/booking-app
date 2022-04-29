@@ -1,5 +1,6 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.model.Adventure;
 import ftn.booking.model.Boat;
 import ftn.booking.model.Instructor;
 import ftn.booking.model.Reservation;
@@ -18,7 +19,7 @@ import java.util.List;
 public class InstructorServiceImpl implements InstructorService {
 
     private InstructorRepository instructorRepository;
-    private ReservationRepository reservationRepository;
+
 
     @Override
     public List<Instructor> findAll()

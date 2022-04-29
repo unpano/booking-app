@@ -6,6 +6,9 @@ import { AdditionalService } from "../dto/enums/AdditionalService";
 import { Amenity } from "../dto/enums/Amenity";
 import { Token } from "../dto/token";
 import { User } from "../dto/user";
+import { RulesBehavior } from "../dto/enums/RulesBehaviour";
+import { Equipment} from "../dto/enums/Equipment";
+
 
 export namespace Global {
     export var token: Token = new Token();
@@ -45,4 +48,24 @@ export namespace Global {
         { value: Amenity[20], icon: 'alarm_on',       display: 'Smoke alarm (This place may not have a smoke detector. )'},
         { value: Amenity[21], icon: 'alarm_on',       display: 'Carbon monoxid alarm (This place may not have a carbon monoxide detector.)'}
       ];
+
+    export var rules = [
+        {value: RulesBehavior[0],icon: ''},
+        {value: RulesBehavior[1],icon: ''},
+        {value: RulesBehavior[2],icon: ''},
+        {value: RulesBehavior[3],icon: ''}
+
+    ];
+
+    export var equipment = [
+      {value: Equipment[0],icon: ''},
+      {value: Equipment[1],icon: ''},
+      {value: Equipment[2],icon: ''},
+      {value: Equipment[3],icon: ''},
+      {value: Equipment[4],icon: ''},
+      {value: Equipment[5],icon: ''},
+
+    ];
+
+  
 }

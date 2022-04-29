@@ -1,1 +1,41 @@
-<p>home-page-instructor works!</p>
+<h2 class="title">List of all adventures</h2>
+
+<mat-card> 
+    <mat-card-content>
+      <form novalidate class="form-inline">
+          <div class="container">
+              <div class="row">
+                
+                <button id="addBtn" (click)="addAdventure()"><mat-icon>add</mat-icon> Add adventure </button>
+                <div class="search-hero">
+                  <input class="form-control" type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                </div>
+                <table matSort >
+                  <thead>
+                  <tr> 
+                    <th mat-sort-header="name">Adventure</th>
+                    <th mat-sort-header="address">Address</th>
+                    <th mat-sort-header="rate"></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let adventure of adventures">
+                    <td>{{adventure.address}}</td>
+                    <td>{{adventure.description}}</td>
+                    <td>
+                      <div id="starsRow" >
+                        <i class="material-icons">star</i>
+                      </div>
+                    </td>
+                    
+                    <button id="eyeBtn"> View</button>
+                    
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+      </form> 
+    </mat-card-content>
+  </mat-card>

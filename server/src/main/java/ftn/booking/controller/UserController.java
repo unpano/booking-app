@@ -37,7 +37,7 @@ public class UserController {
     private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-   
+
 
 
     @GetMapping("/{username}")

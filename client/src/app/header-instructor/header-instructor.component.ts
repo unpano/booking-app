@@ -19,4 +19,16 @@ export class HeaderInstructorComponent implements OnInit {
     
   }
 
+  homePageInstructor(){
+    this.router.navigate(['instructor'])
+  }
+
+  adventureFishingProfile(){
+    this.router.navigate(['profile-adventure-fishing-class'])
+  }
+
+  instructorProfile(){
+    this.router.navigate(['profile-instructor'])
+  }
+
 }
