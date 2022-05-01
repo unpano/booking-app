@@ -57,12 +57,23 @@ public class InstructorController {
         return new ResponseEntity<>(adventureService.addAdventure(adventure), HttpStatus.OK);
     }
 
+
+
+
+
     @GetMapping("/all-adventures")
     public ResponseEntity<List<AdventureDTO>> getAllAdventures() {
         List<AdventureDTO> allAdventures = new ArrayList<>();
 
         allAdventures = adventureService.getAllAdventures();
         return new ResponseEntity<>(allAdventures,HttpStatus.OK);
+    }
+
+    @GetMapping("/one-adventure")
+    public ResponseEntity<AdventureDTO> getOneAdventure(){
+        AdventureDTO adventure = new AdventureDTO();
+
+        return new ResponseEntity<>(adventure,HttpStatus.OK);
     }
 
 

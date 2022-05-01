@@ -37,4 +37,8 @@ export class HomePageInstructorComponent implements OnInit {
     return this.instructorMail;
   }
 
+  viewAdventure(){
+    this.router.navigate(['profile-adventure-fishing-class']);
+  }
+
 }

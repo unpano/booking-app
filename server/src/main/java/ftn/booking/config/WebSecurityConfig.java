@@ -72,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/emails/send-mail-simplified/**").permitAll()
                 .antMatchers("/instructors/add-adventure").permitAll()
                 .antMatchers("/instructors/all-adventures").permitAll()
+                .antMatchers("/uploads/add-adventure-picture/**").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userServiceImpl), BasicAuthenticationFilter.class);

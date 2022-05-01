@@ -3,6 +3,7 @@ package ftn.booking.service.impl;
 import ftn.booking.model.Cottage;
 import ftn.booking.model.Image;
 import ftn.booking.model.User;
+import ftn.booking.service.AdventureService;
 import ftn.booking.service.ImageService;
 import ftn.booking.service.StorageService;
 import ftn.booking.service.UserService;
@@ -28,6 +29,8 @@ public class StorageServiceImpl implements StorageService {
     private static final Logger logger = LoggerFactory.getLogger(StorageServiceImpl.class);
     private UserService userService;
     private ImageService imageService;
+
+
 
     @Override
     public String setProfilePicture(MultipartFile file, String username) throws IOException{
@@ -98,6 +101,8 @@ public class StorageServiceImpl implements StorageService {
         return "File uploaded: " + fileName;
 
     }
+
+
 
     String generateUniqueFileName() {
         String filename = "";

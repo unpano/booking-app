@@ -1,6 +1,7 @@
 package ftn.booking.controller;
 
 import ftn.booking.model.User;
+import ftn.booking.service.AdventureService;
 import ftn.booking.service.StorageService;
 import ftn.booking.service.UserService;
 import lombok.AllArgsConstructor;
@@ -18,9 +19,10 @@ import java.security.Principal;
 @AllArgsConstructor
 @RequestMapping(value = "/uploads")
 public class FileUploadController {
-
+    //  /uploads//add-adventure-pictures/**
     private StorageService storageService;
     private UserService userService;
+    private AdventureService adventureService;
 
     @PostMapping("/set-profile-picture")
     @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER')")
@@ -33,5 +35,13 @@ public class FileUploadController {
     public ResponseEntity<String> addCottagePicture(@RequestParam("file") MultipartFile file,
                                                     @PathVariable Long cottageId) throws IOException {
         return new ResponseEntity<>(storageService.addCottagePicture(file, cottageId), HttpStatus.OK);
+    }
+
+    @PostMapping("/add-adventure-picture/{adventureId}")
+    public  ResponseEntity<String> addAdventurePicture(@RequestParam("file") MultipartFile file,
+                                                        @PathVariable Long adventureId) throws IOException {
+
+
+        return  new ResponseEntity<>(adventureService.addAdventurePicture(file,adventureId),HttpStatus.OK);
     }
 }

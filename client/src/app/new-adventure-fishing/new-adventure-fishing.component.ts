@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ArrayType } from '@angular/compiler';
 import { newArray } from '@angular/compiler/src/util';
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
@@ -6,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Adventure } from '../dto/Adventure';
 import { RulesBehavior } from '../dto/enums/RulesBehaviour';
 import { HomePageInstructorComponent } from '../home-page-instructor/home-page-instructor.component';
+import { Endpoint } from '../util/endpoints-enum';
 import { NewAdventureFishingService } from './service/new-adventure-fishing.service';
 
 class RulesBehaviorLocal{
@@ -46,14 +48,30 @@ export class NewAdventureFishingComponent implements OnInit {
   rules !: RulesBehaviorLocal[];
   equipment !: EquipmentLocal[];
 
+
+  
+  selectedImages : File[] = new Array();
+  uploadImages !: FileList;
+
+  forShowingImages : String[] = [];
+  imageName !: any;
+
+  
+
+  endpoint = Endpoint;
  
   adventure : Adventure = new Adventure();
 
+  savedAdventure : Adventure = new Adventure();
+  adventureId !: Number;
+
+  
   
 
   constructor(private router:Router,
     private newAdventureFishingService: NewAdventureFishingService,
-    private activeRoute: ActivatedRoute) { }
+    private activeRoute: ActivatedRoute,
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getRules();
@@ -87,7 +105,66 @@ export class NewAdventureFishingComponent implements OnInit {
     //console.log(this.equipment);
   }
 
+ // funkcija za prikaz odabranih slika
+  public onFileChanged(event: any) : void {
+    
+    this.selectedImages.push(event.target.files[0]);
+    
+    this.uploadImages = Object.assign(this.selectedImages);
+  
+    
+    this.forShowingImages = [];
+  
+      const numberOfFiles = this.selectedImages.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+  
+        reader.onload = (e: any) => {
+          this.forShowingImages.push(e.target.result);
+        };
+  
+        reader.readAsDataURL(this.selectedImages[i]);
+          
+       
+    }
+
+    const formData: FormData = new FormData();
+    
+
+    //console.log(this.selectedImages);
+    //console.log(this.forShowingImages);
+    //console.log(this.uploadImages);
+   
+  }
+
+
  
+
+  
+      
+  popFunction(){
+    this.selectedImages.pop();
+    this.forShowingImages.pop();
+  }
+  
+
+  uploadFilesFunction(id:Number): void {
+    const formData: FormData = new FormData();
+    if (this.uploadImages) {
+      for (let i = 0; i < this.uploadImages.length; i++) {
+        formData.set('file', this.uploadImages[i]);
+        formData.forEach(element => {
+          console.log(element);
+        });
+        const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")};  
+        let options = { headers: headers };
+
+        this.http.post<any>(this.endpoint.UPLOAD + "add-adventure-picture/" + `${id}`, formData, options)
+          .subscribe();
+      }
+    }
+  }
+
 
   addAdventure(){
 
@@ -106,7 +183,7 @@ export class NewAdventureFishingComponent implements OnInit {
     this.adventure.rules = new Array();
     this.adventure.equipment = new Array();
     
-    
+
     this.rules.forEach(rule => {
       if(rule.isSelected){
         if(rule.name=="NO_SMOKING"){
@@ -152,7 +229,17 @@ export class NewAdventureFishingComponent implements OnInit {
   
   
    this.newAdventureFishingService.addAdventure(this.adventure).subscribe(data=>{
-     console.log(data);
+     //console.log(data);
+     this.savedAdventure = Object.assign(data);
+      console.log(this.savedAdventure);
+      this.adventureId = this.savedAdventure.id;
+
+      console.log(this.adventureId);
+
+      
+
+      this.uploadFilesFunction(this.adventureId);
+     this.popFunction();
      
       this.router.navigate(['instructor']);
     });

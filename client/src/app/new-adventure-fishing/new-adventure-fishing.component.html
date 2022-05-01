@@ -32,7 +32,7 @@
                     <div class="container">
                         <div *ngFor = "let item of rules" class="row">
                             
-                            <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}" (change)="onChange()" [(ngModel)]="item.isSelected">
+                            <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}"  [(ngModel)]="item.isSelected">
                             <div class="col-35"><label>{{item.name}}</label></div>
 
                             </div>
@@ -52,7 +52,7 @@
                 <div class="container">
                     <div *ngFor = "let item of equipment" class="row">
                         
-                        <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}" (change)="onChange()" [(ngModel)]="item.isSelected">
+                        <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}" [(ngModel)]="item.isSelected">
                         <div class="col-35"><label>{{item.name}}</label></div>
 
                         </div>
@@ -66,23 +66,20 @@
 
        
             <p>______________________________________________________________________</p>
-           <!-- <form  id="uploadForm">
+            <form  id="uploadForm">
                 <h4>Add images for adventure</h4>
                 <div class="row">
                   <div class="col-8">
                     <label class="btn btn-default p-0">
-                      <input type="file"  />
+                      <input type="file" accept="image/*"  (change)="onFileChanged($event)">
                     </label>
+                    <img type="file"  *ngFor="let image of forShowingImages" [src]="image" >
+                    <button (click)="popFunction()">Pop button</button>
                 </div>
-                
-                
-                </div>
-                
-                <div>
-                  <img>
+                 
                 </div>
             </form>
-        -->
+        
             <button mat-raised-button type="submit" (click)="addAdventure()">Add adventure</button>
           </form>  
     </mat-card>

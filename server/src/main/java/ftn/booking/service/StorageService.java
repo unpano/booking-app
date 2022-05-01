@@ -11,4 +11,6 @@ public interface StorageService {
     String deleteFile(String fileName);
 
     String addCottagePicture(MultipartFile file, Long cottageId) throws IOException;
+
+
 }

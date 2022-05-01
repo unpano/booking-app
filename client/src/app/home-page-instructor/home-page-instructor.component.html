@@ -23,13 +23,14 @@
                   <tr *ngFor="let adventure of adventures">
                     <td>{{adventure.address}}</td>
                     <td>{{adventure.description}}</td>
+                    <td></td>
                     <td>
                       <div id="starsRow" >
                         <i class="material-icons">star</i>
                       </div>
                     </td>
                     
-                    <button id="eyeBtn"> View</button>
+                    <button id="eyeBtn" (click)="viewAdventure()"> View</button>
                     
                   </tr>
                   </tbody>

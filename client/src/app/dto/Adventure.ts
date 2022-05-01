@@ -1,5 +1,6 @@
 
 export class Adventure{
+    id !: Number;
     name !: String;
     address !: String;
     description !: String;
@@ -9,4 +10,5 @@ export class Adventure{
     roomNum !: Number;
     price !: Number;
     rate !: Number;
+
 }

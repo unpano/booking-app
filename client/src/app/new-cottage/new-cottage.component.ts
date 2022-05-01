@@ -110,6 +110,7 @@ export class NewCottageComponent implements OnInit {
         reader.readAsDataURL(this.selectedFiles[i]);
       }
     }
+  
   }
 
   uploadFiles(): void {

@@ -1,16 +1,14 @@
 package ftn.booking.dto;
 
 
+import ftn.booking.model.AdventureImage;
 import ftn.booking.model.enums.InstructorEquipment;
 import ftn.booking.model.enums.RulesBehavior;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -35,4 +33,6 @@ public class AdventureDTO {
     private Integer roomNum;
     private Long price;
     private Integer rate;
+
+
 }
