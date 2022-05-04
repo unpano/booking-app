@@ -1,5 +1,6 @@
 package ftn.booking.controller;
 
+import ftn.booking.model.AdventureImage;
 import ftn.booking.model.User;
 import ftn.booking.service.AdventureService;
 import ftn.booking.service.StorageService;
@@ -14,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -44,4 +47,18 @@ public class FileUploadController {
 
         return  new ResponseEntity<>(adventureService.addAdventurePicture(file,adventureId),HttpStatus.OK);
     }
+
+    @GetMapping("/get-adventure-pictures/{adventureId}")
+    public ResponseEntity<List<AdventureImage>> getAdventurePictures(@PathVariable Long adventureId){
+        List<AdventureImage> adventureImages = adventureService.getAdventurePictures(adventureId);
+
+        return new ResponseEntity<>(adventureImages,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-adventure-picture/{pictureId}")
+    public ResponseEntity<String> deleteOldAdventurePicture(
+            @PathVariable Long pictureId) throws IOException {
+        return new ResponseEntity<>(adventureService.deleteAdventurePicture(pictureId),HttpStatus.OK);
+    }
+
 }

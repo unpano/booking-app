@@ -8,6 +8,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
 import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
+import { EditProfileAdventureComponent } from './edit-profile-adventure/edit-profile-adventure.component';
 import { HomePageAdminComponent } from './home-page-admin/home-page-admin.component';
 import { HomePageBoatOwnerComponent } from './home-page-boat-owner/home-page-boat-owner.component';
 import { HomePageClientComponent } from './home-page-client/home-page-client.component';
@@ -72,9 +73,10 @@ const routes: Routes = [
 
   {path: 'unverified-users',component:UnverifiedUsersComponent},
   {path:'verified-users',component:VerifiedUsersComponent},
-  {path:'profile-adventure-fishing-class',component:ProfileAdventureFishingClassComponent},
+  {path:'profile-adventure-fishing-class/:id',component:ProfileAdventureFishingClassComponent},
   {path:'profile-instructor',component:ProfileInstructorComponent},
   {path: 'new-adventure-fishing',component:NewAdventureFishingComponent},
+  {path: 'edit-profile-adventure/:id',component:EditProfileAdventureComponent},
 
 
   {path: '**', component: PageNotFoundComponent},

@@ -1,35 +1,86 @@
-<form role="form" novalidate class="form-inline" >
+<form role="form" novalidate class="form-inline"  >
     
 
-    <button mat-button routerLink="reserve" id="firstButton">New reservation</button>
+    
     <button mat-button routerLink="action">New action</button>
-    <button mat-button >Edit adventure</button>
+    <button mat-button (click)="editAdventure(adventureId)">Edit adventure</button>
+    
+
     
         <div class="form-group">
-            <h1>Name of adventure</h1>	
-            <ng-image-slider  #nav></ng-image-slider>							
+            <h1>Name of adventure</h1>
+            <h2>{{adventure.name}}</h2>	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Pictures of previous adventure's vacations</h1>
+            <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>	
         </div>
        
     
-        <mat-card class="demo-inline-calendar-card">
-          <mat-calendar ></mat-calendar>
-        </mat-card>
-        <p></p>
-    
         <div class="form-group">
-            <label>Address</label>
-            <label></label>
-            <input type="text" id="address" name="address" >								
+            <h1>Address of adventure</h1>
+            <h2>{{adventure.address}}</h2>	
+           								
         </div>
         <div class="form-group">
-            <label>City</label>
-            <label></label>	
+            <h1>Promo description</h1>
+            <h2>{{adventure.description}}</h2>	
         </div>
+
         <div class="form-group">
-            <label>Number of persons</label>
-            <label></label>
-            								
-        </div> 
+            <h1>Short biography of instructor</h1>
+            <h2>Nas instruktor {{instructor.firstName}} {{instructor.lastName}} je instruktor koji jako dobro poznaje Zlatibor.</h2>	
+        </div>
+
+        <div class="form-group">
+            <h1>Max number of persons: </h1>
+            <h2>  {{adventure.maxNumOfPersons}} </h2>
+            		 
+        </div>
+        
+        <div class="form-group">
+            <h1>Free termins for reservation: </h1>
+            <h2>  </h2>
+            		 
+        </div>
+
+        <div class="form-group">
+            <h1>Price: </h1>
+            <h2>  {{adventure.price}} $</h2>
+            		 
+        </div>
+
+        <div class="form-group">
+            <h1>Rules of behaviour: </h1>
+            <h2 *ngFor="let rule of adventure.rules">  
+                <mat-icon *ngIf="rule.startsWith('NO_SMOKING')">smoke_free</mat-icon>
+                <mat-icon *ngIf="rule.startsWith('PET_FRIENDLY')">pets</mat-icon>
+                <mat-icon *ngIf="rule.startsWith('NO_LOUD')">hearing</mat-icon>
+                <mat-icon *ngIf="rule.startsWith('NO_PARTIES')">no_meeting_room</mat-icon>
+                {{rule}}    
+            </h2>
+            		 
+        </div>
+
+        <div class="form-group">
+            <h1>Equipment: </h1>
+            <h2 *ngFor="let equipment of adventure.equipment">
+            <mat-icon *ngIf="equipment.startsWith('REELS')">donut_small</mat-icon>
+            <mat-icon *ngIf="equipment.startsWith('LURES')">settings_input_component</mat-icon>
+            <mat-icon *ngIf="equipment.startsWith('NETS')">apps</mat-icon>
+            <mat-icon *ngIf="equipment.startsWith('RODS')">brush</mat-icon>
+            <mat-icon *ngIf="equipment.startsWith('SUNGLASSES')">vignette</mat-icon>
+            <mat-icon *ngIf="equipment.startsWith('PROTECTION')">security</mat-icon>
+
+
+            {{equipment}}
+            </h2>
+            		 
+        </div>
+
+
         <div class="form-group">
             <label>Rate</label>
             <label>
@@ -38,44 +89,10 @@
               </div>
             </label>							
         </div>
-        <div class="form-group">
-            <h1>Our cottage</h1>
-            <label></label>								
-            <mat-form-field >
-                <input name="description" matInput placeholder="Description">
-            </mat-form-field>
-        </div>    
-    
-        <div class="form-group">
-            <h1>Where you'll sleep</h1>	
-            <input name="roomName" type="text" matInput placeholder="Room name">
-            <input name="beds"  type="text" matInput placeholder="Number of beds and its types">
-              
             
-            <div >
-                <label></label>
-                <label></label>
-                
-            </div>							
-        </div>
-        <div class="form-group">
-            <h1>What this place offers</h1>	
-            <label >
-                <i class="material-icons"></i>
-                </label>
-                                        
-        </div>
     
-        <div class="form-group">
-            <h1>Behavioral rules</h1>	
-            <label >
-                <i class="material-icons"></i>
-                </label>
-                                        
-        </div>  
-        
-        
-      <button mat-button id="submitButton" type="submit">Submit</button>
+       						 
+    
     </form>
     
     

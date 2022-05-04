@@ -68,6 +68,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { EditProfileAdventureComponent } from './edit-profile-adventure/edit-profile-adventure.component';
 
 
 @NgModule({
@@ -114,7 +115,8 @@ import { FormControl } from '@angular/forms';
     ProfileAdminComponent,
     ProfileAdventureFishingClassComponent,
     ProfileInstructorComponent,
-    NewAdventureFishingComponent
+    NewAdventureFishingComponent,
+    EditProfileAdventureComponent
 
 
   ],

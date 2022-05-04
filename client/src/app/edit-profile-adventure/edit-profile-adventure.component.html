@@ -1,0 +1,135 @@
+<form role="form" novalidate class="form-inline"  >
+    
+    <h2 class="edit-title"> Edit adventure </h2>
+    
+    <button mat-button routerLink="action">New action</button>
+    <button mat-button (click)="saveChanges(allRules,allEquipment)" >Save changes</button>
+    
+
+    
+        <div class="form-group">
+            <h1>Name of adventure</h1>
+            <mat-form-field>
+                <input matInput type="text" class ="input-fields" id="name"
+                [(ngModel)]="adventure.name" name="name">
+              </mat-form-field>							
+        </div>
+
+
+        <h1>Pictures of previous adventure's vacations</h1>
+            
+               
+              <h2>Old pictures</h2>
+              <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>
+              <h2>New pictures</h2>
+           <div class="form-group">
+            <label class="btn btn-default p-0">
+                <button *ngIf="picturesAdded" id="popButton" (click)="popFunction()">Pop</button>
+                <input type="file" accept="image/*" id="input-image" (change)="onFileChanged($event)">
+               
+                 </label>
+                &nbsp;
+        </div>    
+        <div class="form-group">
+           
+             
+           
+            <img type="file"  *ngFor="let image of forShowingImages" [src]="image" >
+            
+            
+        </div>
+       
+       
+    
+        <div class="form-group">
+            <h1>Address of adventure</h1>
+            <mat-form-field>
+                <input matInput type="text" class ="input-fields" id="address"
+                [(ngModel)]="adventure.address" name="address">
+              </mat-form-field>	
+           								
+        </div>
+        <div class="form-group">
+            <h1>Promo description</h1>
+            <mat-form-field>
+                <input matInput type="text" class ="input-fields" id="description"
+                [(ngModel)]="adventure.description" name="description">
+              </mat-form-field>	
+        </div>
+
+        <div class="form-group">
+            <h1>Short biography of instructor</h1>
+            <h2>Nas instruktor {{instructor.firstName}} {{instructor.lastName}} je instruktor koji jako dobro poznaje Zlatibor.</h2>	
+        </div>
+
+        <div class="form-group">
+            <h1>Max number of persons: </h1>
+            <mat-form-field>
+                <input matInput type="text" class ="input-fields" id="maxNumOfPersons"
+                [(ngModel)]="adventure.maxNumOfPersons" name="maxNumOfPersons">
+              </mat-form-field>	
+            		 
+        </div>
+        
+        <div class="form-group">
+            <h1>Free termins for reservation: </h1>
+            <h2>  </h2>
+            		 
+        </div>
+
+        <div class="form-group">
+            <h1>Price: </h1>
+            <mat-form-field>
+                <input matInput type="text" class ="input-fields" id="price"
+                [(ngModel)]="adventure.price" name="price"> $
+              </mat-form-field>	
+            		 
+        </div>
+
+        <div class="form-group">
+            <h1>Rules of behaviour: </h1>
+           <div *ngFor="let item of allRules" class="row">
+            <div class="col-8 col-chk"><input type="checkbox" [checked]="item.isSelected" name={{item.name}} [(ngModel)]="item.isSelected">
+                <label class="label-equipment">{{item.name}}</label>
+
+                </div>
+
+           </div>
+            		 
+        </div>
+
+        <div class="form-group">
+            <h1>Equipment: </h1>
+                    <div *ngFor="let item of allEquipment" class="row">
+                        
+                        <div class="col-8 col-chk"><input type="checkbox" [checked]="item.isSelected" name={{item.name}} [(ngModel)]="item.isSelected">
+                        <label class="label-equipment">{{item.name}}</label>
+
+                        </div>
+                    </div>
+                    
+
+               
+
+         
+            		 
+        </div>
+
+
+        <div class="form-group">
+            <label>Rate</label>
+            <label>
+              <div id="starsRow" >
+                <i class="material-icons"></i>
+              </div>
+            </label>							
+        </div>
+      
+    
+       							
+    
+    
+    </form>
+    
+    
+    

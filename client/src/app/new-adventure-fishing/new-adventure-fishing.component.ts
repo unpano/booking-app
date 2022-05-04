@@ -239,7 +239,7 @@ export class NewAdventureFishingComponent implements OnInit {
       
 
       this.uploadFilesFunction(this.adventureId);
-     this.popFunction();
+     //this.popFunction();
      
       this.router.navigate(['instructor']);
     });

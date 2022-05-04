@@ -3,6 +3,7 @@ package ftn.booking.controller;
 
 import ftn.booking.dto.AdventureDTO;
 import ftn.booking.dto.CottageDTO;
+import ftn.booking.dto.UserDTO;
 import ftn.booking.model.*;
 import ftn.booking.service.AdventureService;
 import ftn.booking.service.InstructorService;
@@ -45,6 +46,11 @@ public class InstructorController {
         return new ResponseEntity<>(instructorService.findOne(instructorId), HttpStatus.OK);
     }
 
+    @GetMapping("/findInstructorByUsername/{instructorUsername}")
+    public ResponseEntity<UserDTO> findInstructorByUsername(@PathVariable String instructorUsername){
+        return new ResponseEntity<>(instructorService.findInstructorByUsername(instructorUsername),HttpStatus.OK);
+    }
+
     @PostMapping("/add-adventure")
     public ResponseEntity<Adventure> addAdventure(@RequestBody AdventureDTO adventureDTO){
 
@@ -69,12 +75,17 @@ public class InstructorController {
         return new ResponseEntity<>(allAdventures,HttpStatus.OK);
     }
 
-    @GetMapping("/one-adventure")
-    public ResponseEntity<AdventureDTO> getOneAdventure(){
-        AdventureDTO adventure = new AdventureDTO();
+    @GetMapping("/one-adventure/{adventureId}")
+    public ResponseEntity<AdventureDTO> getOneAdventure(@PathVariable Long adventureId){
+        AdventureDTO adventure = adventureService.getOneAdventure(adventureId);
 
         return new ResponseEntity<>(adventure,HttpStatus.OK);
     }
 
+    @PutMapping("/change-one-adventure")
+    public ResponseEntity<AdventureDTO> changeOneAdventure(@RequestBody AdventureDTO changedAdventureDTO){
+        Adventure changedAdventure = modelMapper.map(changedAdventureDTO,Adventure.class);
+        return new ResponseEntity<>(adventureService.changeOneAdventure(changedAdventure),HttpStatus.OK);
+    }
 
 }

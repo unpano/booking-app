@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Adventure } from '../dto/Adventure';
+import { User } from '../dto/user';
 import { HomePageInstructorService } from './service/home-page-instructor.service';
 
 @Component({
@@ -14,10 +15,18 @@ export class HomePageInstructorComponent implements OnInit {
     private activeRoute : ActivatedRoute,
     private homeInstructorService: HomePageInstructorService) { }
 
-  instructorMail !: String;
+
+  
+  
   adventures !: Adventure[];
+
+  adventureId !: Number;
+
+  
   ngOnInit(): void {
     this.getAllAdventures();
+ 
+
   }
 
   getAllAdventures(){
@@ -31,14 +40,17 @@ export class HomePageInstructorComponent implements OnInit {
   }
 
 
-
-  public sendInstructorEmail(): String{
-    this.instructorMail = this.activeRoute.snapshot.params['email'];
-    return this.instructorMail;
-  }
-
   viewAdventure(){
-    this.router.navigate(['profile-adventure-fishing-class']);
+      this.homeInstructorService.getOneAdventure(1).subscribe(data=>{
+       // console.log(data);
+        this.adventureId = data.id;
+        //console.log(this.adventureId); 
+
+        this.router.navigate(['profile-adventure-fishing-class',this.adventureId]);
+      })
+     
+      
+    
   }
 
 }
