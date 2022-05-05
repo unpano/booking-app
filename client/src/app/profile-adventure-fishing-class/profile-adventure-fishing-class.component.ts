@@ -68,6 +68,9 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
     console.log(this.adventure);
   }
 
+  newAction(adventureId:Number){
+    this.router.navigate(['new-action-adventure/',adventureId]);
+  }
 
 
 

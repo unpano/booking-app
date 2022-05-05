@@ -1,6 +1,8 @@
 package ftn.booking.service;
 
+import ftn.booking.dto.AdventureAdditionalServiceDTO;
 import ftn.booking.dto.AdventureDTO;
+import ftn.booking.dto.AdventureReservationDTO;
 import ftn.booking.model.Adventure;
 import ftn.booking.model.AdventureImage;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +16,7 @@ import java.util.List;
 public interface AdventureService {
     Adventure addAdventure(Adventure adventure);
 
-    List<AdventureDTO> getAllAdventures();
+    List<AdventureDTO> getAllAdventures(Long instructorId);
 
     String addAdventurePicture(MultipartFile file, Long adventureId) throws IOException;
 
@@ -26,5 +28,11 @@ public interface AdventureService {
 
     AdventureDTO changeOneAdventure(Adventure changedAdventure);
 
+    AdventureReservationDTO addNewActionForAdventure(AdventureReservationDTO adventureReservationDTO,
+                                                       Long adventureId);
+
+    List<AdventureAdditionalServiceDTO> addAdditionalServicesForAdventureAction(
+             List<String> additionalServicesAdvAction,
+             Long adventureReservationId);
 
 }

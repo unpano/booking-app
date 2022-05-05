@@ -13,12 +13,16 @@ export class HomePageInstructorService {
   private baseURL = "http://localhost:8084/instructors/";
   constructor(private http: HttpClient) { }
 
-  getAllAdventures(): Observable<Adventure[]>{
-    return this.http.get<Adventure[]>(`${this.baseURL}` + "all-adventures");
+  getAllAdventures(id:Number): Observable<Adventure[]>{
+    return this.http.get<Adventure[]>(`${this.baseURL}` + "all-adventures/" + `${id}`);
   }
 
   getOneAdventure(id:Number) : Observable<Adventure>{
     return this.http.get<Adventure>(`${this.baseURL}` + "one-adventure/" + id);
+  }
+
+  getInstructorInfo(): Observable<User>{
+    return this.http.get<User>(`${this.baseURL}` + "findInstructorByUsername/" + sessionStorage.getItem('email'));
   }
 
   

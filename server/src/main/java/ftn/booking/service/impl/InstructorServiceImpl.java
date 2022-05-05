@@ -1,5 +1,6 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.dto.InstructorDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.model.Adventure;
 import ftn.booking.model.Boat;
@@ -41,8 +42,8 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public UserDTO findInstructorByUsername(String username){
-        UserDTO instructor = modelMapper.map(userRepository.findByEmail(username),UserDTO.class);
+    public InstructorDTO findInstructorByUsername(String username){
+        InstructorDTO instructor = modelMapper.map(userRepository.findByEmail(username),InstructorDTO.class);
         return instructor;
     }
 

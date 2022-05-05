@@ -2,7 +2,7 @@
     
 
     
-    <button mat-button routerLink="action">New action</button>
+    <button mat-button (click)="newAction(adventureId)">New action</button>
     <button mat-button (click)="editAdventure(adventureId)">Edit adventure</button>
     
 
@@ -36,7 +36,9 @@
 
         <div class="form-group">
             <h1>Max number of persons: </h1>
-            <h2>  {{adventure.maxNumOfPersons}} </h2>
+            <h2> 
+                <mat-icon> wc</mat-icon>
+                {{adventure.maxNumOfPersons}} </h2>
             		 
         </div>
         
@@ -47,8 +49,23 @@
         </div>
 
         <div class="form-group">
-            <h1>Price: </h1>
+            <h1> Base price: </h1>
             <h2>  {{adventure.price}} $</h2>
+            		 
+        </div>
+
+        <div class="form-group">
+            <h1>Additional info: </h1>
+            <h2>{{adventure.additionalInfo}} </h2>
+            		 
+        </div>
+
+        <div class="form-group">
+            <h1>Precondition for cancelation of reservation:(free or instructor takes percentage) </h1>
+            <h2>
+                <mat-icon *ngIf="adventure.cancelationPrice.startsWith('FREE')">insert_emoticon</mat-icon>
+                <mat-icon *ngIf="adventure.cancelationPrice.startsWith('PERCENTAGE')">attach_money</mat-icon>
+                {{adventure.cancelationPrice}} </h2>
             		 
         </div>
 
@@ -80,16 +97,8 @@
             		 
         </div>
 
-
-        <div class="form-group">
-            <label>Rate</label>
-            <label>
-              <div id="starsRow" >
-                <i class="material-icons"></i>
-              </div>
-            </label>							
-        </div>
-            
+        
+        
     
        						 
     

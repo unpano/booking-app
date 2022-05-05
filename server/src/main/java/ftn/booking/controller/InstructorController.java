@@ -1,9 +1,7 @@
 package ftn.booking.controller;
 
 
-import ftn.booking.dto.AdventureDTO;
-import ftn.booking.dto.CottageDTO;
-import ftn.booking.dto.UserDTO;
+import ftn.booking.dto.*;
 import ftn.booking.model.*;
 import ftn.booking.service.AdventureService;
 import ftn.booking.service.InstructorService;
@@ -47,31 +45,32 @@ public class InstructorController {
     }
 
     @GetMapping("/findInstructorByUsername/{instructorUsername}")
-    public ResponseEntity<UserDTO> findInstructorByUsername(@PathVariable String instructorUsername){
+    public ResponseEntity<InstructorDTO> findInstructorByUsername(@PathVariable String instructorUsername){
         return new ResponseEntity<>(instructorService.findInstructorByUsername(instructorUsername),HttpStatus.OK);
     }
 
-    @PostMapping("/add-adventure")
-    public ResponseEntity<Adventure> addAdventure(@RequestBody AdventureDTO adventureDTO){
+    @PostMapping("/add-adventure/{instructorId}")
+    public ResponseEntity<Adventure> addAdventure(@RequestBody AdventureDTO adventureDTO,
+                                                  @PathVariable Long instructorId){
 
         Adventure adventure = new Adventure();
         modelMapper.map(adventureDTO,adventure);
 
+        Instructor instructor = new Instructor();
+        instructor.setId(instructorId);
 
         adventure.setRate(0);
+        adventure.setInstructor(instructor);
 
         return new ResponseEntity<>(adventureService.addAdventure(adventure), HttpStatus.OK);
     }
 
 
-
-
-
-    @GetMapping("/all-adventures")
-    public ResponseEntity<List<AdventureDTO>> getAllAdventures() {
+    @GetMapping("/all-adventures/{instructorId}")
+    public ResponseEntity<List<AdventureDTO>> getAllAdventures(@PathVariable Long instructorId) {
         List<AdventureDTO> allAdventures = new ArrayList<>();
 
-        allAdventures = adventureService.getAllAdventures();
+        allAdventures = adventureService.getAllAdventures(instructorId);
         return new ResponseEntity<>(allAdventures,HttpStatus.OK);
     }
 
@@ -87,5 +86,26 @@ public class InstructorController {
         Adventure changedAdventure = modelMapper.map(changedAdventureDTO,Adventure.class);
         return new ResponseEntity<>(adventureService.changeOneAdventure(changedAdventure),HttpStatus.OK);
     }
+
+
+
+    @PostMapping("/add-new-action/adventureId/{adventureId}")
+    public ResponseEntity<AdventureReservationDTO> addNewActionForAdventure(@RequestBody AdventureReservationDTO adventureReservationDTO,
+                                                                            @PathVariable Long adventureId){
+
+        return new ResponseEntity<>(adventureService.addNewActionForAdventure(adventureReservationDTO,adventureId),HttpStatus.OK);
+
+    }
+
+    @PostMapping("/add-additional-services-adventure-reservation/{adventureReservationId}")
+    public ResponseEntity<List<AdventureAdditionalServiceDTO>> addAdditionalServicesForAdventureAction(
+            @RequestBody List<String> additionalServicesAdvAction,
+            @PathVariable Long adventureReservationId
+    ) {
+        List<AdventureAdditionalServiceDTO> additionalServicesReturn = adventureService.addAdditionalServicesForAdventureAction(additionalServicesAdvAction,adventureReservationId);
+        return new ResponseEntity<>(additionalServicesReturn,HttpStatus.OK);
+
+    }
+
 
 }

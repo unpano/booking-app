@@ -1,4 +1,5 @@
 package ftn.booking.model;
+import ftn.booking.model.enums.CancelationPrice;
 import ftn.booking.model.enums.InstructorEquipment;
 import ftn.booking.model.enums.RulesBehavior;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,8 @@ public class Adventure {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Instructor instructor;
 
     private String name;
 
@@ -48,5 +51,10 @@ public class Adventure {
 
     @Nullable
     private Integer rate;
+
+    private String additionalInfo;
+
+    @Enumerated
+    private CancelationPrice cancelationPrice;
 
 }

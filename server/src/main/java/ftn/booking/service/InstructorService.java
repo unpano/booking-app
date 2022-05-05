@@ -1,4 +1,5 @@
 package ftn.booking.service;
+import ftn.booking.dto.InstructorDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.model.Adventure;
 import ftn.booking.model.Instructor;
@@ -11,6 +12,6 @@ public interface InstructorService {
     List<Instructor> findAll();
     Instructor findOne(Long id);
 
-    UserDTO findInstructorByUsername(String username);
+    InstructorDTO findInstructorByUsername(String username);
 
 }

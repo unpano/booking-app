@@ -22,26 +22,32 @@ export class HomePageInstructorComponent implements OnInit {
 
   adventureId !: Number;
 
+  instructor: User = new User();
+ 
   
   ngOnInit(): void {
-    this.getAllAdventures();
- 
+    
+    this.homeInstructorService.getInstructorInfo().subscribe(data=>{
+        this.instructor = data;
+        console.log(this.instructor);
+        this.homeInstructorService.getAllAdventures(this.instructor.id).subscribe(data=>{
+          this.adventures = data;
+        });
+
+    })
+
 
   }
 
-  getAllAdventures(){
-    this.homeInstructorService.getAllAdventures().subscribe(data=>{
-      this.adventures = data;
-    });
-  }
 
-  addAdventure(){
-    this.router.navigate(['new-adventure-fishing']);
+
+  addAdventure(id:Number){
+    this.router.navigate(['new-adventure-fishing/instructorId/',id]);
   }
 
 
-  viewAdventure(){
-      this.homeInstructorService.getOneAdventure(1).subscribe(data=>{
+  viewAdventure(adventureId: Number){
+      this.homeInstructorService.getOneAdventure(adventureId).subscribe(data=>{
        // console.log(data);
         this.adventureId = data.id;
         //console.log(this.adventureId); 

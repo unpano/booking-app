@@ -1,18 +1,19 @@
-.edit-title{
-    margin-left: 40%;
+.label-address-mat-field{
+    position:inherit;
 }
 
-.input-fields{
+.mat-field{
     font-size: large;
-    size: 200px;
-    min-width: 50px;
-    max-width: 300px;
-    line-height: 30px;
-    display: inline-block;   
-    
 }
 
+.mat-field-exact-place{
+    font-size: large;
+    width: 300px;
+}
 
+.example-chip-list {
+    width: 50%;
+  }
 
 label{
     margin-left: 5%;
@@ -87,12 +88,4 @@ select{
   #starsRow{
     display: inline-block;
     text-align: left;
-}
-
-
-
-
-
-.label-equipment{
-    text-indent: 0%;
 }

@@ -21,6 +21,12 @@ class EquipmentLocal{
   isSelected !: boolean;
 }
 
+class CancelationPrice{
+  id !: number;
+  name !: string;
+  isSelected !: boolean;
+}
+
 @Component({
   selector: 'app-edit-profile-adventure',
   templateUrl: './edit-profile-adventure.component.html',
@@ -50,6 +56,10 @@ export class EditProfileAdventureComponent implements OnInit {
   oldImages: File[] = new Array();
   oldImagesFileList !: FileList;
 
+
+  currentlyChoosenRadio !: string;
+
+  onInitCheckedRadio !: String;
   selectedImages : File[] = new Array();
 
 
@@ -71,6 +81,13 @@ export class EditProfileAdventureComponent implements OnInit {
     {id: 6,name:"PROTECTION",isSelected:false}
   ]; 
 
+  allCancelationPrices: CancelationPrice[]=[
+    {id: 1,name:"FREE",isSelected:false},
+    {id: 2,name:"PERCENTAGE",isSelected:false}
+  ];
+
+
+  
   picturesAdded !: Boolean;
 
   constructor(private router: Router,
@@ -87,11 +104,16 @@ export class EditProfileAdventureComponent implements OnInit {
     this.editAdventureService.getOneAdventure(this.adventureId).subscribe(data=>{
       this.adventure = data;
 
+      this.currentlyChoosenRadio = Object.assign(this.adventure.cancelationPrice);
+      this.onInitCheckedRadio = this.adventure.cancelationPrice;
+
+      
       //---------------------------------------
      this.allRules.forEach(ruleLocal => {
        this.adventure.rules.forEach(ruleDB => {
          if(ruleLocal.name == ruleDB){
            ruleLocal.isSelected = true;
+         
          }
          
        });
@@ -109,9 +131,19 @@ export class EditProfileAdventureComponent implements OnInit {
        
      });
 
+     //-----------------------------
+     this.allCancelationPrices.forEach(cancelationPrice => {
+          if(cancelationPrice.name== this.adventure.cancelationPrice){
+            cancelationPrice.isSelected=true;
+            
+          }    
+     });
+
+     
 
      // console.log(this.adventure.rules);
      // console.log(this.adventure.equipment);
+     console.log(this.allCancelationPrices);
       
     });
     
@@ -163,9 +195,7 @@ export class EditProfileAdventureComponent implements OnInit {
     console.log(this.adventure);
   }
 
-  showRules(){
-
-  }
+ 
   
 
   public onFileChanged(event: any) : void {
@@ -250,12 +280,17 @@ export class EditProfileAdventureComponent implements OnInit {
     
   }
 
+  
 
-  saveChanges(allRules: RulesBehaviorLocal[],allEquipment: EquipmentLocal[]){
-    console.log(allRules);
-    console.log(allEquipment);
+
+
+  saveChanges(allRules: RulesBehaviorLocal[],allEquipment: EquipmentLocal[],currentlyChoosenRadio: String){
+   // console.log(allRules);
+   // console.log(allEquipment);
     this.adventure.rules = new Array();
     this.adventure.equipment = new Array();
+    this.adventure.cancelationPrice = currentlyChoosenRadio;
+    
 
     allRules.forEach(rule => {
       if(rule.isSelected){
@@ -271,12 +306,26 @@ export class EditProfileAdventureComponent implements OnInit {
       
     });
 
+    //--------------- FOR RADIO BUTTONS-----
+    
+    
 
-   // console.log(this.adventure.rules);
-   // console.log(this.adventure.equipment);
+
+    //------
+    console.log(this.adventure.rules);
+    console.log(this.adventure.equipment);
+    //console.log(this.adventure.cancelationPrice);
+    console.log(this.currentlyChoosenRadio);
 
     this.updateFiles(this.adventureId);
-    this.editAdventureService.changeAdventure(this.adventure).subscribe();
+    this.editAdventureService.changeAdventure(this.adventure).subscribe(data=>{
+      document.location.reload();
+    });
+    this.router.navigate(['profile-adventure-fishing-class/',this.adventure.id]);
+    
+  }
+
+  cancel(){
     this.router.navigate(['profile-adventure-fishing-class/',this.adventure.id]);
   }
 

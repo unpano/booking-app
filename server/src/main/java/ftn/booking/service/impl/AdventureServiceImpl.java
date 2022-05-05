@@ -1,9 +1,13 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.dto.AdventureAdditionalServiceDTO;
 import ftn.booking.dto.AdventureDTO;
+import ftn.booking.dto.AdventureReservationDTO;
 import ftn.booking.model.*;
+import ftn.booking.repository.AdventureAdditionalServiceRepository;
 import ftn.booking.repository.AdventureImagesRepository;
 import ftn.booking.repository.AdventureRepository;
+import ftn.booking.repository.AdventureReservationRepository;
 import ftn.booking.service.AdventureService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -23,6 +27,10 @@ public class AdventureServiceImpl implements AdventureService {
 
     private AdventureRepository adventureRepository;
 
+    private AdventureReservationRepository adventureReservationRepository;
+
+    private AdventureAdditionalServiceRepository advAddServRepository;
+
     private AdventureImagesRepository adventureImagesRepository;
 
     private ModelMapper modelMapper;
@@ -37,15 +45,16 @@ public class AdventureServiceImpl implements AdventureService {
 
 
     @Override
-    public List<AdventureDTO> getAllAdventures() {
+    public List<AdventureDTO> getAllAdventures(Long instructorId) {
         List<Adventure> allAdventures = adventureRepository.findAll();
 
         List<AdventureDTO> allAdventuresDTO =  new ArrayList<>();
         for(Adventure adventure: allAdventures) {
-                    AdventureDTO adventureDTO = modelMapper.map(adventure,AdventureDTO.class);
-                    allAdventuresDTO.add(adventureDTO);
+            if (adventure.getInstructor().getId().equals(instructorId)) {
+                AdventureDTO adventureDTO = modelMapper.map(adventure, AdventureDTO.class);
+                allAdventuresDTO.add(adventureDTO);
+            }
         }
-
         return allAdventuresDTO;
     }
 
@@ -62,7 +71,7 @@ public class AdventureServiceImpl implements AdventureService {
            pathName = generateUniqueFileName() + '.' + substring;
 
         String filePath = System.getProperty("user.dir");
-        filePath = filePath.replace("server","client");
+         filePath.replace("server","client");
         File outputFile = new File("/home/dejan/Desktop/isa_projekat/booking-app/client/src/assets/adventure-pictures/" + pathName);
         file.transferTo(outputFile);
 
@@ -140,11 +149,63 @@ public class AdventureServiceImpl implements AdventureService {
         adventure.setPrice(changedAdventure.getPrice());
         adventure.setEquipment(changedAdventure.getEquipment());
         adventure.setRules(changedAdventure.getRules());
+        adventure.setAdditionalInfo(changedAdventure.getAdditionalInfo());
+        adventure.setCancelationPrice(changedAdventure.getCancelationPrice());
 
         adventureRepository.save(adventure);
 
         return modelMapper.map(adventure,AdventureDTO.class);
     }
+
+    @Override
+    public AdventureReservationDTO addNewActionForAdventure(AdventureReservationDTO adventureReservationDTO,
+                                                     Long adventureId){
+
+        Adventure adventure = adventureRepository.findById(adventureId).get();
+        AdventureReservation adventureReservation = modelMapper.map(adventureReservationDTO,AdventureReservation.class);
+        adventureReservation.setAdventure(adventure);
+
+
+
+        adventureReservationRepository.save(adventureReservation);
+
+
+        return modelMapper.map(adventureReservation,AdventureReservationDTO.class);
+    }
+
+    @Override
+    public List<AdventureAdditionalServiceDTO> addAdditionalServicesForAdventureAction(
+            List<String> additionalServicesAdvAction,
+            Long adventureReservationId){
+
+
+
+        List<AdventureAdditionalServiceDTO> additionalServiceDTOList = new ArrayList<>();
+
+        for(String adventureAddServ: additionalServicesAdvAction){
+
+            AdventureReservation addReservation = new AdventureReservation();
+            addReservation.setId(adventureReservationId);
+
+            AdventureAdditionalService addService = new AdventureAdditionalService();
+            addService.setAdventureReservation(addReservation);
+            addService.setName(adventureAddServ);
+
+            advAddServRepository.save(addService);
+            additionalServiceDTOList.add(modelMapper.map(addService,AdventureAdditionalServiceDTO.class));
+
+        }
+
+
+        return additionalServiceDTOList;
+
+
+    }
+
+
+
+
+
 
     String generateUniqueFileName() {
         String filename = "";

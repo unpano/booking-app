@@ -6,6 +6,7 @@ import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Adventure } from '../dto/Adventure';
 import { RulesBehavior } from '../dto/enums/RulesBehaviour';
+import { User } from '../dto/user';
 import { HomePageInstructorComponent } from '../home-page-instructor/home-page-instructor.component';
 import { Endpoint } from '../util/endpoints-enum';
 import { NewAdventureFishingService } from './service/new-adventure-fishing.service';
@@ -65,7 +66,9 @@ export class NewAdventureFishingComponent implements OnInit {
   savedAdventure : Adventure = new Adventure();
   adventureId !: Number;
 
-  
+  instructorId !: Number;
+
+  instructor : User = new User();
   
 
   constructor(private router:Router,
@@ -74,8 +77,17 @@ export class NewAdventureFishingComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.instructorId = this.activeRoute.snapshot.params[('id')];
+    console.log(this.instructorId);
+
     this.getRules();
     this.getEquipment();
+    this.newAdventureFishingService.getInstructorInfo().subscribe(data=>{
+      this.instructor = data;
+      this.instructorId = this.instructor.id;
+      console.log(this.instructor);
+      console.log(this.instructorId);
+    })
      
   }
 
@@ -166,7 +178,7 @@ export class NewAdventureFishingComponent implements OnInit {
   }
 
 
-  addAdventure(){
+  addAdventure(instructorId: Number){
 
     
      
@@ -177,6 +189,8 @@ export class NewAdventureFishingComponent implements OnInit {
     this.adventure.address = this.address;
     //console.log(this.adventure.address);
 
+    this.adventure.instructorId = instructorId;
+    console.log(this.adventure.instructorId);
     this.adventure.description = this.description;
     this.adventure.maxNumOfPersons = this.maxNumOfPersons;
     this.adventure.price = this.price;
@@ -226,9 +240,9 @@ export class NewAdventureFishingComponent implements OnInit {
   
   
   console.log(this.adventure);
+  console.log(this.adventure.cancelationPrice);
   
-  
-   this.newAdventureFishingService.addAdventure(this.adventure).subscribe(data=>{
+   this.newAdventureFishingService.addAdventure(this.adventure,instructorId).subscribe(data=>{
      //console.log(data);
      this.savedAdventure = Object.assign(data);
       console.log(this.savedAdventure);

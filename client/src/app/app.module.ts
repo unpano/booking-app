@@ -69,7 +69,8 @@ import { FormGroup } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { EditProfileAdventureComponent } from './edit-profile-adventure/edit-profile-adventure.component';
-
+import { NewActionAdventureComponent } from './new-action-adventure/new-action-adventure.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { EditProfileAdventureComponent } from './edit-profile-adventure/edit-pro
     ProfileAdventureFishingClassComponent,
     ProfileInstructorComponent,
     NewAdventureFishingComponent,
-    EditProfileAdventureComponent
+    EditProfileAdventureComponent,
+    NewActionAdventureComponent
 
 
   ],
@@ -144,6 +146,8 @@ import { EditProfileAdventureComponent } from './edit-profile-adventure/edit-pro
     MatDialogModule,
     MatCheckboxModule,
     MatIconModule,
+    MatChipsModule
+  
     
     
   ],

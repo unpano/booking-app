@@ -17,12 +17,39 @@
 
 
             <mat-form-field >
-              <input [(ngModel)]="maxNumOfPersons" type="number" min="1" max="100" name="maxNumOfPersons" matInput placeholder="Max number of persons">
+              <input [(ngModel)]="maxNumOfPersons" type="number" min="1" max="100" name="maxNumOfPersons" matInput placeholder="Max number of persons(BASE)">
           </mat-form-field>
 
           <mat-form-field >
-            <input [(ngModel)]="price" type="number" min="1" max="100" name="price" matInput placeholder="Costs in $">
+            <input [(ngModel)]="price" type="number" min="1" max="100" name="price" matInput placeholder="Base price(in $)">
         </mat-form-field>
+
+        <div>
+            <p>______________________________________________________________________</p>
+          <h4>Precondition for cancelation of reservation:(free or instructor takes percentage)</h4>
+            <form>
+                <div class="container">
+                    <div  class="row">
+                        
+                        <div class="col-8 col-chk"><input type="radio"  name="radioButtons"  value="FREE"   [(ngModel)]="adventure.cancelationPrice" >
+                        <div class="col-35"><label>FREE</label></div>
+                        </div>
+                        
+                        <div class="col-8 col-chk"><input type="radio" name="radioButtons"  value="PERCENTAGE"   [(ngModel)]="adventure.cancelationPrice" >
+                        <div class="col-35"><label>PERCENTAGE</label></div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </form>      
+                
+            
+        </div>
+
+
 
             
             <div>
@@ -80,7 +107,7 @@
                 </div>
             </form>
         
-            <button mat-raised-button type="submit" (click)="addAdventure()">Add adventure</button>
+            <button mat-raised-button type="submit" (click)="addAdventure(this.instructorId)">Add adventure</button>
           </form>  
     </mat-card>
 </div>

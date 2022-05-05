@@ -6,7 +6,7 @@
           <div class="container">
               <div class="row">
                 
-                <button id="addBtn" (click)="addAdventure()"><mat-icon>add</mat-icon> Add adventure </button>
+                <button id="addBtn" (click)="addAdventure(instructor.id)"><mat-icon>add</mat-icon> Add adventure </button>
                 <div class="search-hero">
                   <input class="form-control" type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
                 </div>
@@ -31,7 +31,7 @@
                       </div>
                     </td>
                     
-                    <button id="eyeBtn" (click)="viewAdventure()"> View</button>
+                    <button id="eyeBtn" (click)="viewAdventure(adventure.id)"> View</button>
                     
                   </tr>
                   </tbody>

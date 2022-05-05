@@ -18,6 +18,7 @@ import { HomePageUnauthenticatedUserComponent } from './home-page-unauthenticate
 import { ListCottageFutureReservationsComponent } from './list-cottage-future-reservations/list-cottage-future-reservations.component';
 import { ListCottagePastReservationsComponent } from './list-cottage-past-reservations/list-cottage-past-reservations.component';
 import { LoginComponent } from './login/login.component';
+import { NewActionAdventureComponent } from './new-action-adventure/new-action-adventure.component';
 import { NewActionComponent } from './new-action/new-action.component';
 import { NewAdventureFishingComponent } from './new-adventure-fishing/new-adventure-fishing.component';
 import { NewCottageComponent } from './new-cottage/new-cottage.component';
@@ -75,8 +76,9 @@ const routes: Routes = [
   {path:'verified-users',component:VerifiedUsersComponent},
   {path:'profile-adventure-fishing-class/:id',component:ProfileAdventureFishingClassComponent},
   {path:'profile-instructor',component:ProfileInstructorComponent},
-  {path: 'new-adventure-fishing',component:NewAdventureFishingComponent},
+  {path: 'new-adventure-fishing/instructorId/:id',component:NewAdventureFishingComponent},
   {path: 'edit-profile-adventure/:id',component:EditProfileAdventureComponent},
+  {path: 'new-action-adventure/:id',component:NewActionAdventureComponent},
 
 
   {path: '**', component: PageNotFoundComponent},

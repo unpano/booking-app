@@ -2,8 +2,10 @@
     
     <h2 class="edit-title"> Edit adventure </h2>
     
-    <button mat-button routerLink="action">New action</button>
-    <button mat-button (click)="saveChanges(allRules,allEquipment)" >Save changes</button>
+    
+    &nbsp; &nbsp;
+    <button mat-button (click)="saveChanges(allRules,allEquipment,currentlyChoosenRadio)" >Save changes</button>
+    <button mat-button (click)="cancel()">Cancel</button>
     
 
     
@@ -78,13 +80,38 @@
         </div>
 
         <div class="form-group">
-            <h1>Price: </h1>
+            <h1> Base price: </h1>
             <mat-form-field>
-                <input matInput type="text" class ="input-fields" id="price"
+                <input matInput type="number" class ="input-fields" id="price"
                 [(ngModel)]="adventure.price" name="price"> $
               </mat-form-field>	
             		 
         </div>
+
+        <div class="form-group">
+            <h1>Additional info: </h1>
+            <mat-form-field>
+                <input matInput size="70" type="text" class ="input-fields" id="additionalInfo"
+                [(ngModel)]="adventure.additionalInfo" name="additionalInfo"> 
+                
+              </mat-form-field>	
+            		 
+        </div>
+
+        <div class="form-group">
+            <h1>Precondition for cancelation of reservation:(free or instructor takes percentage) </h1>
+            <h2>Old choise: {{onInitCheckedRadio}}</h2>
+            <h2>New choise: </h2>
+            <div class="col-8 col-chk" *ngFor="let cancelationPrice of allCancelationPrices">
+                
+                
+                
+                <input type="radio" name="radioButtons"  value={{cancelationPrice.name}}   [(ngModel)]="currentlyChoosenRadio" />
+                <label >{{cancelationPrice.name}}</label>
+            </div>
+            		 
+        </div>
+
 
         <div class="form-group">
             <h1>Rules of behaviour: </h1>
@@ -109,22 +136,11 @@
                     </div>
                     
 
-               
-
-         
+                        
             		 
         </div>
 
-
-        <div class="form-group">
-            <label>Rate</label>
-            <label>
-              <div id="starsRow" >
-                <i class="material-icons"></i>
-              </div>
-            </label>							
-        </div>
-      
+       
     
        							
     
