@@ -1,3 +1,4 @@
+import { AdditionalAdvService } from "./AdditionalAdvService";
 import { Adventure } from "./Adventure";
 import { ReservationType } from "./enums/ReservationType";
 
@@ -8,6 +9,7 @@ export class AdventureReservation{
     startTime !: Date;
     endTime !: Date;
     exactPlace !: String;
+    additionalAdvServices !: String[];
     
 
 }

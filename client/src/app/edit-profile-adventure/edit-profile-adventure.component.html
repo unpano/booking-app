@@ -75,7 +75,47 @@
         
         <div class="form-group">
             <h1>Free termins for reservation: </h1>
-            <h2>  </h2>
+            <mat-card> 
+                <mat-card-content>
+                  <form novalidate class="form-inline">
+                      <div class="container">
+                          <div class="row">
+                            
+                            <button id="addBtn" ><mat-icon>add</mat-icon> Add termin for action: </button>
+                            <div class="search-hero">
+                              <input class="form-control" type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                            </div>
+                            <table matSort >
+                              <thead>
+                              <tr> 
+                                <th mat-sort-header="name">Start/end time for action</th>
+                                <th mat-sort-header="address">Additional services</th>
+                                <th mat-sort-header="id">Exact place for action</th>
+                                <th mat-sort-header="rate"></th>
+                                <th></th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr >
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                  <div id="starsRow" >
+                                    <i class="material-icons">star</i>
+                                  </div>
+                                </td>
+                                
+                                <button id="eyeBtn" > View</button>
+                                
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                  </form> 
+                </mat-card-content>
+              </mat-card>
             		 
         </div>
 

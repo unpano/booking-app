@@ -203,9 +203,58 @@ public class AdventureServiceImpl implements AdventureService {
     }
 
 
+    @Override
+    public List<AdventureReservationDTO> getAllActionsForAdventure(Long adventureId){
+        List<AdventureReservation> allActions = adventureReservationRepository.findAll();
+        List<AdventureReservationDTO> allActionsDTO = new ArrayList<>();
+
+        for(AdventureReservation adventureReservation: allActions){
+            if(adventureReservation.getAdventure().getId().equals(adventureId)){
+                      allActionsDTO.add(modelMapper.map(adventureReservation,AdventureReservationDTO.class));
+
+            }
+        }
+
+        return allActionsDTO;
+
+    }
 
 
+    @Override
+    public List<AdventureAdditionalServiceDTO> getAllAdditionalServicesForReservation(Long adventureReservationId){
+        List<AdventureAdditionalService> allAdditionalServices = advAddServRepository.findAll();
+        List<AdventureAdditionalServiceDTO> allAdditionalServicesDTO = new ArrayList<>();
 
+        for(AdventureAdditionalService additionalService: allAdditionalServices){
+             if(additionalService.getAdventureReservation().getId().equals(adventureReservationId)){
+                 allAdditionalServicesDTO.add(modelMapper.map(additionalService,AdventureAdditionalServiceDTO.class));
+             }
+        }
+        return allAdditionalServicesDTO;
+    }
+
+
+    @Override
+    public String deleteActionForAdventure(Long adventureReservationId){
+        String success = deleteAddServices(adventureReservationId);
+            AdventureReservation adventureReservation = adventureReservationRepository.findById(adventureReservationId).get();
+            adventureReservationRepository.delete(adventureReservation);
+
+            return "Action for adventure deleted: TRUE";
+
+
+    }
+
+    public String deleteAddServices(Long adventureReservationId){
+        for(AdventureAdditionalService addService: advAddServRepository.findAll()){
+
+            if(addService.getAdventureReservation().getId().equals(adventureReservationId)){
+
+                advAddServRepository.delete(addService);
+            }
+        }
+        return  "Add services deleted: TRUE";
+    }
 
     String generateUniqueFileName() {
         String filename = "";

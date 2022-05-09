@@ -44,7 +44,55 @@
         
         <div class="form-group">
             <h1>Free termins for reservation: </h1>
-            <h2>  </h2>
+           
+            <mat-card> 
+                <mat-card-content>
+                  <form novalidate class="form-inline">
+                      <div class="container">
+                          <div class="row">
+                            
+                            <button id="addBtn" (click)="newAction(adventureId)"><mat-icon>add</mat-icon> Add termin for action: </button>
+                            <div class="search-hero">
+                              <input class="form-control" type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                            </div>
+                            
+                            <table matSort >
+                              <thead>
+                              <tr> 
+                                <th >Start time for action</th>
+                                <th >End time for action</th>
+                                <th>Additional services</th>
+                                <th>Exact place for action</th>
+                                <th></th>
+                                <th></th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let action of adventureActions">
+                                <td>{{action.startTime}}</td>
+                                <td>{{action.endTime}}</td>
+                                <td>{{action.additionalAdvServices}} </td>
+                                <td>{{action.exactPlace}}</td>
+                                <td>
+                                  <div id="starsRow" >
+                                    <i class="material-icons">star</i>
+                                  </div>
+                                </td>
+                                
+                                <button id="eyeBtn"> Edit</button>
+                                <button id="eyeBtn"(click)="deleteAction(action.id)"> Delete</button>
+                                
+                              </tr>
+                              </tbody>
+                            </table>
+                          
+                          </div>
+                        </div>
+                  </form> 
+                </mat-card-content>
+              </mat-card>
+
+
             		 
         </div>
 

@@ -1,10 +1,14 @@
 import { newArray } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AdditionalAdvService } from '../dto/AdditionalAdvService';
 import { Adventure } from '../dto/Adventure';
 import { AdventureImage } from '../dto/AdventureImage';
+import { AdventureReservation } from '../dto/AdventureReservation';
 import { User } from '../dto/user';
 import { ProfileAdventureService } from './service/profile-adventure.service';
+
+
 
 
 @Component({
@@ -22,6 +26,13 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
   imgCollection :  Array<object> = [];
 
   instructor : User = new User();
+
+  adventureActions : AdventureReservation[] = new Array();
+
+  adventureAddServices : AdditionalAdvService[] = new Array();
+  
+  adventureAddServicesALL  = []; 
+
 
  // adventureImagesAngular = adven
 
@@ -57,6 +68,29 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
       console.log(this.instructor);
     })
 
+
+    this.profileAdventureService.getAdventureReservations(this.adventureId).subscribe(data=>{
+      this.adventureActions = data;
+      
+
+      
+          this.adventureActions.forEach(element => {
+              this.profileAdventureService.getAdventureAdditionalServices(element.id).subscribe(data=>{
+                element.additionalAdvServices = new Array(); 
+                var addServices = data;
+                addServices.forEach(oneAddService => {
+                  element.additionalAdvServices.push(oneAddService.name);
+                });
+                
+                
+                  //console.log();
+                })
+       });
+     console.log(this.adventureActions);
+    })
+
+
+    
   }
 
   editAdventure(adventureId: Number){
@@ -72,7 +106,17 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
     this.router.navigate(['new-action-adventure/',adventureId]);
   }
 
-
+  deleteAction(adventureActionId: Number){
+    console.log(adventureActionId);  
+    if(window.confirm("You want to delete termin for action?")){
+      this.profileAdventureService.deleteActionForAdventure(adventureActionId).subscribe();
+          document.location.reload();
+        } else{
+          window.close();
+        }
+      
+  
+  }
 
 
 

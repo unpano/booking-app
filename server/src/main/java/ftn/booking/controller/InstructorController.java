@@ -107,5 +107,25 @@ public class InstructorController {
 
     }
 
+    @GetMapping("/get-all-actions/adventureId/{adventureId}")
+    public ResponseEntity<List<AdventureReservationDTO>> getAllActionsForAdventure(@PathVariable Long adventureId) {
+        List<AdventureReservationDTO> allActionsAdventure = adventureService.getAllActionsForAdventure(adventureId);
+
+        return new ResponseEntity<>(allActionsAdventure,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-additional-services/adventureReservationId/{adventureReservationId}")
+    public ResponseEntity<List<AdventureAdditionalServiceDTO>> getAllAdditionalServicesForReservation(@PathVariable Long adventureReservationId){
+        List<AdventureAdditionalServiceDTO> allAdditionalServicesReservation = adventureService.getAllAdditionalServicesForReservation(adventureReservationId);
+
+        return new ResponseEntity<>(allAdditionalServicesReservation,HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/delete-action-for-adventure/adventureReservationId/{adventureReservationId}")
+    public ResponseEntity<String> deleteActionForAdventure(@PathVariable Long adventureReservationId){
+        String success = adventureService.deleteActionForAdventure(adventureReservationId);
+        return new ResponseEntity<>(success,HttpStatus.OK);
+    }
 
 }

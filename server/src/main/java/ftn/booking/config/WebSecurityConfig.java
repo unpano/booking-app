@@ -80,6 +80,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/instructors/change-one-adventure").permitAll()
                 .antMatchers("/instructors/add-new-action/adventureId/**").permitAll()
                 .antMatchers("/instructors/add-additional-services-adventure-reservation/**").permitAll()
+                .antMatchers("/instructors/get-all-actions/adventureId/**").permitAll()
+                .antMatchers("/instructors/get-all-additional-services/adventureReservationId/**").permitAll()
+                .antMatchers("/instructors/delete-action-for-adventure/adventureReservationId/**").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userServiceImpl), BasicAuthenticationFilter.class);

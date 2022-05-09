@@ -71,6 +71,7 @@ import { FormControl } from '@angular/forms';
 import { EditProfileAdventureComponent } from './edit-profile-adventure/edit-profile-adventure.component';
 import { NewActionAdventureComponent } from './new-action-adventure/new-action-adventure.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { EditActionAdventureComponent } from './edit-action-adventure/edit-action-adventure.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { MatChipsModule } from '@angular/material/chips';
     ProfileInstructorComponent,
     NewAdventureFishingComponent,
     EditProfileAdventureComponent,
-    NewActionAdventureComponent
+    NewActionAdventureComponent,
+    EditActionAdventureComponent
 
 
   ],

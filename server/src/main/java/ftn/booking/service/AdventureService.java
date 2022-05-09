@@ -35,4 +35,10 @@ public interface AdventureService {
              List<String> additionalServicesAdvAction,
              Long adventureReservationId);
 
+    List<AdventureReservationDTO> getAllActionsForAdventure(Long adventureId);
+
+    List<AdventureAdditionalServiceDTO> getAllAdditionalServicesForReservation(Long adventureReservationId);
+
+
+    String deleteActionForAdventure(Long adventureReservationId);
 }
