@@ -8,7 +8,10 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
 import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
+import { EditActionAdventureComponent } from './edit-action-adventure/edit-action-adventure.component';
+import { EditInstructorPasswordComponent } from './edit-instructor-password/edit-instructor-password.component';
 import { EditProfileAdventureComponent } from './edit-profile-adventure/edit-profile-adventure.component';
+import { EditProfileInstructorComponent } from './edit-profile-instructor/edit-profile-instructor.component';
 import { HomePageAdminComponent } from './home-page-admin/home-page-admin.component';
 import { HomePageBoatOwnerComponent } from './home-page-boat-owner/home-page-boat-owner.component';
 import { HomePageClientComponent } from './home-page-client/home-page-client.component';
@@ -79,6 +82,10 @@ const routes: Routes = [
   {path: 'new-adventure-fishing/instructorId/:id',component:NewAdventureFishingComponent},
   {path: 'edit-profile-adventure/:id',component:EditProfileAdventureComponent},
   {path: 'new-action-adventure/:id',component:NewActionAdventureComponent},
+  {path: 'edit-action-adventure/:id',component:EditActionAdventureComponent},
+  {path: 'profile-instructor/:id',component:ProfileInstructorComponent},
+  {path: 'edit-profile-instructor/:id',component:EditProfileInstructorComponent},
+  {path: 'edit-instructor-password/:id',component:EditInstructorPasswordComponent},
 
 
   {path: '**', component: PageNotFoundComponent},

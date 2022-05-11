@@ -23,6 +23,8 @@ public class AdventureDTO {
 
     private Instructor instructor;
 
+    private Long numberOfActions;
+
     private String name;
 
     private String address;

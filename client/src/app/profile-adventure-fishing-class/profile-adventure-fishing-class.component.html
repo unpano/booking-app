@@ -53,7 +53,7 @@
                             
                             <button id="addBtn" (click)="newAction(adventureId)"><mat-icon>add</mat-icon> Add termin for action: </button>
                             <div class="search-hero">
-                              <input class="form-control" type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                              <input class="form-control" [(ngModel)]="searchText" type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
                             </div>
                             
                             <table matSort >
@@ -63,25 +63,27 @@
                                 <th >End time for action</th>
                                 <th>Additional services</th>
                                 <th>Exact place for action</th>
-                                <th></th>
+                                <th>Reserved</th>
                                 <th></th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr *ngFor="let action of adventureActions">
+                              <tr *ngFor="let action of adventureActions | filter:searchText ">
                                 <td>{{action.startTime}}</td>
                                 <td>{{action.endTime}}</td>
                                 <td>{{action.additionalAdvServices}} </td>
                                 <td>{{action.exactPlace}}</td>
+                                <td>{{action.isReserved}}</td>
                                 <td>
                                   <div id="starsRow" >
                                     <i class="material-icons">star</i>
                                   </div>
                                 </td>
                                 
-                                <button id="eyeBtn"> Edit</button>
-                                <button id="eyeBtn"(click)="deleteAction(action.id)"> Delete</button>
-                                
+                                <button id="eyeBtn" *ngIf="!action.isReserved" (click)="editAction(action.id)"> Edit</button>
+                                <button id="eyeBtn" *ngIf="!action.isReserved" (click)="deleteAction(action.id)"> Delete</button>
+                                <button id="eyeBtnDisabled" *ngIf="action.isReserved" disabled title="You cannot edit reserved action!" > Edit</button>
+                                <button id="eyeBtnDisabled" *ngIf="action.isReserved"  disabled title="You cannot delete reserved action!"> Delete</button>
                               </tr>
                               </tbody>
                             </table>

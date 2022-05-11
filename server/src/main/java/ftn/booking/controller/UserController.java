@@ -41,7 +41,7 @@ public class UserController {
 
 
     @GetMapping("/{username}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR')")
 
     public ResponseEntity<User> checkIfUsernameIsAvailable(@PathVariable String username){
         System.out.println(userService.loadUserByUsername(username));
@@ -49,7 +49,7 @@ public class UserController {
     }
     
     @GetMapping("/checkPassword/{oldPassword}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR')")
 
     public ResponseEntity<Boolean> checkExistingPassword(@PathVariable String oldPassword, Principal loggedUser){
         User user = userService.loadUserByUsername(loggedUser.getName());
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @PutMapping("/changePassword/{newPassword}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR')")
     public ResponseEntity<?> changePassword(@PathVariable String newPassword, Principal loggedUser){
         User user = userService.loadUserByUsername(loggedUser.getName());
 

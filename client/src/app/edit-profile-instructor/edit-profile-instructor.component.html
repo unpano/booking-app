@@ -1,0 +1,67 @@
+<form role="form" novalidate class="form-inline"  >
+    
+    <button mat-button (click)="saveChanges()"> Save changes </button>
+    <button mat-button (click)="cancel()"> Cancel</button>
+
+        <div class="form-group">
+            <h1>First name</h1>
+            <mat-form-field class="mat-field">
+                <input  name="firstName"  matInput [(ngModel)]="instructor.firstName" >
+              </mat-form-field>
+            	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Last name</h1>
+            <mat-form-field class="mat-field">
+                <input  name="lastName"  matInput [(ngModel)]="instructor.lastName" >
+              </mat-form-field>
+           						
+        </div>
+        
+        <div class="form-group">
+            <h1>Email</h1>
+            <mat-form-field class="mat-field">
+                <input  name="email" title="You cannot change email!" matInput  [(ngModel)]="instructor.email" disabled >
+              </mat-form-field>
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Address</h1>
+            <mat-form-field class="mat-field">
+                <input  name="address"  matInput [(ngModel)]="instructor.address">
+              </mat-form-field>
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>City</h1>
+            <mat-form-field class="mat-field">
+                <input  name="city"  matInput  [(ngModel)]="instructor.city">
+              </mat-form-field>
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Country</h1>
+            <mat-form-field class="mat-field">
+                <input  name="country"  matInput [(ngModel)]="instructor.country">
+              </mat-form-field>
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Phone number</h1>
+            <mat-form-field class="mat-field">
+                <input  name="phoneNumber"  matInput [(ngModel)]="instructor.phoneNumber" >
+              </mat-form-field>
+           						
+        </div>
+
+
+
+
+</form>
+

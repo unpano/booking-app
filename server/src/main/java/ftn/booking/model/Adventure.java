@@ -27,6 +27,8 @@ public class Adventure {
     @ManyToOne
     private Instructor instructor;
 
+    private Long numberOfActions;
+
     private String name;
 
     private String address;

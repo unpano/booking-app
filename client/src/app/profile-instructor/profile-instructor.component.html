@@ -1,1 +1,52 @@
-<p>profile-instructor works!</p>
+<form role="form" novalidate class="form-inline"  >
+    
+    <button mat-button (click)="editProfileInstructor(instructor.id)"> Edit profile </button>
+    <button mat-button (click)="changePassword(instructor.id)"> Change password </button>
+
+        <div class="form-group">
+            <h1>First name</h1>
+            <h2>{{instructor.firstName}}</h2>	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Last name</h1>
+            <h2>{{instructor.lastName}}</h2>	
+           						
+        </div>
+        
+        <div class="form-group">
+            <h1>Email</h1>
+            <h2>{{instructor.email}}</h2>	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Address</h1>
+            <h2>{{instructor.address}}</h2>	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>City</h1>
+            <h2>{{instructor.city}}</h2>	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Country</h1>
+            <h2>{{instructor.country}}</h2>	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Phone number</h1>
+            <h2>{{instructor.phoneNumber}}</h2>	
+           						
+        </div>
+
+
+
+
+
+</form>

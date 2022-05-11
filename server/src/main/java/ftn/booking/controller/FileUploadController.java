@@ -61,4 +61,5 @@ public class FileUploadController {
         return new ResponseEntity<>(adventureService.deleteAdventurePicture(pictureId),HttpStatus.OK);
     }
 
+
 }

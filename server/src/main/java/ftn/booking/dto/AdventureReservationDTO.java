@@ -25,6 +25,8 @@ public class AdventureReservationDTO {
 
     private Long id;
 
+    private Boolean isReserved;
+
     private Adventure adventure;
 
     //if client is not set, then reservation is action
@@ -40,6 +42,8 @@ public class AdventureReservationDTO {
 
     //tacno mesto gde se rezervacija odigrava
     private String exactPlace;
+
+    private List<String> additionalAdvServices;
 
 
 

@@ -8,7 +8,7 @@
                 
                 <button id="addBtn" (click)="addAdventure(instructor.id)"><mat-icon>add</mat-icon> Add adventure </button>
                 <div class="search-hero">
-                  <input class="form-control" type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                  <input class="form-control" type="text" [(ngModel)]="searchText" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
                 </div>
                 <table matSort >
                   <thead>
@@ -16,15 +16,18 @@
                     <th mat-sort-header="name">Adventure</th>
                     <th mat-sort-header="address">Address</th>
                     <th mat-sort-header="id">Id</th>
+                    <th mat-sort-header="numberOfActions">Number of actions</th>
                     <th mat-sort-header="rate"></th>
+                    
                     <th></th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let adventure of adventures">
+                  <tr *ngFor="let adventure of adventures | filter:searchText">
                     <td>{{adventure.name}}</td>
                     <td>{{adventure.address}}</td>
                     <td>{{adventure.id}}</td>
+                    <td>{{adventure.numberOfActions}}</td>
                     <td>
                       <div id="starsRow" >
                         <i class="material-icons">star</i>
@@ -32,6 +35,8 @@
                     </td>
                     
                     <button id="eyeBtn" (click)="viewAdventure(adventure.id)"> View</button>
+                    <button id="eyeBtnDisabled" disabled title="You cannot delete adventure with actions!" *ngIf="adventure.numberOfActions>0">Delete</button>
+                    <button id="eyeBtn" *ngIf="adventure.numberOfActions==0" (click)="deleteAdventure(adventure.id)">Delete</button>
                     
                   </tr>
                   </tbody>

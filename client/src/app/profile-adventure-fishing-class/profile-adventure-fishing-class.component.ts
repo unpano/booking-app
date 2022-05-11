@@ -33,6 +33,10 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
   
   adventureAddServicesALL  = []; 
 
+  isAActionReserved !: Boolean;
+
+  searchText !: any;
+
 
  // adventureImagesAngular = adven
 
@@ -107,15 +111,24 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
   }
 
   deleteAction(adventureActionId: Number){
-    console.log(adventureActionId);  
-    if(window.confirm("You want to delete termin for action?")){
-      this.profileAdventureService.deleteActionForAdventure(adventureActionId).subscribe();
-          document.location.reload();
-        } else{
-          window.close();
-        }
-      
+    
+      console.log(adventureActionId);  
+      if(window.confirm("You want to delete termin for action?")){
+          this.profileAdventureService.deleteActionForAdventure(adventureActionId).subscribe();
+          window.setInterval('document.location.reload()', 1000);
+         // document.location.reload();
+          } else{
+           window.close();
+         }
+       
   
+  }
+
+  editAction(adventureActionId:Number){
+  
+      this.router.navigate(['edit-action-adventure/',adventureActionId]);
+    
+
   }
 
 

@@ -72,6 +72,9 @@ import { EditProfileAdventureComponent } from './edit-profile-adventure/edit-pro
 import { NewActionAdventureComponent } from './new-action-adventure/new-action-adventure.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { EditActionAdventureComponent } from './edit-action-adventure/edit-action-adventure.component';
+import { EditProfileInstructorComponent } from './edit-profile-instructor/edit-profile-instructor.component';
+import { EditInstructorPasswordComponent } from './edit-instructor-password/edit-instructor-password.component';
+
 
 @NgModule({
   declarations: [
@@ -120,7 +123,9 @@ import { EditActionAdventureComponent } from './edit-action-adventure/edit-actio
     NewAdventureFishingComponent,
     EditProfileAdventureComponent,
     NewActionAdventureComponent,
-    EditActionAdventureComponent
+    EditActionAdventureComponent,
+    EditProfileInstructorComponent,
+    EditInstructorPasswordComponent
 
 
   ],
@@ -148,7 +153,8 @@ import { EditActionAdventureComponent } from './edit-action-adventure/edit-actio
     MatDialogModule,
     MatCheckboxModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+    
   
     
     

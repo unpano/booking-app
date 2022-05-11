@@ -140,7 +140,7 @@ input,select{
     border-color: indigo;
     border-width: 2px;
     border-radius: 10px;
-    margin: 10px 10px 10px 10px;
+   /* margin: 5px 10px 10px 10px; */
     width: 250px;
 }
 
@@ -150,5 +150,9 @@ table {
 
 .mat-sort-header-container {
   align-items: center;
+}
+
+.mat-field{
+    font-size: large;
 }
   

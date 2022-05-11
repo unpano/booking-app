@@ -13,5 +13,6 @@ export class Adventure{
     rate !: Number;
     additionalInfo !: String;
     cancelationPrice !: String;
+    numberOfActions !: Number;
 
 }

@@ -25,6 +25,11 @@ export class HomePageInstructorService {
     return this.http.get<User>(`${this.baseURL}` + "findInstructorByUsername/" + sessionStorage.getItem('email'));
   }
 
+  deleteOneAdventure(adventureId:Number):Observable<Object>
+  {
+    return this.http.delete(`${this.baseURL}`+ "delete-adventure/adventureId/"+ adventureId);
+  }
+
   
   
 }

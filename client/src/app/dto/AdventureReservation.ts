@@ -10,6 +10,7 @@ export class AdventureReservation{
     endTime !: Date;
     exactPlace !: String;
     additionalAdvServices !: String[];
+    isReserved !: Boolean;
     
 
 }

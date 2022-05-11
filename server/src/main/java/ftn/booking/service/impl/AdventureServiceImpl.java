@@ -36,9 +36,39 @@ public class AdventureServiceImpl implements AdventureService {
     private ModelMapper modelMapper;
 
     @Override
-
     public Adventure addAdventure(Adventure adventure) {
+
+        adventure.setNumberOfActions(0L);
         return adventureRepository.save(adventure);
+
+    }
+
+    @Override
+    public Boolean deleteAdventure(Long adventureId){
+
+
+        Adventure adventure = adventureRepository.findById(adventureId).get();
+        List<AdventureImage> adventureImages = adventureImagesRepository.findAll();
+        for(AdventureImage image: adventureImages){
+            if(image.getAdventure().getId().equals(adventureId)){
+
+                String pathName = image.getPath();
+
+                //ovo je da bi se slika obrisala na angularu
+                String filePath = System.getProperty("user.dir");
+                filePath = filePath.replace("server", "client");
+                File outputFile = new File("/home/dejan/Desktop/isa_projekat/booking-app/client/src/assets/adventure-pictures/" + pathName);
+                boolean success = outputFile.delete();
+
+                //treba ubeleziti da adventureID-ju odgovara ta slika
+
+                adventureImagesRepository.delete(image);
+            }
+        }
+
+        adventureRepository.delete(adventure);
+
+        return Boolean.TRUE;
     }
 
 
@@ -162,8 +192,12 @@ public class AdventureServiceImpl implements AdventureService {
                                                      Long adventureId){
 
         Adventure adventure = adventureRepository.findById(adventureId).get();
+        adventure.setNumberOfActions(adventure.getNumberOfActions()+1L);
+        adventureRepository.save(adventure);
+
         AdventureReservation adventureReservation = modelMapper.map(adventureReservationDTO,AdventureReservation.class);
         adventureReservation.setAdventure(adventure);
+        adventureReservation.setIsReserved(Boolean.FALSE);
 
 
 
@@ -233,12 +267,23 @@ public class AdventureServiceImpl implements AdventureService {
         return allAdditionalServicesDTO;
     }
 
+    @Override
+    public AdventureReservationDTO getOneActionForAdventure(Long adventureReservationId){
+        AdventureReservation adventureReservation = adventureReservationRepository.findById(adventureReservationId).get();
+
+        return modelMapper.map(adventureReservation,AdventureReservationDTO.class);
+    }
 
     @Override
     public String deleteActionForAdventure(Long adventureReservationId){
-        String success = deleteAddServices(adventureReservationId);
-            AdventureReservation adventureReservation = adventureReservationRepository.findById(adventureReservationId).get();
-            adventureReservationRepository.delete(adventureReservation);
+           String success = deleteAddServices(adventureReservationId);
+
+
+           AdventureReservation adventureReservation = adventureReservationRepository.findById(adventureReservationId).get();
+           Adventure adventure = adventureReservation.getAdventure();
+           adventure.setNumberOfActions(adventure.getNumberOfActions()-1L);
+
+           adventureReservationRepository.delete(adventureReservation);
 
             return "Action for adventure deleted: TRUE";
 
@@ -254,6 +299,34 @@ public class AdventureServiceImpl implements AdventureService {
             }
         }
         return  "Add services deleted: TRUE";
+    }
+
+    @Override
+    public AdventureReservationDTO changeOneActionForAdventure(AdventureReservationDTO changedAction,
+                                                               Long adventureReservationId){
+        deleteAddServices(adventureReservationId);
+        addAdditionalServicesForAdventureAction(changedAction.getAdditionalAdvServices(),adventureReservationId);
+
+        //---------------------------------------------
+        AdventureReservation forSavingAction = adventureReservationRepository.findById(adventureReservationId).get();
+
+
+        forSavingAction.setStartTime(changedAction.getStartTime());
+        forSavingAction.setEndTime(changedAction.getEndTime());
+        forSavingAction.setExactPlace(changedAction.getExactPlace());
+
+        adventureReservationRepository.save(forSavingAction);
+
+        return modelMapper.map(forSavingAction,AdventureReservationDTO.class);
+    }
+
+
+    public Boolean checkIsActionReserved(Long adventureReservationId){
+        AdventureReservation adventureAction = adventureReservationRepository.findById(adventureReservationId).get();
+        if(adventureAction.getIsReserved().equals(Boolean.TRUE)){
+            return Boolean.TRUE;
+        } else return Boolean.FALSE;
+
     }
 
     String generateUniqueFileName() {

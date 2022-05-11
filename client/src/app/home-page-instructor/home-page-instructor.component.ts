@@ -23,6 +23,8 @@ export class HomePageInstructorComponent implements OnInit {
   adventureId !: Number;
 
   instructor: User = new User();
+
+  searchText !: any;
  
   
   ngOnInit(): void {
@@ -55,8 +57,17 @@ export class HomePageInstructorComponent implements OnInit {
         this.router.navigate(['profile-adventure-fishing-class',this.adventureId]);
       })
      
-      
     
+  }
+
+  deleteAdventure(adventureId:Number){
+    if(window.confirm("You want to delete this adventure?")){
+        this.homeInstructorService.deleteOneAdventure(adventureId).subscribe();
+        window.setInterval('document.location.reload()', 1000);
+        //document.location.reload();
+    } else{
+      window.close();
+    }
   }
 
 }

@@ -2,10 +2,12 @@ package ftn.booking.controller;
 
 
 import ftn.booking.dto.*;
+import ftn.booking.exception.ValidationException;
 import ftn.booking.model.*;
 import ftn.booking.service.AdventureService;
 import ftn.booking.service.InstructorService;
 import ftn.booking.service.UserService;
+import ftn.booking.utils.ValidationUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -44,6 +46,8 @@ public class InstructorController {
         return new ResponseEntity<>(instructorService.findOne(instructorId), HttpStatus.OK);
     }
 
+
+
     @GetMapping("/findInstructorByUsername/{instructorUsername}")
     public ResponseEntity<InstructorDTO> findInstructorByUsername(@PathVariable String instructorUsername){
         return new ResponseEntity<>(instructorService.findInstructorByUsername(instructorUsername),HttpStatus.OK);
@@ -63,6 +67,12 @@ public class InstructorController {
         adventure.setInstructor(instructor);
 
         return new ResponseEntity<>(adventureService.addAdventure(adventure), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-adventure/adventureId/{adventureId}")
+    public ResponseEntity<Boolean> deleteAdventure(@PathVariable Long adventureId){
+        Boolean success = adventureService.deleteAdventure(adventureId);
+        return new ResponseEntity<>(success,HttpStatus.OK);
     }
 
 
@@ -114,6 +124,13 @@ public class InstructorController {
         return new ResponseEntity<>(allActionsAdventure,HttpStatus.OK);
     }
 
+    @GetMapping("/get-one-action/adventureReservationId/{adventureReservationId}")
+    public ResponseEntity<AdventureReservationDTO> getOneActionForAdventure(@PathVariable Long adventureReservationId){
+        AdventureReservationDTO actionAdventure = adventureService.getOneActionForAdventure(adventureReservationId);
+
+        return new ResponseEntity<>(actionAdventure,HttpStatus.OK);
+    }
+
     @GetMapping("/get-all-additional-services/adventureReservationId/{adventureReservationId}")
     public ResponseEntity<List<AdventureAdditionalServiceDTO>> getAllAdditionalServicesForReservation(@PathVariable Long adventureReservationId){
         List<AdventureAdditionalServiceDTO> allAdditionalServicesReservation = adventureService.getAllAdditionalServicesForReservation(adventureReservationId);
@@ -122,10 +139,40 @@ public class InstructorController {
     }
 
 
+
     @DeleteMapping("/delete-action-for-adventure/adventureReservationId/{adventureReservationId}")
     public ResponseEntity<String> deleteActionForAdventure(@PathVariable Long adventureReservationId){
         String success = adventureService.deleteActionForAdventure(adventureReservationId);
         return new ResponseEntity<>(success,HttpStatus.OK);
     }
+
+    @PutMapping("/change-one-action/adventureReservationId/{adventureReservationId}")
+    public ResponseEntity<AdventureReservationDTO> changeOneActionForAdventure(@RequestBody AdventureReservationDTO changedAction,
+                                                                               @PathVariable Long adventureReservationId){
+        AdventureReservationDTO savedChangedAction = adventureService.changeOneActionForAdventure(changedAction,adventureReservationId);
+
+        return new ResponseEntity<>(savedChangedAction,HttpStatus.OK);
+    }
+
+    @PutMapping("/change-instructor-info/instructorId/{instructorId}")
+    public ResponseEntity<InstructorDTO> changeInstructorInfo(@RequestBody InstructorDTO changedInstructor,
+                                                           @PathVariable Long instructorId){
+        InstructorDTO savedInstructor = instructorService.changeInstructorInfo(changedInstructor,instructorId);
+
+        return new ResponseEntity<>(savedInstructor,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/check-if-new-password-same-old/instructorId/{instructorId}/{newPassword}")
+    public ResponseEntity<Boolean> checkIfNewPasswordSameOld(@PathVariable Long instructorId,
+                                                             @PathVariable String newPassword){
+        if(!ValidationUtils.isValidPassword(newPassword))
+            throw new ValidationException("Password is not valid.");
+
+
+        Boolean result = instructorService.checkIfNewPasswordSameOld(instructorId,newPassword);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
 
 }

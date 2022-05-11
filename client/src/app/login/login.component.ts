@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   credentials: Credentials = new Credentials();
   endpoint = Endpoint;
 
+  areSamePasswords !: Boolean;
+
   constructor(private router: Router,private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -37,13 +39,15 @@ export class LoginComponent implements OnInit {
       alert("Please enter both fields.")
       return
     }
+
+  
     
     this.http.post<any>(this.endpoint.LOGIN, body, options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof Error) {
           alert("Bad request, please try again later.");
         } else {
-          alert("User with username " + this.credentials.username + " does not exist,or it's account isn't verified.");
+          alert(" If you registered account : \n You missed password for " + this.credentials.username + " ,or  account isn't verified.");
         }
         return EMPTY;
       }),
@@ -73,6 +77,9 @@ export class LoginComponent implements OnInit {
             this.router.navigate(["admin"])
           }
       })
-  }
+  
+  
+  
+    }
 
 }

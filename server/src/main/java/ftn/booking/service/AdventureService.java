@@ -16,6 +16,8 @@ import java.util.List;
 public interface AdventureService {
     Adventure addAdventure(Adventure adventure);
 
+    Boolean deleteAdventure(Long adventureId);
+
     List<AdventureDTO> getAllAdventures(Long instructorId);
 
     String addAdventurePicture(MultipartFile file, Long adventureId) throws IOException;
@@ -39,6 +41,14 @@ public interface AdventureService {
 
     List<AdventureAdditionalServiceDTO> getAllAdditionalServicesForReservation(Long adventureReservationId);
 
+    AdventureReservationDTO getOneActionForAdventure(Long adventureReservationId);
+
+    AdventureReservationDTO changeOneActionForAdventure(AdventureReservationDTO changedAction,
+                                                         Long adventureReservationId);
 
     String deleteActionForAdventure(Long adventureReservationId);
+
+
+
+
 }
