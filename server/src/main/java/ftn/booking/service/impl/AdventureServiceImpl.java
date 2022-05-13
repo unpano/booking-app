@@ -2,12 +2,12 @@ package ftn.booking.service.impl;
 
 import ftn.booking.dto.AdventureAdditionalServiceDTO;
 import ftn.booking.dto.AdventureDTO;
-import ftn.booking.dto.AdventureReservationDTO;
+import ftn.booking.dto.AdventureActionDTO;
 import ftn.booking.model.*;
 import ftn.booking.repository.AdventureAdditionalServiceRepository;
 import ftn.booking.repository.AdventureImagesRepository;
 import ftn.booking.repository.AdventureRepository;
-import ftn.booking.repository.AdventureReservationRepository;
+import ftn.booking.repository.AdventureActionRepository;
 import ftn.booking.service.AdventureService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -17,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +30,7 @@ public class AdventureServiceImpl implements AdventureService {
 
     private AdventureRepository adventureRepository;
 
-    private AdventureReservationRepository adventureReservationRepository;
+    private AdventureActionRepository adventureActionRepository;
 
     private AdventureAdditionalServiceRepository advAddServRepository;
 
@@ -39,6 +42,7 @@ public class AdventureServiceImpl implements AdventureService {
     public Adventure addAdventure(Adventure adventure) {
 
         adventure.setNumberOfActions(0L);
+        adventure.setNumberOfPastActions(0L);
         return adventureRepository.save(adventure);
 
     }
@@ -188,23 +192,26 @@ public class AdventureServiceImpl implements AdventureService {
     }
 
     @Override
-    public AdventureReservationDTO addNewActionForAdventure(AdventureReservationDTO adventureReservationDTO,
-                                                     Long adventureId){
+    public AdventureActionDTO addNewActionForAdventure(AdventureActionDTO adventureReservationDTO,
+                                                       Long adventureId){
 
         Adventure adventure = adventureRepository.findById(adventureId).get();
         adventure.setNumberOfActions(adventure.getNumberOfActions()+1L);
         adventureRepository.save(adventure);
 
-        AdventureReservation adventureReservation = modelMapper.map(adventureReservationDTO,AdventureReservation.class);
+        AdventureAction adventureReservation = modelMapper.map(adventureReservationDTO, AdventureAction.class);
         adventureReservation.setAdventure(adventure);
         adventureReservation.setIsReserved(Boolean.FALSE);
 
+        adventureReservation.setStartTime(adventureReservationDTO.getStartTime().plusHours(2));
+        adventureReservation.setEndTime(adventureReservationDTO.getEndTime().plusHours(25).plusMinutes(59).plusSeconds(59));
 
 
-        adventureReservationRepository.save(adventureReservation);
+
+        adventureActionRepository.save(adventureReservation);
 
 
-        return modelMapper.map(adventureReservation,AdventureReservationDTO.class);
+        return modelMapper.map(adventureReservation, AdventureActionDTO.class);
     }
 
     @Override
@@ -218,7 +225,7 @@ public class AdventureServiceImpl implements AdventureService {
 
         for(String adventureAddServ: additionalServicesAdvAction){
 
-            AdventureReservation addReservation = new AdventureReservation();
+            AdventureAction addReservation = new AdventureAction();
             addReservation.setId(adventureReservationId);
 
             AdventureAdditionalService addService = new AdventureAdditionalService();
@@ -238,14 +245,16 @@ public class AdventureServiceImpl implements AdventureService {
 
 
     @Override
-    public List<AdventureReservationDTO> getAllActionsForAdventure(Long adventureId){
-        List<AdventureReservation> allActions = adventureReservationRepository.findAll();
-        List<AdventureReservationDTO> allActionsDTO = new ArrayList<>();
+    public List<AdventureActionDTO> getAllActionsForAdventure(Long adventureId){
+        List<AdventureAction> allActions = adventureActionRepository.findAll();
+        List<AdventureActionDTO> allActionsDTO = new ArrayList<>();
 
-        for(AdventureReservation adventureReservation: allActions){
+        for(AdventureAction adventureReservation: allActions){
             if(adventureReservation.getAdventure().getId().equals(adventureId)){
-                      allActionsDTO.add(modelMapper.map(adventureReservation,AdventureReservationDTO.class));
-
+                int comparation = adventureReservation.getEndTime().compareTo(LocalDateTime.now());
+                if(comparation >= 0) {
+                    allActionsDTO.add(modelMapper.map(adventureReservation, AdventureActionDTO.class));
+                }
             }
         }
 
@@ -253,6 +262,64 @@ public class AdventureServiceImpl implements AdventureService {
 
     }
 
+    @Override
+    public List<AdventureActionDTO> getAllPastActionsForAdventure(Long adventureId){
+        List<AdventureAction> allPastActions = adventureActionRepository.findAll();
+        List<AdventureActionDTO> allPastActionsDTO = new ArrayList<>();
+
+        for(AdventureAction adventureReservation: allPastActions){
+            if(adventureReservation.getAdventure().getId().equals(adventureId)){
+                int comparation = adventureReservation.getEndTime().compareTo(LocalDateTime.now());
+                if(comparation < 0) {
+                    allPastActionsDTO.add(modelMapper.map(adventureReservation, AdventureActionDTO.class));
+                }
+            }
+        }
+
+        return allPastActionsDTO;
+    }
+
+    @Override
+    public Long changeNumOfActiveActions(Long adventureId){
+        List<AdventureAction> allActions = adventureActionRepository.findAll();
+        Long  numOfActiveActions = 0L;
+
+        for(AdventureAction adventureReservation: allActions){
+            if(adventureReservation.getAdventure().getId().equals(adventureId)){
+                numOfActiveActions += 1L;
+                int comparation = adventureReservation.getEndTime().compareTo(LocalDateTime.now());
+                if(comparation < 0) {
+                   numOfActiveActions -= 1L;
+                }
+            }
+        }
+        Adventure adventure = adventureRepository.findById(adventureId).get();
+        adventure.setNumberOfActions(numOfActiveActions);
+        adventureRepository.save(adventure);
+
+        return numOfActiveActions;
+
+    }
+
+    @Override
+    public Long changeNumOfPastActions(Long adventureId){
+        List<AdventureAction> allActions = adventureActionRepository.findAll();
+        Long  numOfPastActions = 0L;
+
+        for(AdventureAction adventureReservation: allActions){
+            if(adventureReservation.getAdventure().getId().equals(adventureId)){
+                int comparation = adventureReservation.getEndTime().compareTo(LocalDateTime.now());
+                if(comparation < 0) {
+                    numOfPastActions += 1L;
+                }
+            }
+        }
+        Adventure adventure = adventureRepository.findById(adventureId).get();
+        adventure.setNumberOfPastActions(numOfPastActions);
+        adventureRepository.save(adventure);
+
+        return numOfPastActions;
+    }
 
     @Override
     public List<AdventureAdditionalServiceDTO> getAllAdditionalServicesForReservation(Long adventureReservationId){
@@ -261,6 +328,7 @@ public class AdventureServiceImpl implements AdventureService {
 
         for(AdventureAdditionalService additionalService: allAdditionalServices){
              if(additionalService.getAdventureReservation().getId().equals(adventureReservationId)){
+
                  allAdditionalServicesDTO.add(modelMapper.map(additionalService,AdventureAdditionalServiceDTO.class));
              }
         }
@@ -268,10 +336,10 @@ public class AdventureServiceImpl implements AdventureService {
     }
 
     @Override
-    public AdventureReservationDTO getOneActionForAdventure(Long adventureReservationId){
-        AdventureReservation adventureReservation = adventureReservationRepository.findById(adventureReservationId).get();
+    public AdventureActionDTO getOneActionForAdventure(Long adventureReservationId){
+        AdventureAction adventureReservation = adventureActionRepository.findById(adventureReservationId).get();
 
-        return modelMapper.map(adventureReservation,AdventureReservationDTO.class);
+        return modelMapper.map(adventureReservation, AdventureActionDTO.class);
     }
 
     @Override
@@ -279,11 +347,11 @@ public class AdventureServiceImpl implements AdventureService {
            String success = deleteAddServices(adventureReservationId);
 
 
-           AdventureReservation adventureReservation = adventureReservationRepository.findById(adventureReservationId).get();
-           Adventure adventure = adventureReservation.getAdventure();
+           AdventureAction adventureAction = adventureActionRepository.findById(adventureReservationId).get();
+           Adventure adventure = adventureAction.getAdventure();
            adventure.setNumberOfActions(adventure.getNumberOfActions()-1L);
 
-           adventureReservationRepository.delete(adventureReservation);
+           adventureActionRepository.delete(adventureAction);
 
             return "Action for adventure deleted: TRUE";
 
@@ -302,32 +370,76 @@ public class AdventureServiceImpl implements AdventureService {
     }
 
     @Override
-    public AdventureReservationDTO changeOneActionForAdventure(AdventureReservationDTO changedAction,
-                                                               Long adventureReservationId){
+    public AdventureActionDTO changeOneActionForAdventure(AdventureActionDTO changedAction,
+                                                          Long adventureReservationId){
         deleteAddServices(adventureReservationId);
         addAdditionalServicesForAdventureAction(changedAction.getAdditionalAdvServices(),adventureReservationId);
 
         //---------------------------------------------
-        AdventureReservation forSavingAction = adventureReservationRepository.findById(adventureReservationId).get();
+        AdventureAction forSavingAction = adventureActionRepository.findById(adventureReservationId).get();
 
 
         forSavingAction.setStartTime(changedAction.getStartTime());
-        forSavingAction.setEndTime(changedAction.getEndTime());
+
+        forSavingAction.setEndTime(changedAction.getEndTime().plusHours(25L).plusMinutes(59L).plusSeconds(59L));
+
+
+
         forSavingAction.setExactPlace(changedAction.getExactPlace());
 
-        adventureReservationRepository.save(forSavingAction);
+        adventureActionRepository.save(forSavingAction);
 
-        return modelMapper.map(forSavingAction,AdventureReservationDTO.class);
+        return modelMapper.map(forSavingAction, AdventureActionDTO.class);
     }
 
 
-    public Boolean checkIsActionReserved(Long adventureReservationId){
-        AdventureReservation adventureAction = adventureReservationRepository.findById(adventureReservationId).get();
-        if(adventureAction.getIsReserved().equals(Boolean.TRUE)){
-            return Boolean.TRUE;
-        } else return Boolean.FALSE;
+    @Override
+    public List<LocalDateTime> getForbidenDatesSpecificAction(Long actionId){
+        List<AdventureAction> adventureActions = adventureActionRepository.findAll();
 
+        Long numberOfDays = 0L;
+        AdventureAction targetAction = adventureActionRepository.findById(actionId).get();
+        List<LocalDateTime> forbiddenDates = new ArrayList<>();
+
+        for(AdventureAction action:adventureActions){
+            // hocemo datume koji ne pripadaju datoj akciji
+            if(!action.getId().equals(targetAction.getId())){
+                numberOfDays = Duration.between(action.getStartTime(),action.getEndTime()).toDays();
+
+                for(Long i=0L;i<numberOfDays+1L;i++) {
+                    forbiddenDates.add(action.getStartTime().plusDays(i));
+                }
+
+            }
+        }
+
+        return forbiddenDates;
     }
+
+    @Override
+    public List<LocalDateTime> getForbidenDates(){
+        List<AdventureAction> adventureActions = adventureActionRepository.findAll();
+
+        Long numberOfDays = 0L;
+        List<LocalDateTime> forbiddenDates = new ArrayList<>();
+
+        for(AdventureAction action:adventureActions){
+            // hocemo sve datume koji su zauzeti
+
+                numberOfDays = Duration.between(action.getStartTime(),action.getEndTime()).toDays();
+
+                for(Long i=0L;i<numberOfDays+1L;i++) {
+                    forbiddenDates.add(action.getStartTime().plusDays(i));
+                }
+
+            }
+
+
+        return forbiddenDates;
+    }
+
+
+
 
     String generateUniqueFileName() {
         String filename = "";

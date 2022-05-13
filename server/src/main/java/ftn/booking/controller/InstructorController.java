@@ -2,12 +2,10 @@ package ftn.booking.controller;
 
 
 import ftn.booking.dto.*;
-import ftn.booking.exception.ValidationException;
 import ftn.booking.model.*;
 import ftn.booking.service.AdventureService;
 import ftn.booking.service.InstructorService;
 import ftn.booking.service.UserService;
-import ftn.booking.utils.ValidationUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -15,8 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -54,6 +53,7 @@ public class InstructorController {
     }
 
     @PostMapping("/add-adventure/{instructorId}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity<Adventure> addAdventure(@RequestBody AdventureDTO adventureDTO,
                                                   @PathVariable Long instructorId){
 
@@ -70,6 +70,7 @@ public class InstructorController {
     }
 
     @DeleteMapping("/delete-adventure/adventureId/{adventureId}")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN')")
     public ResponseEntity<Boolean> deleteAdventure(@PathVariable Long adventureId){
         Boolean success = adventureService.deleteAdventure(adventureId);
         return new ResponseEntity<>(success,HttpStatus.OK);
@@ -77,6 +78,7 @@ public class InstructorController {
 
 
     @GetMapping("/all-adventures/{instructorId}")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN') || hasRole('CLIENT')")
     public ResponseEntity<List<AdventureDTO>> getAllAdventures(@PathVariable Long instructorId) {
         List<AdventureDTO> allAdventures = new ArrayList<>();
 
@@ -85,6 +87,7 @@ public class InstructorController {
     }
 
     @GetMapping("/one-adventure/{adventureId}")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN') || hasRole('CLIENT')")
     public ResponseEntity<AdventureDTO> getOneAdventure(@PathVariable Long adventureId){
         AdventureDTO adventure = adventureService.getOneAdventure(adventureId);
 
@@ -92,6 +95,7 @@ public class InstructorController {
     }
 
     @PutMapping("/change-one-adventure")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity<AdventureDTO> changeOneAdventure(@RequestBody AdventureDTO changedAdventureDTO){
         Adventure changedAdventure = modelMapper.map(changedAdventureDTO,Adventure.class);
         return new ResponseEntity<>(adventureService.changeOneAdventure(changedAdventure),HttpStatus.OK);
@@ -100,14 +104,16 @@ public class InstructorController {
 
 
     @PostMapping("/add-new-action/adventureId/{adventureId}")
-    public ResponseEntity<AdventureReservationDTO> addNewActionForAdventure(@RequestBody AdventureReservationDTO adventureReservationDTO,
-                                                                            @PathVariable Long adventureId){
+    @PreAuthorize("hasRole('INSTRUCTOR')")
+    public ResponseEntity<AdventureActionDTO> addNewActionForAdventure(@RequestBody AdventureActionDTO adventureReservationDTO,
+                                                                       @PathVariable Long adventureId){
 
         return new ResponseEntity<>(adventureService.addNewActionForAdventure(adventureReservationDTO,adventureId),HttpStatus.OK);
 
     }
 
     @PostMapping("/add-additional-services-adventure-reservation/{adventureReservationId}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity<List<AdventureAdditionalServiceDTO>> addAdditionalServicesForAdventureAction(
             @RequestBody List<String> additionalServicesAdvAction,
             @PathVariable Long adventureReservationId
@@ -118,20 +124,31 @@ public class InstructorController {
     }
 
     @GetMapping("/get-all-actions/adventureId/{adventureId}")
-    public ResponseEntity<List<AdventureReservationDTO>> getAllActionsForAdventure(@PathVariable Long adventureId) {
-        List<AdventureReservationDTO> allActionsAdventure = adventureService.getAllActionsForAdventure(adventureId);
+    @PreAuthorize("hasRole('INSTRUCTOR')")
+    public ResponseEntity<List<AdventureActionDTO>> getAllActiveActionsForAdventure(@PathVariable Long adventureId) {
+        List<AdventureActionDTO> allActionsAdventure = adventureService.getAllActionsForAdventure(adventureId);
+
+        return new ResponseEntity<>(allActionsAdventure,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-past-actions/adventureId/{adventureId}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
+    public ResponseEntity<List<AdventureActionDTO>> getAllPastActionsForAdventure(@PathVariable Long adventureId) {
+        List<AdventureActionDTO> allActionsAdventure = adventureService.getAllPastActionsForAdventure(adventureId);
 
         return new ResponseEntity<>(allActionsAdventure,HttpStatus.OK);
     }
 
     @GetMapping("/get-one-action/adventureReservationId/{adventureReservationId}")
-    public ResponseEntity<AdventureReservationDTO> getOneActionForAdventure(@PathVariable Long adventureReservationId){
-        AdventureReservationDTO actionAdventure = adventureService.getOneActionForAdventure(adventureReservationId);
+    @PreAuthorize("hasRole('INSTRUCTOR')")
+    public ResponseEntity<AdventureActionDTO> getOneActionForAdventure(@PathVariable Long adventureReservationId){
+        AdventureActionDTO actionAdventure = adventureService.getOneActionForAdventure(adventureReservationId);
 
         return new ResponseEntity<>(actionAdventure,HttpStatus.OK);
     }
 
     @GetMapping("/get-all-additional-services/adventureReservationId/{adventureReservationId}")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN')")
     public ResponseEntity<List<AdventureAdditionalServiceDTO>> getAllAdditionalServicesForReservation(@PathVariable Long adventureReservationId){
         List<AdventureAdditionalServiceDTO> allAdditionalServicesReservation = adventureService.getAllAdditionalServicesForReservation(adventureReservationId);
 
@@ -141,20 +158,23 @@ public class InstructorController {
 
 
     @DeleteMapping("/delete-action-for-adventure/adventureReservationId/{adventureReservationId}")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN')")
     public ResponseEntity<String> deleteActionForAdventure(@PathVariable Long adventureReservationId){
         String success = adventureService.deleteActionForAdventure(adventureReservationId);
         return new ResponseEntity<>(success,HttpStatus.OK);
     }
 
     @PutMapping("/change-one-action/adventureReservationId/{adventureReservationId}")
-    public ResponseEntity<AdventureReservationDTO> changeOneActionForAdventure(@RequestBody AdventureReservationDTO changedAction,
-                                                                               @PathVariable Long adventureReservationId){
-        AdventureReservationDTO savedChangedAction = adventureService.changeOneActionForAdventure(changedAction,adventureReservationId);
+    @PreAuthorize("hasRole('INSTRUCTOR')")
+    public ResponseEntity<AdventureActionDTO> changeOneActionForAdventure(@RequestBody AdventureActionDTO changedAction,
+                                                                          @PathVariable Long adventureReservationId){
+        AdventureActionDTO savedChangedAction = adventureService.changeOneActionForAdventure(changedAction,adventureReservationId);
 
         return new ResponseEntity<>(savedChangedAction,HttpStatus.OK);
     }
 
     @PutMapping("/change-instructor-info/instructorId/{instructorId}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity<InstructorDTO> changeInstructorInfo(@RequestBody InstructorDTO changedInstructor,
                                                            @PathVariable Long instructorId){
         InstructorDTO savedInstructor = instructorService.changeInstructorInfo(changedInstructor,instructorId);
@@ -163,16 +183,35 @@ public class InstructorController {
 
     }
 
-    @GetMapping("/check-if-new-password-same-old/instructorId/{instructorId}/{newPassword}")
-    public ResponseEntity<Boolean> checkIfNewPasswordSameOld(@PathVariable Long instructorId,
-                                                             @PathVariable String newPassword){
-        if(!ValidationUtils.isValidPassword(newPassword))
-            throw new ValidationException("Password is not valid.");
+    @GetMapping("/get-forbiden-dates-specific-action/actionId/{actionId}")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('CLIENT') || hasRole('ADMIN')")
+    public List<LocalDateTime> getForbidenDatesSpecificAction(@PathVariable Long actionId){
+        List<LocalDateTime> forbidenDates = adventureService.getForbidenDatesSpecificAction(actionId);
 
-
-        Boolean result = instructorService.checkIfNewPasswordSameOld(instructorId,newPassword);
-        return new ResponseEntity<>(result,HttpStatus.OK);
+        return forbidenDates;
     }
 
+    @GetMapping("/get-forbiden-dates")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('CLIENT') || hasRole('ADMIN')")
+    public List<LocalDateTime> getForbidenDates(){
+        List<LocalDateTime> forbidenDates = adventureService.getForbidenDates();
+        return forbidenDates;
+    }
+
+
+
+    @PutMapping("/change-num-of-active-actions/adventureId/{adventureId}")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN')")
+    public Long changeNumOfActiveActions(@PathVariable Long adventureId){
+        Long numOfActiveActions = adventureService.changeNumOfActiveActions(adventureId);
+        return numOfActiveActions;
+    }
+
+    @PutMapping("/change-num-of-past-actions/adventureId/{adventureId}")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN')")
+    public Long changeNumOfPastActions(@PathVariable Long adventureId){
+        Long numOfPastActions = adventureService.changeNumOfPastActions(adventureId);
+        return numOfPastActions;
+    }
 
 }

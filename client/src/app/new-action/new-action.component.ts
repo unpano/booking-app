@@ -166,5 +166,5 @@ export class NewActionComponent implements OnInit {
     });
      return dateIsFree
     
-  }
+  } 
 }

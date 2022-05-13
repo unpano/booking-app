@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/dto/user';
@@ -11,8 +11,8 @@ export class VerifiedUsersService {
   private baseURL = "http://localhost:8084/users";
   constructor(private http:HttpClient) { }
 
-  getRegUsers(): Observable<User[]>{
-    return this.http.get<User[]>(`${this.baseURL}`+"/verified");
+  getRegUsers(options:any): Observable<HttpEvent<User[]>>{
+    return this.http.get<User[]>(`${this.baseURL}`+"/verified",options);
 
   }
 }

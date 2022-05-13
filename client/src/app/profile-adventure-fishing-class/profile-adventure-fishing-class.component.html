@@ -43,7 +43,7 @@
         </div>
         
         <div class="form-group">
-            <h1>Free termins for reservation: </h1>
+            <h1>All termins for reservation: </h1>
            
             <mat-card> 
                 <mat-card-content>
@@ -55,7 +55,43 @@
                             <div class="search-hero">
                               <input class="form-control" [(ngModel)]="searchText" type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
                             </div>
-                            
+                            <h2>Past actions:</h2>
+                            <table matSort >
+                              <thead>
+                              <tr> 
+                                <th >Start time for action</th>
+                                <th >End time for action</th>
+                                <th>Additional services</th>
+                                <th>Exact place for action</th>
+                                <th> Was reserved</th>
+                                <th></th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let pastAction of adventurePastActions | filter:searchText ">
+                                <td>{{pastAction.startTime}}</td>
+                                <td>{{pastAction.endTime}}</td>
+                                <td>{{pastAction.additionalAdvServices}} </td>
+                                <td>{{pastAction.exactPlace}}</td>
+                                <td>{{pastAction.isReserved}}</td>
+                                <td>
+                                  <div id="starsRow" >
+                                    <i class="material-icons">star</i>
+                                  </div>
+                                </td>
+                                
+                                <button id="eyeBtnPastActions" disabled> </button>
+                                <button id="eyeBtnPastActions" disabled> </button>
+                              
+                              </tr>
+                              </tbody>
+                            </table>
+
+
+
+                          <br>
+                          <br>
+                            <h2>Active actions:</h2>
                             <table matSort >
                               <thead>
                               <tr> 

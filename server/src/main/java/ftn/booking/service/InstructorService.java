@@ -18,6 +18,5 @@ public interface InstructorService {
     InstructorDTO changeInstructorInfo( InstructorDTO changedInstructor,
                                      Long instructorId);
 
-    Boolean checkIfNewPasswordSameOld(Long instructorId,
-                                      String newPassword);
+
 }

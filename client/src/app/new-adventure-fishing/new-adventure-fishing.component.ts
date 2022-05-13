@@ -180,7 +180,8 @@ export class NewAdventureFishingComponent implements OnInit {
 
   addAdventure(instructorId: Number){
 
-    
+     const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")};  
+        let options = { headers: headers };
      
      var adventureLocal = new Adventure();
     this.adventure.name = this.name;
@@ -242,7 +243,7 @@ export class NewAdventureFishingComponent implements OnInit {
   console.log(this.adventure);
   console.log(this.adventure.cancelationPrice);
   
-   this.newAdventureFishingService.addAdventure(this.adventure,instructorId).subscribe(data=>{
+   this.newAdventureFishingService.addAdventure(this.adventure,instructorId,options).subscribe(data=>{
      //console.log(data);
      this.savedAdventure = Object.assign(data);
       console.log(this.savedAdventure);

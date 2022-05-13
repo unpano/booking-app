@@ -99,10 +99,12 @@ export class EditProfileAdventureComponent implements OnInit {
     this.adventureId = this.activeRoute.snapshot.params['id'];
     console.log(this.adventureId);
 
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")};  
+        let options = { headers: headers };
     
  
-    this.editAdventureService.getOneAdventure(this.adventureId).subscribe(data=>{
-      this.adventure = data;
+    this.editAdventureService.getOneAdventure(this.adventureId,options).subscribe(data=>{
+      this.adventure = Object.assign(data);
 
       this.currentlyChoosenRadio = Object.assign(this.adventure.cancelationPrice);
       this.onInitCheckedRadio = this.adventure.cancelationPrice;
@@ -149,8 +151,8 @@ export class EditProfileAdventureComponent implements OnInit {
     
    
 
-    this.editAdventureService.getAdventurePictures(this.adventureId).subscribe(data=>{
-      this.adventureImages = data;
+    this.editAdventureService.getAdventurePictures(this.adventureId,options).subscribe(data=>{
+      this.adventureImages = Object.assign(data);
       console.log(this.adventureImages);
 
 
@@ -318,7 +320,10 @@ export class EditProfileAdventureComponent implements OnInit {
     console.log(this.currentlyChoosenRadio);
 
     this.updateFiles(this.adventureId);
-    this.editAdventureService.changeAdventure(this.adventure).subscribe(data=>{
+    const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token")};  
+    let options = { headers: headers };
+
+    this.editAdventureService.changeAdventure(this.adventure,options).subscribe(data=>{
       document.location.reload();
     });
     this.router.navigate(['profile-adventure-fishing-class/',this.adventure.id]);

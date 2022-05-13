@@ -33,7 +33,12 @@ export class EditProfileInstructorComponent implements OnInit {
 
   saveChanges(){
       console.log(this.instructor);
-      this.editProfileInstructorService.changeInstructor(this.instructor,this.instructorId).subscribe();
+
+      const headers = { 'content-type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+        let options = { headers: headers };
+        console.log(options);
+      this.editProfileInstructorService.changeInstructor(this.instructor,this.instructorId,options).subscribe();
       //alert("You changed profile info!");
       this.router.navigate(['profile-instructor/',this.instructorId]);
       

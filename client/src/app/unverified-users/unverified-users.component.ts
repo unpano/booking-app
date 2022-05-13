@@ -20,15 +20,21 @@ export class UnverifiedUsersComponent implements OnInit {
   }
 
   private getNonVerifUsers(){
-    this.unverifUsersService.getNonVerifUsers().subscribe(data=>{
-      this.usersNonVerif = data;
+    const headers = { 'content-type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+      let options = { headers: headers };
+    this.unverifUsersService.getNonVerifUsers(options).subscribe(data=>{
+      this.usersNonVerif = Object.assign(data);
     })
 
   }
 
   verifyOne(email: String,user:User){
-    //this.sendEmail(email,user);
-    this.unverifUsersService.verifyOne(email,user).subscribe(data=>{
+    this.sendEmail(email,user);
+    const headers = { 'content-type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+      let options = { headers: headers };
+    this.unverifUsersService.verifyOne(email,user,options).subscribe(data=>{
       alert("You verified user " + user.firstName + " " + user.lastName + " !" + "\n \n" +
         "He will receive notification for verification on its email: \n" + user.email);
         
@@ -38,7 +44,10 @@ export class UnverifiedUsersComponent implements OnInit {
   }
 
   sendEmail(email: String,user:User){
-    this.unverifUsersService.sendVerificationEmail(email,user).subscribe(data=>{
+    const headers = { 'content-type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+      let options = { headers: headers };
+    this.unverifUsersService.sendVerificationEmail(email,user,options).subscribe(data=>{
       this.getNonVerifUsers();
     })
   }

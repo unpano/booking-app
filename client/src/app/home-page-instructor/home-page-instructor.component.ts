@@ -32,8 +32,18 @@ export class HomePageInstructorComponent implements OnInit {
     this.homeInstructorService.getInstructorInfo().subscribe(data=>{
         this.instructor = data;
         console.log(this.instructor);
-        this.homeInstructorService.getAllAdventures(this.instructor.id).subscribe(data=>{
-          this.adventures = data;
+        const headers = { 'content-type': 'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+        let options = { headers: headers };
+
+
+        this.homeInstructorService.getAllAdventures(this.instructor.id,options).subscribe(data=>{
+          this.adventures = Object.assign(data);
+
+          this.adventures.forEach(adventure => {
+            this.homeInstructorService.changeNumOfActiveActions(adventure.id,options).subscribe();
+            this.homeInstructorService.changeNumOfPastActions(adventure.id,options).subscribe();
+          });
         });
 
     })
@@ -49,9 +59,14 @@ export class HomePageInstructorComponent implements OnInit {
 
 
   viewAdventure(adventureId: Number){
-      this.homeInstructorService.getOneAdventure(adventureId).subscribe(data=>{
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+     let options = { headers: headers };
+
+      this.homeInstructorService.getOneAdventure(adventureId,options).subscribe(data=>{
        // console.log(data);
-        this.adventureId = data.id;
+        var adventure = Object.assign(data);
+        this.adventureId = adventure.id;
         //console.log(this.adventureId); 
 
         this.router.navigate(['profile-adventure-fishing-class',this.adventureId]);
@@ -62,7 +77,11 @@ export class HomePageInstructorComponent implements OnInit {
 
   deleteAdventure(adventureId:Number){
     if(window.confirm("You want to delete this adventure?")){
-        this.homeInstructorService.deleteOneAdventure(adventureId).subscribe();
+      const headers = { 'content-type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+       let options = { headers: headers };
+        console.log(options);
+        this.homeInstructorService.deleteOneAdventure(adventureId,options).subscribe();
         window.setInterval('document.location.reload()', 1000);
         //document.location.reload();
     } else{

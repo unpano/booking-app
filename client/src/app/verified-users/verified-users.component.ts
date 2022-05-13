@@ -19,8 +19,11 @@ export class VerifiedUsersComponent implements OnInit {
   }
 
   private getRegUsers(){
-    this.verifUserService.getRegUsers().subscribe(data=>{
-      this.usersReg = data;
+    const headers = { 'content-type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+      let options = { headers: headers };
+    this.verifUserService.getRegUsers(options).subscribe(data=>{
+      this.usersReg = Object.assign(data);
     })
   }
 

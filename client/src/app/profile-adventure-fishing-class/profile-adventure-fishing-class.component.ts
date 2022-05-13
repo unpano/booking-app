@@ -29,7 +29,11 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
 
   adventureActions : AdventureReservation[] = new Array();
 
+  adventurePastActions: AdventureReservation[] = new Array();
+
   adventureAddServices : AdditionalAdvService[] = new Array();
+
+  adventureAddServicesPast: AdditionalAdvService[] = new Array();
   
   adventureAddServicesALL  = []; 
 
@@ -46,13 +50,18 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
 
   ngOnInit(): void {
     this.adventureId = this.activeRoute.snapshot.params['id'];
+    const headers = { 'content-type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+      let options = { headers: headers };
+
+
    // console.log(this.adventureId); 
-    this.profileAdventureService.getOneAdventure(this.adventureId).subscribe(data=>{
-      this.adventure = data;
+    this.profileAdventureService.getOneAdventure(this.adventureId,options).subscribe(data=>{
+      this.adventure = Object.assign(data);
     })
 
-    this.profileAdventureService.getAdventurePictures(this.adventureId).subscribe(data=>{
-      this.adventureImages = data;
+    this.profileAdventureService.getAdventurePictures(this.adventureId,options).subscribe(data=>{
+      this.adventureImages = Object.assign(data);
       console.log(this.adventureImages);
 
       
@@ -73,16 +82,17 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
     })
 
 
-    this.profileAdventureService.getAdventureReservations(this.adventureId).subscribe(data=>{
-      this.adventureActions = data;
-      
+    this.profileAdventureService.getAdventureReservations(this.adventureId,options).subscribe(data=>{
+      this.adventureActions = Object.assign(data);
+     
 
       
+
           this.adventureActions.forEach(element => {
-              this.profileAdventureService.getAdventureAdditionalServices(element.id).subscribe(data=>{
+              this.profileAdventureService.getAdventureAdditionalServices(element.id,options).subscribe(data=>{
                 element.additionalAdvServices = new Array(); 
-                var addServices = data;
-                addServices.forEach(oneAddService => {
+                var addServices = Object.assign(data);
+                addServices.forEach((oneAddService: { name: String; }) => {
                   element.additionalAdvServices.push(oneAddService.name);
                 });
                 
@@ -93,7 +103,25 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
      console.log(this.adventureActions);
     })
 
+    // OVO SAD ZA PROSLE AKCIJE
+    this.profileAdventureService.getAdventurePastReservations(this.adventureId,options).subscribe(data=>{
+        this.adventurePastActions = Object.assign(data);
 
+          this.adventurePastActions.forEach(element=>{
+                this.profileAdventureService.getAdventureAdditionalServices(element.id,options).subscribe(data=>{
+                   element.additionalAdvServices = new Array();
+                   var addServices = Object.assign(data);
+
+                   addServices.forEach((oneAddService: { name: String; }) => {
+                        element.additionalAdvServices.push(oneAddService.name);
+                   });
+                })
+
+          });
+
+    })
+
+    
     
   }
 
@@ -114,7 +142,11 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
     
       console.log(adventureActionId);  
       if(window.confirm("You want to delete termin for action?")){
-          this.profileAdventureService.deleteActionForAdventure(adventureActionId).subscribe();
+          const headers = { 'content-type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+          let options = { headers: headers };
+          
+          this.profileAdventureService.deleteActionForAdventure(adventureActionId,options).subscribe();
           window.setInterval('document.location.reload()', 1000);
          // document.location.reload();
           } else{
@@ -125,7 +157,7 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
   }
 
   editAction(adventureActionId:Number){
-  
+      
       this.router.navigate(['edit-action-adventure/',adventureActionId]);
     
 

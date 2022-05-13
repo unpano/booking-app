@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AdditionalAdvService } from 'src/app/dto/AdditionalAdvService';
@@ -15,15 +15,19 @@ export class NewActionAdventureService {
   constructor(private http:HttpClient) { }
 
 
-  getOneAdventure(id:Number) : Observable<Adventure>{
-    return this.http.get<Adventure>(`${this.baseURL}` + "one-adventure/" + id);
+  getOneAdventure(id:Number,options:any) : Observable<HttpEvent<Adventure>>{
+    return this.http.get<Adventure>(`${this.baseURL}` + "one-adventure/" + id,options);
   }
 
-  addAdventureAction(advReserv: AdventureReservation,advId: Number): Observable<AdventureReservation>{
-    return this.http.post<AdventureReservation>(`${this.baseURL}`+ "add-new-action/adventureId/" + `${advId}`,advReserv);
+  addAdventureAction(advReserv: AdventureReservation,advId: Number,options:any): Observable<HttpEvent<AdventureReservation>>{
+    return this.http.post<AdventureReservation>(`${this.baseURL}`+ "add-new-action/adventureId/" + `${advId}`,advReserv,options);
   }
 
-  addAdditonalServAdv(addServList: String[],advReservId: Number): Observable<AdditionalAdvService[]>{
-    return this.http.post<AdditionalAdvService[]>(`${this.baseURL}`+ "add-additional-services-adventure-reservation/" + `${advReservId}`,addServList);
+  addAdditonalServAdv(addServList: String[],advReservId: Number,options:any): Observable<HttpEvent<AdditionalAdvService[]>>{
+    return this.http.post<AdditionalAdvService[]>(`${this.baseURL}`+ "add-additional-services-adventure-reservation/" + `${advReservId}`,addServList,options);
+  }
+
+  getForbidenDates(options:any):Observable<HttpEvent<Date[]>>{
+    return this.http.get<Date[]>(`${this.baseURL}`+ "get-forbiden-dates",options);
   }
 }

@@ -41,6 +41,7 @@ public class FileUploadController {
     }
 
     @PostMapping("/add-adventure-picture/{adventureId}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
     public  ResponseEntity<String> addAdventurePicture(@RequestParam("file") MultipartFile file,
                                                         @PathVariable Long adventureId) throws IOException {
 
@@ -49,6 +50,7 @@ public class FileUploadController {
     }
 
     @GetMapping("/get-adventure-pictures/{adventureId}")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('CLIENT')")
     public ResponseEntity<List<AdventureImage>> getAdventurePictures(@PathVariable Long adventureId){
         List<AdventureImage> adventureImages = adventureService.getAdventurePictures(adventureId);
 
@@ -56,6 +58,7 @@ public class FileUploadController {
     }
 
     @DeleteMapping("/delete-adventure-picture/{pictureId}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity<String> deleteOldAdventurePicture(
             @PathVariable Long pictureId) throws IOException {
         return new ResponseEntity<>(adventureService.deleteAdventurePicture(pictureId),HttpStatus.OK);

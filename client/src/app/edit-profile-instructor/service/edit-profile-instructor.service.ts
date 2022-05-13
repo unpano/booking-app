@@ -15,8 +15,8 @@ export class EditProfileInstructorService {
     return this.http.get<User>(`${this.baseURL}`+ "findOne/" + instructorId);
   }
 
-  changeInstructor(instructor: User,instructorId:Number): Observable<Object>{
-    return this.http.put(`${this.baseURL}`+ "change-instructor-info/instructorId/" + instructorId,instructor);
+  changeInstructor(instructor: User,instructorId:Number,options:any): Observable<Object>{
+    return this.http.put(`${this.baseURL}`+ "change-instructor-info/instructorId/" + instructorId,instructor,options);
   }
 
 

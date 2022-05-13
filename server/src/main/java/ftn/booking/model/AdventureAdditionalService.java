@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "adventure_reservation_additional_services")
+@Table(name = "adventure_actions_additional_services")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -22,6 +22,6 @@ public class AdventureAdditionalService {
     private String name;
 
     @ManyToOne
-    private AdventureReservation adventureReservation;
+    private AdventureAction adventureReservation;
 
 }

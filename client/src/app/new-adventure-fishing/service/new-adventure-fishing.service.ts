@@ -14,13 +14,9 @@ export class NewAdventureFishingService {
   private baseURLforAdventureImage = "http://localhost:8084/uploads/add-adventure-picture/";
   constructor(private http:HttpClient) { }
 
-  addAdventure(adventure: Adventure,instructorId: Number): Observable<Object>{
-    return this.http.post(`${this.baseURL}`+ "/add-adventure/" + `${instructorId}` ,adventure);
+  addAdventure(adventure: Adventure,instructorId: Number,options:any): Observable<Object>{
+    return this.http.post(`${this.baseURL}`+ "/add-adventure/" + `${instructorId}` ,adventure,options);
 
-  }
-
-  addAdventureImage(id: Number,formData: FormData) : Observable<Object> {
-    return this.http.post(`${this.baseURLforAdventureImage}` + `${id}`,formData);
   }
 
   getInstructorInfo(): Observable<User>{

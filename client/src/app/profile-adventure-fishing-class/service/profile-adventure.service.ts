@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AdditionalAdvService } from 'src/app/dto/AdditionalAdvService';
@@ -17,12 +17,12 @@ export class ProfileAdventureService {
   private baseURLimages  ="http://localhost:8084/";
   constructor(private http: HttpClient) { }
 
-  getOneAdventure(id:Number) : Observable<Adventure>{
-    return this.http.get<Adventure>(`${this.baseURL}` + "one-adventure/" + id);
+  getOneAdventure(id:Number,options:any) : Observable<HttpEvent<Adventure>>{
+    return this.http.get<Adventure>(`${this.baseURL}` + "one-adventure/" + id,options);
   }
 
-  getAdventurePictures(id:Number): Observable<AdventureImage[]>{
-    return this.http.get<AdventureImage[]>(`${this.baseURLimages}`+ "uploads/get-adventure-pictures/" + id);
+  getAdventurePictures(id:Number,options:any): Observable<HttpEvent<AdventureImage[]>>{
+    return this.http.get<AdventureImage[]>(`${this.baseURLimages}`+ "uploads/get-adventure-pictures/" + id,options);
 
   }
 
@@ -31,15 +31,19 @@ export class ProfileAdventureService {
     return this.http.get<User>(`${this.baseURL}` + 'findInstructorByUsername/' + sessionStorage.getItem('email'));
   }
 
-  getAdventureReservations(adventureId:Number): Observable<AdventureReservation[]>{
-    return this.http.get<AdventureReservation[]>(`${this.baseURL}` + "get-all-actions/adventureId/" + `${adventureId}`);
+  getAdventureReservations(adventureId:Number,options:any): Observable<HttpEvent<AdventureReservation[]>>{
+    return this.http.get<AdventureReservation[]>(`${this.baseURL}` + "get-all-actions/adventureId/" + `${adventureId}`,options);
   }
 
-  getAdventureAdditionalServices(adventureReservationId: Number): Observable<AdditionalAdvService[]>{
-    return this.http.get<AdditionalAdvService[]>(`${this.baseURL}` + "get-all-additional-services/adventureReservationId/" + `${adventureReservationId}`);
+  getAdventurePastReservations(adventureId:Number,options:any):Observable<HttpEvent<AdventureReservation[]>>{
+    return this.http.get<AdventureReservation[]>(`${this.baseURL}` + "get-all-past-actions/adventureId/" + `${adventureId}`,options);
   }
 
-  deleteActionForAdventure(adventureReservationId: Number): Observable<Object>{
-    return this.http.delete(`${this.baseURL}`+ "delete-action-for-adventure/adventureReservationId/" + `${adventureReservationId}`);
+  getAdventureAdditionalServices(adventureReservationId: Number,options:any): Observable<HttpEvent<AdditionalAdvService[]>>{
+    return this.http.get<AdditionalAdvService[]>(`${this.baseURL}` + "get-all-additional-services/adventureReservationId/" + `${adventureReservationId}`,options);
+  }
+
+  deleteActionForAdventure(adventureReservationId: Number,options:any): Observable<Object>{
+    return this.http.delete(`${this.baseURL}`+ "delete-action-for-adventure/adventureReservationId/" + `${adventureReservationId}`,options);
   }
 }

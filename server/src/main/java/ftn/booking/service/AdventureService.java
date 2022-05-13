@@ -2,15 +2,14 @@ package ftn.booking.service;
 
 import ftn.booking.dto.AdventureAdditionalServiceDTO;
 import ftn.booking.dto.AdventureDTO;
-import ftn.booking.dto.AdventureReservationDTO;
+import ftn.booking.dto.AdventureActionDTO;
 import ftn.booking.model.Adventure;
 import ftn.booking.model.AdventureImage;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.Multipart;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AdventureService {
@@ -30,25 +29,31 @@ public interface AdventureService {
 
     AdventureDTO changeOneAdventure(Adventure changedAdventure);
 
-    AdventureReservationDTO addNewActionForAdventure(AdventureReservationDTO adventureReservationDTO,
-                                                       Long adventureId);
+    AdventureActionDTO addNewActionForAdventure(AdventureActionDTO adventureReservationDTO,
+                                                Long adventureId);
 
     List<AdventureAdditionalServiceDTO> addAdditionalServicesForAdventureAction(
              List<String> additionalServicesAdvAction,
              Long adventureReservationId);
 
-    List<AdventureReservationDTO> getAllActionsForAdventure(Long adventureId);
+    List<AdventureActionDTO> getAllActionsForAdventure(Long adventureId);
+
+    List<AdventureActionDTO> getAllPastActionsForAdventure(Long adventureId);
 
     List<AdventureAdditionalServiceDTO> getAllAdditionalServicesForReservation(Long adventureReservationId);
 
-    AdventureReservationDTO getOneActionForAdventure(Long adventureReservationId);
+    AdventureActionDTO getOneActionForAdventure(Long adventureReservationId);
 
-    AdventureReservationDTO changeOneActionForAdventure(AdventureReservationDTO changedAction,
-                                                         Long adventureReservationId);
+    AdventureActionDTO changeOneActionForAdventure(AdventureActionDTO changedAction,
+                                                   Long adventureReservationId);
 
     String deleteActionForAdventure(Long adventureReservationId);
 
+    List<LocalDateTime> getForbidenDatesSpecificAction(Long actionId);
 
+    List<LocalDateTime> getForbidenDates();
 
+    Long changeNumOfActiveActions(Long adventureId);
 
+    Long changeNumOfPastActions(Long adventureId);
 }

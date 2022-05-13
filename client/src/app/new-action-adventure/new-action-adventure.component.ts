@@ -42,6 +42,8 @@ export class NewActionAdventureComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   addServices: AddService[] = [{name: 'Massage'}, {name: 'Extra clothing'}];
 
+  forbiddenDates : Date[] = new Array();
+
   constructor(private router: Router
     ,private activeRoute: ActivatedRoute,
     private http: HttpClient,
@@ -62,14 +64,23 @@ export class NewActionAdventureComponent implements OnInit {
   ngOnInit(): void {
     this.adventureId = this.activeRoute.snapshot.params['id'];
     console.log(this.adventureId);
-    this.newActionAdventureService.getOneAdventure(this.adventureId).subscribe(data=>{
-      this.adventureReservation.adventure = data;
+    const headers = { 'content-type': 'application/json',
+     'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+     let options = { headers: headers };
+
+
+    this.newActionAdventureService.getOneAdventure(this.adventureId,options).subscribe(data=>{
+      this.adventureReservation.adventure = Object.assign(data);
     });
+
+    this.newActionAdventureService.getForbidenDates(options).subscribe(data=>{
+      this.forbiddenDates = Object.assign(data);
+    })
     
   }
 
 
- /* rangeFilter: DateFilterFn<Date> = (date: Date | null) => {
+ rangeFilter: DateFilterFn<Date> = (date: Date | null) => {
   
     if (date != null)
      return this.isFree(date);
@@ -79,15 +90,19 @@ export class NewActionAdventureComponent implements OnInit {
   isFree(input: Date): boolean{
     let dateIsFree : boolean = true
 
-    input.setDate(input.getDate() +1)
 
     let date1 = new Date(input).toISOString()
     date1.toLocaleString();
     date1 = date1.substring(0,date1.indexOf("T"))
 
-    Global.forbiddenDates.forEach((date: Date)=> {
 
-      if(date1 == date.toString()){
+    this.forbiddenDates.forEach((date: Date)=> {
+      
+       let convertedDate = new Date(date).toISOString();
+        convertedDate.toLocaleString();
+        convertedDate = convertedDate.substring(0,convertedDate.indexOf("T"));
+
+      if(date1 == convertedDate){
       
         dateIsFree = false
       }
@@ -95,7 +110,7 @@ export class NewActionAdventureComponent implements OnInit {
      return dateIsFree
     
   }
-*/
+
 
 //for adding chips
 add(event: MatChipInputEvent): void {
@@ -151,10 +166,14 @@ remove(addService: AddService): void {
 
    // this.newActionAdventureService.addAdditonalServAdv(this.additionalServiceList,7).subscribe();
 
+   this.adventureId = this.activeRoute.snapshot.params['id'];
+   const headers = { 'content-type': 'application/json',
+     'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+     let options = { headers: headers };
 
-    this.newActionAdventureService.addAdventureAction(this.adventureReservation,this.adventureId).subscribe(data=>{
-          this.advActionReturn = data;
-          this.newActionAdventureService.addAdditonalServAdv(this.additionalServiceList,this.advActionReturn.id).subscribe();
+    this.newActionAdventureService.addAdventureAction(this.adventureReservation,this.adventureId,options).subscribe(data=>{
+          this.advActionReturn = Object.assign(data);
+          this.newActionAdventureService.addAdditonalServAdv(this.additionalServiceList,this.advActionReturn.id,options).subscribe();
           this.router.navigate(['profile-adventure-fishing-class/',this.adventureId]);
     }); 
 

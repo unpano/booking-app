@@ -55,7 +55,6 @@ public class AuthenticationController {
     //private Mail mail;
 
     @PostMapping("/signup")
-
     public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO){
 
         User existUser = this.userService.loadUserByUsername(userDTO.getEmail());

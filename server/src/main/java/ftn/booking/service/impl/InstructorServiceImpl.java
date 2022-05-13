@@ -48,7 +48,7 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public InstructorDTO changeInstructorInfo( InstructorDTO changedInstructor,
                                                Long instructorId){
-        InstructorDTO newInstructor = modelMapper.map(instructorRepository.findById(instructorId).get(),InstructorDTO.class);
+        Instructor newInstructor = instructorRepository.findById(instructorId).get();
 
         newInstructor.setFirstName(changedInstructor.getFirstName());
         newInstructor.setLastName(changedInstructor.getLastName());
@@ -57,20 +57,14 @@ public class InstructorServiceImpl implements InstructorService {
         newInstructor.setCountry(changedInstructor.getCountry());
         newInstructor.setPhoneNumber(changedInstructor.getPhoneNumber());
 
-        instructorRepository.save(modelMapper.map(newInstructor,Instructor.class));
 
-        return newInstructor;
+        instructorRepository.save(newInstructor);
+
+        return modelMapper.map(newInstructor,InstructorDTO.class);
 
     }
 
-    @Override
-    public Boolean checkIfNewPasswordSameOld(Long instructorId,
-                                             String newPassword){
-        User instructor = userRepository.findById(instructorId).get();
 
-        passwordEncoder.encode(newPassword);
-        return passwordEncoder.matches(instructor.getPassword(),newPassword);
-    }
 
 
 

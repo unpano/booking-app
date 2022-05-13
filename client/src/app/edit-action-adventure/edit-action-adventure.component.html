@@ -15,7 +15,7 @@
             <mat-label>Pick period</mat-label>
             <mat-date-range-input
               [formGroup]="pickPeriod"
-              [rangePicker]="periodPicker" [min]="minDate" >
+              [rangePicker]="periodPicker" [min]="minDate" [dateFilter]="rangeFilter" >
               <input matStartDate placeholder="Start date" formControlName="start" [(ngModel)]="adventureAction.startTime">
               <input matEndDate placeholder="End date" formControlName="end" [(ngModel)]="adventureAction.endTime">
             </mat-date-range-input>

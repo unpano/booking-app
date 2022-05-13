@@ -130,6 +130,17 @@ button{
     margin-top: 7px;
 }
 
+#eyeBtnPastActions{
+    color: white;
+    background: rgb(255, 255, 255);
+    border-radius: 1rem;
+    border: none;
+    width: 80px;
+    height: 35px;
+    margin-left: 30px;
+    font-weight: bold;
+    margin-top: 7px;
+}
 
 
 mat-card{

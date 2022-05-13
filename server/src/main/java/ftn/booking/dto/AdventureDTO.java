@@ -25,6 +25,8 @@ public class AdventureDTO {
 
     private Long numberOfActions;
 
+    private Long numberOfPastActions;
+
     private String name;
 
     private String address;

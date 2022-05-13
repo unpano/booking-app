@@ -110,18 +110,21 @@ public class UserController {
 
 
     @GetMapping("/unverified")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserDTO>> getAllNonVerifUsers(){
         List<UserDTO> unverifiedUsers = userService.getAllNonVerifUsers();
         return new ResponseEntity<>(unverifiedUsers,HttpStatus.OK);
     }
 
     @GetMapping("/verified")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserDTO>> getAllVerifiedUsers(){
         List<UserDTO> verifiedUsers = userService.getAllVerifiedUsers();
         return new ResponseEntity<>(verifiedUsers,HttpStatus.OK);
     }
 
     @PutMapping("/verify/{email}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> verifyOne(@PathVariable String email){
         UserDTO userVerifiedDTO = userService.verifyOne(email);
 
