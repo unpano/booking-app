@@ -1,5 +1,6 @@
 package ftn.booking.service;
 
+import ftn.booking.dto.AdventureActionClientsDTO;
 import ftn.booking.dto.AdventureAdditionalServiceDTO;
 import ftn.booking.dto.AdventureDTO;
 import ftn.booking.dto.AdventureActionDTO;
@@ -38,6 +39,8 @@ public interface AdventureService {
 
     List<AdventureActionDTO> getAllActionsForAdventure(Long adventureId);
 
+    List<AdventureActionDTO> getAllActionsForClient();
+
     List<AdventureActionDTO> getAllPastActionsForAdventure(Long adventureId);
 
     List<AdventureAdditionalServiceDTO> getAllAdditionalServicesForReservation(Long adventureReservationId);
@@ -56,4 +59,7 @@ public interface AdventureService {
     Long changeNumOfActiveActions(Long adventureId);
 
     Long changeNumOfPastActions(Long adventureId);
+
+    AdventureActionClientsDTO addNewBookingForAction(Long adventureActionId,
+                                                     Long clientId);
 }

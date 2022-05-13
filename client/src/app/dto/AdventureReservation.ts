@@ -11,6 +11,8 @@ export class AdventureReservation{
     exactPlace !: String;
     additionalAdvServices !: String[];
     isReserved !: Boolean;
+    instructorId !: Number;
+    instructorEmail !: Number;
     
 
 }

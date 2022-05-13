@@ -38,6 +38,9 @@ public class AdventureActionDTO {
 
     private List<String> additionalAdvServices;
 
+    private Long instructorId;
+
+    private String instructorEmail;
 
 
 }

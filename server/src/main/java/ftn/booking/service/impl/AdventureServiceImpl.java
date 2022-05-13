@@ -1,13 +1,11 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.dto.AdventureActionClientsDTO;
 import ftn.booking.dto.AdventureAdditionalServiceDTO;
 import ftn.booking.dto.AdventureDTO;
 import ftn.booking.dto.AdventureActionDTO;
 import ftn.booking.model.*;
-import ftn.booking.repository.AdventureAdditionalServiceRepository;
-import ftn.booking.repository.AdventureImagesRepository;
-import ftn.booking.repository.AdventureRepository;
-import ftn.booking.repository.AdventureActionRepository;
+import ftn.booking.repository.*;
 import ftn.booking.service.AdventureService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -31,6 +29,8 @@ public class AdventureServiceImpl implements AdventureService {
     private AdventureRepository adventureRepository;
 
     private AdventureActionRepository adventureActionRepository;
+
+    private AdventureActionClientsRepository adventureActionClientsRepo;
 
     private AdventureAdditionalServiceRepository advAddServRepository;
 
@@ -263,6 +263,28 @@ public class AdventureServiceImpl implements AdventureService {
     }
 
     @Override
+    public List<AdventureActionDTO> getAllActionsForClient(){
+        List<AdventureAction> allActions = adventureActionRepository.findAll();
+        List<AdventureActionDTO> allActionsDTO = new ArrayList<>();
+
+        AdventureActionDTO oneAction = new AdventureActionDTO();
+
+        for(AdventureAction adventureAction: allActions){
+                int comparation = adventureAction.getEndTime().compareTo(LocalDateTime.now());
+                if(comparation >= 0) {
+                    oneAction = modelMapper.map(adventureAction,AdventureActionDTO.class);
+                    oneAction.setInstructorId(adventureAction.getAdventure().getInstructor().getId());
+                    oneAction.setInstructorEmail(adventureAction.getAdventure().getInstructor().getEmail());
+                    allActionsDTO.add(oneAction);
+
+                }
+        }
+
+        return allActionsDTO;
+
+    }
+
+    @Override
     public List<AdventureActionDTO> getAllPastActionsForAdventure(Long adventureId){
         List<AdventureAction> allPastActions = adventureActionRepository.findAll();
         List<AdventureActionDTO> allPastActionsDTO = new ArrayList<>();
@@ -438,7 +460,25 @@ public class AdventureServiceImpl implements AdventureService {
         return forbiddenDates;
     }
 
+    @Override
+    public AdventureActionClientsDTO addNewBookingForAction(Long adventureActionId,
+                                                     Long clientId){
 
+        AdventureActionClients newBooking = new AdventureActionClients();
+        AdventureAction action = new AdventureAction();
+        action.setId(adventureActionId);
+
+        Client client = new Client();
+        client.setId(clientId);
+
+        newBooking.setAction(action);
+        newBooking.setClient(client);
+
+        adventureActionClientsRepo.save(newBooking);
+
+        return modelMapper.map(newBooking,AdventureActionClientsDTO.class);
+
+    }
 
 
     String generateUniqueFileName() {

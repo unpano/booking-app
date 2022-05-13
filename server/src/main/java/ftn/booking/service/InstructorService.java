@@ -2,6 +2,7 @@ package ftn.booking.service;
 import ftn.booking.dto.InstructorDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.model.Adventure;
+import ftn.booking.model.Client;
 import ftn.booking.model.Instructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,8 @@ public interface InstructorService {
     Instructor findOne(Long id);
 
     InstructorDTO findInstructorByUsername(String username);
+
+    Client findOneClientByEmail(String email);
 
     InstructorDTO changeInstructorInfo( InstructorDTO changedInstructor,
                                      Long instructorId);

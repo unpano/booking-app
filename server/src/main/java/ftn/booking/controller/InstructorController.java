@@ -45,6 +45,12 @@ public class InstructorController {
         return new ResponseEntity<>(instructorService.findOne(instructorId), HttpStatus.OK);
     }
 
+    @GetMapping("/findOneClient/{clientEmail}")
+    public ResponseEntity<Client> findOneClientByEmail(@PathVariable String clientEmail){
+        return new ResponseEntity<>(instructorService.findOneClientByEmail(clientEmail),HttpStatus.OK);
+    }
+
+
 
 
     @GetMapping("/findInstructorByUsername/{instructorUsername}")
@@ -124,7 +130,7 @@ public class InstructorController {
     }
 
     @GetMapping("/get-all-actions/adventureId/{adventureId}")
-    @PreAuthorize("hasRole('INSTRUCTOR')")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('CLIENT')")
     public ResponseEntity<List<AdventureActionDTO>> getAllActiveActionsForAdventure(@PathVariable Long adventureId) {
         List<AdventureActionDTO> allActionsAdventure = adventureService.getAllActionsForAdventure(adventureId);
 
@@ -148,7 +154,7 @@ public class InstructorController {
     }
 
     @GetMapping("/get-all-additional-services/adventureReservationId/{adventureReservationId}")
-    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN')")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN') || hasRole('CLIENT')")
     public ResponseEntity<List<AdventureAdditionalServiceDTO>> getAllAdditionalServicesForReservation(@PathVariable Long adventureReservationId){
         List<AdventureAdditionalServiceDTO> allAdditionalServicesReservation = adventureService.getAllAdditionalServicesForReservation(adventureReservationId);
 
@@ -212,6 +218,22 @@ public class InstructorController {
     public Long changeNumOfPastActions(@PathVariable Long adventureId){
         Long numOfPastActions = adventureService.changeNumOfPastActions(adventureId);
         return numOfPastActions;
+    }
+
+    @PostMapping("/add-new-booking-for-action/actionId/{adventureActionId}/clientId/{clientId}")
+    @PreAuthorize("hasRole('CLIENT') || hasRole('INSTRUCTOR')")
+    public ResponseEntity<AdventureActionClientsDTO> addNewBookingForAction(@PathVariable Long adventureActionId,
+                                                            @PathVariable Long clientId){
+        AdventureActionClientsDTO newBooking = adventureService.addNewBookingForAction(adventureActionId,clientId);
+        return new ResponseEntity<>(newBooking,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/get-all-actions-client")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<List<AdventureActionDTO>> getAllActionsForClient(){
+        List<AdventureActionDTO> allActions = adventureService.getAllActionsForClient();
+        return new ResponseEntity<>(allActions,HttpStatus.OK);
     }
 
 }

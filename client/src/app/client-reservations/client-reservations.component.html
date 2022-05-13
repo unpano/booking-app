@@ -1,1 +1,50 @@
-<p>client-reservations works!</p>
+<h2 class="title">List of all available actions,provided by instructor</h2>
+
+<mat-card> 
+    <mat-card-content>
+      <form novalidate class="form-inline">
+          <div class="container">
+              <div class="row">
+                
+                <button id="addBtn"><mat-icon>add</mat-icon> Do something </button>
+                <div class="search-hero">
+                  <input class="form-control" type="text"  style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                </div>
+                <table matSort >
+                  <thead>
+                  <tr> 
+                    <th >Start time for action</th>
+                    <th >End time for action</th>
+                    <th>Additional services</th>
+                    <th>Exact place for action</th>
+                    <th>Instructor email</th>
+                    <th></th>
+                    
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let action of allActions ">
+                    <td>{{action.startTime}}</td>
+                    <td>{{action.endTime}}</td>
+                    <td>{{action.additionalAdvServices}}</td>
+                    <td>{{action.exactPlace}}</td>
+                    <td>{{action.instructorEmail}}</td>
+                    <td>
+                      <div id="starsRow" >
+                        <i class="material-icons">star</i>
+                      </div>
+                    </td>
+                    
+                    <button id="eyeBtnDetails" > View details</button>
+                    <button id="eyeBtn" (click)="reserveAction(action.id)">Reserve</button>
+                   
+                    
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+      </form> 
+    </mat-card-content>
+  </mat-card>

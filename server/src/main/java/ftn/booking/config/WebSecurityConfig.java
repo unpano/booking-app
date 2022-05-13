@@ -92,6 +92,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                // .antMatchers("/instructors/get-forbiden-dates").permitAll()
                // .antMatchers("/instructors/change-num-of-active-actions/adventureId/**").permitAll()
                // .antMatchers("/instructors/change-num-of-past-actions/adventureId/**").permitAll()
+               // .antMatchers("/instructors/add-new-booking-for-action/actionId/**/clientId/**").permitAll()
+                .antMatchers("/instructors/findOneClient/**").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userServiceImpl), BasicAuthenticationFilter.class);
