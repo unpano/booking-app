@@ -120,6 +120,7 @@
                                 <button id="eyeBtn" *ngIf="!action.isReserved" (click)="deleteAction(action.id)"> Delete</button>
                                 <button id="eyeBtnDisabled" *ngIf="action.isReserved" disabled title="You cannot edit reserved action!" > Edit</button>
                                 <button id="eyeBtnDisabled" *ngIf="action.isReserved"  disabled title="You cannot delete reserved action!"> Delete</button>
+                                <button id="eyeBtn"></button>
                               </tr>
                               </tbody>
                             </table>

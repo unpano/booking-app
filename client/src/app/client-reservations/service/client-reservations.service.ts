@@ -18,8 +18,12 @@ export class ClientReservationsService {
     return this.http.get<User>(`${this.baseURL}`+ "findOneClient/" + sessionStorage.getItem("email"));
   }
 
-  getAllActionsForClient(options:any):Observable<HttpEvent<AdventureReservation[]>>{
-    return this.http.get<AdventureReservation[]>(`${this.baseURL}`+ "get-all-actions-client",options);
+  getAllActionsForClient(clientId:Number,options:any):Observable<HttpEvent<AdventureReservation[]>>{
+    return this.http.get<AdventureReservation[]>(`${this.baseURL}`+ "get-all-actions-client/clientId/" + `${clientId}`,options);
+  }
+
+  getAllBookedActionsForClient(clientId:Number,options:any):Observable<HttpEvent<AdventureReservation[]>>{
+    return this.http.get<AdventureReservation[]>(`${this.baseURL}`+ "get-all-booked-actions/clientId/" + `${clientId}`,options);
   }
 
   getAllAddServices(actionId:Number,options:any):Observable<HttpEvent<AdditionalAdvService[]>>{

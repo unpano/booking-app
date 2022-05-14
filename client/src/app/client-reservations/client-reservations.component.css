@@ -1,6 +1,6 @@
 .title{
     position:relative;
-    margin-left: 30%;
+    margin-left: 10%;
 }
 
 button{
@@ -82,5 +82,9 @@ table {
 
 .mat-sort-header-container {
   align-items: center;
+}
+
+#row br{
+    display: block;
 }
   

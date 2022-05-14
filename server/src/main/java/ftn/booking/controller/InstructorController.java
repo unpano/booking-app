@@ -229,11 +229,20 @@ public class InstructorController {
 
     }
 
-    @GetMapping("/get-all-actions-client")
-    @PreAuthorize("hasRole('CLIENT')")
-    public ResponseEntity<List<AdventureActionDTO>> getAllActionsForClient(){
-        List<AdventureActionDTO> allActions = adventureService.getAllActionsForClient();
+    @GetMapping("/get-all-actions-client/clientId/{clientId}")
+    @PreAuthorize("hasRole('CLIENT') || hasRole('INSTRUCTOR')")
+    public ResponseEntity<List<AdventureActionDTO>> getAllActionsForClient(@PathVariable Long clientId){
+        List<AdventureActionDTO> allActions = adventureService.getAllActionsForClient(clientId);
         return new ResponseEntity<>(allActions,HttpStatus.OK);
     }
+
+    @GetMapping("/get-all-booked-actions/clientId/{clientId}")
+    @PreAuthorize("hasRole('CLIENT') || hasRole('INSTRUCTOR')")
+    public ResponseEntity<List<AdventureActionDTO>> getAllBookedActionsForClient(@PathVariable Long clientId){
+        List<AdventureActionDTO> allBookedActions = adventureService.getAllBookedActionsForClient(clientId);
+        return new ResponseEntity<>(allBookedActions,HttpStatus.OK);
+
+    }
+
 
 }

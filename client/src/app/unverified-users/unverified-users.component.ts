@@ -30,7 +30,7 @@ export class UnverifiedUsersComponent implements OnInit {
   }
 
   verifyOne(email: String,user:User){
-    this.sendEmail(email,user);
+    //this.sendEmail(email,user);
     const headers = { 'content-type': 'application/json',
       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
       let options = { headers: headers };

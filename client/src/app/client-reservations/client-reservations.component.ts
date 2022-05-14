@@ -14,6 +14,8 @@ export class ClientReservationsComponent implements OnInit {
 
   allActions : AdventureReservation[] = new Array();
 
+  allBookedActions : AdventureReservation[] = new Array();
+
   client : User = new User();
 
   constructor(private router: Router,
@@ -28,9 +30,31 @@ export class ClientReservationsComponent implements OnInit {
     this.clientReservationService.getClient().subscribe(data=>{
       this.client = data;
       console.log(this.client);
-    })
+    
 
-    this.clientReservationService.getAllActionsForClient(options).subscribe(data=>{
+    console.log(this.client.id);
+
+    this.clientReservationService.getAllBookedActionsForClient(this.client.id,options).subscribe(data=>{
+      this.allBookedActions = Object.assign(data);
+      console.log(this.allBookedActions);
+
+      this.allBookedActions.forEach(element=>{
+        this.clientReservationService.getAllAddServices(element.id,options).subscribe(data=>{
+           element.additionalAdvServices = new Array();
+           var addBookedServices = Object.assign(data);
+
+           addBookedServices.forEach((oneAddService: { name: String; }) => {
+                element.additionalAdvServices.push(oneAddService.name);
+           });
+        })
+
+        });
+      
+  })
+
+
+
+    this.clientReservationService.getAllActionsForClient(this.client.id,options).subscribe(data=>{
       this.allActions = Object.assign(data);
       console.log(this.allActions);
 
@@ -44,10 +68,14 @@ export class ClientReservationsComponent implements OnInit {
            });
         })
 
-  });
-
-
+        });
     })
+
+
+
+
+
+  })
  
   }
 
@@ -58,7 +86,13 @@ export class ClientReservationsComponent implements OnInit {
     var actionForReservation = new ActionClientReserved();
     actionForReservation.actionId = actionId;
     actionForReservation.clientId = this.client.id;
-    this.clientReservationService.reserveOneAction(actionForReservation,options).subscribe();
+    if(window.confirm("You want to reserve this action?")){
+        this.clientReservationService.reserveOneAction(actionForReservation,options).subscribe();
+        window.setInterval('document.location.reload()', 1000);
+    } else {
+      window.close();
+    }
+
   }
 
 

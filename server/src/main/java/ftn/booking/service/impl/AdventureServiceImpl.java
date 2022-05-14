@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -263,25 +264,82 @@ public class AdventureServiceImpl implements AdventureService {
     }
 
     @Override
-    public List<AdventureActionDTO> getAllActionsForClient(){
+    public List<AdventureActionDTO> getAllActionsForClient(Long clientId){
         List<AdventureAction> allActions = adventureActionRepository.findAll();
         List<AdventureActionDTO> allActionsDTO = new ArrayList<>();
+
+        List<AdventureActionClients> allBookedActions = adventureActionClientsRepo.findAll();
+        List<AdventureActionClients> allBookedActionsClient = new ArrayList<>();
+
+        for(AdventureActionClients bookedAction:allBookedActions){
+            if(bookedAction.getClient().getId().equals(clientId)){
+                allBookedActionsClient.add(bookedAction);
+            }
+        }
+
 
         AdventureActionDTO oneAction = new AdventureActionDTO();
 
         for(AdventureAction adventureAction: allActions){
                 int comparation = adventureAction.getEndTime().compareTo(LocalDateTime.now());
                 if(comparation >= 0) {
-                    oneAction = modelMapper.map(adventureAction,AdventureActionDTO.class);
-                    oneAction.setInstructorId(adventureAction.getAdventure().getInstructor().getId());
-                    oneAction.setInstructorEmail(adventureAction.getAdventure().getInstructor().getEmail());
-                    allActionsDTO.add(oneAction);
 
+                    Boolean isEqual = Boolean.FALSE;
+                    for(AdventureActionClients bookedAction:allBookedActionsClient) {
+                        //hocemo da za tog klijenta dobavimo one akcije koje nije rezervisao
+                        if(bookedAction.getAction().getId().equals(adventureAction.getId())){
+                            isEqual = Boolean.TRUE;
+                        }
+
+                        }
+
+                    if(!isEqual){
+                        oneAction = modelMapper.map(adventureAction, AdventureActionDTO.class);
+                        oneAction.setInstructorId(adventureAction.getAdventure().getInstructor().getId());
+                        oneAction.setInstructorEmail(adventureAction.getAdventure().getInstructor().getEmail());
+                        allActionsDTO.add(oneAction);
+                    }
+
+                   }
                 }
+
+
+                return allActionsDTO;
+
+    }
+
+    @Override
+    public List<AdventureActionDTO> getAllBookedActionsForClient(Long clientId){
+        List<AdventureAction> allActions = adventureActionRepository.findAll();
+        List<AdventureActionDTO> allActionsDTO = new ArrayList<>();
+
+        List<AdventureActionClients> allBookedActions = adventureActionClientsRepo.findAll();
+        List<AdventureActionClients> allBookedActionsClient = new ArrayList<>();
+
+        //ovde pronalazim koje je sve akcije taj klijent rezervisao
+        for(AdventureActionClients bookedAction:allBookedActions){
+            if(bookedAction.getClient().getId().equals(clientId)){
+                allBookedActionsClient.add(bookedAction);
+            }
+        }
+
+
+        AdventureActionDTO oneAction = new AdventureActionDTO();
+
+        for(AdventureAction adventureAction: allActions){
+                for(AdventureActionClients bookedAction:allBookedActionsClient) {
+                    //hocemo da za tog klijenta dobavimo one akcije koje nije rezervisao
+                    if(bookedAction.getAction().getId().equals(adventureAction.getId())){
+                        oneAction = modelMapper.map(adventureAction, AdventureActionDTO.class);
+                        oneAction.setInstructorId(adventureAction.getAdventure().getInstructor().getId());
+                        oneAction.setInstructorEmail(adventureAction.getAdventure().getInstructor().getEmail());
+                        allActionsDTO.add(oneAction);
+                    }
+                }
+
         }
 
         return allActionsDTO;
-
     }
 
     @Override
@@ -467,6 +525,7 @@ public class AdventureServiceImpl implements AdventureService {
         AdventureActionClients newBooking = new AdventureActionClients();
         AdventureAction action = new AdventureAction();
         action.setId(adventureActionId);
+        action.setIsReserved(Boolean.TRUE);
 
         Client client = new Client();
         client.setId(clientId);

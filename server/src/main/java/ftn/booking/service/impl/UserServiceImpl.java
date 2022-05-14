@@ -57,7 +57,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if(!user.isEnabled()){
                 if(user.getRole().equals(Role.ROLE_COTTAGE_OWNER) ||
                         user.getRole().equals(Role.ROLE_INSTRUCTOR) ||
-                        user.getRole().equals(Role.ROLE_BOAT_OWNER)){
+                        user.getRole().equals(Role.ROLE_BOAT_OWNER) ||
+                        user.getRole().equals(Role.ROLE_CLIENT)){
                     UserDTO  userDTO = modelMapper.map(user,UserDTO.class);
                     userDTO.setUserType(user.getRole());
                       allNotRegUsers.add(userDTO);
@@ -77,7 +78,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if(user.isEnabled()){
                 if(user.getRole().equals(Role.ROLE_COTTAGE_OWNER) ||
                         user.getRole().equals(Role.ROLE_INSTRUCTOR) ||
-                        user.getRole().equals(Role.ROLE_BOAT_OWNER)){
+                        user.getRole().equals(Role.ROLE_BOAT_OWNER) ||
+                        user.getRole().equals(Role.ROLE_CLIENT)){
                     UserDTO  userDTO = modelMapper.map(user,UserDTO.class);
                     userDTO.setUserType(user.getRole());
                     allRegUsers.add(userDTO);
