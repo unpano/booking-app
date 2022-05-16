@@ -3,6 +3,7 @@ package ftn.booking.controller;
 
 import ftn.booking.dto.*;
 import ftn.booking.model.*;
+import ftn.booking.repository.AdventureRepository;
 import ftn.booking.service.AdventureService;
 import ftn.booking.service.InstructorService;
 import ftn.booking.service.UserService;
@@ -30,6 +31,8 @@ public class InstructorController {
     private UserService userService;
 
     private ModelMapper modelMapper;
+
+
 
 
     @GetMapping(value = "/findAll")
@@ -243,6 +246,42 @@ public class InstructorController {
         return new ResponseEntity<>(allBookedActions,HttpStatus.OK);
 
     }
+
+   @DeleteMapping("/cancel-booking-for-action/actionId/{actionId}/clientId/{clientId}")
+   @PreAuthorize("hasRole('CLIENT')")
+   public ResponseEntity<Boolean> cancelBookingForAction(@PathVariable Long actionId,
+                                                         @PathVariable Long clientId){
+        Boolean isCanceled = adventureService.cancelBookingForAction(actionId,clientId);
+
+        return new ResponseEntity<>(isCanceled,HttpStatus.OK);
+   }
+
+
+
+
+   @PutMapping("/change-status-of-action-booking")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<Boolean> changeStatusOfActionBooking(){
+         Boolean statusOfBooking = adventureService.changeStatusOfActionBooking();
+         return new ResponseEntity<>(statusOfBooking,HttpStatus.OK);
+   }
+
+   @GetMapping("/get-all-clients-booked-action/actionId/{actionId}")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<List<Client>> getAllClientsBookedAction(@PathVariable Long actionId){
+        List<Client> allClientsForBookedAction = adventureService.getAllClientsBookedAction(actionId);
+        return new ResponseEntity<>(allClientsForBookedAction,HttpStatus.OK);
+   }
+
+   @GetMapping("/find-adventure-id-for-action/actionId/{actionId}")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<Long> findAdventureIdForAction(@PathVariable Long actionId){
+        Long adventureId = adventureService.findAdventureIdForAction(actionId);
+        return new ResponseEntity<>(adventureId,HttpStatus.OK);
+   }
+
+
+
 
 
 }

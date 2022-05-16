@@ -82,6 +82,10 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
     })
 
 
+    this.profileAdventureService.changeStatusOfActionBooking(options).subscribe(data=>{
+               
+    });
+
     this.profileAdventureService.getAdventureReservations(this.adventureId,options).subscribe(data=>{
       this.adventureActions = Object.assign(data);
      
@@ -89,6 +93,7 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
       
 
           this.adventureActions.forEach(element => {
+            
               this.profileAdventureService.getAdventureAdditionalServices(element.id,options).subscribe(data=>{
                 element.additionalAdvServices = new Array(); 
                 var addServices = Object.assign(data);
@@ -99,6 +104,8 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
                 
                   //console.log();
                 })
+                
+                
        });
      console.log(this.adventureActions);
     })
@@ -160,8 +167,14 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
       
       this.router.navigate(['edit-action-adventure/',adventureActionId]);
     
+  }
+
+  viewClients(actionId:Number){
+    this.router.navigate(['clients-booked-action/',actionId]);
 
   }
+
+
 
 
 

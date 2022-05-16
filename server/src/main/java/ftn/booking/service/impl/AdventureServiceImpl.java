@@ -1,9 +1,6 @@
 package ftn.booking.service.impl;
 
-import ftn.booking.dto.AdventureActionClientsDTO;
-import ftn.booking.dto.AdventureAdditionalServiceDTO;
-import ftn.booking.dto.AdventureDTO;
-import ftn.booking.dto.AdventureActionDTO;
+import ftn.booking.dto.*;
 import ftn.booking.model.*;
 import ftn.booking.repository.*;
 import ftn.booking.service.AdventureService;
@@ -38,6 +35,8 @@ public class AdventureServiceImpl implements AdventureService {
     private AdventureImagesRepository adventureImagesRepository;
 
     private ModelMapper modelMapper;
+
+    private ClientRepository clientRepository;
 
     @Override
     public Adventure addAdventure(Adventure adventure) {
@@ -523,9 +522,14 @@ public class AdventureServiceImpl implements AdventureService {
                                                      Long clientId){
 
         AdventureActionClients newBooking = new AdventureActionClients();
-        AdventureAction action = new AdventureAction();
-        action.setId(adventureActionId);
+        AdventureAction action = adventureActionRepository.findById(adventureActionId).get();
+
         action.setIsReserved(Boolean.TRUE);
+        action.setNumberOfBooking(action.getNumberOfBooking()+1L);
+
+        adventureActionRepository.save(action);
+
+
 
         Client client = new Client();
         client.setId(clientId);
@@ -537,6 +541,72 @@ public class AdventureServiceImpl implements AdventureService {
 
         return modelMapper.map(newBooking,AdventureActionClientsDTO.class);
 
+    }
+
+
+    @Override
+    public  Boolean cancelBookingForAction(Long actionId ,Long clientId){
+        List<AdventureActionClients> allBookedActions = adventureActionClientsRepo.findAll();
+        AdventureAction action = adventureActionRepository.findById(actionId).get();
+        action.setNumberOfBooking(action.getNumberOfBooking()-1L);
+        adventureActionRepository.save(action);
+
+        for(AdventureActionClients bookedAction:allBookedActions){
+            Boolean isThatAction = bookedAction.getAction().getId().equals(actionId);
+            Boolean isThatClient = bookedAction.getClient().getId().equals(clientId);
+            if(isThatAction && isThatClient){
+                adventureActionClientsRepo.delete(bookedAction);
+            }
+
+        }
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public Boolean changeStatusOfActionBooking(){
+        List<AdventureAction> allActions = adventureActionRepository.findAll();
+
+        for(AdventureAction action:allActions) {
+
+            Long numberOfBooking = action.getNumberOfBooking();
+            Boolean isReserved = action.getIsReserved();
+            if (numberOfBooking.equals(0L) && isReserved.equals(Boolean.TRUE)) {
+                action.setIsReserved(Boolean.FALSE);
+                adventureActionRepository.save(action);
+            }
+
+        }
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public  List<Client> getAllClientsBookedAction(Long actionId){
+
+        List<AdventureActionClients> allBookedActions = adventureActionClientsRepo.findAll();
+
+        List<AdventureActionClients> neededBookedActions = new ArrayList<>();
+
+        for(AdventureActionClients oneInstance: allBookedActions){
+            if(oneInstance.getAction().getId().equals(actionId)){
+                neededBookedActions.add(oneInstance);
+            }
+        }
+
+        List<Client> allClientsBookedAction = new ArrayList<>();
+        for(AdventureActionClients oneBookedAction: neededBookedActions){
+            Client client = clientRepository.findById(oneBookedAction.getClient().getId()).get();
+            allClientsBookedAction.add(client);
+        }
+
+        return allClientsBookedAction;
+
+    }
+
+
+    @Override
+    public Long findAdventureIdForAction(Long actionId){
+        AdventureAction action = adventureActionRepository.findById(actionId).get();
+        return action.getAdventure().getId();
     }
 
 

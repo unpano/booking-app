@@ -80,6 +80,9 @@
                                   </div>
                                 </td>
                                 
+                                <button id="eyeBtnClients" *ngIf="pastAction.isReserved" (click)="viewClients(pastAction.id)">Clients</button>
+                                <button id="eyeBtnClientsDisabled" *ngIf="!pastAction.isReserved" title="This action was not reserved!" disabled>Clients</button>
+
                                 <button id="eyeBtnPastActions" disabled> </button>
                                 <button id="eyeBtnPastActions" disabled> </button>
                               
@@ -120,7 +123,8 @@
                                 <button id="eyeBtn" *ngIf="!action.isReserved" (click)="deleteAction(action.id)"> Delete</button>
                                 <button id="eyeBtnDisabled" *ngIf="action.isReserved" disabled title="You cannot edit reserved action!" > Edit</button>
                                 <button id="eyeBtnDisabled" *ngIf="action.isReserved"  disabled title="You cannot delete reserved action!"> Delete</button>
-                                <button id="eyeBtn"></button>
+                                <button id="eyeBtnClients" *ngIf="action.isReserved" (click)="viewClients(action.id)">Clients</button>
+                                <button id="eyeBtnClientsDisabled" *ngIf="!action.isReserved" title="This action is not reserved!" disabled>Clients</button>
                               </tr>
                               </tbody>
                             </table>

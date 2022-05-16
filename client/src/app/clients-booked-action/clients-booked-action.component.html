@@ -1,0 +1,43 @@
+
+
+<mat-card> 
+    <mat-card-content>
+      <form novalidate class="form-inline">
+          <div class="container">
+              <div class="row">
+                <h2 class="title">List of clients who booked action</h2>
+                <button id="addBtn" (click)="backToAdventure(actionId)"><mat-icon>fast_rewind</mat-icon> Back to all actions </button>
+                <div class="search-hero">
+                  <input class="form-control" type="text"  style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                </div>
+
+                <br>
+                <br>
+                
+                <table matSort >
+                  <thead>
+                  <tr> 
+                    <th >First name</th>
+                    <th >Last name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let client of clients">
+                    <td>{{client.firstName}}</td>
+                    <td>{{client.lastName}}</td>
+                    <td>{{client.email}}</td>
+                    <td>{{client.address}}</td>
+                   
+                 
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+      </form> 
+    </mat-card-content>
+  </mat-card>

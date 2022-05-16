@@ -6,6 +6,7 @@ import { AllInstructorsComponent } from './all-instructors/all-instructors.compo
 
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
+import { ClientsBookedActionComponent } from './clients-booked-action/clients-booked-action.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
 import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
 import { EditActionAdventureComponent } from './edit-action-adventure/edit-action-adventure.component';
@@ -86,6 +87,7 @@ const routes: Routes = [
   {path: 'profile-instructor/:id',component:ProfileInstructorComponent},
   {path: 'edit-profile-instructor/:id',component:EditProfileInstructorComponent},
   {path: 'edit-instructor-password/:id',component:EditInstructorPasswordComponent},
+  {path: 'clients-booked-action/:id',component:ClientsBookedActionComponent},
 
 
   {path: '**', component: PageNotFoundComponent},

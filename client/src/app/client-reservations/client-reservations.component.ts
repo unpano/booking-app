@@ -95,6 +95,20 @@ export class ClientReservationsComponent implements OnInit {
 
   }
 
+  cancelBooking(clientId:Number,actionId:Number){
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+
+    if(window.confirm("You want to reserve this action?")){
+      this.clientReservationService.cancelBookingAction(actionId,clientId,options).subscribe();
+      window.setInterval('document.location.reload()', 1000);
+  } else {
+    window.close();
+  }
+
+  }
+
 
 
 

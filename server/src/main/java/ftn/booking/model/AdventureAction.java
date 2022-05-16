@@ -48,5 +48,7 @@ public class AdventureAction {
     //tacno mesto gde se rezervacija odigrava
     private String exactPlace;
 
+    private Long numberOfBooking;
+
 
 }

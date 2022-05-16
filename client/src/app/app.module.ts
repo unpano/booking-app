@@ -74,6 +74,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { EditActionAdventureComponent } from './edit-action-adventure/edit-action-adventure.component';
 import { EditProfileInstructorComponent } from './edit-profile-instructor/edit-profile-instructor.component';
 import { EditInstructorPasswordComponent } from './edit-instructor-password/edit-instructor-password.component';
+import { ClientsBookedActionComponent } from './clients-booked-action/clients-booked-action.component';
 
 
 @NgModule({
@@ -125,7 +126,8 @@ import { EditInstructorPasswordComponent } from './edit-instructor-password/edit
     NewActionAdventureComponent,
     EditActionAdventureComponent,
     EditProfileInstructorComponent,
-    EditInstructorPasswordComponent
+    EditInstructorPasswordComponent,
+    ClientsBookedActionComponent
 
 
   ],

@@ -34,5 +34,9 @@ export class ClientReservationsService {
     return this.http.post<ActionClientReserved>(`${this.baseURL}`+ "add-new-booking-for-action/actionId/" + `${actionForReservation.actionId}`+ "/clientId/"+ `${actionForReservation.clientId}`,actionForReservation, options);
   }
 
+  cancelBookingAction(actionId:Number,clientId:Number,options:any):Observable<Object>{
+    return this.http.delete(`${this.baseURL}` + "cancel-booking-for-action/actionId/" + `${actionId}`+ "/clientId/" + `${clientId}`,options);
+  }
+
 
 }

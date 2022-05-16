@@ -46,4 +46,8 @@ export class ProfileAdventureService {
   deleteActionForAdventure(adventureReservationId: Number,options:any): Observable<Object>{
     return this.http.delete(`${this.baseURL}`+ "delete-action-for-adventure/adventureReservationId/" + `${adventureReservationId}`,options);
   }
+
+  changeStatusOfActionBooking(options:any):Observable<Object>{
+    return this.http.put(`${this.baseURL}`+ "change-status-of-action-booking" ,Boolean,options);
+  }
 }
