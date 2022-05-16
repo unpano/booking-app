@@ -280,6 +280,22 @@ public class InstructorController {
         return new ResponseEntity<>(adventureId,HttpStatus.OK);
    }
 
+   @PostMapping("/change-period-of-availability-instructor")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<InstructorAvailablePeriod> changePeriodOfAvailabilityInstructor(
+           @RequestBody InstructorAvailablePeriod availablePeriod){
+        InstructorAvailablePeriod newAvailablePeriod = instructorService.changePeriodOfAvailabilityInstructor(availablePeriod);
+        return new ResponseEntity<>(newAvailablePeriod,HttpStatus.OK);
+   }
+
+   @GetMapping("/get-period-of-availability/instructorId/{instructorId}")
+   @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('CLIENT')")
+   public ResponseEntity<InstructorAvailablePeriod> getPeriodOfAvailabilityInstructor(
+                                        @PathVariable Long instructorId){
+        InstructorAvailablePeriod availablePeriod = instructorService.getPeriodOfAvailabilityInstructor(instructorId);
+        return new ResponseEntity<>(availablePeriod,HttpStatus.OK);
+   }
+
 
 
 

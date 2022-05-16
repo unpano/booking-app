@@ -205,7 +205,7 @@ public class AdventureServiceImpl implements AdventureService {
 
         adventureReservation.setStartTime(adventureReservationDTO.getStartTime().plusHours(2));
         adventureReservation.setEndTime(adventureReservationDTO.getEndTime().plusHours(25).plusMinutes(59).plusSeconds(59));
-
+        adventureReservation.setNumberOfBooking(0L);
 
 
         adventureActionRepository.save(adventureReservation);

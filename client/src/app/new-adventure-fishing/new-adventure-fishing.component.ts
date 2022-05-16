@@ -4,6 +4,7 @@ import { newArray } from '@angular/compiler/src/util';
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { isEmpty } from 'rxjs/operators';
 import { Adventure } from '../dto/Adventure';
 import { RulesBehavior } from '../dto/enums/RulesBehaviour';
 import { User } from '../dto/user';
@@ -67,6 +68,8 @@ export class NewAdventureFishingComponent implements OnInit {
   adventureId !: Number;
 
   instructorId !: Number;
+
+  additionalInfo !: String;
 
   instructor : User = new User();
   
@@ -174,7 +177,7 @@ export class NewAdventureFishingComponent implements OnInit {
         this.http.post<any>(this.endpoint.UPLOAD + "add-adventure-picture/" + `${id}`, formData, options)
           .subscribe();
       }
-    }
+    } 
   }
 
 
@@ -197,6 +200,7 @@ export class NewAdventureFishingComponent implements OnInit {
     this.adventure.price = this.price;
     this.adventure.rules = new Array();
     this.adventure.equipment = new Array();
+    
     
 
     this.rules.forEach(rule => {
@@ -242,23 +246,34 @@ export class NewAdventureFishingComponent implements OnInit {
   
   console.log(this.adventure);
   console.log(this.adventure.cancelationPrice);
+   
   
-   this.newAdventureFishingService.addAdventure(this.adventure,instructorId,options).subscribe(data=>{
-     //console.log(data);
-     this.savedAdventure = Object.assign(data);
-      console.log(this.savedAdventure);
-      this.adventureId = this.savedAdventure.id;
+    //window.alert("Proba");
 
-      console.log(this.adventureId);
-
-      
-
-      this.uploadFilesFunction(this.adventureId);
-     //this.popFunction();
-     
-      this.router.navigate(['instructor']);
-    });
     
+  if(this.adventure.name == null || this.adventure.address == null || this.adventure.description == null || this.adventure.cancelationPrice== null
+     || this.adventure.equipment== null || this.adventure.maxNumOfPersons == null || this.adventure.rules == null || this.adventure.price == null
+    || this.adventure.additionalInfo==null){
+      window.alert("Please fill all fields.");
+  
+  } else{
+    this.newAdventureFishingService.addAdventure(this.adventure,instructorId,options).subscribe(data=>{
+      //console.log(data);
+      this.savedAdventure = Object.assign(data);
+       console.log(this.savedAdventure);
+       this.adventureId = this.savedAdventure.id;
+ 
+       console.log(this.adventureId);
+ 
+       
+ 
+       this.uploadFilesFunction(this.adventureId);
+      //this.popFunction();
+      
+       this.router.navigate(['instructor']);
+     });
+  
+  }
    
   }
   

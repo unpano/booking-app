@@ -3,7 +3,9 @@ package ftn.booking.service.impl;
 import ftn.booking.dto.InstructorDTO;
 import ftn.booking.model.Client;
 import ftn.booking.model.Instructor;
+import ftn.booking.model.InstructorAvailablePeriod;
 import ftn.booking.model.User;
+import ftn.booking.repository.InstructorAvailablePeriodRepository;
 import ftn.booking.repository.InstructorRepository;
 import ftn.booking.repository.UserRepository;
 import ftn.booking.service.InstructorService;
@@ -26,6 +28,8 @@ public class InstructorServiceImpl implements InstructorService {
     private ModelMapper modelMapper;
 
     private final PasswordEncoder passwordEncoder;
+
+    private InstructorAvailablePeriodRepository instructorAvailablePeriodRepository;
 
 
     @Override
@@ -71,7 +75,49 @@ public class InstructorServiceImpl implements InstructorService {
 
     }
 
+    @Override
+    public InstructorAvailablePeriod changePeriodOfAvailabilityInstructor(
+            InstructorAvailablePeriod availablePeriod){
 
+        List<InstructorAvailablePeriod> allPeriods = instructorAvailablePeriodRepository.findAll();
+        Boolean exists = Boolean.FALSE;
+
+        InstructorAvailablePeriod matchingPeriod = new InstructorAvailablePeriod();
+        for(InstructorAvailablePeriod onePeriod: allPeriods){
+            if(onePeriod.getInstructorId().equals(availablePeriod.getInstructorId())){
+                exists = Boolean.TRUE;
+                matchingPeriod = onePeriod;
+            }
+        }
+
+        if (exists) {
+            matchingPeriod.setStartTimeAvailable(availablePeriod.getStartTimeAvailable().plusHours(2L));
+            matchingPeriod.setEndTimeAvailable(availablePeriod.getEndTimeAvailable().plusHours(25L).plusMinutes(59L).plusSeconds(59L));
+            instructorAvailablePeriodRepository.save(matchingPeriod);
+        } else {
+            matchingPeriod.setInstructorId(availablePeriod.getInstructorId());
+            matchingPeriod.setStartTimeAvailable(availablePeriod.getStartTimeAvailable().plusHours(2L));
+            matchingPeriod.setEndTimeAvailable(availablePeriod.getEndTimeAvailable().plusHours(25L).plusMinutes(59L).plusSeconds(59L));
+            instructorAvailablePeriodRepository.save(matchingPeriod);
+        }
+
+        return matchingPeriod;
+    }
+
+    @Override
+    public  InstructorAvailablePeriod getPeriodOfAvailabilityInstructor(
+            Long instructorId){
+        List<InstructorAvailablePeriod> allPeriods = instructorAvailablePeriodRepository.findAll();
+        InstructorAvailablePeriod matchingPeriod = new InstructorAvailablePeriod();
+
+        for(InstructorAvailablePeriod onePeriod:allPeriods){
+            if(onePeriod.getInstructorId().equals(instructorId)){
+                matchingPeriod = onePeriod;
+            }
+        }
+
+        return matchingPeriod;
+    }
 
 
 

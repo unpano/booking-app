@@ -37,7 +37,7 @@
                     </td>
                     
                     <button id="eyeBtn" (click)="viewAdventure(adventure.id)"> View</button>
-                    <button id="eyeBtnDisabled" disabled title="You cannot delete adventure with actions!" *ngIf="adventure.numberOfActions>0">Delete</button>
+                    <button id="eyeBtnDisabled" disabled title="You cannot delete adventure with  active actions!" *ngIf="adventure.numberOfActions>0">Delete</button>
                     <button id="eyeBtn" *ngIf="adventure.numberOfActions==0" (click)="deleteAdventure(adventure.id)">Delete</button>
                     
                   </tr>

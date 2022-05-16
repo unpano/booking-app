@@ -4,24 +4,28 @@
         <form fxLayoutAlign="stretch" fxLayout="column" class="register-form">
 
             <mat-form-field >
-              <input [(ngModel)]="name" name="name" matInput placeholder="Adventure name">
+              <input [(ngModel)]="name" id="name" name="name" matInput placeholder="Adventure name" required="required">
             </mat-form-field>
 
             <mat-form-field>
-                <input [(ngModel)]="address" name="address" matInput placeholder="Address">
+                <input [(ngModel)]="address" name="address" matInput placeholder="Address" required>
             </mat-form-field>
 
             <mat-form-field>
-                <input [(ngModel)]="description" name="description" matInput placeholder="Promo description">
+                <input [(ngModel)]="description" name="description" matInput placeholder="Promo description" required>
             </mat-form-field> 
 
 
             <mat-form-field >
-              <input [(ngModel)]="maxNumOfPersons" type="number" min="1" max="100" name="maxNumOfPersons" matInput placeholder="Max number of persons(BASE)">
+              <input [(ngModel)]="maxNumOfPersons" type="number" min="1" max="100" name="maxNumOfPersons" matInput placeholder="Max number of persons(BASE)" required>
           </mat-form-field>
 
           <mat-form-field >
-            <input [(ngModel)]="price" type="number" min="1" max="100" name="price" matInput placeholder="Base price(in $)">
+            <input [(ngModel)]="price" type="number" min="1" max="100" name="price" matInput placeholder="Base price(in $)" required>
+        </mat-form-field>
+
+        <mat-form-field >
+            <input [(ngModel)]="adventure.additionalInfo" type="text" min="1" max="100" name="additionalInfo" matInput placeholder="Additional info" required>
         </mat-form-field>
 
         <div>
@@ -59,7 +63,7 @@
                     <div class="container">
                         <div *ngFor = "let item of rules" class="row">
                             
-                            <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}"  [(ngModel)]="item.isSelected">
+                            <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}"  [(ngModel)]="item.isSelected" required>
                             <div class="col-35"><label>{{item.name}}</label></div>
 
                             </div>
@@ -79,7 +83,7 @@
                 <div class="container">
                     <div *ngFor = "let item of equipment" class="row">
                         
-                        <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}" [(ngModel)]="item.isSelected">
+                        <div class="col-8 col-chk"><input type="checkbox" name="{{item.name}}" [(ngModel)]="item.isSelected" required>
                         <div class="col-35"><label>{{item.name}}</label></div>
 
                         </div>

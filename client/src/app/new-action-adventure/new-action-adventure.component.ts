@@ -171,12 +171,18 @@ remove(addService: AddService): void {
      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
      let options = { headers: headers };
 
+     if(this.adventureReservation.startTime==null || this.adventureReservation.endTime==null || this.adventureReservation.exactPlace==null){
+        alert("Please fill all fields");
+
+  } else{
     this.newActionAdventureService.addAdventureAction(this.adventureReservation,this.adventureId,options).subscribe(data=>{
-          this.advActionReturn = Object.assign(data);
-          this.newActionAdventureService.addAdditonalServAdv(this.additionalServiceList,this.advActionReturn.id,options).subscribe();
-          this.router.navigate(['profile-adventure-fishing-class/',this.adventureId]);
-    }); 
+      this.advActionReturn = Object.assign(data);
+      this.newActionAdventureService.addAdditonalServAdv(this.additionalServiceList,this.advActionReturn.id,options).subscribe();
+      this.router.navigate(['profile-adventure-fishing-class/',this.adventureId]);
+}); 
 
   }
+
+  } 
 
 }
