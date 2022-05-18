@@ -20,4 +20,12 @@ export class ClientsBookedActionService {
   getAdventureIdForAction(actionId:Number,options:any):Observable<Object>{
       return this.http.get<Object>(`${this.baseURL}`+ "find-adventure-id-for-action/actionId/" + `${actionId}`,options);
   }
+
+  getIfActionHasReport(clientId:Number,actionId:Number,options:any):Observable<Object>{
+      return this.http.get<Object>(`${this.baseURL}`+"check-if-specific-client-has-report-for-action/clientId/" + `${clientId}` + "/actionId/" + `${actionId}`,options);
+  }
+
+  getIfActionIsPast(actionId:Number,options:any):Observable<Object>{
+      return this.http.get<Object>(`${this.baseURL}`+"check-if-action-is-past/actionId/" + `${actionId}`,options);
+  }
 }

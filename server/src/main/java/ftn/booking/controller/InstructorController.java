@@ -296,7 +296,35 @@ public class InstructorController {
         return new ResponseEntity<>(availablePeriod,HttpStatus.OK);
    }
 
+   @GetMapping("/check-if-specific-client-has-report-for-action/clientId/{clientId}/actionId/{actionId}")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<Boolean> checkIfSpecificClientHasReportForAction(@PathVariable Long clientId,
+                                                                          @PathVariable Long actionId){
+        Boolean hasReport = adventureService.checkIfSpecificClientHasReportForAction(clientId,actionId);
+        return new ResponseEntity<>(hasReport,HttpStatus.OK);
+   }
 
+   @PostMapping("/report-and-punish-client")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<AdventureActionReportDTO> reportAndPunishClient(@RequestBody AdventureActionReportDTO newReport){
+        AdventureActionReportDTO returnReport = adventureService.reportAndPunishClient(newReport);
+        return new ResponseEntity<>(returnReport,HttpStatus.OK);
+   }
+
+   @GetMapping("get-report-action/actionId/{actionId}/clientId/{clientId}")
+   @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('ADMIN')")
+   public ResponseEntity<AdventureActionReportDTO> getReportForAction(@PathVariable Long actionId,
+                                                                      @PathVariable Long clientId){
+        AdventureActionReportDTO returnReport = adventureService.getReportForAction(actionId,clientId);
+        return new ResponseEntity<>(returnReport,HttpStatus.OK);
+   }
+
+   @GetMapping("/check-if-action-is-past/actionId/{actionId}")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<Boolean> checkIfActionIsPast(@PathVariable Long actionId){
+        Boolean response  = adventureService.checkIfActionIsPast(actionId);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+   }
 
 
 

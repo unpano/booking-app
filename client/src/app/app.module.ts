@@ -75,6 +75,8 @@ import { EditActionAdventureComponent } from './edit-action-adventure/edit-actio
 import { EditProfileInstructorComponent } from './edit-profile-instructor/edit-profile-instructor.component';
 import { EditInstructorPasswordComponent } from './edit-instructor-password/edit-instructor-password.component';
 import { ClientsBookedActionComponent } from './clients-booked-action/clients-booked-action.component';
+import { ReportAboutClientsComponent } from './report-about-clients/report-about-clients.component';
+import { ViewReportActionComponent } from './view-report-action/view-report-action.component';
 
 
 @NgModule({
@@ -127,7 +129,9 @@ import { ClientsBookedActionComponent } from './clients-booked-action/clients-bo
     EditActionAdventureComponent,
     EditProfileInstructorComponent,
     EditInstructorPasswordComponent,
-    ClientsBookedActionComponent
+    ClientsBookedActionComponent,
+    ReportAboutClientsComponent,
+    ViewReportActionComponent
 
 
   ],

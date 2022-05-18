@@ -50,5 +50,7 @@ public class AdventureAction {
 
     private Long numberOfBooking;
 
+    private Boolean hasReport;
+
 
 }

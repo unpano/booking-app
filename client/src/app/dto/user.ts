@@ -13,4 +13,5 @@ export class User{
   userType !: String
   picture !: String
   numOfPenalties !: Number;
+  hasReport !: Boolean;
 }

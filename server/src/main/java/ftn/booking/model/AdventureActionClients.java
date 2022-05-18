@@ -25,4 +25,6 @@ public class AdventureActionClients {
     @ManyToOne
     private AdventureAction action;
 
+    private Boolean hasReport;
+
 }

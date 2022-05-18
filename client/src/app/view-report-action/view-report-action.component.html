@@ -1,0 +1,20 @@
+<form >
+    <h1>
+       View report about past reservation.
+    </h1>
+
+    <textarea placeholder="View comment about client, who was on your action."
+          name="desc" rows="10" cols="120" disabled [(ngModel)]="report.comment"></textarea>
+         <div class="checkbox">
+            <input type="checkbox"  disabled [checked]="report.punishClient">
+            <label>Sent suggestion for punishing client with 1 penalty.</label>
+        </div>
+         <div class="checkbox">
+            <input type="checkbox" disabled [checked]="report.approved">
+             <label>Client did not show up on reserved period.</label>
+         </div>
+         
+    
+    
+    <button mat-button id="submitButton" (click)="cancel(actionId)">Back to clients</button>
+</form>

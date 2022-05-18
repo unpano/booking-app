@@ -1,0 +1,20 @@
+<form >
+    <h1>
+        Write report about past reservation.
+    </h1>
+
+    <textarea placeholder="Leave comment about client, who was on your action."
+         [(ngModel)]="comment" name="desc" rows="10" cols="120" ></textarea>
+         <div class="checkbox">
+            <input type="checkbox" (change)="badCommentFunc($event)">
+            <label>Send suggestion for punishing client with 1 penalty.</label>
+        </div>
+         <div class="checkbox">
+            <input type="checkbox" (change)="didNotShowFunc($event)">
+             <label>Client did not show up on reserved period.</label>
+         </div>
+         
+    
+    <button mat-button id="submitButton"  (click)="report(actionId,clientId)">Report</button>
+    <button mat-button id="cancelButton" (click)="cancel(actionId)" >Cancel</button>
+</form>

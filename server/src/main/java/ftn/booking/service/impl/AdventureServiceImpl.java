@@ -38,6 +38,8 @@ public class AdventureServiceImpl implements AdventureService {
 
     private ClientRepository clientRepository;
 
+    private AdventureActionReportRepository adventureActionReportRepository;
+
     @Override
     public Adventure addAdventure(Adventure adventure) {
 
@@ -527,6 +529,7 @@ public class AdventureServiceImpl implements AdventureService {
         action.setIsReserved(Boolean.TRUE);
         action.setNumberOfBooking(action.getNumberOfBooking()+1L);
 
+
         adventureActionRepository.save(action);
 
 
@@ -536,6 +539,7 @@ public class AdventureServiceImpl implements AdventureService {
 
         newBooking.setAction(action);
         newBooking.setClient(client);
+        newBooking.setHasReport(Boolean.FALSE);
 
         adventureActionClientsRepo.save(newBooking);
 
@@ -609,6 +613,86 @@ public class AdventureServiceImpl implements AdventureService {
         return action.getAdventure().getId();
     }
 
+    @Override
+    public Boolean checkIfSpecificClientHasReportForAction(Long clientId,Long actionId){
+        List<AdventureActionClients> allBookedActions = adventureActionClientsRepo.findAll();
+        Boolean hasReport = Boolean.FALSE;
+
+        for(AdventureActionClients oneAction:allBookedActions){
+            Boolean matchingClientId = oneAction.getClient().getId().equals(clientId);
+            Boolean matchingActionId = oneAction.getAction().getId().equals(actionId);
+            if(matchingClientId && matchingActionId){ //ako smo pronasli odgovarajucu akciju
+                hasReport = oneAction.getHasReport();
+            }
+        }
+
+        return hasReport;
+    }
+
+    @Override
+    public AdventureActionReportDTO reportAndPunishClient(AdventureActionReportDTO newReport){
+           Client client = clientRepository.findById(newReport.getClientId()).get();
+           List<AdventureActionClients> allBookedActions = adventureActionClientsRepo.findAll();
+           AdventureActionClients matchingBookedAction = new AdventureActionClients();
+
+           for(AdventureActionClients oneBookedAction:allBookedActions){
+               Boolean matchingClientId = oneBookedAction.getClient().getId().equals(newReport.getClientId());
+               Boolean matchingActionId = oneBookedAction.getAction().getId().equals(newReport.getActionReservationId());
+
+               if(matchingClientId && matchingActionId){
+                   matchingBookedAction = oneBookedAction;
+                   matchingBookedAction.setHasReport(Boolean.TRUE);
+                   adventureActionClientsRepo.save(matchingBookedAction);
+
+               }
+           }
+
+
+           Boolean punishClient = newReport.getPunishClient();
+           Boolean approved = newReport.getApproved();
+           if(punishClient && approved){
+               client.setNumOfPenalties(client.getNumOfPenalties()+1);
+               clientRepository.save(client);
+           }
+
+            AdventureActionReport forSavingReport = new AdventureActionReport();
+           client.setId(newReport.getClientId());
+           forSavingReport.setClient(client);
+
+           forSavingReport.setPunishClient(newReport.getPunishClient());
+           forSavingReport.setApproved(newReport.getApproved());
+           forSavingReport.setComment(newReport.getComment());
+           forSavingReport.setActionReservation(matchingBookedAction);
+
+           adventureActionReportRepository.save(forSavingReport);
+           return modelMapper.map(forSavingReport,AdventureActionReportDTO.class);
+    }
+
+    @Override
+    public Boolean checkIfActionIsPast(Long actionId){
+        AdventureAction oneAction = adventureActionRepository.findById(actionId).get();
+        int comparation = oneAction.getEndTime().compareTo(LocalDateTime.now());
+        if(comparation < 0){
+            return Boolean.TRUE;
+        } else return Boolean.FALSE;
+
+    }
+
+    @Override
+    public AdventureActionReportDTO getReportForAction( Long actionId, Long clientId){
+        List<AdventureActionReport> allReports = adventureActionReportRepository.findAll();
+        AdventureActionReportDTO matchingReport = new AdventureActionReportDTO();
+
+        for(AdventureActionReport oneReport:allReports){
+            Boolean matchingActionId = oneReport.getActionReservation().getAction().getId().equals(actionId);
+            Boolean matchingClientId = oneReport.getClient().getId().equals(clientId);
+            if(matchingActionId && matchingClientId){
+                matchingReport = modelMapper.map(oneReport,AdventureActionReportDTO.class);
+            }
+        }
+
+        return matchingReport;
+    }
 
     String generateUniqueFileName() {
         String filename = "";

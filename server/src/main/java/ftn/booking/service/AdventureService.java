@@ -71,4 +71,12 @@ public interface AdventureService {
     List<Client> getAllClientsBookedAction(Long actionId);
 
     Long findAdventureIdForAction(Long actionId);
+
+    Boolean checkIfSpecificClientHasReportForAction(Long clientId,Long actionId);
+
+    AdventureActionReportDTO reportAndPunishClient(AdventureActionReportDTO newReport);
+
+    Boolean checkIfActionIsPast(Long actionId);
+
+    AdventureActionReportDTO getReportForAction( Long actionId, Long clientId);
 }

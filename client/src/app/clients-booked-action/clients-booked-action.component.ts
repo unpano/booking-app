@@ -11,6 +11,10 @@ import { ClientsBookedActionService } from './service/clients-booked-action.serv
 export class ClientsBookedActionComponent implements OnInit {
 
   actionId !: Number;
+
+  hasReport !: Boolean;
+
+  isActionPast !: Boolean;
   
   clients : User[] = new Array();
   constructor(private router:Router,
@@ -25,10 +29,24 @@ export class ClientsBookedActionComponent implements OnInit {
       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
       let options = { headers: headers };
 
+    this.clientsBookedActionService.getIfActionIsPast(this.actionId,options).subscribe(data=>{
+      this.isActionPast = Object.assign(data);
+    });
+
     this.clientsBookedActionService.getAllClientsBookedAction(this.actionId,options).subscribe(data=>{
         this.clients = Object.assign(data);
         console.log(this.clients);
+
+        this.clients.forEach(client => {
+          this.clientsBookedActionService.getIfActionHasReport(client.id,this.actionId,options).subscribe(data=>{
+           client.hasReport = Object.assign(data);
+            console.log(this.hasReport);
+        })
+          
+        });
     });
+
+    
 
   }
 
@@ -44,6 +62,12 @@ export class ClientsBookedActionComponent implements OnInit {
     })
   }
 
+  createReport(actionId:Number,clientId:Number){
+      this.router.navigate(['report-about-clients/actionId/' + actionId + '/clientId/' + clientId]);
+  }
 
+  viewReport(actionId:Number,clientId:Number){
+      this.router.navigate(['view-report-action/actionId/' + actionId + '/clientId/' + clientId]);
+  }
 
 }

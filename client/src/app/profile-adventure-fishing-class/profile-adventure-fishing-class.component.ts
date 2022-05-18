@@ -125,7 +125,7 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
                 })
 
           });
-
+          console.log(this.adventurePastActions);
     })
 
     

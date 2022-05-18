@@ -35,10 +35,12 @@ import { ProfileCottageComponent } from './profile-cottage/profile-cottage.compo
 import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { ReportAboutClientsComponent } from './report-about-clients/report-about-clients.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
 import { UnverifiedUsersComponent } from './unverified-users/unverified-users.component';
 import { VerifiedUsersComponent } from './verified-users/verified-users.component';
+import { ViewReportActionComponent } from './view-report-action/view-report-action.component';
 
 const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
@@ -88,6 +90,8 @@ const routes: Routes = [
   {path: 'edit-profile-instructor/:id',component:EditProfileInstructorComponent},
   {path: 'edit-instructor-password/:id',component:EditInstructorPasswordComponent},
   {path: 'clients-booked-action/:id',component:ClientsBookedActionComponent},
+  {path: 'report-about-clients/actionId/:actionId/clientId/:clientId',component:ReportAboutClientsComponent},
+  {path: 'view-report-action/actionId/:actionId/clientId/:clientId',component:ViewReportActionComponent},
 
 
   {path: '**', component: PageNotFoundComponent},
