@@ -1,12 +1,16 @@
 package ftn.booking.controller;
 
+import ftn.booking.dto.AdminDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.emailADMIN.EmailService;
 import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.exception.ValidationException;
+import ftn.booking.model.Admin;
 import ftn.booking.model.DeactivationRequest;
 import ftn.booking.model.User;
 import ftn.booking.model.enums.Status;
+import ftn.booking.repository.UserRepository;
+import ftn.booking.service.AdminService;
 import ftn.booking.service.DeactivationRequestService;
 import ftn.booking.service.MailService;
 import ftn.booking.service.UserService;
@@ -33,6 +37,10 @@ import java.util.Objects;
 public class UserController {
 
     private UserService userService;
+
+    private AdminService adminService;
+
+    private UserRepository userRepository;
     private DeactivationRequestService deactivationRequestService;
     private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
@@ -49,7 +57,7 @@ public class UserController {
     }
     
     @GetMapping("/checkPassword/{oldPassword}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR') || hasRole('ADMIN')")
 
     public ResponseEntity<Boolean> checkExistingPassword(@PathVariable String oldPassword, Principal loggedUser){
         User user = userService.loadUserByUsername(loggedUser.getName());
@@ -57,16 +65,25 @@ public class UserController {
     }
 
     @PutMapping("/changePassword/{newPassword}")
-    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR')")
+    @PreAuthorize("hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR') || hasRole('ADMIN')")
     public ResponseEntity<?> changePassword(@PathVariable String newPassword, Principal loggedUser){
         User user = userService.loadUserByUsername(loggedUser.getName());
+
 
         if(!ValidationUtils.isValidPassword(newPassword))
             throw new ValidationException("Password is not valid.");
 
+        if(user.getOtherAdmin().equals(Boolean.TRUE)){
+            user.setPassword(passwordEncoder.encode(newPassword));
+            user.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            user.setChangedPassword(Boolean.TRUE);
+            userService.updateUser(user);
+        } else {
+
         user.setPassword(passwordEncoder.encode(newPassword));
         user.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
         userService.updateUser(user);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -129,6 +146,45 @@ public class UserController {
         UserDTO userVerifiedDTO = userService.verifyOne(email);
 
         return new ResponseEntity<>(userVerifiedDTO,HttpStatus.OK);
+    }
+
+    @PutMapping("/reject-verification/{email}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserDTO> rejectVerification(@PathVariable String email){
+        UserDTO userRejectedDTO = userService.rejectVerification(email);
+
+        return new ResponseEntity<>(userRejectedDTO,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-one-admin/{email}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserDTO> getOneAdminByEmail(@PathVariable String email){
+        UserDTO oneAdmin = modelMapper.map(userRepository.findByEmail(email),UserDTO.class);
+        return new ResponseEntity<>(oneAdmin,HttpStatus.OK);
+    }
+
+    @PutMapping("/change-admin-info/{email}")
+    public ResponseEntity<UserDTO> changeAdminInfo(@RequestBody UserDTO changedAdmin,
+                                                    @PathVariable String email){
+
+        UserDTO savedAdmin = userService.changeAdminInfo(changedAdmin,email);
+
+        return new ResponseEntity<>(savedAdmin,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/check-if-admin-is-first-or-other/email/{email}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> checkIfAdminIsFirstOrOther(@PathVariable String email){
+        Boolean response = adminService.checkIfAdminIsFirstOrOther(email);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @GetMapping("/check-if-other-admin-changed-password/email/{email}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> checkIfOtherAdminChangedPassword(@PathVariable String email){
+        Boolean response = adminService.checkIfOtherAdminChangedPassword(email);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
 }

@@ -1,9 +1,11 @@
 package ftn.booking.service;
 
+import ftn.booking.dto.AdminDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -20,6 +22,10 @@ public interface UserService {
     List<UserDTO> getAllVerifiedUsers();
 
     UserDTO verifyOne(String email);
+
+    UserDTO rejectVerification(String email);
+
+    UserDTO changeAdminInfo(UserDTO changedAdmin, String email);
 
 }
 

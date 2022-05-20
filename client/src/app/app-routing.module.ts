@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddNewAdminComponent } from './add-new-admin/add-new-admin.component';
+import { AdminPunishClientsComponent } from './admin-punish-clients/admin-punish-clients.component';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
 import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
@@ -92,6 +94,8 @@ const routes: Routes = [
   {path: 'clients-booked-action/:id',component:ClientsBookedActionComponent},
   {path: 'report-about-clients/actionId/:actionId/clientId/:clientId',component:ReportAboutClientsComponent},
   {path: 'view-report-action/actionId/:actionId/clientId/:clientId',component:ViewReportActionComponent},
+  {path: 'admin-punish-clients',component:AdminPunishClientsComponent},
+  {path: 'add-new-admin',component:AddNewAdminComponent},
 
 
   {path: '**', component: PageNotFoundComponent},

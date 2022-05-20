@@ -1,1 +1,75 @@
-<p>profile-admin works!</p>
+<form role="form" novalidate class="form-inline"  >
+    
+    <button mat-button *ngIf="editProfileVar==false" (click)="editProfile()"> Edit profile </button>
+    <button mat-button *ngIf="editProfileVar==true" (click)="saveChanges()">Save changes</button>
+    <button mat-button *ngIf="editProfileVar==true" (click)="cancel()">Cancel</button>
+
+
+        <div class="form-group">
+            <h1>First name</h1>
+            <h2 *ngIf="editProfileVar==false">{{admin.firstName}}</h2>
+            <mat-form-field class="mat-field" *ngIf="editProfileVar==true">
+                <input  name="firstName"  matInput [(ngModel)]="admin.firstName" >
+              </mat-form-field>	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Last name</h1>
+            <h2 *ngIf="editProfileVar==false">{{admin.lastName}}</h2>
+            <mat-form-field class="mat-field" *ngIf="editProfileVar==true">
+                <input  name="lastName"  matInput [(ngModel)]="admin.lastName" >
+              </mat-form-field>		
+           						
+        </div>
+        
+        <div class="form-group">
+            <h1>Email</h1>
+            <h2 *ngIf="editProfileVar==false">{{admin.email}}</h2>
+            <mat-form-field class="mat-field" *ngIf="editProfileVar==true" disabled title="You cannot change email!">
+                <input  name="email"  matInput [(ngModel)]="admin.email" >
+              </mat-form-field>	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Address</h1>
+            <h2 *ngIf="editProfileVar==false">{{admin.address}}</h2>
+            <mat-form-field class="mat-field" *ngIf="editProfileVar==true" >
+                <input  name="address"  matInput [(ngModel)]="admin.address" >
+              </mat-form-field>		
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>City</h1>
+            <h2 *ngIf="editProfileVar==false">{{admin.city}}</h2>
+            <mat-form-field class="mat-field" *ngIf="editProfileVar==true">
+                <input  name="city"  matInput [(ngModel)]="admin.city" >
+              </mat-form-field>	
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Country</h1>
+            <h2 *ngIf="editProfileVar==false">{{admin.country}}</h2>
+            <mat-form-field class="mat-field" *ngIf="editProfileVar==true">
+                <input  name="country"  matInput [(ngModel)]="admin.country" >
+              </mat-form-field>		
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Phone number</h1>
+            <h2 *ngIf="editProfileVar==false">{{admin.phoneNumber}}</h2>
+            <mat-form-field class="mat-field" *ngIf="editProfileVar==true">
+                <input  name="phoneNumber" matInput [(ngModel)]="admin.phoneNumber" >
+              </mat-form-field>		
+           						
+        </div>
+
+
+
+
+
+</form>

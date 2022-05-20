@@ -1,0 +1,49 @@
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <mat-card fxFlex="25">
+        <mat-toolbar color="primary">Add new admin</mat-toolbar>
+        <form fxLayoutAlign="stretch" fxLayout="column" class="register-form">
+            <mat-form-field>
+              <input [(ngModel)]="name" name="name" matInput placeholder="First name" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input [(ngModel)]="surname" name="surname" matInput placeholder="Last name" required>
+              </mat-form-field>
+            <mat-form-field>
+                <input [(ngModel)]="email" name="email" matInput placeholder="Email address" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input [(ngModel)]="password" name="password" id="password" matInput placeholder="Password" type="password" required>
+            </mat-form-field>  
+            <p> Show password <input type="checkbox" placeholder="show password" class="paragraph-checkbox" (click)="showPasswordFunction()"> </p>	
+
+
+            <mat-form-field>
+                <input matInput placeholder="Confirm password" id="rePassword" type="password"  [(ngModel)]="rePassword" name="rePassword" >
+            </mat-form-field> 
+            <p> Show password <input type="checkbox" placeholder="show password" class="paragraph-checkbox" (click)="showRePasswordFunction()"> </p>	
+
+
+            <mat-form-field>
+                <input [(ngModel)]="address" name="address" matInput placeholder="Address" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input [(ngModel)]="city" name="city" matInput placeholder="City" required>
+            </mat-form-field> 
+            <mat-form-field>
+                <input [(ngModel)]="country" name="country" matInput placeholder="Country" required>
+            </mat-form-field>  
+            <mat-form-field>
+                <input [(ngModel)]="phone" name="phone" matInput placeholder="Phone number" required>
+            </mat-form-field>   
+            <mat-form-field appearance="fill">
+                <mat-label>Choose type</mat-label>
+                <mat-select>
+                    <mat-option (click)="selectAdmin()" value="Admin">Admin</mat-option>
+                </mat-select> 
+            </mat-form-field> 
+                 
+            <button mat-raised-button type="submit" (click)="signUp()" [disabled]="confirmPassword() == 1">Create new admin</button>
+            <h5>*Passwords need to be the same.</h5>
+          </form>  
+    </mat-card>
+</div>

@@ -14,6 +14,7 @@ export enum Endpoint {
   RESERVATIONS = "http://localhost:8084/reservations/",
   REPORTS = "http://localhost:8084/reports/",
   MAIL = "http://localhost:8084/emails/",
-  ROOMS = "http://localhost:8084/rooms/"
+  ROOMS = "http://localhost:8084/rooms/",
+  NEW_ADMIN = "http://localhost:8084/auth/register-new-admin",
 
 }

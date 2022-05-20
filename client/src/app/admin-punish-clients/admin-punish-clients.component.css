@@ -31,12 +31,4 @@ table {
   position:relative;
   margin-left: 40%;
 }
-
-#btn-confirm{
-  width: 70px;
-}
   
-#btn-rejected{
-  background-color: brown;
-  color: white;
-}

@@ -30,17 +30,38 @@ export class UnverifiedUsersComponent implements OnInit {
   }
 
   verifyOne(email: String,user:User){
-    //this.sendEmail(email,user);
+    this.sendEmail(email,user);
     const headers = { 'content-type': 'application/json',
       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
       let options = { headers: headers };
+    if(window.confirm("You want to verify this user?")){
     this.unverifUsersService.verifyOne(email,user,options).subscribe(data=>{
       alert("You verified user " + user.firstName + " " + user.lastName + " !" + "\n \n" +
         "He will receive notification for verification on its email: \n" + user.email);
         
         this.getNonVerifUsers();
-    })
+        })
+      } else{
+        window.close();
+      }
+  }
 
+  rejectVerification(email:String,user:User){
+    
+    const headers = { 'content-type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+      let options = { headers: headers };
+      if(window.confirm("Are you sure you want to reject verification for this user?")){
+          this.sendRejectingEmail(email,user);
+          this.unverifUsersService.rejectVerification(email,user,options).subscribe(data=>{
+            alert("You rejected verification for user " + user.firstName + " "+ user.lastName + " !" +
+            "\n \n"+ "He will receive notification for rejecting on his email: \n"+user.email);
+          
+            this.getNonVerifUsers();
+          })
+      } else{
+        window.close();
+      }
   }
 
   sendEmail(email: String,user:User){
@@ -48,6 +69,15 @@ export class UnverifiedUsersComponent implements OnInit {
       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
       let options = { headers: headers };
     this.unverifUsersService.sendVerificationEmail(email,user,options).subscribe(data=>{
+      this.getNonVerifUsers();
+    })
+  }
+
+  sendRejectingEmail(email:String,user:User){
+    const headers = { 'content-type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+      let options = { headers: headers };
+    this.unverifUsersService.sendRejectingEmail(email,user,options).subscribe(data=>{
       this.getNonVerifUsers();
     })
   }

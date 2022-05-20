@@ -1,5 +1,6 @@
 package ftn.booking.controller;
 
+import ftn.booking.dto.AdminDTO;
 import ftn.booking.dto.JwtAuthenticationRequest;
 import ftn.booking.dto.LoginDTO;
 import ftn.booking.dto.UserDTO;
@@ -19,6 +20,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -45,7 +47,10 @@ public class AuthenticationController {
     private AuthorityService authorityService;
     private ClientService clientService;
     private OwnerService ownerService;
+
+    private AdminService adminService;
     private final PasswordEncoder passwordEncoder;
+
 
 
 
@@ -83,6 +88,7 @@ public class AuthenticationController {
 
             //klijent aktivira profil preko linka
             client.setEnabled(false);
+            client.setRejectedVerification(false);
             client.setPicture("");
             client.setRole(Role.ROLE_CLIENT);
             client.setNumOfPenalties(0);
@@ -174,6 +180,49 @@ public class AuthenticationController {
             //kreiram instruktora
             ownerService.addInstructor(instructor);
         }
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
+
+    @PostMapping("/register-new-admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> registerNewAdmin(@RequestBody AdminDTO adminDTO){
+        User existUser = this.userService.loadUserByUsername(adminDTO.getEmail());
+
+        if (existUser != null) {
+            throw new ResourceConflictException(existUser.getId(), "Username already exists");
+        }
+
+        if(!ValidationUtils.isValidPassword(adminDTO.getPassword()))
+            throw new ValidationException("Password is not valid.");
+
+
+        //namapiram dto podatke na novog admina
+        Admin admin = new Admin();
+        modelMapper.map(adminDTO, admin);
+
+        //dodelim mu ROLE_ADMIN
+        Authority authority = authorityService.findByName(adminDTO.getUserType());
+
+        if(authority == null)
+            throw new NotFoundException("Role with user type: " + adminDTO.getUserType() + " not found");
+        List<Authority> authorityList = (List<Authority>) admin.getAuthorities();
+        authorityList.add(authority);
+        admin.setAuthorities(authorityList);
+
+        //novom adminu je profil aktiviran,ali mora kad se loguje da promeni lozinku
+        admin.setEnabled(true);
+        admin.setOtherAdmin(true);
+        admin.setChangedPassword(false);
+        admin.setPicture("");
+        admin.setRole(Role.ROLE_ADMIN);
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        admin.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+
+
+        //kreiram admina
+        adminService.add(admin);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
 

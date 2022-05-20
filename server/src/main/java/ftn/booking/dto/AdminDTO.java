@@ -10,8 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
-
+public class AdminDTO {
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -22,6 +22,6 @@ public class UserDTO {
     private String phoneNumber;
     private Role userType;
     private String reason;
-    private Boolean rejectedVerification;
-
+    private Boolean changedPassword;
+    private Boolean otherAdmin;
 }

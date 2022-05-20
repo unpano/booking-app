@@ -32,7 +32,8 @@
             <td>
               
                 <button id="btn-confirm" mat-button type="primary" class="button-confirm" (click)="verifyOne(userNonVerif.email,userNonVerif)">Verify</button>
-            
+                <button id="btn-confirm" mat-button type="danger" *ngIf="userNonVerif.rejectedVerification==false" (click)="rejectVerification(userNonVerif.email,userNonVerif)">Reject</button>
+                <button *ngIf="userNonVerif.rejectedVerification==true" id="btn-rejected" disabled>Rejected</button>
             </td>
         </tr>
     </tbody>

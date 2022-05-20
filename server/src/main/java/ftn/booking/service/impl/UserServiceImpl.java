@@ -1,5 +1,6 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.dto.AdminDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.model.User;
 import ftn.booking.model.enums.Role;
@@ -57,10 +58,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if(!user.isEnabled()){
                 if(user.getRole().equals(Role.ROLE_COTTAGE_OWNER) ||
                         user.getRole().equals(Role.ROLE_INSTRUCTOR) ||
-                        user.getRole().equals(Role.ROLE_BOAT_OWNER) ||
-                        user.getRole().equals(Role.ROLE_CLIENT)){
+                        user.getRole().equals(Role.ROLE_BOAT_OWNER)
+                       ){
                     UserDTO  userDTO = modelMapper.map(user,UserDTO.class);
                     userDTO.setUserType(user.getRole());
+                    userDTO.setRejectedVerification(user.getRejectedVerification());
                       allNotRegUsers.add(userDTO);
 
                 }
@@ -79,7 +81,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 if(user.getRole().equals(Role.ROLE_COTTAGE_OWNER) ||
                         user.getRole().equals(Role.ROLE_INSTRUCTOR) ||
                         user.getRole().equals(Role.ROLE_BOAT_OWNER) ||
-                        user.getRole().equals(Role.ROLE_CLIENT)){
+                        user.getRole().equals(Role.ROLE_CLIENT))
+                        {
                     UserDTO  userDTO = modelMapper.map(user,UserDTO.class);
                     userDTO.setUserType(user.getRole());
                     allRegUsers.add(userDTO);
@@ -94,10 +97,39 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDTO verifyOne(String email){
         User nonVerifUser = userRepository.findByEmail(email);
         nonVerifUser.setEnabled(Boolean.TRUE);
+        if(nonVerifUser.getRejectedVerification().equals(Boolean.TRUE)){
+            nonVerifUser.setRejectedVerification(Boolean.FALSE);
+        }
         UserDTO verifiedUser = modelMapper.map(userRepository.save(nonVerifUser),UserDTO.class);
         verifiedUser.setUserType(nonVerifUser.getRole());
 
         return verifiedUser;
 
+    }
+
+    @Override
+    public UserDTO rejectVerification(String email){
+        User forRejectionUser = userRepository.findByEmail(email);
+        forRejectionUser.setRejectedVerification(Boolean.TRUE);
+        UserDTO rejectedUser = modelMapper.map(userRepository.save(forRejectionUser),UserDTO.class);
+        rejectedUser.setUserType(forRejectionUser.getRole());
+
+        return rejectedUser;
+
+    }
+
+    @Override
+    public UserDTO changeAdminInfo(UserDTO changedAdmin, String email){
+        User unsavedAdmin = userRepository.findByEmail(email);
+        unsavedAdmin.setFirstName(changedAdmin.getFirstName());
+        unsavedAdmin.setLastName(changedAdmin.getLastName());
+        unsavedAdmin.setAddress(changedAdmin.getAddress());
+        unsavedAdmin.setCity(changedAdmin.getCity());
+        unsavedAdmin.setCountry(changedAdmin.getCountry());
+        unsavedAdmin.setPhoneNumber(changedAdmin.getPhoneNumber());
+
+        userRepository.save(unsavedAdmin);
+
+        return modelMapper.map(unsavedAdmin,UserDTO.class);
     }
 }

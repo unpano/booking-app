@@ -77,6 +77,8 @@ import { EditInstructorPasswordComponent } from './edit-instructor-password/edit
 import { ClientsBookedActionComponent } from './clients-booked-action/clients-booked-action.component';
 import { ReportAboutClientsComponent } from './report-about-clients/report-about-clients.component';
 import { ViewReportActionComponent } from './view-report-action/view-report-action.component';
+import { AdminPunishClientsComponent } from './admin-punish-clients/admin-punish-clients.component';
+import { AddNewAdminComponent } from './add-new-admin/add-new-admin.component';
 
 
 @NgModule({
@@ -131,7 +133,9 @@ import { ViewReportActionComponent } from './view-report-action/view-report-acti
     EditInstructorPasswordComponent,
     ClientsBookedActionComponent,
     ReportAboutClientsComponent,
-    ViewReportActionComponent
+    ViewReportActionComponent,
+    AdminPunishClientsComponent,
+    AddNewAdminComponent
 
 
   ],

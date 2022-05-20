@@ -9,7 +9,7 @@ import { User } from 'src/app/dto/user';
 export class UnverifUsersService {
 
   private baseURL = "http://localhost:8084/users";
-  private baseURLmail = "http://localhost:8084/emails/send-mail-simplified/";
+  private baseURLmail = "http://localhost:8084/emails/";
   constructor(private http:HttpClient) { }
 
   getNonVerifUsers(options:any): Observable<HttpEvent<User[]>>{
@@ -22,7 +22,17 @@ export class UnverifUsersService {
 
   }
 
-  sendVerificationEmail(email: String,user: User,options:any) : Observable<Object> {
-    return this.http.post(`${this.baseURLmail}` + `${email}`,user,options);
+  rejectVerification(email:String,user:User,options:any):Observable<Object>{
+    return this.http.put(`${this.baseURL}`+"/reject-verification/" + `${email}`,user,options);
   }
+
+  sendVerificationEmail(email: String,user: User,options:any) : Observable<Object> {
+    return this.http.post(`${this.baseURLmail}` + "send-mail-simplified/" + `${email}`,user,options);
+  }
+
+  sendRejectingEmail(email:String,user:User,options:any):Observable<Object>{
+    return this.http.post(`${this.baseURLmail}`+ "send-mail-rejecting-verification/" + `${email}`,user,options);
+  }
+
+
 }

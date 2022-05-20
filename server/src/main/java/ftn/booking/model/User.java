@@ -34,6 +34,12 @@ public class User implements UserDetails {
     @NotNull
     private String lastName;
 
+    private Boolean rejectedVerification;
+
+    private Boolean changedPassword;
+
+    private Boolean otherAdmin;
+
     @NotNull
     private String email;
 

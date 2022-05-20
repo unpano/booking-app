@@ -49,4 +49,14 @@ public class MailController {
 
 	}
 
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value="/send-mail-rejecting-verification/{toEmail}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendRejectingMail(@PathVariable String toEmail){
+		UserDTO informationVerUser = modelMapper.map(userService.loadUserByUsername(toEmail),UserDTO.class);
+		return emailService.sendMailSimplified(toEmail,"Your account verification is rejected," + informationVerUser.getFirstName(),
+				"Unfortunatelly,admin rejected you request for verification.\n Hope we will see you soon, "+
+						informationVerUser.getFirstName() + " "+ informationVerUser.getLastName() +"\n \n Isa Booking 56 team");
+	}
+
+
 }
