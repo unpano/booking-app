@@ -4,6 +4,7 @@ package ftn.booking.controller;
 import ftn.booking.dto.*;
 import ftn.booking.model.*;
 import ftn.booking.repository.AdventureRepository;
+import ftn.booking.service.AdminService;
 import ftn.booking.service.AdventureService;
 import ftn.booking.service.InstructorService;
 import ftn.booking.service.UserService;
@@ -29,6 +30,8 @@ public class InstructorController {
     private AdventureService adventureService;
 
     private UserService userService;
+
+    private AdminService adminService;
 
     private ModelMapper modelMapper;
 
@@ -326,8 +329,33 @@ public class InstructorController {
         return new ResponseEntity<>(response,HttpStatus.OK);
    }
 
+   @GetMapping("/get-all-reports-for-approving")
+   @PreAuthorize("hasRole('ADMIN')")
+   public ResponseEntity<List<AdventureActionReportDTO>> getAllReportsForApproving(){
+        List<AdventureActionReportDTO> allReportsForApproving = adventureService.getAllReportsForApproving();
+        return new ResponseEntity<>(allReportsForApproving,HttpStatus.OK);
+   }
 
+   @GetMapping("/get-instructor-for-specific-report/reportId/{reportId}")
+   @PreAuthorize("hasRole('ADMIN')")
+   public ResponseEntity<InstructorDTO> getInstructorForSpecificReport(@PathVariable Long reportId){
+        InstructorDTO instructorDTO = instructorService.getInstructorForSpecificReport(reportId);
+        return new ResponseEntity<>(instructorDTO,HttpStatus.OK);
+   }
 
+   @PutMapping("/set-approved-punishment-for-report/reportId/{reportId}")
+   @PreAuthorize("hasRole('ADMIN')")
+   public ResponseEntity<Boolean> setApprovedPunishmentForReport(@PathVariable Long reportId){
+        Boolean isApproved = adminService.setApprovedPunishmentForReport(reportId);
+        return new ResponseEntity<>(isApproved,HttpStatus.OK);
+   }
+
+   @PutMapping("/approve-punishment-for-client-admin/clientId/{clientId}")
+   @PreAuthorize("hasRole('ADMIN')")
+   public ResponseEntity<Boolean> approvePunishmentForClientAdmin(@PathVariable Long clientId){
+        Boolean approved = adminService.approvePunishmentForClientAdmin(clientId);
+        return new ResponseEntity<>(approved,HttpStatus.OK);
+   }
 
 
 }

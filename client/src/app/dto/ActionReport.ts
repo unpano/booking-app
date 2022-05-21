@@ -1,3 +1,4 @@
+import { User } from "./user";
 
 export class ActionReport{
     id !: Number;
@@ -6,5 +7,7 @@ export class ActionReport{
     approved !: Boolean;
     clientId !: Number;
     actionReservationId !: Number;
-
+    clientInfo !: User;
+    isRejectedForApproving !: Boolean;
+    instructorInfo !: User;
 }

@@ -9,4 +9,8 @@ public interface AdminService {
     Boolean checkIfAdminIsFirstOrOther(String email);
 
     Boolean checkIfOtherAdminChangedPassword(String email);
+
+    Boolean setApprovedPunishmentForReport(Long reportId);
+
+    Boolean approvePunishmentForClientAdmin(Long clientId);
 }

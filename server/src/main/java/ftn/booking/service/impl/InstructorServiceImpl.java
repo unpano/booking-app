@@ -1,13 +1,8 @@
 package ftn.booking.service.impl;
 
 import ftn.booking.dto.InstructorDTO;
-import ftn.booking.model.Client;
-import ftn.booking.model.Instructor;
-import ftn.booking.model.InstructorAvailablePeriod;
-import ftn.booking.model.User;
-import ftn.booking.repository.InstructorAvailablePeriodRepository;
-import ftn.booking.repository.InstructorRepository;
-import ftn.booking.repository.UserRepository;
+import ftn.booking.model.*;
+import ftn.booking.repository.*;
 import ftn.booking.service.InstructorService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -24,6 +19,14 @@ public class InstructorServiceImpl implements InstructorService {
     private InstructorRepository instructorRepository;
 
     private UserRepository userRepository;
+
+    private AdventureActionReportRepository adventureActionReportRepository;
+
+    private AdventureActionClientsRepository adventureActionClientsRepository;
+
+    private AdventureActionRepository adventureActionRepository;
+
+    private AdventureRepository adventureRepository;
 
     private ModelMapper modelMapper;
 
@@ -120,6 +123,15 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
 
+    @Override
+    public InstructorDTO getInstructorForSpecificReport(Long reportId){
+        AdventureActionReport report = adventureActionReportRepository.findById(reportId).get();
+        AdventureActionClients clientReservation = adventureActionClientsRepository.findById(report.getActionReservation().getId()).get();
+        AdventureAction action = adventureActionRepository.findById(clientReservation.getAction().getId()).get();
+        Adventure adventure = adventureRepository.findById(action.getAdventure().getId()).get();
+        Instructor instructor = instructorRepository.findById(adventure.getInstructor().getId()).get();
 
+        return modelMapper.map(instructor,InstructorDTO.class);
+    }
 
 }

@@ -8,31 +8,27 @@
             <th>First name</th>
             <th>Last name</th>
             <th>Email address</th>
-            <th>User type</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Phone number</th>
-            <!--<th>Reason</th>-->
+            <th>Comment from instructor</th>
+            <th>Action reservation id</th>
+            <th>Instructor id</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr >
+        <tr *ngFor="let reportForApprove of reportsForApproving">
             <!--<td>{{userNonVerif.id}}</td>-->
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-           <!-- <td>{{userNonVerif.reason}}</td> -->
+            <td>{{reportForApprove.clientInfo.firstName}}</td>
+            <td>{{reportForApprove.clientInfo.lastName}}</td>
+            <td>{{reportForApprove.clientInfo.email}}</td>
+            <td>{{reportForApprove.comment}}</td>
+            <td>{{reportForApprove.actionReservationId}}</td>
+            
+            <td>{{reportForApprove.instructorInfo.id}}</td> 
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm" >Verify</button>
-            
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm" (click)="punishClient(reportForApprove)">Punish</button>
+                <button id="btn-confirm" mat-button type="primary" *ngIf="reportForApprove.isRejectedForApproving==false" class="button-confirm" (click)="rejectPunishing(reportForApprove)" >Reject</button>
+                <button id="btn-rejected" mat-button type="primary" *ngIf="reportForApprove.isRejectedForApproving==true" class="button-confirm"  disabled>Rejected</button>
             </td>
         </tr>
     </tbody>

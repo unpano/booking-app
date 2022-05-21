@@ -28,5 +28,6 @@ public interface InstructorService {
     InstructorAvailablePeriod getPeriodOfAvailabilityInstructor(
             Long instructorId);
 
+    InstructorDTO getInstructorForSpecificReport(Long reportId);
 
 }

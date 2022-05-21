@@ -79,6 +79,7 @@ import { ReportAboutClientsComponent } from './report-about-clients/report-about
 import { ViewReportActionComponent } from './view-report-action/view-report-action.component';
 import { AdminPunishClientsComponent } from './admin-punish-clients/admin-punish-clients.component';
 import { AddNewAdminComponent } from './add-new-admin/add-new-admin.component';
+import { AdminEntitiesComponent } from './admin-entities/admin-entities.component';
 
 
 @NgModule({
@@ -135,7 +136,8 @@ import { AddNewAdminComponent } from './add-new-admin/add-new-admin.component';
     ReportAboutClientsComponent,
     ViewReportActionComponent,
     AdminPunishClientsComponent,
-    AddNewAdminComponent
+    AddNewAdminComponent,
+    AdminEntitiesComponent
 
 
   ],

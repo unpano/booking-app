@@ -79,4 +79,6 @@ public interface AdventureService {
     Boolean checkIfActionIsPast(Long actionId);
 
     AdventureActionReportDTO getReportForAction( Long actionId, Long clientId);
+
+    List<AdventureActionReportDTO> getAllReportsForApproving();
 }

@@ -187,5 +187,16 @@ public class UserController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
+    @GetMapping("/get-one-client/clientId/{clientId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserDTO> getOneClient(@PathVariable Long clientId){
+        UserDTO oneClient = new UserDTO();
+        oneClient = modelMapper.map(userRepository.findById(clientId).get(),UserDTO.class);
+        return new ResponseEntity<>(oneClient,HttpStatus.OK);
+    }
+
+
+
+
 }
 

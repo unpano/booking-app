@@ -694,6 +694,31 @@ public class AdventureServiceImpl implements AdventureService {
         return matchingReport;
     }
 
+    @Override
+    public List<AdventureActionReportDTO> getAllReportsForApproving(){
+        List<AdventureActionReport> allReports = adventureActionReportRepository.findAll();
+
+        List<AdventureActionReportDTO> forApprovingReports = new ArrayList<>();
+
+        for(AdventureActionReport oneReport:allReports){
+            Boolean forPunishment = oneReport.getPunishClient();
+            Boolean forAprove = oneReport.getApproved();
+            if(forPunishment.equals(Boolean.TRUE) && forAprove.equals(Boolean.FALSE)) {
+                AdventureActionReportDTO forAproveReport = new AdventureActionReportDTO();
+                forAproveReport.setId(oneReport.getId());
+                forAproveReport.setApproved(Boolean.FALSE);
+                forAproveReport.setPunishClient(Boolean.TRUE);
+                forAproveReport.setComment(oneReport.getComment());
+                forAproveReport.setClientId(oneReport.getClient().getId());
+                forAproveReport.setActionReservationId(oneReport.getActionReservation().getId());
+
+                forApprovingReports.add(forAproveReport);
+
+            }
+        }
+        return forApprovingReports;
+    }
+
     String generateUniqueFileName() {
         String filename = "";
         long millis = System.currentTimeMillis();

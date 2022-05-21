@@ -70,6 +70,10 @@ export class HeaderAdminComponent implements OnInit {
     this.router.navigate(['add-new-admin']);
   }
 
+  adminEntities(){
+    this.router.navigate(['admin-entities']);
+  }
+
   logOut(){
     sessionStorage.clear()
     this.router.navigate([''])

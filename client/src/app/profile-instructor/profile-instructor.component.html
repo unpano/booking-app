@@ -14,6 +14,20 @@
             <h2>{{instructor.lastName}}</h2>	
            						
         </div>
+
+        <h1>Date and time for beggining/ending of availability</h1>
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Pick period</mat-label>
+            <mat-date-range-input disabled
+              [formGroup]="pickPeriod"
+              [rangePicker]="periodPicker" [min]="minDate"  >
+              <input matStartDate placeholder="Start date" formControlName="start" [(ngModel)]="newPeriodAvailability.startTimeAvailable">
+              <input matEndDate placeholder="End date" formControlName="end" [(ngModel)]="newPeriodAvailability.endTimeAvailable">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #periodPicker></mat-date-range-picker>
+          </mat-form-field>
+
         
         <div class="form-group">
             <h1>Email</h1>
