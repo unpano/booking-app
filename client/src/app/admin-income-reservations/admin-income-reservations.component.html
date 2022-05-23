@@ -1,2 +1,34 @@
 <h2>Percentage of income from each reserved action: 30%</h2>
 <h2>History of incomes:</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+           <th>Income in euros</th>
+           <th>Action id</th>
+           <th>Client id</th>
+           <th>Start time for action:</th>
+           <th>End time for action:</th>
+           
+           <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let incomeReservation of incomesReservations" >
+            <td>{{incomeReservation.id}}</td>
+            <td>{{incomeReservation.incomeInEuros}}</td>
+            <td>{{incomeReservation.actionId}}</td>
+            <td>{{incomeReservation.clientId}}</td>
+            <td>{{incomeReservation.startTimeOfBooking}}</td>
+            <td>{{incomeReservation.endTimeOfBooking}}</td>
+            <td>
+              
+                
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<br>
+<h2>Total income from booking:</h2>

@@ -1,8 +1,10 @@
 package ftn.booking.controller;
 
 import ftn.booking.dto.CottageDTO;
+import ftn.booking.dto.IncomeReservationDTO;
 import ftn.booking.dto.ReportDTO;
 import ftn.booking.model.*;
+import ftn.booking.service.AdminService;
 import ftn.booking.service.ReportService;
 import ftn.booking.service.ReservationService;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,9 @@ public class ReportController {
 
     private ReportService reportService;
     private ReservationService reservationService;
+
+    private AdminService adminService;
+
     private ModelMapper modelMapper;
 
     @PostMapping
@@ -43,6 +48,15 @@ public class ReportController {
 
         return new ResponseEntity<>(reportService.add(report), HttpStatus.OK);
     }
+
+    @GetMapping("/get-all-incomes-for-booked-actions")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<IncomeReservationDTO>> getAllIncomesForBookedActions(){
+        List<IncomeReservationDTO> allIncomes = adminService.getAllIncomesForBookedActions();
+        return new ResponseEntity<>(allIncomes,HttpStatus.OK);
+    }
+
+    
 
 
 }

@@ -1,15 +1,17 @@
 package ftn.booking.service.impl;
 
-import ftn.booking.model.Admin;
-import ftn.booking.model.AdventureActionReport;
-import ftn.booking.model.Client;
-import ftn.booking.model.User;
+import ftn.booking.dto.IncomeReservationDTO;
+import ftn.booking.model.*;
 import ftn.booking.repository.AdminRepository;
 import ftn.booking.repository.AdventureActionReportRepository;
 import ftn.booking.repository.ClientRepository;
+import ftn.booking.repository.IncomeReservationRepository;
 import ftn.booking.service.AdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -18,6 +20,8 @@ public class AdminServiceImpl implements AdminService {
     private AdminRepository adminRepository;
 
     private AdventureActionReportRepository adventureActionReportRepository;
+
+    private IncomeReservationRepository incomeReservationRepository;
 
     private ClientRepository clientRepository;
 
@@ -63,5 +67,25 @@ public class AdminServiceImpl implements AdminService {
 
         clientRepository.save(client);
         return Boolean.TRUE;
+    }
+
+    @Override
+    public List<IncomeReservationDTO> getAllIncomesForBookedActions(){
+        List<IncomeReservation> allIncomes = incomeReservationRepository.findAll();
+
+        List<IncomeReservationDTO> allIncomesDTO = new ArrayList<>();
+        for(IncomeReservation oneIncome:allIncomes){
+                IncomeReservationDTO oneIncomeDTO = new IncomeReservationDTO();
+                oneIncomeDTO.setId(oneIncome.getId());
+                oneIncomeDTO.setActionId(oneIncome.getAction().getId());
+                oneIncomeDTO.setIncomeInEuros(oneIncome.getIncomeInEuros());
+                oneIncomeDTO.setClientId(oneIncome.getClient().getId());
+                oneIncomeDTO.setStartTimeOfBooking(oneIncome.getAction().getStartTime());
+                oneIncomeDTO.setEndTimeOfBooking(oneIncome.getAction().getEndTime());
+
+                allIncomesDTO.add(oneIncomeDTO);
+        }
+
+        return allIncomesDTO;
     }
 }
