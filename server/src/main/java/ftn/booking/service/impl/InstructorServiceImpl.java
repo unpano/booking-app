@@ -2,6 +2,7 @@ package ftn.booking.service.impl;
 
 import ftn.booking.dto.InstructorDTO;
 import ftn.booking.model.*;
+import ftn.booking.model.enums.Role;
 import ftn.booking.repository.*;
 import ftn.booking.service.InstructorService;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -132,6 +134,50 @@ public class InstructorServiceImpl implements InstructorService {
         Instructor instructor = instructorRepository.findById(adventure.getInstructor().getId()).get();
 
         return modelMapper.map(instructor,InstructorDTO.class);
+    }
+
+    @Override
+    public List<InstructorDTO> getAllInstructorsForAdmin(){
+        List<Instructor> allInstructors = instructorRepository.findAll();
+        List<InstructorDTO> allInstructorsDTO = new ArrayList<>();
+
+        List<Adventure> allAdventures = adventureRepository.findAll();
+
+        for(Instructor instructor:allInstructors){
+            List<Adventure> allAdventuresByInstructor = new ArrayList<>();
+
+            for(Adventure adventure:allAdventures){
+                if(adventure.getInstructor().getId().equals(instructor.getId())){
+                    allAdventuresByInstructor.add(adventure);
+                }
+            }
+
+            if(allAdventuresByInstructor.isEmpty()){
+                InstructorDTO instructorDTO = new InstructorDTO();
+                instructorDTO = modelMapper.map(instructor,InstructorDTO.class);
+                instructorDTO.setCanBeDeleted(Boolean.TRUE);
+                instructorDTO.setUserType(Role.ROLE_INSTRUCTOR);
+                allInstructorsDTO.add(instructorDTO);
+
+            } else{
+                InstructorDTO instructorDTO = new InstructorDTO();
+                instructorDTO = modelMapper.map(instructor,InstructorDTO.class);
+                instructorDTO.setCanBeDeleted(Boolean.FALSE);
+                instructorDTO.setUserType(Role.ROLE_INSTRUCTOR);
+                allInstructorsDTO.add(instructorDTO);
+
+            }
+
+        }
+
+        return allInstructorsDTO;
+    }
+
+    @Override
+    public Boolean deleteInstructor(Long instructorId){
+        User instructor = userRepository.findById(instructorId).get();
+        userRepository.delete(instructor);
+        return Boolean.TRUE;
     }
 
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class Boat {
 
     private Long length;
 
+    @Nullable
     @Enumerated(EnumType.STRING)
     private NavigationEquipment navigationEquipment;
 

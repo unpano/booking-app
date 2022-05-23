@@ -134,4 +134,18 @@ public class CottageController {
         return new ResponseEntity<>(cottageService.update(cottage),HttpStatus.OK);
     }
 
+    @GetMapping("/get-all-cottages-for-admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<CottageDTO>> getAllCottagesForAdmin(){
+        List<CottageDTO> allCottages = cottageService.getAllCottagesForAdmin();
+        return  new ResponseEntity<>(allCottages,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-cottage/cottageId/{cottageId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> deleteCottage(@PathVariable Long cottageId){
+        Boolean isDeleted = cottageService.deleteCottage(cottageId);
+        return new ResponseEntity<>(isDeleted,HttpStatus.OK);
+    }
+
 }

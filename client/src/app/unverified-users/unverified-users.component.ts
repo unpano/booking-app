@@ -1,3 +1,4 @@
+import { unwrapResolvedMetadata } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../dto/user';
@@ -10,7 +11,7 @@ import { UnverifUsersService } from './service/unverif-users.service';
 })
 export class UnverifiedUsersComponent implements OnInit {
 
-  usersNonVerif !: User[];
+  usersNonVerif : User[] = new Array();
 
   constructor(private unverifUsersService: UnverifUsersService,
     private router:Router) { }

@@ -120,6 +120,7 @@ public class AuthenticationController {
 
             //admin odobrava zahtev za registraciju
             boatOwner.setEnabled(false);
+            boatOwner.setRejectedVerification(false);
             boatOwner.setRole(Role.ROLE_BOAT_OWNER);
             boatOwner.setPicture("");
             boatOwner.setReasonForRegistration(userDTO.getReason());
@@ -146,6 +147,7 @@ public class AuthenticationController {
 
             //admin odobrava zahtev za registraciju
             cottageOwner.setEnabled(false);
+            cottageOwner.setRejectedVerification(false);
             cottageOwner.setRole(Role.ROLE_COTTAGE_OWNER);
             cottageOwner.setPicture("");
             cottageOwner.setReasonForRegistration(userDTO.getReason());
@@ -171,6 +173,7 @@ public class AuthenticationController {
 
             //admin odobrava zahtev za registraciju
             instructor.setEnabled(false);
+            instructor.setRejectedVerification(false);
             instructor.setRole(Role.ROLE_INSTRUCTOR);
             instructor.setPicture("");
             instructor.setReasonForRegistration(userDTO.getReason());

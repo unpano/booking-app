@@ -26,4 +26,6 @@ public class CottageDTO {
     private List<Service> additionalServices;
     private List<Room> rooms;
     private Float oneDayPrice;
+    private Float rate;
+    private Long cottageOwnerId;
 }

@@ -1,6 +1,7 @@
 package ftn.booking.controller;
 
 import ftn.booking.dto.AdminDTO;
+import ftn.booking.dto.ClientDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.emailADMIN.EmailService;
 import ftn.booking.exception.ResourceConflictException;
@@ -10,10 +11,7 @@ import ftn.booking.model.DeactivationRequest;
 import ftn.booking.model.User;
 import ftn.booking.model.enums.Status;
 import ftn.booking.repository.UserRepository;
-import ftn.booking.service.AdminService;
-import ftn.booking.service.DeactivationRequestService;
-import ftn.booking.service.MailService;
-import ftn.booking.service.UserService;
+import ftn.booking.service.*;
 import ftn.booking.utils.ValidationUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -41,6 +39,8 @@ public class UserController {
     private AdminService adminService;
 
     private UserRepository userRepository;
+
+    private ClientService clientService;
     private DeactivationRequestService deactivationRequestService;
     private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
@@ -195,6 +195,21 @@ public class UserController {
         return new ResponseEntity<>(oneClient,HttpStatus.OK);
     }
 
+    @GetMapping("/get-all-clients-for-admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<ClientDTO>> getAllClientsForAdmin(){
+        List<ClientDTO> allClients = clientService.getAllClientsForAdmin();
+        return new ResponseEntity<>(allClients,HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/delete-client/clientId/{clientId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> deleteClient(@PathVariable Long clientId){
+        Boolean isDeleted = clientService.deleteClient(clientId);
+        return new ResponseEntity<>(isDeleted,HttpStatus.OK);
+
+    }
 
 
 

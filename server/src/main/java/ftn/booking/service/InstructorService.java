@@ -30,4 +30,8 @@ public interface InstructorService {
 
     InstructorDTO getInstructorForSpecificReport(Long reportId);
 
+    List<InstructorDTO> getAllInstructorsForAdmin();
+
+    Boolean deleteInstructor(Long instructorId);
+
 }

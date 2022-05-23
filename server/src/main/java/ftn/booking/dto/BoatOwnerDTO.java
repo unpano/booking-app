@@ -1,17 +1,17 @@
 package ftn.booking.dto;
 
+
 import ftn.booking.model.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InstructorDTO {
+@Getter
+@Setter
+public class BoatOwnerDTO {
     private Long id;
     private String firstName;
     private String lastName;
@@ -23,5 +23,4 @@ public class InstructorDTO {
     private String phoneNumber;
     private Role userType;
     private String reason;
-    private Boolean canBeDeleted;
 }

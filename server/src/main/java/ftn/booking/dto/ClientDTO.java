@@ -6,12 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InstructorDTO {
+public class ClientDTO {
     private Long id;
     private String firstName;
     private String lastName;
@@ -23,5 +22,6 @@ public class InstructorDTO {
     private String phoneNumber;
     private Role userType;
     private String reason;
+    private Boolean rejectedVerification;
     private Boolean canBeDeleted;
 }

@@ -6,12 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InstructorDTO {
+@Getter
+@Setter
+public class CottageOwnerDTO {
     private Long id;
     private String firstName;
     private String lastName;

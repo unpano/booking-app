@@ -357,5 +357,20 @@ public class InstructorController {
         return new ResponseEntity<>(approved,HttpStatus.OK);
    }
 
+   @GetMapping("/get-all-instructors-for-admin")
+   @PreAuthorize("hasRole('ADMIN')")
+   public ResponseEntity<List<InstructorDTO>> getAllInstructorsForAdmin(){
+        List<InstructorDTO> allInstructors = instructorService.getAllInstructorsForAdmin();
+        return new ResponseEntity<>(allInstructors,HttpStatus.OK);
+   }
+
+   @DeleteMapping("/delete-instructor/instructorId/{instructorId}")
+   @PreAuthorize("hasRole('ADMIN')")
+   public ResponseEntity<Boolean> deleteInstructor(@PathVariable Long instructorId){
+        Boolean isDeleted = instructorService.deleteInstructor(instructorId);
+        return new ResponseEntity<>(isDeleted,HttpStatus.OK);
+
+   }
+
 
 }

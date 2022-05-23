@@ -1,7 +1,7 @@
 <h2 class="title">List of cottage owners</h2>
 <table>
     <thead>
-        <tr>
+        <tr >
             <th>Id</th>
            <th>First name</th>
            <th>Last name</th>
@@ -14,19 +14,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td> 
-            <td></td>
+        <tr *ngFor="let cottageOwner of cottageOwners">
+            <td>{{cottageOwner.id}}</td>
+            <td>{{cottageOwner.firstName}}</td>
+            <td>{{cottageOwner.lastName}}</td>
+            <td>{{cottageOwner.email}}</td>
+            <td>{{cottageOwner.userType}}</td>
+            <td>{{cottageOwner.address}}</td>
+            <td>{{cottageOwner.city}}</td> 
+            <td>{{cottageOwner.country}}</td>
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm" >Delete</button>
-                
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm" *ngIf="cottageOwner.canBeDeleted" (click)="deleteCottageOwner(cottageOwner.id)">Delete</button>
+                <button id="btn-confirm-disabled" mat-button type="primary" class="button-confirm" *ngIf="!cottageOwner.canBeDeleted" disabled title="You cannot delete cottage owner with wired entities!">Delete</button>
             </td>
         </tr>
     </tbody>
@@ -54,20 +54,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr >
+        <tr *ngFor="let cottage of cottages">
             <!--<td>{{userNonVerif.id}}</td>-->
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td> 
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{cottage.id}}</td>
+            <td>{{cottage.address}}</td>
+            <td>{{cottage.city}}</td>
+            <td>{{cottage.description}}</td>
+            <td>{{cottage.maxNumOfPersons}}</td>
+            <td>{{cottage.name}}</td> 
+            <td>{{cottage.oneDayPrice}}</td>
+            <td>{{cottage.rate}}</td>
+            <td>{{cottage.cottageOwnerId}}</td>
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm" >Delete</button>
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm" (click)="deleteCottage(cottage.id)">Delete</button>
                 
             </td>
         </tr>
@@ -93,18 +93,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td> 
-            <td></td>
+        <tr *ngFor="let boatOwner of boatOwners">
+            <td>{{boatOwner.id}}</td>
+            <td>{{boatOwner.firstName}}</td>
+            <td>{{boatOwner.lastName}}</td>
+            <td>{{boatOwner.email}}</td>
+            <td>{{boatOwner.userType}}</td>
+            <td>{{boatOwner.address}}</td>
+            <td>{{boatOwner.city}}</td> 
+            <td>{{boatOwner.country}}</td>
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm" >Delete</button>
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm" (click)="deleteBoatOwner(boatOwner.id)">Delete</button>
                 
             </td>
         </tr>
@@ -131,19 +131,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr >
+        <tr *ngFor="let boat of boats">
             <!--<td>{{userNonVerif.id}}</td>-->
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td> 
-            <td></td>
-            <td></td>
+            <td>{{boat.id}}</td>
+            <td>{{boat.address}}</td>
+            <td>{{boat.behavioralRules}}</td>
+            <td>{{boat.cancellationConditions}}</td>
+            <td>{{boat.capacity}}</td>
+            <td>{{boat.description}}</td> 
+            <td>{{boat.length}}</td>
+            <td>{{boat.name}}</td>
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm" >Delete</button>
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm" (click)="deleteBoat(boat.id)">Delete</button>
                 
             </td>
         </tr>
@@ -168,18 +168,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td> 
-            <td></td>
+        <tr *ngFor="let instructor of instructors">
+            <td>{{instructor.id}}</td>
+            <td>{{instructor.firstName}}</td>
+            <td>{{instructor.lastName}}</td>
+            <td>{{instructor.email}}</td>
+            <td>{{instructor.userType}}</td>
+            <td>{{instructor.address}}</td>
+            <td>{{instructor.city}}</td> 
+            <td>{{instructor.country}}</td>
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm" >Delete</button>
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm" *ngIf="instructor.canBeDeleted" (click)="deleteInstructor(instructor.id)">Delete</button>
+                <button id="btn-confirm-disabled" mat-button type="primary" class="button-confirm" *ngIf="!instructor.canBeDeleted" disabled title="You cannot delete instructor with declared adventures!">Delete</button>
+
                 
             </td>
         </tr>
@@ -206,18 +208,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td> 
-            <td></td>
+        <tr *ngFor="let client of clients">
+            <td>{{client.id}}</td>
+            <td>{{client.firstName}}</td>
+            <td>{{client.lastName}}</td>
+            <td>{{client.email}}</td>
+            <td>{{client.userType}}</td>
+            <td>{{client.address}}</td>
+            <td>{{client.city}}</td> 
+            <td>{{client.country}}</td>
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm" >Delete</button>
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm" *ngIf="client.canBeDeleted" (click)="deleteClient(client.id)" >Delete</button>
+                <button id="btn-confirm-disabled" mat-button type="primary" class="button-confirm" *ngIf="!client.canBeDeleted" disabled title="You cannot delete client who booked actions!">Delete</button>
                 
             </td>
         </tr>

@@ -34,9 +34,17 @@ table {
 
 #btn-confirm{
   width: 70px;
+  background-color: darkred;
+  color: white;
 }
   
 #btn-rejected{
   background-color: brown;
   color: white;
+}
+
+#btn-confirm-disabled{
+    width: 70px;
+    background-color: rgb(200, 175, 175);
+    color: white;
 }

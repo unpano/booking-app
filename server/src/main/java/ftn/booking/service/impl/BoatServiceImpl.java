@@ -1,13 +1,16 @@
 package ftn.booking.service.impl;
 
-import ftn.booking.dto.ReservationDTO;
+import ftn.booking.dto.BoatDTO;
+import ftn.booking.dto.BoatOwnerDTO;
 import ftn.booking.model.Boat;
 import ftn.booking.model.Reservation;
+import ftn.booking.model.User;
+import ftn.booking.model.enums.Role;
 import ftn.booking.repository.BoatRepository;
 import ftn.booking.repository.ReservationRepository;
+import ftn.booking.repository.UserRepository;
 import ftn.booking.service.BoatService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +23,8 @@ public class BoatServiceImpl implements BoatService {
 
     BoatRepository boatRepository;
     ReservationRepository reservationRepository;
+
+    private UserRepository userRepository;
 
     @Override
     public List<Boat> findAll()
@@ -59,5 +64,66 @@ public class BoatServiceImpl implements BoatService {
         }
 
         return resultBoats;
+    }
+
+    @Override
+    public List<BoatOwnerDTO> getAllBoatOwner(){
+        List<User> allUser = userRepository.findAll();
+
+        List<BoatOwnerDTO> boatOwnersDTO = new ArrayList<>();
+
+        for(User user:allUser){
+            if(user.getRole().equals(Role.ROLE_BOAT_OWNER)){
+                BoatOwnerDTO boatOwnerDTO = new BoatOwnerDTO();
+                boatOwnerDTO.setId(user.getId());
+                boatOwnerDTO.setFirstName(user.getFirstName());
+                boatOwnerDTO.setLastName(user.getLastName());
+                boatOwnerDTO.setEmail(user.getEmail());
+                boatOwnerDTO.setUserType(user.getRole());
+                boatOwnerDTO.setAddress(user.getAddress());
+                boatOwnerDTO.setCity(user.getCity());
+                boatOwnerDTO.setCountry(user.getCountry());
+
+                boatOwnersDTO.add(boatOwnerDTO);
+            }
+        }
+
+        return boatOwnersDTO;
+    }
+
+    @Override
+    public Boolean deleteBoatOwner(Long boatOwnerId){
+        User boatOwner = userRepository.findById(boatOwnerId).get();
+        userRepository.delete(boatOwner);
+        return Boolean.TRUE;
+
+    }
+
+    @Override
+    public List<BoatDTO> getAllBoatsForAdmin(){
+        List<BoatDTO> allBoatsDTO = new ArrayList<>();
+        List<Boat> allBoats = boatRepository.findAll();
+
+        for(Boat boat:allBoats){
+            BoatDTO boatDTO = new BoatDTO();
+            boatDTO.setId(boat.getId());
+            boatDTO.setAddress(boat.getAddress());
+            boatDTO.setBehaviorRules(boat.getBehaviorRules());
+            boatDTO.setCancellationConditions(boat.getCancellationConditions());
+            boatDTO.setCapacity(boat.getCapacity());
+            boatDTO.setDescription(boat.getDescription());
+            boatDTO.setLength(boat.getLength());
+            boatDTO.setName(boat.getName());
+            allBoatsDTO.add(boatDTO);
+        }
+
+        return allBoatsDTO;
+    }
+
+    @Override
+    public Boolean deleteBoatByAdmin(Long boatId){
+        Boat boat = boatRepository.findById(boatId).get();
+        boatRepository.delete(boat);
+        return Boolean.TRUE;
     }
 }

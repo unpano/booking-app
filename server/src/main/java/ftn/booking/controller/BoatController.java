@@ -1,19 +1,17 @@
 package ftn.booking.controller;
 
 
-import ftn.booking.dto.ReservationDTO;
+import ftn.booking.dto.BoatDTO;
+import ftn.booking.dto.BoatOwnerDTO;
 import ftn.booking.model.Boat;
-import ftn.booking.model.User;
 import ftn.booking.service.BoatService;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.jni.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Console;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,6 +45,38 @@ public class BoatController {
     {
         return boatService.findFreeBoats(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
     }
+
+    @GetMapping("/get-all-boat-owner")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<BoatOwnerDTO>> getAllBoatOwner(){
+        List<BoatOwnerDTO> allBoatOwner = boatService.getAllBoatOwner();
+        return new ResponseEntity<>(allBoatOwner,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-boat-owner/boatOwnerId/{boatOwnerId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> deleteBoatOwner(@PathVariable Long boatOwnerId){
+        Boolean isDeleted = boatService.deleteBoatOwner(boatOwnerId);
+        return new ResponseEntity<>(isDeleted,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-boats-for-admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<BoatDTO>> getAllBoatsForAdmin(){
+        List<BoatDTO> allBoats = boatService.getAllBoatsForAdmin();
+        return new ResponseEntity<>(allBoats,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-boat/boatId/{boatId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> deleteBoatByAdmin(@PathVariable Long boatId){
+        Boolean isDeleted = boatService.deleteBoatByAdmin(boatId);
+        return new ResponseEntity<>(isDeleted,HttpStatus.OK);
+    }
+
+
+
+
 
 
 }
