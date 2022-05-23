@@ -74,6 +74,10 @@ export class HeaderAdminComponent implements OnInit {
     this.router.navigate(['admin-entities']);
   }
 
+  incomesActions(){
+    this.router.navigate(['admin-income-reservations']);
+  }
+
   logOut(){
     sessionStorage.clear()
     this.router.navigate([''])

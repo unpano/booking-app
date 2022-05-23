@@ -2,6 +2,7 @@ package ftn.booking.service.impl;
 
 import ftn.booking.dto.*;
 import ftn.booking.model.*;
+import ftn.booking.model.enums.CancelationPrice;
 import ftn.booking.repository.*;
 import ftn.booking.service.AdventureService;
 import lombok.AllArgsConstructor;
@@ -10,9 +11,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,6 +42,8 @@ public class AdventureServiceImpl implements AdventureService {
     private ClientRepository clientRepository;
 
     private AdventureActionReportRepository adventureActionReportRepository;
+
+    private IncomeReservationRepository incomeReservationRepository;
 
     @Override
     public Adventure addAdventure(Adventure adventure) {
@@ -530,6 +535,8 @@ public class AdventureServiceImpl implements AdventureService {
         action.setNumberOfBooking(action.getNumberOfBooking()+1L);
 
 
+
+
         adventureActionRepository.save(action);
 
 
@@ -541,6 +548,19 @@ public class AdventureServiceImpl implements AdventureService {
         newBooking.setClient(client);
         newBooking.setHasReport(Boolean.FALSE);
 
+        if(action.getAdventure().getCancelationPrice().equals(CancelationPrice.PERCENTAGE)) {
+         //ukoliko je za datu akciju definisano da uzmemo procenat od njenog iznajmljivanja
+            IncomeReservation incomeForBooking = new IncomeReservation();
+            incomeForBooking.setAction(action);
+            incomeForBooking.setClient(client);
+
+            incomeForBooking.setIncomeInEuros(action.getAdventure().getPrice()*0.3);
+
+            incomeReservationRepository.save(incomeForBooking);
+
+
+
+        }
         adventureActionClientsRepo.save(newBooking);
 
         return modelMapper.map(newBooking,AdventureActionClientsDTO.class);
