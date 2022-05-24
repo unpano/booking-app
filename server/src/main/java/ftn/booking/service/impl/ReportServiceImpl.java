@@ -143,4 +143,50 @@ public class ReportServiceImpl implements ReportService{
         return markRevisionClientDTO;
 
     }
+
+    @Override
+    public  List<MarkRevisionClientDTO> getAllNotApprovedMarksRevisions(){
+        List<MarkRevisionClient> allNotApprovedRevisions = markRevisionClientRepository.findAll();
+        List<MarkRevisionClientDTO> allNotApprovedRevisionsDTO = new ArrayList<>();
+
+        for(MarkRevisionClient revision:allNotApprovedRevisions){
+            if(revision.getApprovedByAdmin().equals(Boolean.FALSE)) {
+                MarkRevisionClientDTO revisionDTO = new MarkRevisionClientDTO();
+                revisionDTO.setId(revision.getId());
+                revisionDTO.setRevisionComment(revision.getRevision_comment());
+                revisionDTO.setMark(revision.getMark());
+                revisionDTO.setApprovedByAdmin(Boolean.FALSE);
+                revisionDTO.setInstructorId(revision.getInstructor().getId());
+                revisionDTO.setClientId(revision.getClient().getId());
+
+                allNotApprovedRevisionsDTO.add(revisionDTO);
+            }
+        }
+
+        return allNotApprovedRevisionsDTO;
+
+    }
+
+    @Override
+    public  List<MarkRevisionClientDTO> getAllApprovedMarksRevisions(){
+        List<MarkRevisionClient> allApprovedRevisions = markRevisionClientRepository.findAll();
+        List<MarkRevisionClientDTO> allApprovedRevisionsDTO = new ArrayList<>();
+
+        for(MarkRevisionClient revision:allApprovedRevisions){
+            if(revision.getApprovedByAdmin().equals(Boolean.TRUE)) {
+                MarkRevisionClientDTO revisionDTO = new MarkRevisionClientDTO();
+                revisionDTO.setId(revision.getId());
+                revisionDTO.setRevisionComment(revision.getRevision_comment());
+                revisionDTO.setMark(revision.getMark());
+                revisionDTO.setApprovedByAdmin(Boolean.TRUE);
+                revisionDTO.setInstructorId(revision.getInstructor().getId());
+                revisionDTO.setClientId(revision.getClient().getId());
+
+                allApprovedRevisionsDTO.add(revisionDTO);
+            }
+        }
+
+        return allApprovedRevisionsDTO;
+
+    }
 }

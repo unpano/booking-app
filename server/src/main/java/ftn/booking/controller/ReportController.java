@@ -93,6 +93,20 @@ public class ReportController {
         return new ResponseEntity<>(markRevisionReturn,HttpStatus.OK);
     }
 
+    @GetMapping("/get-all-not-approved-marks-revisions")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<MarkRevisionClientDTO>> getAllNotApprovedMarksRevisions(){
+        List<MarkRevisionClientDTO> allNotApprovedMarksRevisions = reportService.getAllNotApprovedMarksRevisions();
+        return new ResponseEntity<>(allNotApprovedMarksRevisions,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-approved-marks-revisions")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<MarkRevisionClientDTO>> getAllApprovedMarksRevisions(){
+        List<MarkRevisionClientDTO> allApprovedMarksRevisions = reportService.getAllApprovedMarksRevisions();
+        return new ResponseEntity<>(allApprovedMarksRevisions,HttpStatus.OK);
+    }
+
 
 
 }

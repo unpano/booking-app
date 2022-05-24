@@ -78,6 +78,10 @@ export class HeaderAdminComponent implements OnInit {
     this.router.navigate(['admin-income-reservations']);
   }
 
+  marksReviewsFromClients(){
+    this.router.navigate(['all-revisions-marks-for-instructor']);
+  }
+
   logOut(){
     sessionStorage.clear()
     this.router.navigate([''])

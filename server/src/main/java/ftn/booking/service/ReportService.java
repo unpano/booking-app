@@ -23,4 +23,8 @@ public interface ReportService {
 
     MarkRevisionClientDTO getMarkRevisionClientForInstructor(Long clientId,
                                                               Long instructorId);
+
+    List<MarkRevisionClientDTO> getAllNotApprovedMarksRevisions();
+
+    List<MarkRevisionClientDTO> getAllApprovedMarksRevisions();
 }

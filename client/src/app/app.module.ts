@@ -84,6 +84,7 @@ import { AdminIncomeReservationsComponent } from './admin-income-reservations/ad
 import { ViewActionDetailsComponent } from './view-action-details/view-action-details.component';
 import { AddRevisionMarkForInstructorComponent } from './add-revision-mark-for-instructor/add-revision-mark-for-instructor.component';
 import { ViewRevisionMarkComponent } from './view-revision-mark/view-revision-mark.component';
+import { AllRevisionsMarksForInstructorsComponent } from './all-revisions-marks-for-instructors/all-revisions-marks-for-instructors.component';
 
 
 @NgModule({
@@ -145,7 +146,8 @@ import { ViewRevisionMarkComponent } from './view-revision-mark/view-revision-ma
     AdminIncomeReservationsComponent,
     ViewActionDetailsComponent,
     AddRevisionMarkForInstructorComponent,
-    ViewRevisionMarkComponent
+    ViewRevisionMarkComponent,
+    AllRevisionsMarksForInstructorsComponent
 
 
   ],

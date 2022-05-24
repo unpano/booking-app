@@ -8,6 +8,7 @@ import { AdminPunishClientsComponent } from './admin-punish-clients/admin-punish
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
 import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
+import { AllRevisionsMarksForInstructorsComponent } from './all-revisions-marks-for-instructors/all-revisions-marks-for-instructors.component';
 
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
@@ -106,7 +107,7 @@ const routes: Routes = [
   {path: 'view-action-details/:id',component:ViewActionDetailsComponent},
   {path: 'add-revision-mark-for-instructor/instructorId/:instructorId/clientId/:clientId',component:AddRevisionMarkForInstructorComponent},
   {path: 'view-revision-mark-for-instructor/instructorId/:instructorId/clientId/:clientId',component:ViewRevisionMarkComponent},
-
+  {path: 'all-revisions-marks-for-instructor',component:AllRevisionsMarksForInstructorsComponent},
 
   {path: '**', component: PageNotFoundComponent},
   
