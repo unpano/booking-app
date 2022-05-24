@@ -81,6 +81,7 @@ import { AdminPunishClientsComponent } from './admin-punish-clients/admin-punish
 import { AddNewAdminComponent } from './add-new-admin/add-new-admin.component';
 import { AdminEntitiesComponent } from './admin-entities/admin-entities.component';
 import { AdminIncomeReservationsComponent } from './admin-income-reservations/admin-income-reservations.component';
+import { ViewActionDetailsComponent } from './view-action-details/view-action-details.component';
 
 
 @NgModule({
@@ -139,7 +140,8 @@ import { AdminIncomeReservationsComponent } from './admin-income-reservations/ad
     AdminPunishClientsComponent,
     AddNewAdminComponent,
     AdminEntitiesComponent,
-    AdminIncomeReservationsComponent
+    AdminIncomeReservationsComponent,
+    ViewActionDetailsComponent
 
 
   ],

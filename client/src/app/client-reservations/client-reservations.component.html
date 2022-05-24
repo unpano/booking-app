@@ -10,6 +10,11 @@
                 <div class="search-hero">
                   <input class="form-control" type="text"  style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
                 </div>
+
+                
+
+
+
                 <table matSort >
                   <thead>
                   <tr> 
@@ -36,7 +41,7 @@
                       </div>
                     </td>
                     
-                    <button id="eyeBtnDetails" > View details</button>
+                    <button id="eyeBtnDetails" (click)="viewActionDetails(action.id)" > View details</button>
                     <button id="eyeBtn" (click)="reserveAction(action.id)">Reserve</button>
                    
                     
@@ -47,6 +52,7 @@
                 <br>
                 <br>
                 <h2 class="title">List of booked actions</h2>
+                
                 <table matSort >
                   <thead>
                   <tr> 
@@ -61,25 +67,27 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let action of allBookedActions ">
-                    <td>{{action.startTime}}</td>
-                    <td>{{action.endTime}}</td>
-                    <td>{{action.additionalAdvServices}}</td>
-                    <td>{{action.exactPlace}}</td>
-                    <td>{{action.instructorEmail}}</td>
+                  <tr *ngFor="let actionBooked of allBookedActions ">
+                    <td>{{actionBooked.startTime}}</td>
+                    <td>{{actionBooked.endTime}}</td>
+                    <td>{{actionBooked.additionalAdvServices}}</td>
+                    <td>{{actionBooked.exactPlace}}</td>
+                    <td>{{actionBooked.instructorEmail}}</td>
                     <td>
                       <div id="starsRow" >
                         <i class="material-icons">star</i>
                       </div>
                     </td>
                     
-                    <button id="eyeBtnDetails" > View details</button>
-                    <button id="eyeBtn" (click)="cancelBooking(client.id,action.id)">Cancel</button>
+                    <button id="eyeBtnDetails" (click)="viewActionDetails(actionBooked.id)" > View details</button>
+                    <button id="eyeBtn" (click)="cancelBooking(clientId,actionBooked.id)" *ngIf="!actionBooked.isExpired">Cancel</button>
                    
                     
                   </tr>
                   </tbody>
                 </table>
+               
+                
               </div>
             </div>
       </form> 

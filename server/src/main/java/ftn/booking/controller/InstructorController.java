@@ -152,7 +152,7 @@ public class InstructorController {
     }
 
     @GetMapping("/get-one-action/adventureReservationId/{adventureReservationId}")
-    @PreAuthorize("hasRole('INSTRUCTOR')")
+    @PreAuthorize("hasRole('INSTRUCTOR') || hasRole('CLIENT')")
     public ResponseEntity<AdventureActionDTO> getOneActionForAdventure(@PathVariable Long adventureReservationId){
         AdventureActionDTO actionAdventure = adventureService.getOneActionForAdventure(adventureReservationId);
 

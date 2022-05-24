@@ -339,6 +339,13 @@ public class AdventureServiceImpl implements AdventureService {
                         oneAction = modelMapper.map(adventureAction, AdventureActionDTO.class);
                         oneAction.setInstructorId(adventureAction.getAdventure().getInstructor().getId());
                         oneAction.setInstructorEmail(adventureAction.getAdventure().getInstructor().getEmail());
+
+                        int comparation = oneAction.getEndTime().compareTo(LocalDateTime.now());
+                        if(comparation < 0) {
+                            oneAction.setIsExpired(Boolean.TRUE);
+                        } else {
+                            oneAction.setIsExpired(Boolean.FALSE);
+                        }
                         allActionsDTO.add(oneAction);
                     }
                 }

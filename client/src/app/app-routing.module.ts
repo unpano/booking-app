@@ -44,6 +44,7 @@ import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cotta
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
 import { UnverifiedUsersComponent } from './unverified-users/unverified-users.component';
 import { VerifiedUsersComponent } from './verified-users/verified-users.component';
+import { ViewActionDetailsComponent } from './view-action-details/view-action-details.component';
 import { ViewReportActionComponent } from './view-report-action/view-report-action.component';
 
 const routes: Routes = [
@@ -100,6 +101,7 @@ const routes: Routes = [
   {path: 'add-new-admin',component:AddNewAdminComponent},
   {path: 'admin-entities',component:AdminEntitiesComponent},
   {path: 'admin-income-reservations',component:AdminIncomeReservationsComponent},
+  {path: 'view-action-details/:id',component:ViewActionDetailsComponent},
 
 
   {path: '**', component: PageNotFoundComponent},

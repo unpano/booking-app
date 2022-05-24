@@ -18,4 +18,6 @@ public interface AdminService {
     Boolean approvePunishmentForClientAdmin(Long clientId);
 
     List<IncomeReservationDTO> getAllIncomesForBookedActions();
+
+    Double getIncomesSum();
 }

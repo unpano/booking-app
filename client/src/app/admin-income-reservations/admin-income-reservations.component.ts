@@ -10,6 +10,7 @@ import { AdminIncomeReservationsService } from './service/admin-income-reservati
 export class AdminIncomeReservationsComponent implements OnInit {
 
   incomesReservations : IncomeReservation[] = new Array();
+  totalIncome : Number = 0; 
   constructor(private adminIncomeReservationService:AdminIncomeReservationsService) { }
 
   ngOnInit(): void {
@@ -19,6 +20,12 @@ export class AdminIncomeReservationsComponent implements OnInit {
 
      this.adminIncomeReservationService.getAllIncomesForBookedActions(options).subscribe(data=>{
        this.incomesReservations = Object.assign(data);
+
+      
+     })
+
+     this.adminIncomeReservationService.getIncomeSum(options).subscribe(data=>{
+       this.totalIncome = Object.assign(data);
      })
     
   }

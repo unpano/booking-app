@@ -14,5 +14,6 @@ export class AdventureReservation{
     instructorId !: Number;
     instructorEmail !: Number;
     hasReserved !: Boolean;
+    isExpired !: Boolean;
 
 }

@@ -88,4 +88,16 @@ public class AdminServiceImpl implements AdminService {
 
         return allIncomesDTO;
     }
+
+    @Override
+    public Double getIncomesSum(){
+        List<IncomeReservation> allIncomes = incomeReservationRepository.findAll();
+        Double incomeSum = 0.0;
+
+        for(IncomeReservation income:allIncomes){
+            incomeSum += income.getIncomeInEuros();
+        }
+
+        return incomeSum;
+    }
 }

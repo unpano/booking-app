@@ -16,7 +16,7 @@
     <tbody>
         <tr *ngFor="let incomeReservation of incomesReservations" >
             <td>{{incomeReservation.id}}</td>
-            <td>{{incomeReservation.incomeInEuros}}</td>
+            <td>{{incomeReservation.incomeInEuros}} €</td>
             <td>{{incomeReservation.actionId}}</td>
             <td>{{incomeReservation.clientId}}</td>
             <td>{{incomeReservation.startTimeOfBooking}}</td>
@@ -31,4 +31,4 @@
 
 <br>
 <br>
-<h2>Total income from booking:</h2>
+<h2>Total income from booking: {{totalIncome}} €</h2>

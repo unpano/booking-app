@@ -1,0 +1,88 @@
+<form role="form" novalidate class="form-inline"  >
+
+   
+    <button mat-button id="clients_reservation_button" (click)="client_reservations()">Back to clients reservations</button>
+
+
+
+
+
+<div>
+    
+
+    <h1>Date and time for beggining/ending of action</h1>
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Pick period</mat-label>
+            <mat-date-range-input
+              [formGroup]="pickPeriod"
+              [rangePicker]="periodPicker" [min]="minDate" [disabled]="true" >
+              <input matStartDate placeholder="Start date" formControlName="start" [(ngModel)]="adventureAction.startTime">
+              <input matEndDate placeholder="End date" formControlName="end" [(ngModel)]="adventureAction.endTime">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #periodPicker></mat-date-range-picker>
+          </mat-form-field>
+
+      
+   
+
+    
+
+  <h1>Additional services</h1>
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>Additional Services</mat-label>
+    <mat-chip-list #chipList aria-label="Fruit selection" [disabled]="true">
+      <mat-chip *ngFor="let oneService of addServices"  >
+        {{oneService.name}}
+        <button matChipRemove disabled>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input placeholder="Extra services..."
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             disabled>
+    </mat-chip-list>
+  </mat-form-field>
+  
+  <h1> Exact place for action</h1>
+  
+  <mat-form-field class="mat-field-exact-place">
+    <input type="text" name="exactPlace" placeholder="Exact place for action"  matInput disabled  [(ngModel)]="adventureAction.exactPlace">
+    
+  </mat-form-field>
+
+  <!--   STATIC VIEW     ---------------- -->
+  
+  <h1>Base place of reservation:</h1>
+  <mat-form-field class="mat-field">
+    <input  name="address" matInput  disabled [(ngModel)]="adventureAction.adventure.address">
+  </mat-form-field>
+
+
+  <h1>Price</h1>
+  <mat-form-field class="mat-field">
+    <input  name="price" matInput  disabled [(ngModel)]="adventureAction.adventure.price">
+  </mat-form-field>
+
+  <h1>Max number of persons</h1>
+  <mat-form-field class="mat-field">
+    <input  name="maxNumOfPersons" matInput  disabled [(ngModel)]="adventureAction.adventure.maxNumOfPersons">
+  </mat-form-field>
+
+
+  
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</form>

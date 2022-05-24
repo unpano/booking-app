@@ -56,7 +56,12 @@ public class ReportController {
         return new ResponseEntity<>(allIncomes,HttpStatus.OK);
     }
 
-    
+    @GetMapping("/get-incomes-sum")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Double> getIncomesSum(){
+        Double incomeSum = adminService.getIncomesSum();
+        return new ResponseEntity<>(incomeSum,HttpStatus.OK);
+    }
 
 
 }

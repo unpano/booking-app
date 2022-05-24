@@ -42,6 +42,8 @@ public class AdventureActionDTO {
 
     private String instructorEmail;
 
+    private Boolean isExpired;
+
 
 
 

@@ -17,6 +17,7 @@ export class ClientReservationsComponent implements OnInit {
   allBookedActions : AdventureReservation[] = new Array();
 
   client : User = new User();
+  clientId !: Number;
 
   constructor(private router: Router,
               private activeRoute: ActivatedRoute,
@@ -29,12 +30,12 @@ export class ClientReservationsComponent implements OnInit {
 
     this.clientReservationService.getClient().subscribe(data=>{
       this.client = data;
-      console.log(this.client);
+      this.clientId = this.client.id;
     
 
-    console.log(this.client.id);
+      console.log(this.clientId);
 
-    this.clientReservationService.getAllBookedActionsForClient(this.client.id,options).subscribe(data=>{
+    this.clientReservationService.getAllBookedActionsForClient(this.clientId,options).subscribe(data=>{
       this.allBookedActions = Object.assign(data);
       console.log(this.allBookedActions);
 
@@ -54,7 +55,7 @@ export class ClientReservationsComponent implements OnInit {
 
 
 
-    this.clientReservationService.getAllActionsForClient(this.client.id,options).subscribe(data=>{
+    this.clientReservationService.getAllActionsForClient(this.clientId,options).subscribe(data=>{
       this.allActions = Object.assign(data);
       console.log(this.allActions);
 
@@ -75,7 +76,7 @@ export class ClientReservationsComponent implements OnInit {
 
 
 
-  })
+  });
  
   }
 
@@ -85,7 +86,7 @@ export class ClientReservationsComponent implements OnInit {
     let options = { headers: headers };
     var actionForReservation = new ActionClientReserved();
     actionForReservation.actionId = actionId;
-    actionForReservation.clientId = this.client.id;
+    actionForReservation.clientId = this.clientId;
     if(window.confirm("You want to reserve this action?")){
         this.clientReservationService.reserveOneAction(actionForReservation,options).subscribe();
         window.setInterval('document.location.reload()', 1000);
@@ -109,7 +110,10 @@ export class ClientReservationsComponent implements OnInit {
 
   }
 
-
+  viewActionDetails(actionId:Number){
+    this.router.navigate(['view-action-details/',actionId]);
+    
+  }
 
 
 }
