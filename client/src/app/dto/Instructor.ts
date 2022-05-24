@@ -10,5 +10,6 @@ export class Instructor{
     userType !: String;
     reason !: String;
     canBeDeleted !: Boolean;
+    hasRevisionFromClient !: Boolean;
 
 }

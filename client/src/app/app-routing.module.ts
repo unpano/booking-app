@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddNewAdminComponent } from './add-new-admin/add-new-admin.component';
+import { AddRevisionMarkForInstructorComponent } from './add-revision-mark-for-instructor/add-revision-mark-for-instructor.component';
 import { AdminEntitiesComponent } from './admin-entities/admin-entities.component';
 import { AdminIncomeReservationsComponent } from './admin-income-reservations/admin-income-reservations.component';
 import { AdminPunishClientsComponent } from './admin-punish-clients/admin-punish-clients.component';
@@ -46,6 +47,7 @@ import { UnverifiedUsersComponent } from './unverified-users/unverified-users.co
 import { VerifiedUsersComponent } from './verified-users/verified-users.component';
 import { ViewActionDetailsComponent } from './view-action-details/view-action-details.component';
 import { ViewReportActionComponent } from './view-report-action/view-report-action.component';
+import { ViewRevisionMarkComponent } from './view-revision-mark/view-revision-mark.component';
 
 const routes: Routes = [
   {path: '', component: HomePageUnauthenticatedUserComponent},
@@ -102,6 +104,8 @@ const routes: Routes = [
   {path: 'admin-entities',component:AdminEntitiesComponent},
   {path: 'admin-income-reservations',component:AdminIncomeReservationsComponent},
   {path: 'view-action-details/:id',component:ViewActionDetailsComponent},
+  {path: 'add-revision-mark-for-instructor/instructorId/:instructorId/clientId/:clientId',component:AddRevisionMarkForInstructorComponent},
+  {path: 'view-revision-mark-for-instructor/instructorId/:instructorId/clientId/:clientId',component:ViewRevisionMarkComponent},
 
 
   {path: '**', component: PageNotFoundComponent},

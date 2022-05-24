@@ -82,6 +82,8 @@ import { AddNewAdminComponent } from './add-new-admin/add-new-admin.component';
 import { AdminEntitiesComponent } from './admin-entities/admin-entities.component';
 import { AdminIncomeReservationsComponent } from './admin-income-reservations/admin-income-reservations.component';
 import { ViewActionDetailsComponent } from './view-action-details/view-action-details.component';
+import { AddRevisionMarkForInstructorComponent } from './add-revision-mark-for-instructor/add-revision-mark-for-instructor.component';
+import { ViewRevisionMarkComponent } from './view-revision-mark/view-revision-mark.component';
 
 
 @NgModule({
@@ -141,7 +143,9 @@ import { ViewActionDetailsComponent } from './view-action-details/view-action-de
     AddNewAdminComponent,
     AdminEntitiesComponent,
     AdminIncomeReservationsComponent,
-    ViewActionDetailsComponent
+    ViewActionDetailsComponent,
+    AddRevisionMarkForInstructorComponent,
+    ViewRevisionMarkComponent
 
 
   ],

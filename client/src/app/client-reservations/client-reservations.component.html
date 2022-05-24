@@ -8,7 +8,7 @@
                 <h2 class="title">List of all available actions for booking(provided by instructor)</h2>
                 <button id="addBtn"><mat-icon>add</mat-icon> Do something </button>
                 <div class="search-hero">
-                  <input class="form-control" type="text"  style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                  <input class="form-control" type="text" [(ngModel)]="searchText" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
                 </div>
 
                 
@@ -29,7 +29,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let action of allActions ">
+                  <tr *ngFor="let action of allActions | filter:searchText" >
                     <td>{{action.startTime}}</td>
                     <td>{{action.endTime}}</td>
                     <td>{{action.additionalAdvServices}}</td>
@@ -67,7 +67,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let actionBooked of allBookedActions ">
+                  <tr *ngFor="let actionBooked of allBookedActions | filter:searchText" >
                     <td>{{actionBooked.startTime}}</td>
                     <td>{{actionBooked.endTime}}</td>
                     <td>{{actionBooked.additionalAdvServices}}</td>
@@ -80,7 +80,57 @@
                     </td>
                     
                     <button id="eyeBtnDetails" (click)="viewActionDetails(actionBooked.id)" > View details</button>
-                    <button id="eyeBtn" (click)="cancelBooking(clientId,actionBooked.id)" *ngIf="!actionBooked.isExpired">Cancel</button>
+                    <button id="eyeBtn" (click)="cancelBooking(clientId,actionBooked.id)" *ngIf="actionBooked.isExpired==false">Cancel</button>
+                    <button id="eyeBtnDisabled" disabled title="Action is expired!" *ngIf="actionBooked.isExpired==true">Cancel</button>
+                    
+                  </tr>
+                  </tbody>
+                </table>
+
+
+                <br>
+                <br>
+                <h2 class="title">List of instructors for revision/mark</h2>
+                
+                <table matSort >
+                  <thead>
+                  <tr > 
+                    <th >Id</th>
+                    <th >First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    
+                    <th>Has revision/mark</th>
+                    
+                    
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let instructorForRevision of allInstructorsForRevision | filter:searchText" >
+                    <td>{{instructorForRevision.id}}</td>
+                    <td>{{instructorForRevision.firstName}}</td>
+                    <td>{{instructorForRevision.lastName}}</td>
+                    <td>{{instructorForRevision.email}}</td>
+                    <td>{{instructorForRevision.address}}</td>
+                    <td>{{instructorForRevision.city}}</td>
+                    <td>{{instructorForRevision.country}}</td>
+                   
+                    <td>{{instructorForRevision.hasRevisionFromClient}}</td>
+                   
+                    <td>
+                      <div id="starsRow" >
+                        <i class="material-icons">star</i>
+                      </div>
+                    </td>
+                    
+                    <button id="eyeBtnDetailsRevision"  *ngIf="instructorForRevision.hasRevisionFromClient==false" (click)="addRevisionMark(instructorForRevision.id,clientId)"> Add revision/mark</button>
+                    <button id="eyeBtnDetailsRevision"  *ngIf="instructorForRevision.hasRevisionFromClient==true" (click)="viewRevisionMark(instructorForRevision.id,clientId)"> View revision/mark</button>
+
+                    <button id="eyeBtn" >Cancel</button>
                    
                     
                   </tr>

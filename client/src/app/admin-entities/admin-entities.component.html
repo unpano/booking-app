@@ -1,6 +1,9 @@
 <h2 class="title">List of cottage owners</h2>
 <table>
     <thead>
+        <div class="search-hero">
+            <input class="form-control" type="text" [(ngModel)]="searchText" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+          </div>
         <tr >
             <th>Id</th>
            <th>First name</th>
@@ -14,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let cottageOwner of cottageOwners">
+        <tr *ngFor="let cottageOwner of cottageOwners | filter:searchText">
             <td>{{cottageOwner.id}}</td>
             <td>{{cottageOwner.firstName}}</td>
             <td>{{cottageOwner.lastName}}</td>
@@ -54,7 +57,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let cottage of cottages">
+        <tr *ngFor="let cottage of cottages | filter:searchText">
             <!--<td>{{userNonVerif.id}}</td>-->
             <td>{{cottage.id}}</td>
             <td>{{cottage.address}}</td>
@@ -93,7 +96,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let boatOwner of boatOwners">
+        <tr *ngFor="let boatOwner of boatOwners | filter:searchText">
             <td>{{boatOwner.id}}</td>
             <td>{{boatOwner.firstName}}</td>
             <td>{{boatOwner.lastName}}</td>
@@ -131,7 +134,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let boat of boats">
+        <tr *ngFor="let boat of boats | filter:searchText">
             <!--<td>{{userNonVerif.id}}</td>-->
             <td>{{boat.id}}</td>
             <td>{{boat.address}}</td>
@@ -168,7 +171,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let instructor of instructors">
+        <tr *ngFor="let instructor of instructors | filter:searchText">
             <td>{{instructor.id}}</td>
             <td>{{instructor.firstName}}</td>
             <td>{{instructor.lastName}}</td>
@@ -208,7 +211,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let client of clients">
+        <tr *ngFor="let client of clients | filter:searchText">
             <td>{{client.id}}</td>
             <td>{{client.firstName}}</td>
             <td>{{client.lastName}}</td>

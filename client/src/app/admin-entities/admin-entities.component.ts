@@ -20,6 +20,8 @@ export class AdminEntitiesComponent implements OnInit {
   boats : Boat[] = new Array();
   instructors : Instructor[] = new Array();
   clients : Client[] = new Array();
+
+  searchText !: any;
   constructor(private adminEntitiesService: AdminEntitiesService) { }
 
   ngOnInit(): void {

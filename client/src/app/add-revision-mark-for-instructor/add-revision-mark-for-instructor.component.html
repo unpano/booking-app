@@ -1,0 +1,51 @@
+<form role="form" novalidate class="form-inline"  >
+
+   
+    <button mat-button id="clients_reservation_button" >Back to clients reservations</button>
+    <button mat-button id="clients_reservation_button" (click)="addRevision()"  >Add revision/mark</button>
+
+
+
+
+
+
+<div>
+    
+
+   
+    
+  <h1> Mark:</h1>
+  
+  <select>
+    <option *ngFor="let mark of marks" (click)="onSelectType(mark)" >{{mark}}</option>
+  </select>
+
+  
+  
+  <h1>Revision:</h1>
+  <mat-form-field class="mat-field-revision">
+    <input  name="address" matInput [(ngModel)]="markRevision.revisionComment" >
+  </mat-form-field>
+
+
+  <!--   STATIC VIEW     ---------------- -->
+  <h1>Instructor first name:</h1>
+  <mat-form-field class="mat-field">
+    <input  name="firstName" matInput  disabled [(ngModel)]="instructor.firstName" >
+  </mat-form-field>
+
+  <h1>Instructor last name:</h1>
+  <mat-form-field class="mat-field">
+    <input  name="last" matInput disabled [(ngModel)]="instructor.lastName" >
+  </mat-form-field>
+
+
+</div>
+
+
+
+
+
+
+
+</form>

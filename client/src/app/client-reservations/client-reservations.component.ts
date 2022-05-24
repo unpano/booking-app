@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionClientReserved } from '../dto/ActionClientReserved';
 import { AdventureReservation } from '../dto/AdventureReservation';
+import { Instructor } from '../dto/Instructor';
 import { User } from '../dto/user';
 import { ClientReservationsService } from './service/client-reservations.service';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 
 @Component({
   selector: 'app-client-reservations',
@@ -18,6 +20,10 @@ export class ClientReservationsComponent implements OnInit {
 
   client : User = new User();
   clientId !: Number;
+
+  allInstructorsForRevision : Instructor[] = new Array();
+
+  searchText !: any;
 
   constructor(private router: Router,
               private activeRoute: ActivatedRoute,
@@ -35,7 +41,7 @@ export class ClientReservationsComponent implements OnInit {
 
       console.log(this.clientId);
 
-    this.clientReservationService.getAllBookedActionsForClient(this.clientId,options).subscribe(data=>{
+      this.clientReservationService.getAllBookedActionsForClient(this.clientId,options).subscribe(data=>{
       this.allBookedActions = Object.assign(data);
       console.log(this.allBookedActions);
 
@@ -51,11 +57,11 @@ export class ClientReservationsComponent implements OnInit {
 
         });
       
-  })
+      })
 
 
 
-    this.clientReservationService.getAllActionsForClient(this.clientId,options).subscribe(data=>{
+      this.clientReservationService.getAllActionsForClient(this.clientId,options).subscribe(data=>{
       this.allActions = Object.assign(data);
       console.log(this.allActions);
 
@@ -70,13 +76,25 @@ export class ClientReservationsComponent implements OnInit {
         })
 
         });
-    })
+      })
+
+      this.clientReservationService.getAllInstructorsForMarkAndRevision(this.clientId,options).subscribe(data=>{
+          this.allInstructorsForRevision = Object.assign(data);
+          console.log(this.allInstructorsForRevision);
+
+          this.allInstructorsForRevision.forEach(instructor => {
+              this.clientReservationService.checkIfInstructorHasRevisionFromClient(this.clientId,instructor.id,options).subscribe(data=>{
+                  instructor.hasRevisionFromClient = Object.assign(data);
+                  console.log(instructor.hasRevisionFromClient);
+              })
+          
+          });
 
 
+      })
 
 
-
-  });
+   });
  
   }
 
@@ -101,7 +119,7 @@ export class ClientReservationsComponent implements OnInit {
     'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
 
-    if(window.confirm("You want to reserve this action?")){
+    if(window.confirm("You want to cancel reserving this action?")){
       this.clientReservationService.cancelBookingAction(actionId,clientId,options).subscribe();
       window.setInterval('document.location.reload()', 1000);
   } else {
@@ -113,6 +131,16 @@ export class ClientReservationsComponent implements OnInit {
   viewActionDetails(actionId:Number){
     this.router.navigate(['view-action-details/',actionId]);
     
+  }
+
+  addRevisionMark(instructorId:Number,clientId:Number){
+    this.router.navigate(['add-revision-mark-for-instructor/instructorId/' + instructorId + '/clientId/'+clientId]);
+
+  }
+
+  viewRevisionMark(instructorId:Number,clientId:Number){
+    this.router.navigate(['view-revision-mark-for-instructor/instructorId/' + instructorId + '/clientId/'+clientId]);
+
   }
 
 
