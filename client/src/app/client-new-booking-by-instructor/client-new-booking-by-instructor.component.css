@@ -21,7 +21,6 @@ button{
 
 #addBtn{
     margin-bottom: 20px;
-    width: 180px;
 }
 
 #starsRow{
@@ -41,24 +40,36 @@ button{
     margin-top: 7px;
 }
 
-#eyeBtnNewBooking{
+#eyeBtnDetails{
     color: white;
     background: indigo;
     border-radius: 1rem;
     border: none;
-    width: 100px;
+    width: 130px;
     height: 40px;
     margin-left: 30px;
     font-weight: bold;
     margin-top: 7px;
 }
 
-#eyeBtnDetails{
+#eyeBtnDetailsRevision{
     color: white;
     background: indigo;
     border-radius: 1rem;
     border: none;
-    width: 110px;
+    width: 150px;
+    height: 40px;
+    margin-left: 30px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+#eyeBtnDetailsRevisionDisabled{
+    color: white;
+    background: rgb(187, 170, 200);
+    border-radius: 1rem;
+    border: none;
+    width: 150px;
     height: 40px;
     margin-left: 30px;
     font-weight: bold;

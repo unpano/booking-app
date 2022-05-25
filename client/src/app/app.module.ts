@@ -85,6 +85,7 @@ import { ViewActionDetailsComponent } from './view-action-details/view-action-de
 import { AddRevisionMarkForInstructorComponent } from './add-revision-mark-for-instructor/add-revision-mark-for-instructor.component';
 import { ViewRevisionMarkComponent } from './view-revision-mark/view-revision-mark.component';
 import { AllRevisionsMarksForInstructorsComponent } from './all-revisions-marks-for-instructors/all-revisions-marks-for-instructors.component';
+import { ClientNewBookingByInstructorComponent } from './client-new-booking-by-instructor/client-new-booking-by-instructor.component';
 
 
 @NgModule({
@@ -147,7 +148,8 @@ import { AllRevisionsMarksForInstructorsComponent } from './all-revisions-marks-
     ViewActionDetailsComponent,
     AddRevisionMarkForInstructorComponent,
     ViewRevisionMarkComponent,
-    AllRevisionsMarksForInstructorsComponent
+    AllRevisionsMarksForInstructorsComponent,
+    ClientNewBookingByInstructorComponent
 
 
   ],

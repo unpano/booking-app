@@ -81,4 +81,6 @@ public interface AdventureService {
     AdventureActionReportDTO getReportForAction( Long actionId, Long clientId);
 
     List<AdventureActionReportDTO> getAllReportsForApproving();
+
+    Long getAdventureIdByActionId(Long actionId);
 }

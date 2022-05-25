@@ -1,0 +1,56 @@
+<mat-card> 
+    <mat-card-content>
+      <form novalidate class="form-inline">
+          <div class="container">
+              <div class="row">
+                <h2 class="title">Book new action,for client who currently has active reservation</h2>
+                <button id="addBtn" (click)="goBack(currentActionId)"><mat-icon>fast_rewind</mat-icon> Go back </button>
+                <div class="search-hero">
+                  <input class="form-control" type="text" [(ngModel)]="searchText" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                </div>
+
+                
+
+
+
+                <table matSort >
+                  <thead>
+                  <tr> 
+                    <th >Start time for action</th>
+                    <th >End time for action</th>
+                    <th>Additional services</th>
+                    <th>Exact place for action</th>
+                    <th>Instructor email</th>
+                    <th></th>
+                    
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let activeAction of allActions" >
+                    <td *ngIf="allActions.length==0">There is no more actions to reserve for this client</td>
+                    <td>{{activeAction.startTime}}</td>
+                    <td>{{activeAction.endTime}}</td>
+                    <td>{{activeAction.additionalAdvServices}}</td>
+                    <td>{{activeAction.exactPlace}}</td>
+                    <td>{{activeAction.instructorEmail}}</td>
+                   
+                    
+                    
+                    <button id="eyeBtn" (click)="reserve(currentAdventureId,activeAction.id,clientId)">Reserve</button>
+                   
+                    
+                  </tr>
+                  </tbody>
+                </table>
+
+                
+
+
+               
+                
+              </div>
+            </div>
+      </form> 
+    </mat-card-content>
+  </mat-card>

@@ -372,5 +372,13 @@ public class InstructorController {
 
    }
 
+   @GetMapping("/get-adventure-id-by-action-id/actionId/{actionId}")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<Long> getAdventureIdByActionId(@PathVariable Long actionId){
+        Long adventureId = adventureService.getAdventureIdByActionId(actionId);
+        return new ResponseEntity<>(adventureId,HttpStatus.OK);
+   }
+
+
 
 }

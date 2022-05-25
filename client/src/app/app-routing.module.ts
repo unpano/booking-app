@@ -11,6 +11,7 @@ import { AllInstructorsComponent } from './all-instructors/all-instructors.compo
 import { AllRevisionsMarksForInstructorsComponent } from './all-revisions-marks-for-instructors/all-revisions-marks-for-instructors.component';
 
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ClientNewBookingByInstructorComponent } from './client-new-booking-by-instructor/client-new-booking-by-instructor.component';
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
 import { ClientsBookedActionComponent } from './clients-booked-action/clients-booked-action.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
@@ -108,6 +109,7 @@ const routes: Routes = [
   {path: 'add-revision-mark-for-instructor/instructorId/:instructorId/clientId/:clientId',component:AddRevisionMarkForInstructorComponent},
   {path: 'view-revision-mark-for-instructor/instructorId/:instructorId/clientId/:clientId',component:ViewRevisionMarkComponent},
   {path: 'all-revisions-marks-for-instructor',component:AllRevisionsMarksForInstructorsComponent},
+  {path: 'client-new-booking-by-instructor/clientId/:clientId/currentActionId/:currentActionId',component:ClientNewBookingByInstructorComponent},
 
   {path: '**', component: PageNotFoundComponent},
   

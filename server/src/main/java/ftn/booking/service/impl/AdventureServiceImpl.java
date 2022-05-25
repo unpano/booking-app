@@ -746,6 +746,13 @@ public class AdventureServiceImpl implements AdventureService {
         return forApprovingReports;
     }
 
+    @Override
+    public Long getAdventureIdByActionId(Long actionId){
+        AdventureAction action = adventureActionRepository.findById(actionId).get();
+
+        return action.getAdventure().getId();
+    }
+
     String generateUniqueFileName() {
         String filename = "";
         long millis = System.currentTimeMillis();

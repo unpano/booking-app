@@ -70,4 +70,8 @@ export class ClientsBookedActionComponent implements OnInit {
       this.router.navigate(['view-report-action/actionId/' + actionId + '/clientId/' + clientId]);
   }
 
+  bookNewAction(clientId:Number,actionId:Number){
+      this.router.navigate(['client-new-booking-by-instructor/clientId/'+ clientId + '/currentActionId/'+actionId]);
+  }
+
 }

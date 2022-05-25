@@ -33,6 +33,7 @@
                     <td>{{client.address}}</td>
                     <button mat-button class="eyeBtn" *ngIf="client.hasReport==false && isActionPast==true" (click)="createReport(actionId,client.id)"> Create report</button>
                     <button mat-button class="eyeBtn" *ngIf="client.hasReport==true  && isActionPast==true" (click)="viewReport(actionId,client.id)"> View report</button>
+                    <button mat-button class="eyeBtnNewBooking" *ngIf="isActionPast==false" (click)="bookNewAction(client.id,actionId)" > Book new  action for cli</button>
                   </tr>
                   </tbody>
                 </table>
