@@ -16,4 +16,5 @@ public class MarkRevisionClientDTO {
     private Long clientId;
     private Long instructorId;
     private Boolean approvedByAdmin;
+    private Boolean rejected;
 }

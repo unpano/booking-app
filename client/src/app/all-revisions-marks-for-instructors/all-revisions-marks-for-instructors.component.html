@@ -10,6 +10,7 @@
            <th>Instructor id</th>
            <th>Instructor email</th>
            <th>Approved by admin</th>
+           <th>Rejected</th>
            
            <th>Actions</th>
         </tr>
@@ -20,16 +21,17 @@
             <td>{{notApprovedRevision.mark}}</td>
             <td>{{notApprovedRevision.revisionComment}}</td>
             <td>{{notApprovedRevision.clientId}}</td>
-            <td></td>
+            <td>{{notApprovedRevision.client.email}}</td>
             <td>{{notApprovedRevision.instructorId}}</td>
-            <td></td>
+            <td>{{notApprovedRevision.instructor.email}}</td>
             <td>{{notApprovedRevision.approvedByAdmin}}</td>
+            <td>{{notApprovedRevision.rejected}}</td>
             
             <td>
               
-                <button id="btn-confirm" mat-button type="primary"   >Approve</button>
-                <button id="btn-rejected" mat-button type="primary"   >Reject</button>
-
+                <button id="btn-confirm" mat-button type="primary" (click)="approveRevision(notApprovedRevision.id)"  >Approve</button>
+                <button id="btn-rejected" mat-button type="primary" *ngIf="notApprovedRevision.rejected==false" (click)="rejectRevision(notApprovedRevision.id)" >Reject</button>
+                <button id="btn-rejected-dark" mat-button type="primary" *ngIf="notApprovedRevision.rejected==true"  title="This revision is rejected!" disabled >Rejected</button>
                 
                 
             </td>
@@ -56,15 +58,15 @@
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+        <tr *ngFor="let approvedRevision of approvedRevisions">
+            <td>{{approvedRevision.id}}</td>
+            <td>{{approvedRevision.mark}}</td>
+            <td>{{approvedRevision.revisionComment}}</td>
+            <td>{{approvedRevision.clientId}}</td>
+            <td>{{approvedRevision.client.email}}</td>
+            <td>{{approvedRevision.instructor.id}}</td>
+            <td>{{approvedRevision.instructor.email}}</td>
+            <td>{{approvedRevision.approvedByAdmin}}</td>
             
             <td>
               

@@ -59,6 +59,7 @@ public class ReportServiceImpl implements ReportService{
         markRevisionClient.setRevision_comment(markRevisionDTO.getRevisionComment());
         markRevisionClient.setInstructor(instructor);
         markRevisionClient.setApprovedByAdmin(Boolean.FALSE);
+        markRevisionClient.setRejected(Boolean.FALSE);
 
         markRevisionClientRepository.save(markRevisionClient);
 
@@ -67,6 +68,7 @@ public class ReportServiceImpl implements ReportService{
 
         return markRevisionClientReturnDTO;
     }
+
 
     @Override
     public List<InstructorDTO> getAllInstructorForRevisionAndMark(Long clientId){
@@ -137,6 +139,7 @@ public class ReportServiceImpl implements ReportService{
                 markRevisionClientDTO.setInstructorId(oneMarkRevision.getInstructor().getId());
                 markRevisionClientDTO.setApprovedByAdmin(oneMarkRevision.getApprovedByAdmin());
                 markRevisionClientDTO.setId(oneMarkRevision.getId());
+                markRevisionClientDTO.setRejected(oneMarkRevision.getRejected());
             }
         }
 
@@ -158,6 +161,7 @@ public class ReportServiceImpl implements ReportService{
                 revisionDTO.setApprovedByAdmin(Boolean.FALSE);
                 revisionDTO.setInstructorId(revision.getInstructor().getId());
                 revisionDTO.setClientId(revision.getClient().getId());
+                revisionDTO.setRejected(revision.getRejected());
 
                 allNotApprovedRevisionsDTO.add(revisionDTO);
             }
@@ -181,6 +185,7 @@ public class ReportServiceImpl implements ReportService{
                 revisionDTO.setApprovedByAdmin(Boolean.TRUE);
                 revisionDTO.setInstructorId(revision.getInstructor().getId());
                 revisionDTO.setClientId(revision.getClient().getId());
+                revisionDTO.setRejected(revision.getRejected());
 
                 allApprovedRevisionsDTO.add(revisionDTO);
             }
@@ -188,5 +193,24 @@ public class ReportServiceImpl implements ReportService{
 
         return allApprovedRevisionsDTO;
 
+    }
+
+    @Override
+    public Boolean approveRevisionForInstructor(Long revisionId){
+        MarkRevisionClient revision = markRevisionClientRepository.findById(revisionId).get();
+        revision.setRejected(Boolean.FALSE);
+        revision.setApprovedByAdmin(Boolean.TRUE);
+
+        markRevisionClientRepository.save(revision);
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public Boolean rejectRevisionForInstructor(Long revisionId){
+        MarkRevisionClient revision = markRevisionClientRepository.findById(revisionId).get();
+        revision.setRejected(Boolean.TRUE);
+
+        markRevisionClientRepository.save(revision);
+        return Boolean.TRUE;
     }
 }

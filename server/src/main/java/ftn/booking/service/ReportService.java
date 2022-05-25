@@ -27,4 +27,8 @@ public interface ReportService {
     List<MarkRevisionClientDTO> getAllNotApprovedMarksRevisions();
 
     List<MarkRevisionClientDTO> getAllApprovedMarksRevisions();
+
+    Boolean approveRevisionForInstructor(Long revisionId);
+
+    Boolean rejectRevisionForInstructor(Long revisionId);
 }

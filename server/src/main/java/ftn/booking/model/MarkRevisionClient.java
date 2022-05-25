@@ -29,4 +29,6 @@ public class MarkRevisionClient {
     private String revision_comment;
 
     private Boolean approvedByAdmin;
+
+    private Boolean rejected;
 }

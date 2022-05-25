@@ -107,6 +107,20 @@ public class ReportController {
         return new ResponseEntity<>(allApprovedMarksRevisions,HttpStatus.OK);
     }
 
+    @PutMapping("/approve-revision-for-instructor/revisionId/{revisionId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> approveRevisionForInstructor(@PathVariable Long revisionId){
+        Boolean approved = reportService.approveRevisionForInstructor(revisionId);
+        return new ResponseEntity<>(approved,HttpStatus.OK);
+    }
+
+    @PutMapping("/reject-revision-for-instructor/revisionId/{revisionId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> rejectRevisionForInstructor(@PathVariable Long revisionId){
+        Boolean rejected = reportService.rejectRevisionForInstructor(revisionId);
+        return new ResponseEntity<>(rejected,HttpStatus.OK);
+    }
+
 
 
 }
