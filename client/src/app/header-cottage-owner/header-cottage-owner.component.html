@@ -3,9 +3,16 @@
     <button mat-icon-button color="accent" routerLink="report">
       <mat-icon>insert_chart_outlined</mat-icon>
     </button>
+
+
     <button mat-icon-button color="accent" routerLink="profile">
       <mat-icon>account_circle</mat-icon>
     </button>
+
+    <button mat-icon-button color="accent" title="Delete account" (click)="deleteAccount(cottageOwnerInfo.email)">
+      <mat-icon>delete</mat-icon>
+    </button>
+
     <button mat-icon-button color="accent" (click)="logOut()">
       <mat-icon>logout</mat-icon>
     </button>

@@ -27,5 +27,15 @@ public interface UserService {
 
     UserDTO changeAdminInfo(UserDTO changedAdmin, String email);
 
+    UserDTO getOneAdminByEmail(String email);
+
+    UserDTO getOneBoatOwnerByEmail(String email);
+
+    UserDTO getOneCottageOwnerByEmail(String email);
+
+    UserDTO getOneClientByEmail(String email);
+
+    UserDTO getOneInstructorByEmail(String email);
+    UserDTO getUser(String email);
 }
 

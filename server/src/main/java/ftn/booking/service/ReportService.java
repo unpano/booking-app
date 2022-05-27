@@ -1,8 +1,6 @@
 package ftn.booking.service;
 
-import ftn.booking.dto.HasRevisionMarkDTO;
-import ftn.booking.dto.InstructorDTO;
-import ftn.booking.dto.MarkRevisionClientDTO;
+import ftn.booking.dto.*;
 import ftn.booking.model.Report;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,4 +29,12 @@ public interface ReportService {
     Boolean approveRevisionForInstructor(Long revisionId);
 
     Boolean rejectRevisionForInstructor(Long revisionId);
+
+    ComplaintClientDTO addComplaintForInstructor(ComplaintClientDTO complaintClientDTO);
+
+    ComplaintClientDTO getComplaint(Long clientId,
+                                    Long instructorId);
+
+    Boolean checkIfExistComplaint(Long clientId,
+                                  Long instructorId);
 }

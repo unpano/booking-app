@@ -40,6 +40,8 @@ public class User implements UserDetails {
 
     private Boolean otherAdmin;
 
+    private Boolean hasDeactivationRequest;
+
     @NotNull
     private String email;
 

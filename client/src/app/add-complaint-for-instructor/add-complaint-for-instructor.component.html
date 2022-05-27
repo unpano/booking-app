@@ -1,0 +1,12 @@
+<form >
+    <h1>
+        Add complaint for instructor.
+    </h1>
+
+    <textarea placeholder="Leave complaint for instructor, who organized this action."
+          name="desc" [(ngModel)]="complaint.complaint_comment" rows="10" cols="120" ></textarea>
+         
+    
+    <button mat-button id="submitButton" (click)="submitAndSaveComplaint(clientId,instructorId)" >Submit</button>
+    <button mat-button id="cancelButton" (click)="cancel()">Cancel</button>
+</form>

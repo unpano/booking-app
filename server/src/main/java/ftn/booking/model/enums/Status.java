@@ -1,7 +1,8 @@
 package ftn.booking.model.enums;
 
 public enum Status {
-    APPROVED,
     PROCESSING,
+    APPROVED,
+    ACCOUNT_DISABLED,
     REJECTED
 }

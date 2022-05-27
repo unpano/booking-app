@@ -38,6 +38,14 @@ table {
   color: white;
   margin-bottom: 2%;
 }
+
+#btn-confirm-complaint{
+  width: 90px;
+  background-color: blue;
+  color: white;
+  margin-bottom: 2%;
+ 
+}
   
 #btn-rejected{
   background-color: brown;

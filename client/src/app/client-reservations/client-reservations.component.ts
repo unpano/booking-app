@@ -87,6 +87,12 @@ export class ClientReservationsComponent implements OnInit {
                   instructor.hasRevisionFromClient = Object.assign(data);
                   console.log(instructor.hasRevisionFromClient);
               })
+
+              this.clientReservationService.checkIfInstructorHasComplaintFromClient(this.clientId,instructor.id,options).subscribe(data=>{
+                  instructor.hasComplaint = Object.assign(data);
+                  console.log(instructor.hasComplaint);
+                  
+              })
           
           });
 
@@ -140,6 +146,15 @@ export class ClientReservationsComponent implements OnInit {
 
   viewRevisionMark(instructorId:Number,clientId:Number){
     this.router.navigate(['view-revision-mark-for-instructor/instructorId/' + instructorId + '/clientId/'+clientId]);
+
+  }
+
+  addComplaint(clientId:Number,instructorId:Number){
+    this.router.navigate(['add-complaint-for-instructor/clientId/'+ clientId + '/instructorId/'+instructorId]);
+  }
+
+  viewComplaint(clientId:Number,intsructorForRevisionId:Number){
+    this.router.navigate(['client-view-complanit-for-instructor/clientId/'+ clientId + '/instructorId/'+intsructorForRevisionId]);
 
   }
 

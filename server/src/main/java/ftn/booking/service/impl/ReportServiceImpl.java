@@ -1,14 +1,13 @@
 package ftn.booking.service.impl;
 
-import ftn.booking.dto.HasRevisionMarkDTO;
-import ftn.booking.dto.InstructorDTO;
-import ftn.booking.dto.MarkRevisionClientDTO;
+import ftn.booking.dto.*;
 import ftn.booking.model.*;
 import ftn.booking.repository.*;
 import ftn.booking.service.ReportService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.thymeleaf.model.IModel;
 
 import java.util.ArrayList;
@@ -27,6 +26,8 @@ public class ReportServiceImpl implements ReportService{
     private InstructorRepository instructorRepository;
 
     private UserRepository userRepository;
+
+    private ComplaintClientRepository complaintClientRepository;
 
     private AdventureActionClientsRepository adventureActionClientsRepository;
 
@@ -213,4 +214,68 @@ public class ReportServiceImpl implements ReportService{
         markRevisionClientRepository.save(revision);
         return Boolean.TRUE;
     }
+
+    @Override
+    public ComplaintClientDTO addComplaintForInstructor(ComplaintClientDTO complaintClientDTO){
+        ComplaintClient newComplaint = new ComplaintClient();
+
+        Client client = clientRepository.findById(complaintClientDTO.getClient_id()).get();
+        newComplaint.setClient(client);
+
+        Instructor instructor = instructorRepository.findById(complaintClientDTO.getInstructor_id()).get();
+        newComplaint.setInstructor(instructor);
+
+        newComplaint.setComplaint_comment(complaintClientDTO.getComplaint_comment());
+
+        return modelMapper.map(complaintClientRepository.save(newComplaint),ComplaintClientDTO.class);
+
+    }
+
+    @Override
+    public ComplaintClientDTO getComplaint(Long clientId,
+                                           Long instructorId){
+         List<ComplaintClient> complaintClientList = complaintClientRepository.findAll();
+
+         ComplaintClientDTO matchingComplaintDTO = new ComplaintClientDTO();
+         for(ComplaintClient oneComplaint: complaintClientList){
+            Boolean isThatClient = oneComplaint.getClient().getId().equals(clientId);
+            Boolean isThatInstructor = oneComplaint.getInstructor().getId().equals(instructorId);
+
+            if(isThatClient.equals(Boolean.TRUE) && isThatInstructor.equals(Boolean.TRUE)){
+                    matchingComplaintDTO.setComplaint_comment(oneComplaint.getComplaint_comment());
+                    matchingComplaintDTO.setClient_id(oneComplaint.getClient().getId());
+                    matchingComplaintDTO.setInstructor_id(oneComplaint.getInstructor().getId());
+                    matchingComplaintDTO.setResponse_admin(oneComplaint.getResponse_admin());
+                    matchingComplaintDTO.setId(oneComplaint.getId());
+
+            }
+
+         }
+
+         return matchingComplaintDTO;
+
+    }
+
+    @Override
+    public Boolean checkIfExistComplaint(Long clientId,
+                                         Long instructorId){
+        Boolean response = Boolean.FALSE;
+
+        List<ComplaintClient> complaintClientList = complaintClientRepository.findAll();
+
+        for(ComplaintClient oneComplaint:complaintClientList){
+            Boolean isThatClient = oneComplaint.getClient().getId().equals(clientId);
+            Boolean isThatInstructor = oneComplaint.getInstructor().getId().equals(instructorId);
+
+            if(isThatClient.equals(Boolean.TRUE) && isThatInstructor.equals(Boolean.TRUE)){
+                response = Boolean.TRUE;
+                break;
+            }
+
+        }
+
+        return response;
+    }
+
+
 }

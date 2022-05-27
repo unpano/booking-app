@@ -90,7 +90,8 @@
 
                 <br>
                 <br>
-                <h2 class="title">List of instructors for revision/mark</h2>
+                <br>
+                <h2 class="title">List of instructors for revision/mark </h2>
                 
                 <table matSort >
                   <thead>
@@ -107,6 +108,7 @@
                     <th>Has revision/mark</th>
                     
                     
+                    
                     <th></th>
                   </tr>
                   </thead>
@@ -121,6 +123,7 @@
                     <td>{{instructorForRevision.country}}</td>
                    
                     <td>{{instructorForRevision.hasRevisionFromClient}}</td>
+                   
                     
                    
                     <td>
@@ -131,14 +134,69 @@
                     
                     <button id="eyeBtnDetailsRevision"  *ngIf="instructorForRevision.hasRevisionFromClient==false" (click)="addRevisionMark(instructorForRevision.id,clientId)"> Add revision/mark</button>
                     <button id="eyeBtnDetailsRevision"  *ngIf="instructorForRevision.hasRevisionFromClient==true" (click)="viewRevisionMark(instructorForRevision.id,clientId)"> View revision/mark</button>
-
+                    
                     
                    
                     
                   </tr>
                   </tbody>
                 </table>
-               
+               <br>
+               <br>
+               <br>
+
+               <h2 class="title">List of instructors for complaint </h2>
+
+               <table matSort >
+                <thead>
+                <tr > 
+                  <th >Id</th>
+                  <th >First name</th>
+                  <th>Last name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>City</th>
+                  <th>Country</th>
+                 
+                  
+                  <th>Has complaint</th>
+                  
+                  
+                  
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let instructorForRevision of allInstructorsForRevision | filter:searchText" >
+                  <td>{{instructorForRevision.id}}</td>
+                  <td>{{instructorForRevision.firstName}}</td>
+                  <td>{{instructorForRevision.lastName}}</td>
+                  <td>{{instructorForRevision.email}}</td>
+                  <td>{{instructorForRevision.address}}</td>
+                  <td>{{instructorForRevision.city}}</td>
+                  <td>{{instructorForRevision.country}}</td>
+                 
+                  <td>{{instructorForRevision.hasComplaint}}</td>
+                 
+                  
+                 
+                  <td>
+                    <div id="starsRow" >
+                      <i class="material-icons">star</i>
+                    </div>
+                  </td>
+                  
+                  <button id="eyeBtnDetailsComplaint" *ngIf="instructorForRevision.hasComplaint==false" (click)="addComplaint(clientId,instructorForRevision.id)" > Add complaint</button>
+                  <button id="eyeBtnDetailsComplaint" *ngIf="instructorForRevision.hasComplaint==true"  (click)="viewComplaint(clientId,instructorForRevision.id)"> View complaint</button>
+
+                  
+                  
+                 
+                  
+                </tr>
+                </tbody>
+              </table>
+
                 
               </div>
             </div>

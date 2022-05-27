@@ -86,6 +86,10 @@ import { AddRevisionMarkForInstructorComponent } from './add-revision-mark-for-i
 import { ViewRevisionMarkComponent } from './view-revision-mark/view-revision-mark.component';
 import { AllRevisionsMarksForInstructorsComponent } from './all-revisions-marks-for-instructors/all-revisions-marks-for-instructors.component';
 import { ClientNewBookingByInstructorComponent } from './client-new-booking-by-instructor/client-new-booking-by-instructor.component';
+import { AddComplaintForInstructorComponent } from './add-complaint-for-instructor/add-complaint-for-instructor.component';
+import { ClientViewComplaintForInstructorComponent } from './client-view-complaint-for-instructor/client-view-complaint-for-instructor.component';
+import { AdminRequestsDeletingAccountComponent } from './admin-requests-deleting-account/admin-requests-deleting-account.component';
+import { DeletingRequestsComponent } from './deleting-requests/deleting-requests.component';
 
 
 @NgModule({
@@ -149,7 +153,11 @@ import { ClientNewBookingByInstructorComponent } from './client-new-booking-by-i
     AddRevisionMarkForInstructorComponent,
     ViewRevisionMarkComponent,
     AllRevisionsMarksForInstructorsComponent,
-    ClientNewBookingByInstructorComponent
+    ClientNewBookingByInstructorComponent,
+    AddComplaintForInstructorComponent,
+    ClientViewComplaintForInstructorComponent,
+    AdminRequestsDeletingAccountComponent,
+    DeletingRequestsComponent
 
 
   ],

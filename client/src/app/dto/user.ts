@@ -15,4 +15,5 @@ export class User{
   numOfPenalties !: Number;
   hasReport !: Boolean;
   rejectedVerification !: Boolean;
+  hasDeactivationRequest !: Boolean;
 }

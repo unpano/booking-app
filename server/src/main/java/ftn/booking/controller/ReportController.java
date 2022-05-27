@@ -121,6 +121,29 @@ public class ReportController {
         return new ResponseEntity<>(rejected,HttpStatus.OK);
     }
 
+    @PostMapping("/add-complaint-for-instructor")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<ComplaintClientDTO> addComplaintForInstructor(@RequestBody ComplaintClientDTO complaintClientDTO){
+        ComplaintClientDTO returnComplaint = reportService.addComplaintForInstructor(complaintClientDTO);
+        return new ResponseEntity<>(returnComplaint,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-complaint-from-client-for-instructor/clientId/{clientId}/instructorId/{instructorId}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<ComplaintClientDTO> getComplaint(@PathVariable Long clientId,
+                                                           @PathVariable Long instructorId){
+        ComplaintClientDTO returnComplaint = reportService.getComplaint(clientId,instructorId);
+        return new ResponseEntity<>(returnComplaint,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/check-if-exist-complaint/clientId/{clientId}/instructorId/{instructorId}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<Boolean> checkIfExistComplaint(@PathVariable Long clientId,
+                                                         @PathVariable Long instructorId){
+        Boolean response  = reportService.checkIfExistComplaint(clientId,instructorId);
+        return  new ResponseEntity<>(response,HttpStatus.OK);
+    }
 
 
 }

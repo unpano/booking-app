@@ -2,6 +2,7 @@ package ftn.booking.controller;
 
 import ftn.booking.dto.AdminDTO;
 import ftn.booking.dto.ClientDTO;
+import ftn.booking.dto.DeactivationRequestDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.emailADMIN.EmailService;
 import ftn.booking.exception.ResourceConflictException;
@@ -159,9 +160,43 @@ public class UserController {
     @GetMapping("/get-one-admin/{email}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> getOneAdminByEmail(@PathVariable String email){
-        UserDTO oneAdmin = modelMapper.map(userRepository.findByEmail(email),UserDTO.class);
+        UserDTO oneAdmin = modelMapper.map(userService.getOneAdminByEmail(email),UserDTO.class);
         return new ResponseEntity<>(oneAdmin,HttpStatus.OK);
     }
+
+    @GetMapping("/get-one-boat-owner/{email}")
+    @PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<UserDTO> getOneBoatOwnerByEmail(@PathVariable String email){
+        UserDTO oneBoatOwner = modelMapper.map(userService.getOneBoatOwnerByEmail(email),UserDTO.class);
+        return new ResponseEntity<>(oneBoatOwner,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/get-one-cottage-owner/{email}")
+    @PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public ResponseEntity<UserDTO> getOneCottageOwnerByEmail(@PathVariable String email){
+        UserDTO oneCottageOwner = modelMapper.map(userService.getOneCottageOwnerByEmail(email),UserDTO.class);
+        return new ResponseEntity<>(oneCottageOwner,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-one-client/{email}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<UserDTO> getOneClientByEmail(@PathVariable String email){
+        UserDTO oneClient = modelMapper.map(userService.getOneClientByEmail(email),UserDTO.class);
+        return new ResponseEntity<>(oneClient,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-one-instructor/{email}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
+    public ResponseEntity<UserDTO> getOneInstructorByEmail(@PathVariable String email){
+        UserDTO oneInstructor = modelMapper.map(userService.getOneInstructorByEmail(email),UserDTO.class);
+
+        return new ResponseEntity<>(oneInstructor,HttpStatus.OK);
+    }
+
+
+
+
 
     @PutMapping("/change-admin-info/{email}")
     public ResponseEntity<UserDTO> changeAdminInfo(@RequestBody UserDTO changedAdmin,
@@ -210,6 +245,29 @@ public class UserController {
         return new ResponseEntity<>(isDeleted,HttpStatus.OK);
 
     }
+
+    @GetMapping("/get-user/userEmail/{email}")
+    @PreAuthorize("hasRole('ADMIN')|| hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR') ")
+    public ResponseEntity<UserDTO> getUser(@PathVariable String email){
+        UserDTO user = userService.getUser(email);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+
+
+    @PostMapping("/create-new-deactivation-request")
+    @PreAuthorize("hasRole('ADMIN')|| hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR') ")
+    public ResponseEntity<DeactivationRequestDTO> createNewDeactivationRequest(@RequestBody DeactivationRequestDTO requestDTO){
+        DeactivationRequestDTO returnRequest = deactivationRequestService.createNewDeactivationRequest(requestDTO);
+        return new ResponseEntity<>(returnRequest,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-deactivation-request/userId/{userId}")
+    @PreAuthorize("hasRole('ADMIN')|| hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR') ")
+    public ResponseEntity<DeactivationRequestDTO> getDeactivationRequestByUserId(@PathVariable Long userId){
+        DeactivationRequestDTO returnRequest = deactivationRequestService.getDeactivationRequestByUserId(userId);
+        return new ResponseEntity<>(returnRequest,HttpStatus.OK);
+    }
+
 
 
 

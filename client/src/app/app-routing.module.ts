@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddComplaintForInstructorComponent } from './add-complaint-for-instructor/add-complaint-for-instructor.component';
 import { AddNewAdminComponent } from './add-new-admin/add-new-admin.component';
 import { AddRevisionMarkForInstructorComponent } from './add-revision-mark-for-instructor/add-revision-mark-for-instructor.component';
 import { AdminEntitiesComponent } from './admin-entities/admin-entities.component';
 import { AdminIncomeReservationsComponent } from './admin-income-reservations/admin-income-reservations.component';
 import { AdminPunishClientsComponent } from './admin-punish-clients/admin-punish-clients.component';
+import { AdminRequestsDeletingAccountComponent } from './admin-requests-deleting-account/admin-requests-deleting-account.component';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
 import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
@@ -13,9 +15,12 @@ import { AllRevisionsMarksForInstructorsComponent } from './all-revisions-marks-
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ClientNewBookingByInstructorComponent } from './client-new-booking-by-instructor/client-new-booking-by-instructor.component';
 import { ClientReservationsComponent } from './client-reservations/client-reservations.component';
+import { ClientViewComplaintForInstructorComponent } from './client-view-complaint-for-instructor/client-view-complaint-for-instructor.component';
+import { ClientViewComplaintService } from './client-view-complaint-for-instructor/service/client-view-complaint.service';
 import { ClientsBookedActionComponent } from './clients-booked-action/clients-booked-action.component';
 import { DeactivationComponent } from './deactivation/deactivation.component';
 import { DeleteCottageComponent } from './delete-cottage/delete-cottage.component';
+import { DeletingRequestsComponent } from './deleting-requests/deleting-requests.component';
 import { EditActionAdventureComponent } from './edit-action-adventure/edit-action-adventure.component';
 import { EditInstructorPasswordComponent } from './edit-instructor-password/edit-instructor-password.component';
 import { EditProfileAdventureComponent } from './edit-profile-adventure/edit-profile-adventure.component';
@@ -110,6 +115,10 @@ const routes: Routes = [
   {path: 'view-revision-mark-for-instructor/instructorId/:instructorId/clientId/:clientId',component:ViewRevisionMarkComponent},
   {path: 'all-revisions-marks-for-instructor',component:AllRevisionsMarksForInstructorsComponent},
   {path: 'client-new-booking-by-instructor/clientId/:clientId/currentActionId/:currentActionId',component:ClientNewBookingByInstructorComponent},
+  {path: 'add-complaint-for-instructor/clientId/:clientId/instructorId/:instructorId',component:AddComplaintForInstructorComponent},
+  {path: 'client-view-complanit-for-instructor/clientId/:clientId/instructorId/:instructorId',component:ClientViewComplaintForInstructorComponent},
+  {path: 'admin-requests-deleting-account',component:AdminRequestsDeletingAccountComponent},
+  {path: 'deleting-requests/userEmail/:userEmail',component:DeletingRequestsComponent},
 
   {path: '**', component: PageNotFoundComponent},
   

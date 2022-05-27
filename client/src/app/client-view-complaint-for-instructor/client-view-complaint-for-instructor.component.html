@@ -1,0 +1,14 @@
+<form >
+    <h1>
+        Complaint for instructor,from client.
+    </h1>
+
+    
+
+    <textarea placeholder="Leave complaint for instructor, who organized this action."
+          name="desc" [(ngModel)]="complaint.complaint_comment" [disabled]="true" rows="10" cols="120" ></textarea>
+         
+          <button mat-button id="submitButton" (click)="backToReservations()">Back to client reservations</button>
+          
+    
+</form>

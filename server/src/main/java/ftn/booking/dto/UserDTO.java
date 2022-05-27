@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDTO {
 
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -23,5 +24,6 @@ public class UserDTO {
     private Role userType;
     private String reason;
     private Boolean rejectedVerification;
+    private Boolean hasDeactivationRequest;
 
 }

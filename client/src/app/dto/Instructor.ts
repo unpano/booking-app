@@ -11,5 +11,6 @@ export class Instructor{
     reason !: String;
     canBeDeleted !: Boolean;
     hasRevisionFromClient !: Boolean;
+    hasComplaint !: Boolean;
 
 }

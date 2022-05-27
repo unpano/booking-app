@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ActionClientReserved } from 'src/app/dto/ActionClientReserved';
 import { AdditionalAdvService } from 'src/app/dto/AdditionalAdvService';
 import { AdventureReservation } from 'src/app/dto/AdventureReservation';
+import { HasComplaintFromClient } from 'src/app/dto/HasComplaintFromClient';
 import { HasRevisionFromClient } from 'src/app/dto/HasRevisionFromClient';
 import { Instructor } from 'src/app/dto/Instructor';
 import { User } from 'src/app/dto/user';
@@ -47,6 +48,10 @@ export class ClientReservationsService {
 
   checkIfInstructorHasRevisionFromClient(clientId:Number,instructorId:Number,options:any):Observable<HttpEvent<Boolean>>{
     return this.http.get<Boolean>(`${this.baseURLreport}`+ "check-if-instructor-has-revision-from-client/clientId/" + `${clientId}`+"/instructorId/" + `${instructorId}`,options);
+  }
+
+  checkIfInstructorHasComplaintFromClient(clientId:Number,instructorId:Number,options:any):Observable<HttpEvent<Boolean>>{
+    return this.http.get<Boolean>(`${this.baseURLreport}`+"check-if-exist-complaint/clientId/" + `${clientId}`+"/instructorId/" + `${instructorId}`,options);
   }
 
 }

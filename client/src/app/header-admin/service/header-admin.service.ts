@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/dto/user';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,9 @@ export class HeaderAdminService {
 
   checkIfOtherAdminChangedPassword(options:any):Observable<Object>{
     return this.http.get<Object>(`${this.baseURL}`+ "/check-if-other-admin-changed-password/email/" + sessionStorage.getItem('email'),options);
+  }
+
+  getAdmin(options:any):Observable<HttpEvent<User>>{
+    return this.http.get<User>(`${this.baseURL}`+"/get-one-admin/"+sessionStorage.getItem('email'),options);
   }
 }

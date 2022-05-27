@@ -1,6 +1,7 @@
 import { I } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../dto/user';
 import { HeaderAdminService } from './service/header-admin.service';
 
 @Component({
@@ -14,6 +15,8 @@ export class HeaderAdminComponent implements OnInit {
   changedPasswordOtherAdmin : Boolean = false;
   otherAdmin : Boolean = false;
 
+  adminInfo : User = new User();
+
   constructor(private router:Router,
               private headerAdminService:HeaderAdminService) { }
 
@@ -21,6 +24,11 @@ export class HeaderAdminComponent implements OnInit {
     const headers = { 'content-type': 'application/json',
           'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
         let options = { headers: headers };
+
+    this.headerAdminService.getAdmin(options).subscribe(data=>{
+      this.adminInfo = Object.assign(data);
+      console.log(this.adminInfo);
+    })
 
     this.headerAdminService.checkIfAdminIsOther(options).subscribe(data=>{
         this.otherAdmin = Object.assign(data);
@@ -82,9 +90,18 @@ export class HeaderAdminComponent implements OnInit {
     this.router.navigate(['all-revisions-marks-for-instructor']);
   }
 
+  adminRequestsDeletingAccount(){
+    this.router.navigate(['admin-requests-deleting-account']);
+  }
+
+  deleteAccount(adminEmail:String){
+    this.router.navigate(['deleting-requests/userEmail/'+adminEmail]);
+
+  }
+
   logOut(){
     sessionStorage.clear()
-    this.router.navigate([''])
+    this.router.navigate(['']);
     
   }
 
