@@ -22,6 +22,7 @@ export class ClientReservationsComponent implements OnInit {
   clientId !: Number;
 
   allInstructorsForRevision : Instructor[] = new Array();
+  allInstructorsForComplaint : Instructor[]= new Array();
 
   searchText !: any;
 

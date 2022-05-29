@@ -1,10 +1,13 @@
 package ftn.booking.service.impl;
 
 import ftn.booking.dto.AdminDTO;
+import ftn.booking.dto.ClientDTO;
+import ftn.booking.dto.InstructorDTO;
 import ftn.booking.dto.UserDTO;
-import ftn.booking.model.User;
+import ftn.booking.model.*;
 import ftn.booking.model.enums.Role;
-import ftn.booking.repository.UserRepository;
+import ftn.booking.model.enums.Status;
+import ftn.booking.repository.*;
 import ftn.booking.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -13,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +26,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    private InstructorRepository instructorRepository;
+
+    private AdventureRepository adventureRepository;
+
+    private ClientRepository clientRepository;
+
+    private AdventureActionClientsRepository adventureActionClientsRepository;
+
+    private DeactivationRequestRepository deactivationRequestRepository;
 
     private ModelMapper modelMapper;
 
@@ -209,6 +223,127 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
 
         return userDTO;
+    }
+
+    @Override
+    public UserDTO getUserById(Long userId){
+        User user = userRepository.findById(userId).get();
+        UserDTO userDTO = modelMapper.map(user,UserDTO.class);
+        userDTO.setUserType(user.getRole());
+        Boolean hasDeactReq = user.getHasDeactivationRequest();
+        if(hasDeactReq.equals(Boolean.TRUE) || hasDeactReq.equals(Boolean.FALSE)){
+            userDTO.setHasDeactivationRequest(user.getHasDeactivationRequest());
+        }
+
+        return userDTO;
 
     }
+
+    @Override
+    public Boolean checkIfUserCanBeDeleted(String userEmail){
+        User user = userRepository.findByEmail(userEmail);
+        Boolean response = Boolean.FALSE;
+        if(user.getRole().equals(Role.ROLE_ADMIN) ||
+                user.getRole().equals(Role.ROLE_BOAT_OWNER) ||
+                user.getRole().equals(Role.ROLE_COTTAGE_OWNER)){
+            response = Boolean.TRUE;
+
+        } else if (user.getRole().equals(Role.ROLE_INSTRUCTOR)) {
+
+            List<Adventure> allAdventures = adventureRepository.findAll();
+
+            List<Adventure> allAdventuresByInstructor = new ArrayList<>();
+
+            for (Adventure adventure : allAdventures) {
+                if (adventure.getInstructor().getId().equals(user.getId())) {
+                    allAdventuresByInstructor.add(adventure);
+                }
+            }
+
+            if (allAdventuresByInstructor.isEmpty()) {
+                response = Boolean.TRUE;
+
+            } else {
+                response = Boolean.FALSE;
+
+            }
+
+
+        } else if(user.getRole().equals(Role.ROLE_CLIENT)){
+
+            List<AdventureActionClients> allReservedActions = adventureActionClientsRepository.findAll();
+
+
+                //za datog  klijenta treba da proverimo da li je rezervisao neku aktivnu akciju
+                List<AdventureActionClients> allReservedActiveActionsClient = new ArrayList<>();
+
+                for(AdventureActionClients oneAction:allReservedActions){
+                    Boolean isThatClient = oneAction.getClient().getId().equals(user.getId());
+                    int comparation = oneAction.getAction().getEndTime().compareTo(LocalDateTime.now());
+
+                    if(isThatClient.equals(Boolean.TRUE) && comparation >=0 ){
+                        allReservedActiveActionsClient.add(oneAction);
+                    }
+
+                }
+
+                if(allReservedActiveActionsClient.isEmpty()){
+                   response = Boolean.TRUE;
+
+                } else{
+                    response = Boolean.FALSE;
+                }
+
+
+
+        }
+
+        return response;
+    }
+
+    @Override
+    public Boolean deleteUserByAdmin(Long userId){
+        User user = userRepository.findById(userId).get();
+        DeactivationRequest request = deactivationRequestRepository.findByUserId(userId);
+
+        request.setStatus(Status.APPROVED);
+        deactivationRequestRepository.save(request);
+
+        deleteUser(userId);
+
+        return Boolean.TRUE;
+    }
+
+    public void deleteUser(Long userId){
+        User user = userRepository.findById(userId).get();
+        userRepository.delete(user);
+
+    }
+
+    @Override
+    public Boolean rejectUserDeletingByAdmin(Long userId){
+        DeactivationRequest request = deactivationRequestRepository.findByUserId(userId);
+
+        request.setStatus(Status.REJECTED);
+        deactivationRequestRepository.save(request);
+
+        return Boolean.TRUE;
+
+    }
+
+    @Override
+    public Boolean disableUserAccountByAdmin(Long userId){
+        DeactivationRequest request = deactivationRequestRepository.findByUserId(userId);
+
+        request.setStatus(Status.ACCOUNT_DISABLED);
+        User user = userRepository.findById(userId).get();
+        user.setEnabled(Boolean.FALSE);
+
+        userRepository.save(user);
+        deactivationRequestRepository.save(request);
+
+        return Boolean.TRUE;
+    }
+
+
 }

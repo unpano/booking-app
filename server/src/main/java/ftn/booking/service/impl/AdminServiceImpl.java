@@ -2,10 +2,7 @@ package ftn.booking.service.impl;
 
 import ftn.booking.dto.IncomeReservationDTO;
 import ftn.booking.model.*;
-import ftn.booking.repository.AdminRepository;
-import ftn.booking.repository.AdventureActionReportRepository;
-import ftn.booking.repository.ClientRepository;
-import ftn.booking.repository.IncomeReservationRepository;
+import ftn.booking.repository.*;
 import ftn.booking.service.AdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +21,8 @@ public class AdminServiceImpl implements AdminService {
     private IncomeReservationRepository incomeReservationRepository;
 
     private ClientRepository clientRepository;
+
+    private UserRepository userRepository;
 
     @Override
     public Admin add(Admin admin) {
@@ -99,5 +98,12 @@ public class AdminServiceImpl implements AdminService {
         }
 
         return incomeSum;
+    }
+
+    @Override
+    public Boolean deleteAdmin(Long adminId){
+        User admin = userRepository.findById(adminId).get();
+        userRepository.delete(admin);
+        return Boolean.TRUE;
     }
 }

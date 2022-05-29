@@ -16,4 +16,5 @@ export class User{
   hasReport !: Boolean;
   rejectedVerification !: Boolean;
   hasDeactivationRequest !: Boolean;
+  canBeDeleted !: Boolean;
 }

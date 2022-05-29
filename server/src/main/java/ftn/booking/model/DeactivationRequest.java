@@ -28,6 +28,14 @@ public class DeactivationRequest {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
-    private User user;
+
+    private Long userId;
+
+    private String firstNameUser;
+
+    private String lastNameUser;
+
+    private String emailUser;
+
+    private String roleUser;
 }

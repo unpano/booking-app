@@ -37,5 +37,15 @@ public interface UserService {
 
     UserDTO getOneInstructorByEmail(String email);
     UserDTO getUser(String email);
+
+    UserDTO getUserById(Long userId);
+
+    Boolean checkIfUserCanBeDeleted(String userEmail);
+
+    Boolean deleteUserByAdmin(Long userId);
+
+    Boolean rejectUserDeletingByAdmin(Long userId);
+
+    Boolean disableUserAccountByAdmin(Long userId);
 }
 

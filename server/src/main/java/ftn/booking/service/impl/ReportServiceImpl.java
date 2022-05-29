@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.thymeleaf.model.IModel;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class ReportServiceImpl implements ReportService{
     private InstructorRepository instructorRepository;
 
     private UserRepository userRepository;
+
+    private AdventureActionRepository adventureActionRepository;
 
     private ComplaintClientRepository complaintClientRepository;
 
@@ -77,26 +80,30 @@ public class ReportServiceImpl implements ReportService{
 
         List<InstructorDTO> matchingInstructors = new ArrayList<>();
 
-        for(AdventureActionClients actionClientBook:allClientBookings){
+        for(AdventureActionClients actionClientBook:allClientBookings) {
             Instructor instructor = instructorRepository.findById(actionClientBook.getAction().getAdventure().getInstructor().getId()).get();
-            InstructorDTO instructorDTO = modelMapper.map(instructor,InstructorDTO.class);
+            AdventureAction action = adventureActionRepository.findById(actionClientBook.getAction().getId()).get();
 
-            if(matchingInstructors.isEmpty()) {
-                matchingInstructors.add(instructorDTO);
+            InstructorDTO instructorDTO = modelMapper.map(instructor, InstructorDTO.class);
+            int isActionActive = action.getEndTime().compareTo(LocalDateTime.now());
 
-            } else {
-                Boolean contains = matchingInstructors.contains(instructorDTO);
-
-                if (contains.equals(Boolean.TRUE)) { //ovde treba da bude provera ako
-                    //niz vec sadrzi tog instruktora da ga ne dodaje,al iz nekog razloga
-                    //mora ovako
+            if (isActionActive < 0) {
+                if (matchingInstructors.isEmpty()) {
                     matchingInstructors.add(instructorDTO);
+
+                } else {
+                    Boolean contains = matchingInstructors.contains(instructorDTO);
+                    
+                    if (contains.equals(Boolean.TRUE)) { //ovde treba da bude provera ako
+                        //niz vec sadrzi tog instruktora da ga ne dodaje,al iz nekog razloga
+                        //mora ovako
+                        matchingInstructors.add(instructorDTO);
+                    }
                 }
+
             }
 
         }
-
-
         return matchingInstructors;
     }
 

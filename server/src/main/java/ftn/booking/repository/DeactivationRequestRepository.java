@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DeactivationRequestRepository extends JpaRepository<DeactivationRequest, Long> {
     DeactivationRequest findByUserIdAndStatus(Long id, Status processing);
+
+    DeactivationRequest findByUserId(Long id);
 }

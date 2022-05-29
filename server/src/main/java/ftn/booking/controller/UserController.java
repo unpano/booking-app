@@ -42,6 +42,8 @@ public class UserController {
     private UserRepository userRepository;
 
     private ClientService clientService;
+
+
     private DeactivationRequestService deactivationRequestService;
     private ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
@@ -121,7 +123,7 @@ public class UserController {
 
         DeactivationRequest request = new DeactivationRequest();
         request.setDescription(description);
-        request.setUser(user);
+        request.setUserId(user.getId());
         request.setStatus(Status.PROCESSING);
         return new ResponseEntity<>(deactivationRequestService.add(request), HttpStatus.OK);
     }
@@ -246,10 +248,25 @@ public class UserController {
 
     }
 
+    @DeleteMapping("/delete-admin/adminId/{adminId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> deleteAdmin(@PathVariable Long adminId){
+        Boolean isDeleted = adminService.deleteAdmin(adminId);
+        return new ResponseEntity<>(isDeleted,HttpStatus.OK);
+
+    }
+
     @GetMapping("/get-user/userEmail/{email}")
     @PreAuthorize("hasRole('ADMIN')|| hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR') ")
     public ResponseEntity<UserDTO> getUser(@PathVariable String email){
         UserDTO user = userService.getUser(email);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-user/userId/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId){
+        UserDTO user = userService.getUserById(userId);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
@@ -268,6 +285,47 @@ public class UserController {
         return new ResponseEntity<>(returnRequest,HttpStatus.OK);
     }
 
+    @GetMapping("/get-all-deactivation-requests")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<DeactivationRequestDTO>> getAllDeactivationRequests(){
+        List<DeactivationRequestDTO> allDeactivationRequests = deactivationRequestService.getAllDeactivationRequests();
+        return new ResponseEntity<>(allDeactivationRequests,HttpStatus.OK);
+    }
+
+    @GetMapping("/check-if-user-can-be-deleted/userEmail/{userEmail}")
+    @PreAuthorize("hasRole('ADMIN')|| hasRole('COTTAGE_OWNER') || hasRole('BOAT_OWNER') || hasRole('CLIENT') || hasRole('INSTRUCTOR')")
+    public ResponseEntity<Boolean> checkIfUserCanBeDeleted(@PathVariable String userEmail){
+        Boolean response = userService.checkIfUserCanBeDeleted(userEmail);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-user-by-admin/userId/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> deleteUserByAdmin(@PathVariable Long userId){
+        Boolean isDeleted = userService.deleteUserByAdmin(userId);
+        return new ResponseEntity<>(isDeleted,HttpStatus.OK);
+    }
+
+    @PutMapping("/reject-user-deleting-by-admin/userId/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> rejectUserDeletingByAdmin(@PathVariable Long userId){
+        Boolean isRejected = userService.rejectUserDeletingByAdmin(userId);
+        return new ResponseEntity<>(isRejected,HttpStatus.OK);
+    }
+
+    @PutMapping("/disable-user-account-by-admin/userId/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> disableUserAccountByAdmin(@PathVariable Long userId){
+        Boolean isDisabled = userService.disableUserAccountByAdmin(userId);
+        return new ResponseEntity<>(isDisabled,HttpStatus.OK);
+    }
+
+    @PutMapping("/approve-request-for-deleting-account/userId/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> approveRequestForDeletingAccount(@PathVariable Long userId){
+        Boolean isChanged = deactivationRequestService.approveRequestForDeletingAccount(userId);
+        return new ResponseEntity<>(isChanged,HttpStatus.OK);
+    }
 
 
 

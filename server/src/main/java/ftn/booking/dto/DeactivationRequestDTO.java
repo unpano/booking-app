@@ -14,4 +14,8 @@ public class DeactivationRequestDTO {
     private String description;
     private String status;
     private Long userId;
+    private String firstNameUser;
+    private String lastNameUser;
+    private String emailUser;
+    private String roleUser;
 }

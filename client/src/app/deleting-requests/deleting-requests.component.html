@@ -31,7 +31,7 @@
             <h1>Reason for applying for deleting account</h1>
             <mat-form-field class="mat-field">
                 <input  name="reason"  matInput [(ngModel)]="requestSending.description" *ngIf="userInfo.hasDeactivationRequest==false">
-                <input  name="reason"  matInput [(ngModel)]="requestSending.description" [disabled]="true"  >
+                <input  name="reason"  matInput [(ngModel)]="requestSending.description" [disabled]="true" *ngIf="userInfo.hasDeactivationRequest==true" >
 
               </mat-form-field>
            						

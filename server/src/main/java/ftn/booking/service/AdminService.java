@@ -20,4 +20,6 @@ public interface AdminService {
     List<IncomeReservationDTO> getAllIncomesForBookedActions();
 
     Double getIncomesSum();
+
+    Boolean deleteAdmin(Long adminId);
 }

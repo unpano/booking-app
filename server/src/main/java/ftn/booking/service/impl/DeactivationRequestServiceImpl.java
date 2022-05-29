@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,7 +40,7 @@ public class DeactivationRequestServiceImpl implements DeactivationRequestServic
         List<DeactivationRequest> allRequests = deactivationRequestRepository.findAll();
         Boolean exists = Boolean.FALSE;
         for(DeactivationRequest request:allRequests){
-            if(request.getUser().getId().equals(requestDTO.getUserId())){
+            if(request.getUserId().equals(requestDTO.getUserId())){
                 exists = Boolean.TRUE;
             }
         }
@@ -52,9 +53,13 @@ public class DeactivationRequestServiceImpl implements DeactivationRequestServic
             user.setHasDeactivationRequest(Boolean.TRUE);
             userRepository.save(user);
 
-            newRequest.setUser(user);
+            newRequest.setUserId(user.getId());
             newRequest.setDescription(requestDTO.getDescription());
             newRequest.setStatus(Status.PROCESSING);
+            newRequest.setFirstNameUser(user.getFirstName());
+            newRequest.setLastNameUser(user.getLastName());
+            newRequest.setEmailUser(user.getEmail());
+            newRequest.setRoleUser(user.getRole().toString());
             return modelMapper.map(deactivationRequestRepository.save(newRequest), DeactivationRequestDTO.class);
         } else {
             DeactivationRequestDTO emptyRequestDTO = new DeactivationRequestDTO();
@@ -70,19 +75,54 @@ public class DeactivationRequestServiceImpl implements DeactivationRequestServic
         DeactivationRequest matchingRequest = new DeactivationRequest();
 
         for(DeactivationRequest oneRequest:allRequests){
-            if(oneRequest.getUser().getId().equals(userId)){
+            if(oneRequest.getUserId().equals(userId)){
                 matchingRequest = oneRequest;
                 break;
             }
         }
 
         DeactivationRequestDTO matchingRequestDTO = new DeactivationRequestDTO();
-        matchingRequestDTO.setUserId(matchingRequest.getUser().getId());
+        matchingRequestDTO.setUserId(matchingRequest.getUserId());
         matchingRequestDTO.setId(matchingRequest.getId());
         matchingRequestDTO.setDescription(matchingRequest.getDescription());
         matchingRequestDTO.setStatus(matchingRequest.getStatus().toString());
+        matchingRequestDTO.setFirstNameUser(matchingRequest.getFirstNameUser());
+        matchingRequestDTO.setLastNameUser(matchingRequest.getLastNameUser());
+        matchingRequestDTO.setEmailUser(matchingRequest.getEmailUser());
+        matchingRequestDTO.setRoleUser(matchingRequest.getRoleUser());
 
         return matchingRequestDTO;
+    }
+
+    @Override
+    public List<DeactivationRequestDTO> getAllDeactivationRequests(){
+        List<DeactivationRequest> allRequests = deactivationRequestRepository.findAll();
+        List<DeactivationRequestDTO> allRequestsDTO = new ArrayList<>();
+
+        for(DeactivationRequest oneRequest:allRequests){
+            DeactivationRequestDTO requestDTO = new DeactivationRequestDTO();
+            requestDTO.setStatus(oneRequest.getStatus().toString());
+            requestDTO.setId(oneRequest.getId());
+            requestDTO.setDescription(oneRequest.getDescription());
+            requestDTO.setUserId(oneRequest.getUserId());
+            requestDTO.setFirstNameUser(oneRequest.getFirstNameUser());
+            requestDTO.setLastNameUser(oneRequest.getLastNameUser());
+            requestDTO.setEmailUser(oneRequest.getEmailUser());
+            requestDTO.setRoleUser(oneRequest.getRoleUser());
+
+            allRequestsDTO.add(requestDTO);
+        }
+
+        return allRequestsDTO;
+    }
+
+    @Override
+    public Boolean approveRequestForDeletingAccount(Long userId){
+        DeactivationRequest request = deactivationRequestRepository.findByUserId(userId);
+        request.setStatus(Status.APPROVED);
+        deactivationRequestRepository.save(request);
+
+        return Boolean.TRUE;
     }
 
 }

@@ -94,6 +94,7 @@ public class AuthenticationController {
             client.setNumOfPenalties(0);
             client.setPassword(passwordEncoder.encode(client.getPassword()));
             client.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            client.setHasDeactivationRequest(Boolean.FALSE);
 
 
             //mailService.sendMailSimplified(client.getEmail(), "CAo","Uspeli smo!!");
@@ -126,6 +127,7 @@ public class AuthenticationController {
             boatOwner.setReasonForRegistration(userDTO.getReason());
             boatOwner.setPassword(passwordEncoder.encode(boatOwner.getPassword()));
             boatOwner.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            boatOwner.setHasDeactivationRequest(Boolean.FALSE);
 
             //kreiram vlasnika broda
             ownerService.addBoatOwner(boatOwner);
@@ -153,6 +155,7 @@ public class AuthenticationController {
             cottageOwner.setReasonForRegistration(userDTO.getReason());
             cottageOwner.setPassword(passwordEncoder.encode(cottageOwner.getPassword()));
             cottageOwner.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            cottageOwner.setHasDeactivationRequest(Boolean.FALSE);
 
             //kreiram vlasnika vikendice
             ownerService.addCottageOwner(cottageOwner);
@@ -179,6 +182,7 @@ public class AuthenticationController {
             instructor.setReasonForRegistration(userDTO.getReason());
             instructor.setPassword(passwordEncoder.encode(instructor.getPassword()));
             instructor.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+            instructor.setHasDeactivationRequest(Boolean.FALSE);
 
             //kreiram instruktora
             ownerService.addInstructor(instructor);
@@ -222,6 +226,7 @@ public class AuthenticationController {
         admin.setRole(Role.ROLE_ADMIN);
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         admin.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
+        admin.setHasDeactivationRequest(Boolean.FALSE);
 
 
         //kreiram admina

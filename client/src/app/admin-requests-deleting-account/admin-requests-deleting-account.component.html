@@ -2,33 +2,31 @@
 <table>
     <thead>
         <tr>
-            <th>Id</th>
-           <th>First name</th>
-           <th>Last name</th>
+            <th>Id request</th>
+           <th>First name of user</th>
+           <th>Last name of user</th>
            <th>Email address</th>
            <th>User type</th>
-           <th>Address</th>
-           <th>City</th>
-           <th>Country</th>
+           <th>Reason</th>
+           <th>Status</th>
            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td> 
-            <td></td>
+        <tr *ngFor="let request of allRequests">
+            <td>{{request.id}}</td>
+            <td>{{request.firstNameUser}}</td>
+            <td>{{request.lastNameUser}}</td>
+            <td>{{request.emailUser}}</td>
+            <td>{{request.roleUser}}</td>
+            <td>{{request.description}}</td>
+            <td>{{request.status}}</td> 
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm"  >Delete</button>
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm"  *ngIf="request.status=='PROCESSING'" (click)="deleteUser(request.canBeDeletedUser,request.userId,request.roleUser)">Delete</button>
                 &nbsp;
-                <button id="btn-rejected" mat-button type="primary" class="button-confirm" >Reject</button>
-                
+                <button id="btn-rejected" mat-button type="primary" class="button-confirm" *ngIf="request.status=='PROCESSING'" (click)="rejectDeleting(request.userId)">Reject</button>
+               
             </td>
         </tr>
     </tbody>
