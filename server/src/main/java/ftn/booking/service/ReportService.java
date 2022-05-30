@@ -35,6 +35,10 @@ public interface ReportService {
     ComplaintClientDTO getComplaint(Long clientId,
                                     Long instructorId);
 
+    List<ComplaintClientDTO> getAllComplaintsFromClientsForInstructors();
+
+    Boolean replyToComplaintAdmin(ComplaintClientDTO replyComplaint);
+
     Boolean checkIfExistComplaint(Long clientId,
                                   Long instructorId);
 }

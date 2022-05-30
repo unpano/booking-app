@@ -41,6 +41,8 @@ public class AdventureServiceImpl implements AdventureService {
 
     private ClientRepository clientRepository;
 
+    private UserRepository userRepository;
+
     private AdventureActionReportRepository adventureActionReportRepository;
 
     private IncomeReservationRepository incomeReservationRepository;
@@ -541,6 +543,9 @@ public class AdventureServiceImpl implements AdventureService {
         action.setIsReserved(Boolean.TRUE);
         action.setNumberOfBooking(action.getNumberOfBooking()+1L);
 
+        //User user = userRepository.findById(clientId).get();
+       // user.set
+
 
 
 
@@ -580,9 +585,13 @@ public class AdventureServiceImpl implements AdventureService {
         List<AdventureActionClients> allBookedActions = adventureActionClientsRepo.findAll();
         AdventureAction action = adventureActionRepository.findById(actionId).get();
         action.setNumberOfBooking(action.getNumberOfBooking()-1L);
+        if(action.getNumberOfBooking().equals(0L)){
+            action.setIsReserved(Boolean.FALSE);
+        }
         adventureActionRepository.save(action);
 
         IncomeReservation incomeReservation = incomeReservationRepository.findByActionIdAndClientId(actionId,clientId);
+
         incomeReservationRepository.delete(incomeReservation);
 
 
@@ -597,6 +606,8 @@ public class AdventureServiceImpl implements AdventureService {
         }
         return Boolean.TRUE;
     }
+
+
 
     @Override
     public Boolean changeStatusOfActionBooking(){

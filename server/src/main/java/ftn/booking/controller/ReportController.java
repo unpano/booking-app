@@ -136,6 +136,20 @@ public class ReportController {
         return new ResponseEntity<>(returnComplaint,HttpStatus.OK);
     }
 
+    @GetMapping("/get-all-complaints-from-clients-for-instructors")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<ComplaintClientDTO>> getAllComplaintsFromClientsForInstructors(){
+        List<ComplaintClientDTO> allComplaints = reportService.getAllComplaintsFromClientsForInstructors();
+        return new ResponseEntity<>(allComplaints,HttpStatus.OK);
+    }
+
+    @PutMapping("/reply-to-complaint-admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> replyToComplaintAdmin(@RequestBody ComplaintClientDTO replyComplaint){
+        Boolean replied = reportService.replyToComplaintAdmin(replyComplaint);
+        return new ResponseEntity<>(replied,HttpStatus.OK);
+    }
+
 
     @GetMapping("/check-if-exist-complaint/clientId/{clientId}/instructorId/{instructorId}")
     @PreAuthorize("hasRole('CLIENT')")

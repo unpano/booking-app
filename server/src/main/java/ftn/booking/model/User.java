@@ -1,6 +1,7 @@
 package ftn.booking.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ftn.booking.model.enums.LoyaltyCategory;
 import ftn.booking.model.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,6 +42,10 @@ public class User implements UserDetails {
     private Boolean otherAdmin;
 
     private Boolean hasDeactivationRequest;
+
+    private Long loyaltyPoints;
+
+    private LoyaltyCategory loyaltyCategory;
 
     @NotNull
     private String email;

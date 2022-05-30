@@ -18,4 +18,5 @@ public class DeactivationRequestDTO {
     private String lastNameUser;
     private String emailUser;
     private String roleUser;
+    private String adminResponse;
 }

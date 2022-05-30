@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddComplaintForInstructorComponent } from './add-complaint-for-instructor/add-complaint-for-instructor.component';
 import { AddNewAdminComponent } from './add-new-admin/add-new-admin.component';
 import { AddRevisionMarkForInstructorComponent } from './add-revision-mark-for-instructor/add-revision-mark-for-instructor.component';
+import { AdminComplaintResponseComponent } from './admin-complaint-response/admin-complaint-response.component';
 import { AdminEntitiesComponent } from './admin-entities/admin-entities.component';
 import { AdminIncomeReservationsComponent } from './admin-income-reservations/admin-income-reservations.component';
+import { AdminLoyaltyProgramComponent } from './admin-loyalty-program/admin-loyalty-program.component';
 import { AdminPunishClientsComponent } from './admin-punish-clients/admin-punish-clients.component';
 import { AdminRequestsDeletingAccountComponent } from './admin-requests-deleting-account/admin-requests-deleting-account.component';
 import { AllBoatsComponent } from './all-boats/all-boats.component';
@@ -119,6 +121,9 @@ const routes: Routes = [
   {path: 'client-view-complanit-for-instructor/clientId/:clientId/instructorId/:instructorId',component:ClientViewComplaintForInstructorComponent},
   {path: 'admin-requests-deleting-account',component:AdminRequestsDeletingAccountComponent},
   {path: 'deleting-requests/userEmail/:userEmail',component:DeletingRequestsComponent},
+  {path: 'admin-complaint-response/clientId/:clientId/instructorId/:instructorId',component:AdminComplaintResponseComponent},
+  {path: 'admin-loyalty-program',component:AdminLoyaltyProgramComponent},
+
 
   {path: '**', component: PageNotFoundComponent},
   

@@ -128,7 +128,7 @@ export class ClientReservationsComponent implements OnInit {
 
     if(window.confirm("You want to cancel reserving this action?")){
       this.clientReservationService.cancelBookingAction(actionId,clientId,options).subscribe();
-      window.setInterval('document.location.reload()', 1000);
+      //window.setInterval('document.location.reload()', 1000);
   } else {
     window.close();
   }

@@ -38,4 +38,6 @@ public class DeactivationRequest {
     private String emailUser;
 
     private String roleUser;
+
+    private String adminResponse;
 }

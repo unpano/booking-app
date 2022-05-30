@@ -4,4 +4,5 @@ import ftn.booking.model.ComplaintClient;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ComplaintClientRepository extends JpaRepository<ComplaintClient,Long> {
+    ComplaintClient findByClientIdAndInstructorId(Long clientId,Long instructorId);
 }

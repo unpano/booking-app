@@ -41,6 +41,8 @@ export class ProfileAdventureFishingClassComponent implements OnInit {
 
   searchText !: any;
 
+  searchDate !: Date;
+
 
  // adventureImagesAngular = adven
 

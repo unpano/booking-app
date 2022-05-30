@@ -99,6 +99,10 @@ export class HeaderAdminComponent implements OnInit {
 
   }
 
+  loyaltyProgram(){
+    this.router.navigate(['admin-loyalty-program']);  
+  }
+
   logOut(){
     sessionStorage.clear()
     this.router.navigate(['']);

@@ -266,6 +266,25 @@ public class ReportServiceImpl implements ReportService{
     }
 
     @Override
+    public  List<ComplaintClientDTO> getAllComplaintsFromClientsForInstructors(){
+        List<ComplaintClient> allComplaints = complaintClientRepository.findAll();
+        List<ComplaintClientDTO> allComplaintsDTO = new ArrayList<>();
+
+        for(ComplaintClient complaint:allComplaints){
+            ComplaintClientDTO complaintDTO = new ComplaintClientDTO();
+            complaintDTO.setId(complaint.getId());
+            complaintDTO.setComplaint_comment(complaint.getComplaint_comment());
+            complaintDTO.setInstructor_id(complaint.getInstructor().getId());
+            complaintDTO.setClient_id(complaint.getClient().getId());
+            complaintDTO.setResponse_admin(complaint.getResponse_admin());
+
+            allComplaintsDTO.add(complaintDTO);
+        }
+
+        return allComplaintsDTO;
+    }
+
+    @Override
     public Boolean checkIfExistComplaint(Long clientId,
                                          Long instructorId){
         Boolean response = Boolean.FALSE;
@@ -286,5 +305,14 @@ public class ReportServiceImpl implements ReportService{
         return response;
     }
 
+    @Override
+    public Boolean replyToComplaintAdmin(ComplaintClientDTO replyComplaint){
+        ComplaintClient matchingComplaint = complaintClientRepository.findByClientIdAndInstructorId(replyComplaint.getClient_id(),replyComplaint.getInstructor_id());
+        matchingComplaint.setResponse_admin(replyComplaint.getResponse_admin());
+
+        complaintClientRepository.save(matchingComplaint);
+
+        return Boolean.TRUE;
+    }
 
 }

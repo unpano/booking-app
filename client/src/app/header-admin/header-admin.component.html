@@ -1,12 +1,13 @@
 <mat-toolbar color="primary" class="navbar">
 
     <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="homePageAdmin()">Home</button>
-    <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="adminProfile()">Admin profile</button>
-    <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="unverifiedUsers()">Unverified users</button>
-    <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="verifiedUsers()">Verified users </button>
+    <button style="font-size: 16px;" mat-button *ngIf="otherAdmin==false" (click)="loyaltyProgram()" title="loyalty program" > LP </button>
+    <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="adminProfile()">Admin prof</button>
+    <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="unverifiedUsers()">Unverif users</button>
+    <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="verifiedUsers()">Verif users </button>
     <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="adminEntities()"> Entities </button>
     <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="clientsPenalties()">Clients penalties </button>
-    <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="incomesActions()">Incomes from actions</button>
+    <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="incomesActions()">Incomes actions</button>
     <button style="font-size: 16px;" mat-button *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true" (click)="marksReviewsFromClients()">Reviews/complaints</button>
     <button style="font-size: 16px;" mat-button *ngIf="otherAdmin==false" (click)="adminRequestsDeletingAccount()" >RQ Deleting</button>
     <button style="font-size: 16px;" mat-button *ngIf="otherAdmin==true "  (click)="deleteAccount(adminInfo.email)">Delete account</button>

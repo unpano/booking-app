@@ -87,31 +87,30 @@
         <tr>
             <th>Id</th>
            <th>Complaint comment</th>
-           <th>Revision comment</th>
+           <th>Admin response</th>
            <th>Client id</th>
            <th>Client email</th>
            <th>Instructor id</th>
            <th>Instructor email</th>
            <th>Actions</th>
-           
-           
-           
+               
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+        <tr *ngFor="let complaint of allComplaints" >
+            <td>{{complaint.id}}</td>
+            <td>{{complaint.complaint_comment}}</td>
+            <td>{{complaint.response_admin}}</td>
+            <td>{{complaint.client_id}}</td>
+            <td>{{complaint.userOtherInfo.email}}</td>
+            <td>{{complaint.instructor_id}}</td>
+            <td>{{complaint.instructorOtherInfo.email}}</td>
+           
             
             
             <td>
               
-                <button id="btn-confirm-complaint" mat-button type="primary">Reply</button>
+                <button id="btn-confirm-complaint" mat-button type="primary" *ngIf="!complaint.response_admin" (click)="replyComplaint(complaint.client_id,complaint.instructor_id)">Reply</button>
 
                 
                 

@@ -90,6 +90,9 @@ import { AddComplaintForInstructorComponent } from './add-complaint-for-instruct
 import { ClientViewComplaintForInstructorComponent } from './client-view-complaint-for-instructor/client-view-complaint-for-instructor.component';
 import { AdminRequestsDeletingAccountComponent } from './admin-requests-deleting-account/admin-requests-deleting-account.component';
 import { DeletingRequestsComponent } from './deleting-requests/deleting-requests.component';
+import { AdminResponseRequestDeletingComponent } from './admin-response-request-deleting/admin-response-request-deleting.component';
+import { AdminComplaintResponseComponent } from './admin-complaint-response/admin-complaint-response.component';
+import { AdminLoyaltyProgramComponent } from './admin-loyalty-program/admin-loyalty-program.component';
 
 
 @NgModule({
@@ -157,7 +160,10 @@ import { DeletingRequestsComponent } from './deleting-requests/deleting-requests
     AddComplaintForInstructorComponent,
     ClientViewComplaintForInstructorComponent,
     AdminRequestsDeletingAccountComponent,
-    DeletingRequestsComponent
+    DeletingRequestsComponent,
+    AdminResponseRequestDeletingComponent,
+    AdminComplaintResponseComponent,
+    AdminLoyaltyProgramComponent
 
 
   ],

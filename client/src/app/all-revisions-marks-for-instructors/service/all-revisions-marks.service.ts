@@ -3,6 +3,7 @@ import { not } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Client } from 'src/app/dto/Client';
+import { ComplaintClient } from 'src/app/dto/ComplaintClient';
 import { Instructor } from 'src/app/dto/Instructor';
 import { MarkRevisionClient } from 'src/app/dto/MarkRevisionClient';
 
@@ -39,5 +40,10 @@ export class AllRevisionsMarksService {
     return this.http.put(`${this.baseURL}`+"reports/reject-revision-for-instructor/revisionId/"+`${notApprovedRevisionId}`,notApprovedRevisionId,options);
   }
 
+  getAllComplaints(options:any):Observable<HttpEvent<ComplaintClient[]>>{
+    return this.http.get<ComplaintClient[]>(`${this.baseURL}`+"reports/get-all-complaints-from-clients-for-instructors",options);
+  }
+
+  
 
 }

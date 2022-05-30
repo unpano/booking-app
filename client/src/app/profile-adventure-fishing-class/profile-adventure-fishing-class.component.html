@@ -54,7 +54,50 @@
                             <button id="addBtn" (click)="newAction(adventureId)"><mat-icon>add</mat-icon> Add termin for action: </button>
                             <div class="search-hero">
                               <input class="form-control" [(ngModel)]="searchText" type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                              
                             </div>
+
+                            <br>
+                            <br>
+                              <h2>Active actions:</h2>
+                              <table matSort >
+                                <thead>
+                                <tr> 
+                                  <th >Start time for action</th>
+                                  <th >End time for action</th>
+                                  <th>Additional services</th>
+                                  <th>Exact place for action</th>
+                                  <th>Reserved</th>
+                                  <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let action of adventureActions | filter:searchText,searchDate ">
+                                  <td>{{action.startTime}}</td>
+                                  <td>{{action.endTime}}</td>
+                                  <td>{{action.additionalAdvServices}} </td>
+                                  <td>{{action.exactPlace}}</td>
+                                  <td>{{action.isReserved}}</td>
+                                  <td>
+                                    <div id="starsRow" >
+                                      <i class="material-icons">star</i>
+                                    </div>
+                                  </td>
+                                  
+                                  <button id="eyeBtn" *ngIf="!action.isReserved" (click)="editAction(action.id)"> Edit</button>
+                                  <button id="eyeBtn" *ngIf="!action.isReserved" (click)="deleteAction(action.id)"> Delete</button>
+                                  <button id="eyeBtnDisabled" *ngIf="action.isReserved" disabled title="You cannot edit reserved action!" > Edit</button>
+                                  <button id="eyeBtnDisabled" *ngIf="action.isReserved"  disabled title="You cannot delete reserved action!"> Delete</button>
+                                  <button id="eyeBtnClients" *ngIf="action.isReserved" (click)="viewClients(action.id)">Clients</button>
+                                  <button id="eyeBtnClientsDisabled" *ngIf="!action.isReserved" title="This action is not reserved!" disabled>Clients</button>
+                                </tr>
+                                </tbody>
+                              </table>
+
+                              <br>
+                              <br>
+                              <br>
+
                             <h2>Past actions:</h2>
                             <table matSort >
                               <thead>
@@ -92,42 +135,7 @@
 
 
 
-                          <br>
-                          <br>
-                            <h2>Active actions:</h2>
-                            <table matSort >
-                              <thead>
-                              <tr> 
-                                <th >Start time for action</th>
-                                <th >End time for action</th>
-                                <th>Additional services</th>
-                                <th>Exact place for action</th>
-                                <th>Reserved</th>
-                                <th></th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr *ngFor="let action of adventureActions | filter:searchText ">
-                                <td>{{action.startTime}}</td>
-                                <td>{{action.endTime}}</td>
-                                <td>{{action.additionalAdvServices}} </td>
-                                <td>{{action.exactPlace}}</td>
-                                <td>{{action.isReserved}}</td>
-                                <td>
-                                  <div id="starsRow" >
-                                    <i class="material-icons">star</i>
-                                  </div>
-                                </td>
-                                
-                                <button id="eyeBtn" *ngIf="!action.isReserved" (click)="editAction(action.id)"> Edit</button>
-                                <button id="eyeBtn" *ngIf="!action.isReserved" (click)="deleteAction(action.id)"> Delete</button>
-                                <button id="eyeBtnDisabled" *ngIf="action.isReserved" disabled title="You cannot edit reserved action!" > Edit</button>
-                                <button id="eyeBtnDisabled" *ngIf="action.isReserved"  disabled title="You cannot delete reserved action!"> Delete</button>
-                                <button id="eyeBtnClients" *ngIf="action.isReserved" (click)="viewClients(action.id)">Clients</button>
-                                <button id="eyeBtnClientsDisabled" *ngIf="!action.isReserved" title="This action is not reserved!" disabled>Clients</button>
-                              </tr>
-                              </tbody>
-                            </table>
+                         
                           
                           </div>
                         </div>

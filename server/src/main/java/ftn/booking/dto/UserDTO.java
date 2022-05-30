@@ -1,5 +1,6 @@
 package ftn.booking.dto;
 
+import ftn.booking.model.enums.LoyaltyCategory;
 import ftn.booking.model.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +26,7 @@ public class UserDTO {
     private String reason;
     private Boolean rejectedVerification;
     private Boolean hasDeactivationRequest;
+    private Long loyaltyPoints;
+    private String loyaltyCategory;
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { runInThisContext } from 'vm';
 import { Client } from '../dto/Client';
+import { ComplaintClient } from '../dto/ComplaintClient';
 import { MarkRevisionClient } from '../dto/MarkRevisionClient';
 import { AllRevisionsMarksService } from './service/all-revisions-marks.service';
 
@@ -13,7 +15,9 @@ export class AllRevisionsMarksForInstructorsComponent implements OnInit {
 
   notApprovedRevisions : MarkRevisionClient[] = new Array();
   approvedRevisions : MarkRevisionClient[] = new Array();
-  constructor(private allRevisionsService:AllRevisionsMarksService) { }
+  allComplaints : ComplaintClient[] = new Array();
+  constructor(private allRevisionsService:AllRevisionsMarksService,
+              private router:Router) { }
 
   ngOnInit(): void {
     const headers = { 'content-type': 'application/json',
@@ -54,6 +58,19 @@ export class AllRevisionsMarksForInstructorsComponent implements OnInit {
 
     })
 
+    this.allRevisionsService.getAllComplaints(options).subscribe(data=>{
+      this.allComplaints = Object.assign(data);
+
+      this.allComplaints.forEach(complaint => {
+        this.allRevisionsService.getOneClient(complaint.client_id,options).subscribe(client=>{
+          complaint.userOtherInfo = Object.assign(client);
+        })
+
+        this.allRevisionsService.getOneInstructor(complaint.instructor_id).subscribe(instructor=>{
+          complaint.instructorOtherInfo = Object.assign(instructor);
+        })
+      });
+    })
 
   }
 
@@ -92,6 +109,10 @@ export class AllRevisionsMarksForInstructorsComponent implements OnInit {
 
   }
 
+  replyComplaint(clientId:Number,instructorId:Number){
+      this.router.navigate(['admin-complaint-response/clientId/' + clientId + '/instructorId/' + instructorId]);
+
+  }
 
 
 
