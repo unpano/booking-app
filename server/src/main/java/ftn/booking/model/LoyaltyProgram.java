@@ -21,9 +21,9 @@ public class LoyaltyProgram {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Role user_type;
+    private String userType;
 
-    private Long loyalty_points;
+    private Long loyaltyPoints;
 
-    private LoyaltyCategory loyaltyCategory;
+    private String loyaltyCategory;
 }

@@ -45,7 +45,7 @@ public class User implements UserDetails {
 
     private Long loyaltyPoints;
 
-    private LoyaltyCategory loyaltyCategory;
+    private String loyaltyCategory;
 
     @NotNull
     private String email;

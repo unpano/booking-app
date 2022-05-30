@@ -24,6 +24,8 @@ public class AdminServiceImpl implements AdminService {
 
     private UserRepository userRepository;
 
+    private LoyaltyProgramRepository loyaltyProgramRepository;
+
     @Override
     public Admin add(Admin admin) {
         return adminRepository.save(admin);
@@ -105,5 +107,11 @@ public class AdminServiceImpl implements AdminService {
         User admin = userRepository.findById(adminId).get();
         userRepository.delete(admin);
         return Boolean.TRUE;
+    }
+
+    @Override
+    public List<LoyaltyProgram> getAllLoyaltyPrograms(){
+        List<LoyaltyProgram> allLoyalties = loyaltyProgramRepository.findAll();
+        return allLoyalties;
     }
 }

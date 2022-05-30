@@ -9,6 +9,7 @@ import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.exception.ValidationException;
 import ftn.booking.model.Admin;
 import ftn.booking.model.DeactivationRequest;
+import ftn.booking.model.LoyaltyProgram;
 import ftn.booking.model.User;
 import ftn.booking.model.enums.Status;
 import ftn.booking.repository.UserRepository;
@@ -27,6 +28,7 @@ import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -325,6 +327,13 @@ public class UserController {
     public ResponseEntity<Boolean> approveRequestForDeletingAccount(@PathVariable Long userId){
         Boolean isChanged = deactivationRequestService.approveRequestForDeletingAccount(userId);
         return new ResponseEntity<>(isChanged,HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-loyalty-programs")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<LoyaltyProgram>> getAllLoyaltyPrograms(){
+        List<LoyaltyProgram> allLoyalties = adminService.getAllLoyaltyPrograms();
+        return new ResponseEntity<>(allLoyalties,HttpStatus.OK);
     }
 
 

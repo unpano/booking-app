@@ -1,1 +1,26 @@
-<p>admin-loyalty-program works!</p>
+<h2 class="title">Loyalty program</h2>
+<table>
+    <thead>
+
+        <tr >
+            
+           <th>Loyalty category</th>
+           <th>Loyalty points</th>
+           <th>User type</th>
+           <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let program of allLoyaltyPrograms" >
+            
+            
+            <td>{{program.loyaltyCategory}} </td>
+            <td>{{program.loyaltyPoints}} points needed</td> 
+            <td>{{program.userType}} </td>
+            <td>
+              
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm"  >Change</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,54 @@
+.spacer {
+    flex: auto 1 1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 5px 10px #e1e5ee;
+    background-color: white;
+    text-align: left;
+    overflow: hidden;
+  }
+
+  thead{  
+    box-shadow: 0 5px 10px #e1e5ee;
+  }
+  
+  th{
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.7rem;
+    font-weight: 900;
+  }
+  
+  td{
+    padding: 1rem 2rem;
+  }
+
+.title{
+  position:relative;
+  margin-left: 40%;
+}
+
+#btn-confirm{
+  width: 80px;
+  background-color: rgb(0, 139, 23);
+  color: white;
+}
+  
+#btn-rejected{
+  background-color: brown;
+  color: white;
+}
+
+#btn-confirm-disabled{
+    width: 70px;
+    background-color: rgb(200, 175, 175);
+    color: white;
+}
+
+.search-hero{
+  margin-bottom: 40px;
+}
