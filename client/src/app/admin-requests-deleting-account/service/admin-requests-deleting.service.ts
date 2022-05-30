@@ -53,6 +53,9 @@ export class AdminRequestsDeletingService {
     return this.http.put(`${this.baseURL}`+"users/approve-request-for-deleting-account/userId/"+`${userId}`,userId,options);
   }
 
+  disableAccountUser(userId:Number,options:any):Observable<Object>{
+    return this.http.put(`${this.baseURL}`+"users/disable-user-account-by-admin/userId/"+`${userId}`,userId,options);
+  }
 
 
 }

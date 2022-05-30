@@ -275,6 +275,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
                 //za datog  klijenta treba da proverimo da li je rezervisao neku aktivnu akciju
+                //kao i da li ima prosle rezervisane akcije
                 List<AdventureActionClients> allReservedActiveActionsClient = new ArrayList<>();
 
                 for(AdventureActionClients oneAction:allReservedActions){
@@ -282,6 +283,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                     int comparation = oneAction.getAction().getEndTime().compareTo(LocalDateTime.now());
 
                     if(isThatClient.equals(Boolean.TRUE) && comparation >=0 ){
+                        allReservedActiveActionsClient.add(oneAction);
+                    } else if(isThatClient.equals(Boolean.TRUE) && comparation <0){
                         allReservedActiveActionsClient.add(oneAction);
                     }
 

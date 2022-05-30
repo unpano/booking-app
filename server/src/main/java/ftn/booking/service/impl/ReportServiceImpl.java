@@ -81,28 +81,30 @@ public class ReportServiceImpl implements ReportService{
         List<InstructorDTO> matchingInstructors = new ArrayList<>();
 
         for(AdventureActionClients actionClientBook:allClientBookings) {
-            Instructor instructor = instructorRepository.findById(actionClientBook.getAction().getAdventure().getInstructor().getId()).get();
-            AdventureAction action = adventureActionRepository.findById(actionClientBook.getAction().getId()).get();
+            if (actionClientBook.getClient().getId().equals(clientId)) {
+                Instructor instructor = instructorRepository.findById(actionClientBook.getAction().getAdventure().getInstructor().getId()).get();
+                AdventureAction action = adventureActionRepository.findById(actionClientBook.getAction().getId()).get();
 
-            InstructorDTO instructorDTO = modelMapper.map(instructor, InstructorDTO.class);
-            int isActionActive = action.getEndTime().compareTo(LocalDateTime.now());
+                InstructorDTO instructorDTO = modelMapper.map(instructor, InstructorDTO.class);
+                int isActionActive = action.getEndTime().compareTo(LocalDateTime.now());
 
-            if (isActionActive < 0) {
-                if (matchingInstructors.isEmpty()) {
-                    matchingInstructors.add(instructorDTO);
-
-                } else {
-                    Boolean contains = matchingInstructors.contains(instructorDTO);
-                    
-                    if (contains.equals(Boolean.TRUE)) { //ovde treba da bude provera ako
-                        //niz vec sadrzi tog instruktora da ga ne dodaje,al iz nekog razloga
-                        //mora ovako
+                if (isActionActive < 0) {
+                    if (matchingInstructors.isEmpty()) {
                         matchingInstructors.add(instructorDTO);
+
+                    } else {
+                        Boolean contains = matchingInstructors.contains(instructorDTO);
+
+                        if (contains.equals(Boolean.TRUE)) { //ovde treba da bude provera ako
+                            //niz vec sadrzi tog instruktora da ga ne dodaje,al iz nekog razloga
+                            //mora ovako
+                            matchingInstructors.add(instructorDTO);
+                        }
                     }
+
                 }
 
             }
-
         }
         return matchingInstructors;
     }

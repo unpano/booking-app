@@ -582,6 +582,11 @@ public class AdventureServiceImpl implements AdventureService {
         action.setNumberOfBooking(action.getNumberOfBooking()-1L);
         adventureActionRepository.save(action);
 
+        IncomeReservation incomeReservation = incomeReservationRepository.findByActionIdAndClientId(actionId,clientId);
+        incomeReservationRepository.delete(incomeReservation);
+
+
+
         for(AdventureActionClients bookedAction:allBookedActions){
             Boolean isThatAction = bookedAction.getAction().getId().equals(actionId);
             Boolean isThatClient = bookedAction.getClient().getId().equals(clientId);
