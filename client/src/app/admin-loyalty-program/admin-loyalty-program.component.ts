@@ -25,4 +25,8 @@ export class AdminLoyaltyProgramComponent implements OnInit {
     })
   }
 
+  change(loyaltyProgramId:Number){
+    this.router.navigate(['admin-loyalty-change-program/loyaltyProgramId/'+loyaltyProgramId]);
+  }
+
 }

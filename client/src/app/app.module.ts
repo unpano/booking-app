@@ -95,6 +95,7 @@ import { AdminComplaintResponseComponent } from './admin-complaint-response/admi
 import { AdminLoyaltyProgramComponent } from './admin-loyalty-program/admin-loyalty-program.component';
 import { CalendarBookingInstructorComponent } from './calendar-booking-instructor/calendar-booking-instructor.component';
 import { CalendarBookingClientsComponent } from './calendar-booking-clients/calendar-booking-clients.component';
+import { AdminLoyaltyChangeProgramComponent } from './admin-loyalty-change-program/admin-loyalty-change-program.component';
 
 
 @NgModule({
@@ -167,7 +168,8 @@ import { CalendarBookingClientsComponent } from './calendar-booking-clients/cale
     AdminComplaintResponseComponent,
     AdminLoyaltyProgramComponent,
     CalendarBookingInstructorComponent,
-    CalendarBookingClientsComponent
+    CalendarBookingClientsComponent,
+    AdminLoyaltyChangeProgramComponent
 
 
   ],

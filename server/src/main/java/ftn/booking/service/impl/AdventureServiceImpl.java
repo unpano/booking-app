@@ -3,6 +3,7 @@ package ftn.booking.service.impl;
 import ftn.booking.dto.*;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.CancelationPrice;
+import ftn.booking.model.enums.LoyaltyCategory;
 import ftn.booking.repository.*;
 import ftn.booking.service.AdventureService;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,11 @@ public class AdventureServiceImpl implements AdventureService {
 
     private ClientRepository clientRepository;
 
+    private LoyaltyProgramRepository loyaltyProgramRepository;
+
     private UserRepository userRepository;
+
+
 
     private AdventureActionReportRepository adventureActionReportRepository;
 
@@ -586,7 +591,50 @@ public class AdventureServiceImpl implements AdventureService {
 
         Client client = new Client();
         client.setId(clientId);
+        //-------------------------------------------------------------------------------------
+        User clientHelp = userRepository.findById(clientId).get();
+        LoyaltyProgram loyaltyProgramClient = loyaltyProgramRepository.findByLoyaltyCategoryAndAndUserType(clientHelp.getLoyaltyCategory(),clientHelp.getRole().toString());
 
+        if(clientHelp.getLoyaltyCategory().equals(LoyaltyCategory.REGULAR.toString())){
+            if(clientHelp.getLoyaltyPoints()+1L > loyaltyProgramClient.getLoyaltyPoints()){
+                clientHelp.setLoyaltyCategory(LoyaltyCategory.SILVER.toString());
+            }
+        } else if(clientHelp.getLoyaltyCategory().equals(LoyaltyCategory.SILVER.toString())){
+            if(clientHelp.getLoyaltyPoints()+1L > loyaltyProgramClient.getLoyaltyPoints()){
+                clientHelp.setLoyaltyCategory(LoyaltyCategory.GOLD.toString());
+            }
+
+        } else{
+
+        }
+
+        //povecamo broj loyalty poena za korisnika
+        clientHelp.setLoyaltyPoints(clientHelp.getLoyaltyPoints()+1L);
+        userRepository.save(clientHelp);
+
+        //---------------------------------------------------------------------------------------------
+        // sada ovo isto radimo za instruktora
+        User instructorHelp = userRepository.findById(action.getAdventure().getInstructor().getId()).get();
+        LoyaltyProgram loyaltyProgramInstructor = loyaltyProgramRepository.findByLoyaltyCategoryAndAndUserType(instructorHelp.getLoyaltyCategory(),instructorHelp.getRole().toString());
+
+        if(instructorHelp.getLoyaltyCategory().equals(LoyaltyCategory.REGULAR.toString())){
+            if(instructorHelp.getLoyaltyPoints()+1L > loyaltyProgramInstructor.getLoyaltyPoints()){
+                instructorHelp.setLoyaltyCategory(LoyaltyCategory.SILVER.toString());
+            }
+        } else if(instructorHelp.getLoyaltyCategory().equals(LoyaltyCategory.SILVER.toString())){
+            if(instructorHelp.getLoyaltyPoints()+1L > loyaltyProgramInstructor.getLoyaltyPoints()){
+                instructorHelp.setLoyaltyCategory(LoyaltyCategory.GOLD.toString());
+            }
+
+        } else{
+
+        }
+
+        instructorHelp.setLoyaltyPoints(instructorHelp.getLoyaltyPoints()+1L);
+        userRepository.save(instructorHelp);
+
+
+        //-------------------------------------------------------------------------------------
         newBooking.setAction(action);
         newBooking.setClient(client);
         newBooking.setHasReport(Boolean.FALSE);
@@ -597,7 +645,15 @@ public class AdventureServiceImpl implements AdventureService {
             incomeForBooking.setAction(action);
             incomeForBooking.setClient(client);
 
-            incomeForBooking.setIncomeInEuros(action.getAdventure().getPrice()*0.3);
+            User instructorHelp2 = userRepository.findById(action.getAdventure().getInstructor().getId()).get();
+
+            if(instructorHelp2.getLoyaltyCategory().equals(LoyaltyCategory.REGULAR.toString())) {
+                incomeForBooking.setIncomeInEuros(action.getAdventure().getPrice() * 0.3);
+            } else if(instructorHelp2.getLoyaltyCategory().equals(LoyaltyCategory.SILVER.toString())){
+                incomeForBooking.setIncomeInEuros(action.getAdventure().getPrice()*0.4);
+            } else if(instructorHelp2.getLoyaltyCategory().equals(LoyaltyCategory.GOLD.toString())){
+                incomeForBooking.setIncomeInEuros(action.getAdventure().getPrice()*0.5);
+            }
 
             incomeReservationRepository.save(incomeForBooking);
 
@@ -623,8 +679,13 @@ public class AdventureServiceImpl implements AdventureService {
 
         IncomeReservation incomeReservation = incomeReservationRepository.findByActionIdAndClientId(actionId,clientId);
 
-        incomeReservationRepository.delete(incomeReservation);
-
+        IncomeReservation emptyIncome = new IncomeReservation();
+        if(incomeReservation.equals(emptyIncome)) {
+            //bezveze naredba,kao empty statement
+           Boolean localVariable = Boolean.TRUE;
+        } else{
+            incomeReservationRepository.delete(incomeReservation);
+        }
 
 
         for(AdventureActionClients bookedAction:allBookedActions){

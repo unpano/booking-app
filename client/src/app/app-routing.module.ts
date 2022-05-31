@@ -6,6 +6,7 @@ import { AddRevisionMarkForInstructorComponent } from './add-revision-mark-for-i
 import { AdminComplaintResponseComponent } from './admin-complaint-response/admin-complaint-response.component';
 import { AdminEntitiesComponent } from './admin-entities/admin-entities.component';
 import { AdminIncomeReservationsComponent } from './admin-income-reservations/admin-income-reservations.component';
+import { AdminLoyaltyChangeProgramComponent } from './admin-loyalty-change-program/admin-loyalty-change-program.component';
 import { AdminLoyaltyProgramComponent } from './admin-loyalty-program/admin-loyalty-program.component';
 import { AdminPunishClientsComponent } from './admin-punish-clients/admin-punish-clients.component';
 import { AdminRequestsDeletingAccountComponent } from './admin-requests-deleting-account/admin-requests-deleting-account.component';
@@ -127,6 +128,7 @@ const routes: Routes = [
   {path: 'admin-loyalty-program',component:AdminLoyaltyProgramComponent},
   {path: 'calendar-booking-instructor',component:CalendarBookingInstructorComponent},
   {path: 'calendar-booking-clients/actionId/:actionId',component:CalendarBookingClientsComponent},
+  {path: 'admin-loyalty-change-program/loyaltyProgramId/:loyaltyProgramId',component:AdminLoyaltyChangeProgramComponent},
 
   {path: '**', component: PageNotFoundComponent},
   

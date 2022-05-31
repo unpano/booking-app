@@ -19,7 +19,7 @@
             <td>{{program.userType}} </td>
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm"  >Change</button>
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm" (click)="change(program.id)" >Change</button>
             </td>
         </tr>
     </tbody>

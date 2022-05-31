@@ -4,6 +4,10 @@
     <button style="font-size: 16px;" class="instructor-profile-button" mat-button (click)="instructorProfile()">Instructor profile</button>
     <button style="font-size: 16px;" class="instructor-profile-button" mat-button (click)="deleteAccount(instructorInfo.email)">Delete account</button>
     <button style="font-size: 16px;" class="instructor-profile-button" mat-button (click)="calendarBooking()">Calendar booking</button>
+    <button style="font-size: 16px;" class="instructor-profile-button" mat-button *ngIf="instructorInfo.loyaltyCategory=='REGULAR' " title="You have ho extra profit for booking"> <mat-icon>filter_1</mat-icon> REGULAR INSTRUCTOR </button>
+    <button style="font-size: 16px;" class="instructor-profile-button" mat-button *ngIf="instructorInfo.loyaltyCategory=='SILVER' " title="You have 10% extra profit for booking"><mat-icon>filter_2</mat-icon>  SILVER INSTRUCTOR </button>
+    <button style="font-size: 16px;" class="instructor-profile-button" mat-button *ngIf="instructorInfo.loyaltyCategory=='GOLD' " title="You have 20% extra profit for booking"><mat-icon>filter_3</mat-icon> GOLD INSTRUCTOR </button>
+
 
     <span class="spacer"></span>
     <button style="font-size: 16px;" mat-button (click)="logOut()">Log out</button>

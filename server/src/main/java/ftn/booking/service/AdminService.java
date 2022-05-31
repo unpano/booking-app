@@ -4,6 +4,7 @@ import ftn.booking.dto.IncomeReservationDTO;
 import ftn.booking.model.Admin;
 import ftn.booking.model.LoyaltyProgram;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -25,4 +26,8 @@ public interface AdminService {
     Boolean deleteAdmin(Long adminId);
 
     List<LoyaltyProgram> getAllLoyaltyPrograms();
+
+    LoyaltyProgram getOneLoyaltyProgram(Long loyaltyProgramId);
+
+    Boolean changeOneLoyaltyProgram(LoyaltyProgram changedProgram);
 }

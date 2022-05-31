@@ -17,4 +17,7 @@ export class User{
   rejectedVerification !: Boolean;
   hasDeactivationRequest !: Boolean;
   canBeDeleted !: Boolean;
+  loyaltyPoints !: Number;
+  loyaltyCategory !: String;
+
 }

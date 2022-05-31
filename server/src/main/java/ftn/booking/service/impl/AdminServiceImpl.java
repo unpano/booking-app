@@ -114,4 +114,17 @@ public class AdminServiceImpl implements AdminService {
         List<LoyaltyProgram> allLoyalties = loyaltyProgramRepository.findAll();
         return allLoyalties;
     }
+
+    @Override
+    public LoyaltyProgram getOneLoyaltyProgram(Long loyaltyProgramId){
+        LoyaltyProgram loyaltyProgram = loyaltyProgramRepository.findById(loyaltyProgramId).get();
+        return loyaltyProgram;
+    }
+
+    @Override
+    public Boolean changeOneLoyaltyProgram(LoyaltyProgram changedProgram){
+        loyaltyProgramRepository.save(changedProgram);
+        return Boolean.TRUE;
+    }
+
 }

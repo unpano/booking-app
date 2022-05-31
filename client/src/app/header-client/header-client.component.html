@@ -3,6 +3,11 @@
     <div>
       <mat-toolbar color="primary">
           <button mat-button routerLink="" class="home-button">Booking</button>
+          <button mat-icon-button color="accent" *ngIf="clientInfo.loyaltyCategory=='REGULAR'" title="You have no discont for booking."><mat-icon>filter_1</mat-icon>  REGULAR CLIENT</button>
+          <button mat-icon-button color="accent" *ngIf="clientInfo.loyaltyCategory=='SILVER'" title="You have 10% discont for booking."><mat-icon>filter_2</mat-icon>  SILVER CLIENT</button>
+          <button mat-icon-button color="accent" *ngIf="clientInfo.loyaltyCategory=='GOLD'" title="You have 20% discont for booking."><mat-icon>filter_3</mat-icon>  GOLD CLIENT</button>
+
+
           <button mat-icon-button color="accent" routerLink="/clientReservations">My reservations</button>
           <button mat-icon-button color="accent" (click)="deleteAccount(clientInfo.email)" >Delete account</button>
           <button mat-icon-button color="accent" routerLink="/profile">My profile</button>

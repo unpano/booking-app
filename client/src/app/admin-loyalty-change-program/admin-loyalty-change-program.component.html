@@ -1,0 +1,31 @@
+<form role="form" novalidate class="form-inline"  >
+    
+    <button mat-button (click)="backToAllLoyalties()"> Back </button>
+    <button mat-button (click)="saveChanges()">Save changes</button>
+    
+
+
+        <div class="form-group">
+            <h1>Loyalty category</h1>
+            <h2>{{loyaltyProgram.loyaltyCategory}}</h2>
+            
+           						
+        </div>
+
+        <div class="form-group">
+            <h1>Loyalty points</h1>
+            <mat-form-field class="mat-field">
+                <input  name="lastName"  matInput type="number"[(ngModel)]="loyaltyProgram.loyaltyPoints" >
+              </mat-form-field>		
+           						
+        </div>
+        
+        <div class="form-group">
+            <h1>User type</h1>
+            <h2>{{loyaltyProgram.userType}}</h2>
+           
+           						
+        </div>
+
+
+</form>

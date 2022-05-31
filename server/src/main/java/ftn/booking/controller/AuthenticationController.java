@@ -8,6 +8,7 @@ import ftn.booking.exception.NotFoundException;
 import ftn.booking.exception.ResourceConflictException;
 import ftn.booking.exception.ValidationException;
 import ftn.booking.model.*;
+import ftn.booking.model.enums.LoyaltyCategory;
 import ftn.booking.model.enums.Role;
 import ftn.booking.service.*;
 import ftn.booking.utils.TokenUtils;
@@ -95,7 +96,8 @@ public class AuthenticationController {
             client.setPassword(passwordEncoder.encode(client.getPassword()));
             client.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
             client.setHasDeactivationRequest(Boolean.FALSE);
-
+            client.setLoyaltyCategory(LoyaltyCategory.REGULAR.toString());
+            client.setLoyaltyPoints(0L);
 
             //mailService.sendMailSimplified(client.getEmail(), "CAo","Uspeli smo!!");
 
@@ -183,7 +185,8 @@ public class AuthenticationController {
             instructor.setPassword(passwordEncoder.encode(instructor.getPassword()));
             instructor.setLastPasswordResetDate(Timestamp.valueOf(LocalDateTime.now()));
             instructor.setHasDeactivationRequest(Boolean.FALSE);
-
+            instructor.setLoyaltyCategory(LoyaltyCategory.REGULAR.toString());
+            instructor.setLoyaltyPoints(0L);
             //kreiram instruktora
             ownerService.addInstructor(instructor);
         }

@@ -336,6 +336,20 @@ public class UserController {
         return new ResponseEntity<>(allLoyalties,HttpStatus.OK);
     }
 
+    @GetMapping("/get-one-loyalty-program/loyaltyProgramId/{loyaltyProgramId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<LoyaltyProgram> getOneLoyaltyProgram(@PathVariable Long loyaltyProgramId){
+        LoyaltyProgram loyaltyProgram = adminService.getOneLoyaltyProgram(loyaltyProgramId);
+        return new ResponseEntity<>(loyaltyProgram,HttpStatus.OK);
+    }
+
+    @PutMapping("/change-one-loyalty-program")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> changeOneLoyaltyProgram(@RequestBody LoyaltyProgram changedProgram){
+        Boolean isChanged = adminService.changeOneLoyaltyProgram(changedProgram);
+        return new ResponseEntity<>(isChanged,HttpStatus.OK);
+    }
+
 
 
 }
