@@ -143,6 +143,14 @@ public class InstructorController {
         return new ResponseEntity<>(allActionsAdventure,HttpStatus.OK);
     }
 
+    @GetMapping("/get-all-active-actions-instructor/instructorEmail/{instructorEmail}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
+    public ResponseEntity<List<AdventureActionDTO>> getAllActiveActionsForInstructorCalendar(@PathVariable String instructorEmail) {
+        List<AdventureActionDTO> allActionsAdventure = adventureService.getAllActiveBookedActionsForInstructorCalendar(instructorEmail);
+
+        return new ResponseEntity<>(allActionsAdventure,HttpStatus.OK);
+    }
+
     @GetMapping("/get-all-past-actions/adventureId/{adventureId}")
     @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity<List<AdventureActionDTO>> getAllPastActionsForAdventure(@PathVariable Long adventureId) {

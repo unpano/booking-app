@@ -1,0 +1,67 @@
+<div class="form-group">
+    <h1>All termins for active booked actions,when instructor is occupied: </h1>
+   
+    <mat-card> 
+        <mat-card-content>
+          <form novalidate class="form-inline">
+              <div class="container">
+                  <div class="row">
+                    
+                    <div class="search-hero">
+                      <input class="form-control" [(ngModel)]="searchText"  type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
+                      
+                    </div>
+
+                    <br>
+                    <br>
+                      <h2>Active actions:</h2>
+                      <table matSort >
+                        <thead>
+                        <tr> 
+                          <th >Start time for action</th>
+                          <th >End time for action</th>
+                          <th>Additional services</th>
+                          <th>Exact place for action</th>
+                          <th>Reserved</th>
+                          <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let action of adventureActions | filter:searchText">
+                          <td>{{action.startTime}}</td>
+                          <td>{{action.endTime}}</td>
+                          <td>{{action.additionalAdvServices}}</td>
+                          <td>{{action.exactPlace}}</td>
+                          <td>{{action.isReserved}}</td>
+                          <td>
+                            <div id="starsRow" >
+                              <i class="material-icons">star</i>
+                            </div>
+                          </td>
+                          
+                          
+                          <button id="eyeBtnClients" (click)="clients(action.id)" >Clients</button>
+                          
+                        </tr>
+                        </tbody>
+                      </table>
+
+                      <br>
+                      <br>
+                      <br>
+
+                    
+
+
+
+                 
+                  
+                  </div>
+                </div>
+          </form> 
+        </mat-card-content>
+      </mat-card>
+
+
+             
+</div>

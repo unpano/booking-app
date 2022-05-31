@@ -13,6 +13,8 @@ import { AllBoatsComponent } from './all-boats/all-boats.component';
 import { AllCottagesComponent } from './all-cottages/all-cottages.component';
 import { AllInstructorsComponent } from './all-instructors/all-instructors.component';
 import { AllRevisionsMarksForInstructorsComponent } from './all-revisions-marks-for-instructors/all-revisions-marks-for-instructors.component';
+import { CalendarBookingClientsComponent } from './calendar-booking-clients/calendar-booking-clients.component';
+import { CalendarBookingInstructorComponent } from './calendar-booking-instructor/calendar-booking-instructor.component';
 
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ClientNewBookingByInstructorComponent } from './client-new-booking-by-instructor/client-new-booking-by-instructor.component';
@@ -123,7 +125,8 @@ const routes: Routes = [
   {path: 'deleting-requests/userEmail/:userEmail',component:DeletingRequestsComponent},
   {path: 'admin-complaint-response/clientId/:clientId/instructorId/:instructorId',component:AdminComplaintResponseComponent},
   {path: 'admin-loyalty-program',component:AdminLoyaltyProgramComponent},
-
+  {path: 'calendar-booking-instructor',component:CalendarBookingInstructorComponent},
+  {path: 'calendar-booking-clients/actionId/:actionId',component:CalendarBookingClientsComponent},
 
   {path: '**', component: PageNotFoundComponent},
   

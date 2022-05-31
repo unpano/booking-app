@@ -272,6 +272,37 @@ public class AdventureServiceImpl implements AdventureService {
     }
 
     @Override
+    public List<AdventureActionDTO> getAllActiveBookedActionsForInstructorCalendar(String instructorEmail){
+        List<AdventureAction> allActions = adventureActionRepository.findAll();
+        List<AdventureActionDTO> allActionsDTO = new ArrayList<>();
+        User instructor = userRepository.findByEmail(instructorEmail);
+
+        List<AdventureActionClients> allClientsBooked = adventureActionClientsRepo.findAll();
+        Integer numberOfBookingSpecificAction = 0;
+
+        for(AdventureAction adventureReservation: allActions){
+            //uzimamo samo one akcije koje pripadaju tom instruktoru,i koje su rezervisane
+            if(adventureReservation.getAdventure().getInstructor().getId().equals(instructor.getId())){
+                int comparation = adventureReservation.getEndTime().compareTo(LocalDateTime.now());
+                //dakle ako je akcija aktivna idemo dalje
+                if(comparation >= 0) {
+                    numberOfBookingSpecificAction = 0;
+                    for(AdventureActionClients oneClient:allClientsBooked){
+                        if(oneClient.getAction().getId().equals(adventureReservation.getId())){
+                            numberOfBookingSpecificAction += 1;
+                        }
+                    }
+                    if(numberOfBookingSpecificAction>=1){
+                    allActionsDTO.add(modelMapper.map(adventureReservation, AdventureActionDTO.class));
+                    }
+                }
+            }
+        }
+
+        return allActionsDTO;
+    }
+
+    @Override
     public List<AdventureActionDTO> getAllActionsForClient(Long clientId){
         List<AdventureAction> allActions = adventureActionRepository.findAll();
         List<AdventureActionDTO> allActionsDTO = new ArrayList<>();

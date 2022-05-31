@@ -38,6 +38,8 @@ public interface AdventureService {
 
     List<AdventureActionDTO> getAllActionsForAdventure(Long adventureId);
 
+    List<AdventureActionDTO> getAllActiveBookedActionsForInstructorCalendar(String instructorEmail);
+
     List<AdventureActionDTO> getAllActionsForClient(Long clientId);
 
     List<AdventureActionDTO> getAllBookedActionsForClient(Long clientId);

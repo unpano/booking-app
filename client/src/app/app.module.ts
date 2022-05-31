@@ -93,6 +93,8 @@ import { DeletingRequestsComponent } from './deleting-requests/deleting-requests
 import { AdminResponseRequestDeletingComponent } from './admin-response-request-deleting/admin-response-request-deleting.component';
 import { AdminComplaintResponseComponent } from './admin-complaint-response/admin-complaint-response.component';
 import { AdminLoyaltyProgramComponent } from './admin-loyalty-program/admin-loyalty-program.component';
+import { CalendarBookingInstructorComponent } from './calendar-booking-instructor/calendar-booking-instructor.component';
+import { CalendarBookingClientsComponent } from './calendar-booking-clients/calendar-booking-clients.component';
 
 
 @NgModule({
@@ -163,7 +165,9 @@ import { AdminLoyaltyProgramComponent } from './admin-loyalty-program/admin-loya
     DeletingRequestsComponent,
     AdminResponseRequestDeletingComponent,
     AdminComplaintResponseComponent,
-    AdminLoyaltyProgramComponent
+    AdminLoyaltyProgramComponent,
+    CalendarBookingInstructorComponent,
+    CalendarBookingClientsComponent
 
 
   ],

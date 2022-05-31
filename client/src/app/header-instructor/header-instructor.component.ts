@@ -43,4 +43,8 @@ export class HeaderInstructorComponent implements OnInit {
     this.router.navigate(['profile-instructor'])
   }
 
+  calendarBooking(){
+    this.router.navigate(['calendar-booking-instructor']);
+  }
+
 }
