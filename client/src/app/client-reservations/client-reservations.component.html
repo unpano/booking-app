@@ -20,19 +20,19 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr  >
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                  <tr *ngFor="let adventureWithActions of adventuresWithActions" >
+                    <td>{{adventureWithActions.id}}</td>
+                    <td>{{adventureWithActions.description}}</td>
+                    <td>{{adventureWithActions.name}}</td>
+                    <td>{{adventureWithActions.address}}</td>
+                    <td>{{adventureWithActions.instructorInfo.email}}</td>
                     <td>
                       <div id="starsRow" >
                         <i class="material-icons">star</i>
                       </div>
                     </td>
                     
-                    <button id="eyeBtnDetails"  > Subscribe</button>
+                    <button id="eyeBtnDetails" (click)="subscribeToAdventure(adventureWithActions.id,adventureWithActions.instructorId)" > Subscribe</button>
                     
                    
                     

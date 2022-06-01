@@ -6,6 +6,7 @@ import { Instructor } from '../dto/Instructor';
 import { User } from '../dto/user';
 import { ClientReservationsService } from './service/client-reservations.service';
 import { HttpClient, HttpEvent } from '@angular/common/http';
+import { Adventure } from '../dto/Adventure';
 
 @Component({
   selector: 'app-client-reservations',
@@ -23,6 +24,8 @@ export class ClientReservationsComponent implements OnInit {
 
   allInstructorsForRevision : Instructor[] = new Array();
   allInstructorsForComplaint : Instructor[]= new Array();
+
+  adventuresWithActions: Adventure[] = new Array();
 
   searchText !: any;
 
@@ -102,6 +105,17 @@ export class ClientReservationsComponent implements OnInit {
 
 
    });
+
+   this.clientReservationService.getAllAdventuresWithActions(options).subscribe(adventures=>{
+     this.adventuresWithActions = Object.assign(adventures);
+
+     this.adventuresWithActions.forEach(adventureWithActions => {
+       this.clientReservationService.getOneInstructor(adventureWithActions.instructorId,options).subscribe(instructor=>{
+        adventureWithActions.instructorInfo = Object.assign(instructor); 
+        
+       })
+     });
+   })
  
   }
 
@@ -132,6 +146,11 @@ export class ClientReservationsComponent implements OnInit {
   } else {
     window.close();
   }
+
+  }
+
+  subscribeToAdventure(adventureId:Number,instructorId:Number){
+    
 
   }
 

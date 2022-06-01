@@ -3,7 +3,6 @@ package ftn.booking.controller;
 
 import ftn.booking.dto.*;
 import ftn.booking.model.*;
-import ftn.booking.repository.AdventureRepository;
 import ftn.booking.repository.UserRepository;
 import ftn.booking.service.AdminService;
 import ftn.booking.service.AdventureService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -402,6 +400,28 @@ public class InstructorController {
     public ResponseEntity<List<AdventureDTO>> getAllAdventuresWhoHaveActions(){
         List<AdventureDTO> allAdventuresWithActions = adventureService.getAllAdventuresWhoHaveActions();
         return new ResponseEntity<>(allAdventuresWithActions,HttpStatus.OK);
+   }
+
+   @PostMapping("/subscribe-to-adventure")
+   @PreAuthorize("hasRole('CLIENT')")
+   public ResponseEntity<Boolean> subscribeToAdventure(@RequestBody AdventureSubscriberDTO subscription){
+        Boolean isSubscribed = adventureService.subscribeToAdventure(subscription);
+        return new ResponseEntity<>(isSubscribed,HttpStatus.OK);
+   }
+
+   @GetMapping("/check-if-subscription-exist/adventureId/{adventureId}/clientId/{clientId}")
+   @PreAuthorize("hasRole('CLIENT')")
+   public ResponseEntity<Boolean> checkIfSubscriptionExist(@PathVariable Long adventureId,
+                                                           @PathVariable Long clientId){
+        Boolean exist = adventureService.checkIfSubscriptionExist(adventureId,clientId);
+        return new ResponseEntity<>(exist,HttpStatus.OK);
+   }
+
+   @DeleteMapping("/delete-subscription-for-adventure")
+   @PreAuthorize("hasRole('CLIENT')")
+   public ResponseEntity<Boolean> deleteSubscriptionForAdventure(@RequestBody AdventureSubscriber subscription){
+        Boolean isDeleted = adventureService.deleteSubscriptionForAdventure(subscription);
+        return new ResponseEntity<>(isDeleted,HttpStatus.OK);
    }
 
    /*@GetMapping("/get-all-clients-for-emailing-new-action/adventureId/{adventureId}")

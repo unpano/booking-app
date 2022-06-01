@@ -3,6 +3,7 @@ package ftn.booking.service;
 import ftn.booking.dto.*;
 import ftn.booking.model.Adventure;
 import ftn.booking.model.AdventureImage;
+import ftn.booking.model.AdventureSubscriber;
 import ftn.booking.model.Client;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,5 +89,12 @@ public interface AdventureService {
 
     List<AdventureDTO> getAllAdventuresWhoHaveActions();
 
+    Boolean subscribeToAdventure( AdventureSubscriberDTO subscription);
+
     Boolean checkIfActionIsBookedByClient(Long actionId,Long clientId);
+
+    Boolean checkIfSubscriptionExist(Long adventureId,
+                                      Long clientId);
+
+    Boolean deleteSubscriptionForAdventure(AdventureSubscriber subscription);
 }

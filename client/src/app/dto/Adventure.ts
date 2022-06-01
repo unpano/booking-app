@@ -1,3 +1,4 @@
+import { User } from "./user";
 
 export class Adventure{
     id !: Number;
@@ -15,6 +16,8 @@ export class Adventure{
     cancelationPrice !: String;
     numberOfActions !: Number;
     numberOfPastActions !: Number;
+    instructorInfo !: User;
+    hasSubscription !: Number;
    
 
 }

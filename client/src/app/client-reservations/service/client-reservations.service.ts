@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActionClientReserved } from 'src/app/dto/ActionClientReserved';
 import { AdditionalAdvService } from 'src/app/dto/AdditionalAdvService';
+import { Adventure } from 'src/app/dto/Adventure';
 import { AdventureReservation } from 'src/app/dto/AdventureReservation';
 import { HasComplaintFromClient } from 'src/app/dto/HasComplaintFromClient';
 import { HasRevisionFromClient } from 'src/app/dto/HasRevisionFromClient';
@@ -16,6 +17,7 @@ export class ClientReservationsService {
 
   private baseURLinstructors = "http://localhost:8084/instructors/";
   private baseURLreport = "http://localhost:8084/reports/";
+  private baseURLusers = "http://localhost:8084/users/";
   constructor(private http:HttpClient) { }
 
   getClient():Observable<User>{
@@ -52,6 +54,14 @@ export class ClientReservationsService {
 
   checkIfInstructorHasComplaintFromClient(clientId:Number,instructorId:Number,options:any):Observable<HttpEvent<Boolean>>{
     return this.http.get<Boolean>(`${this.baseURLreport}`+"check-if-exist-complaint/clientId/" + `${clientId}`+"/instructorId/" + `${instructorId}`,options);
+  }
+
+  getAllAdventuresWithActions(options:any):Observable<HttpEvent<Adventure[]>>{
+    return this.http.get<Adventure[]>(`${this.baseURLinstructors}`+"get-all-adventures-who-have-actions",options);
+  }
+
+  getOneInstructor(instructorId:Number,options:any):Observable<HttpEvent<User>>{
+    return this.http.get<User>(`${this.baseURLusers}`+"get-user/userId/"+`${instructorId}`,options);
   }
 
 }

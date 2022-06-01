@@ -13,12 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +44,8 @@ public class AdventureServiceImpl implements AdventureService {
     private LoyaltyProgramRepository loyaltyProgramRepository;
 
     private UserRepository userRepository;
+
+    private AdventureSubscribeRepository adventureSubscribeRepository;
 
 
 
@@ -884,12 +883,42 @@ public class AdventureServiceImpl implements AdventureService {
         for(Adventure adventure:allAdventures){
             if(adventure.getNumberOfActions()+adventure.getNumberOfPastActions()>0){
                 AdventureDTO adventureDTO = modelMapper.map(adventure,AdventureDTO.class);
+                adventureDTO.setInstructorId(adventure.getInstructor().getId());
                 allAdventuresDTO.add(adventureDTO);
 
             }
         }
 
         return allAdventuresDTO;
+    }
+
+    @Override
+    public Boolean subscribeToAdventure( AdventureSubscriberDTO subscription){
+        AdventureSubscriber newSubscription = new AdventureSubscriber();
+        newSubscription.setAdventureId(subscription.getAdventureId());
+        newSubscription.setClientId(subscription.getClientId());
+
+        adventureSubscribeRepository.save(newSubscription);
+        return Boolean.TRUE;
+
+    }
+
+    @Override
+    public Boolean checkIfSubscriptionExist(Long adventureId,
+                                            Long clientId){
+        AdventureSubscriber subscription = adventureSubscribeRepository.findByAdventureIdAndClientId(adventureId,clientId);
+        if(isNull(subscription)){
+            return Boolean.FALSE;
+        } else {
+            return Boolean.TRUE;
+        }
+    }
+
+    @Override
+    public Boolean deleteSubscriptionForAdventure(AdventureSubscriber subscription){
+        AdventureSubscriber subscriptionForDeleting = adventureSubscribeRepository.findByAdventureIdAndClientId(subscription.getAdventureId(),subscription.getClientId());
+        adventureSubscribeRepository.delete(subscriptionForDeleting);
+        return Boolean.TRUE;
     }
 
     String generateUniqueFileName() {

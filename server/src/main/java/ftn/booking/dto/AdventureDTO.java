@@ -45,4 +45,6 @@ public class AdventureDTO {
     private String additionalInfo;
 
     private CancelationPrice cancelationPrice;
+
+    private Long instructorId;
 }
