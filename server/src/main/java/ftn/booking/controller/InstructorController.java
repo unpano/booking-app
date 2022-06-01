@@ -397,6 +397,20 @@ public class InstructorController {
         return new ResponseEntity<>(isBooked,HttpStatus.OK);
    }
 
+   @GetMapping("/get-all-adventures-who-have-actions")
+   @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<List<AdventureDTO>> getAllAdventuresWhoHaveActions(){
+        List<AdventureDTO> allAdventuresWithActions = adventureService.getAllAdventuresWhoHaveActions();
+        return new ResponseEntity<>(allAdventuresWithActions,HttpStatus.OK);
+   }
+
+   /*@GetMapping("/get-all-clients-for-emailing-new-action/adventureId/{adventureId}")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<List<AdventureActionClientsDTO>> getAllClientForEmailingAboutNewAction(){
+        List<AdventureActionClientsDTO> actionClients = new ArrayList<>();
+        return new ResponseEntity<>(actionClients,HttpStatus.OK);
+   }*/
+
 
 
 }

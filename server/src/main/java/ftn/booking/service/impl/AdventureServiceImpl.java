@@ -875,6 +875,23 @@ public class AdventureServiceImpl implements AdventureService {
         }
     }
 
+    @Override
+    public List<AdventureDTO> getAllAdventuresWhoHaveActions(){
+        List<Adventure> allAdventures = adventureRepository.findAll();
+        List<AdventureDTO> allAdventuresDTO = new ArrayList<>();
+
+
+        for(Adventure adventure:allAdventures){
+            if(adventure.getNumberOfActions()+adventure.getNumberOfPastActions()>0){
+                AdventureDTO adventureDTO = modelMapper.map(adventure,AdventureDTO.class);
+                allAdventuresDTO.add(adventureDTO);
+
+            }
+        }
+
+        return allAdventuresDTO;
+    }
+
     String generateUniqueFileName() {
         String filename = "";
         long millis = System.currentTimeMillis();

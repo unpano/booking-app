@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionClientReserved } from '../dto/ActionClientReserved';
 import { AdventureReservation } from '../dto/AdventureReservation';
+import { User } from '../dto/user';
 import { ClientNewBookingService } from './service/client-new-booking.service';
 
 @Component({
@@ -17,6 +18,8 @@ export class ClientNewBookingByInstructorComponent implements OnInit {
   currentAdventureId !: Number
 
   allActions : AdventureReservation[] = new Array();
+
+  clientInfo : User = new User();
   
   constructor(private activeRoute:ActivatedRoute,
               private router:Router,
@@ -31,6 +34,11 @@ export class ClientNewBookingByInstructorComponent implements OnInit {
    console.log(this.clientId);
    this.currentActionId = this.activeRoute.snapshot.params['currentActionId'];
    console.log(this.currentActionId);
+
+   this.clientNewBookingService.getClientInfo(this.clientId,options).subscribe(client=>{
+     this.clientInfo = Object.assign(client);
+     console.log(this.clientInfo);
+   })
 
     this.clientNewBookingService.getAdventureIByActionId(this.currentActionId,options).subscribe(data=>{
       this.currentAdventureId = Object.assign(data);
@@ -69,8 +77,11 @@ export class ClientNewBookingByInstructorComponent implements OnInit {
     var actionForReservation = new ActionClientReserved();
     actionForReservation.actionId = activeActionId;
     actionForReservation.clientId = clientId;
-    if(window.confirm("You want to reserve this action?")){
+    if(window.confirm("You want to reserve this action for client?")){
         this.clientNewBookingService.reserveOneAction(actionForReservation,options).subscribe();
+        console.log(this.clientInfo.email);
+        this.clientNewBookingService.sendMailNewReservationByInstructor(this.clientInfo.email,options).subscribe();
+        alert("You reserved new action for "+ this.clientInfo.firstName+ " "+ this.clientInfo.lastName+"\nHe will receive verification email on "+this.clientInfo.email);
         this.router.navigate(['profile-adventure-fishing-class/'+currentAdventureId]);
     } else {
       window.close();

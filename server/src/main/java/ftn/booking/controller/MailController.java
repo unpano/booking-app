@@ -133,6 +133,19 @@ public class MailController {
 
 	}
 
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value = "/send-mail-instructor-reserved-action-for-client/toEmail/{toEmail}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendMailInstructorReservedActionForClient(@PathVariable String toEmail) {
+		User user = userService.loadUserByUsername(toEmail);
+
+
+		return emailService.sendMailSimplified(toEmail, "Admin reserved new action for you, " + user.getFirstName() + " " + user.getLastName(),
+				"Because you already reserved some actions,instructor reserved one more action for you. \n"   + ".\n\n Hope we will see you soon, " +
+						user.getFirstName() + " " + user.getLastName() + "\n \n Isa Booking 56 team");
+
+
+	}
+
 
 
 	@ResponseStatus(HttpStatus.OK)
@@ -152,6 +165,33 @@ public class MailController {
 			return Boolean.FALSE;
 
 	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value = "/send-mail-admin-rejecting-verification-user",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendMailAdminRejectingVerificationUser(@RequestBody AdminResponseDTO adminResponseDTO) {
+		User user = userService.loadUserByUsername(adminResponseDTO.getToEmail());
+
+
+		return emailService.sendMailSimplified(adminResponseDTO.getToEmail(), "Admin rejected to verify your account, " + user.getFirstName() + " " + user.getLastName(),
+				"Here is his response: \n" + adminResponseDTO.getComment() + ".\n\n Hope we will see you soon, " +
+						user.getFirstName() + " " + user.getLastName() + "\n \n Isa Booking 56 team");
+
+
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value = "/send-mail-instructor-approved-revision-by-admin/toEmail/{toEmail}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendMailInstructorApprovedRevisionByAdmin(@PathVariable String toEmail) {
+		User user = userService.loadUserByUsername(toEmail);
+
+
+		return emailService.sendMailSimplified(toEmail, "Admin approved revision from client for you, " + user.getFirstName() + " " + user.getLastName(),
+				"Client entered mark and revision,and admin approved it. \n"   + ".\n\n Hope we will see you soon, " +
+						user.getFirstName() + " " + user.getLastName() + "\n \n Isa Booking 56 team");
+
+
+	}
+
 
 
 

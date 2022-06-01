@@ -49,20 +49,7 @@ export class UnverifiedUsersComponent implements OnInit {
 
   rejectVerification(email:String,user:User){
     
-    const headers = { 'content-type': 'application/json',
-      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
-      let options = { headers: headers };
-      if(window.confirm("Are you sure you want to reject verification for this user?")){
-          this.sendRejectingEmail(email,user);
-          this.unverifUsersService.rejectVerification(email,user,options).subscribe(data=>{
-            alert("You rejected verification for user " + user.firstName + " "+ user.lastName + " !" +
-            "\n \n"+ "He will receive notification for rejecting on his email: \n"+user.email);
-          
-            this.getNonVerifUsers();
-          })
-      } else{
-        window.close();
-      }
+    this.router.navigate(['reject-verification-user/userId/'+user.id]);
   }
 
   sendEmail(email: String,user:User){

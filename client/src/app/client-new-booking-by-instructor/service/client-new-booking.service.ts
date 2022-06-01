@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ActionClientReserved } from 'src/app/dto/ActionClientReserved';
 import { AdditionalAdvService } from 'src/app/dto/AdditionalAdvService';
 import { AdventureReservation } from 'src/app/dto/AdventureReservation';
+import { User } from 'src/app/dto/user';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,14 @@ export class ClientNewBookingService {
 
   reserveOneAction(actionForReservation:ActionClientReserved,options:any):Observable<HttpEvent<ActionClientReserved>>{
     return this.http.post<ActionClientReserved>(`${this.baseURL}`+ "instructors/add-new-booking-for-action/actionId/" + `${actionForReservation.actionId}`+ "/clientId/"+ `${actionForReservation.clientId}`,actionForReservation, options);
+  }
+
+  sendMailNewReservationByInstructor(toEmail:String,options:any):Observable<Object>{
+    return this.http.post(`${this.baseURL}`+"emails/send-mail-instructor-reserved-action-for-client/toEmail/"+`${toEmail}`,toEmail,options);
+  }
+
+  getClientInfo(clientId:Number,options:any):Observable<HttpEvent<User>>{
+    return this.http.get<User>(`${this.baseURL}`+"users/get-user/userId/"+`${clientId}`,options);
   }
 
 

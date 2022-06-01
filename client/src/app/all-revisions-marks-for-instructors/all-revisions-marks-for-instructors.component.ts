@@ -77,15 +77,16 @@ export class AllRevisionsMarksForInstructorsComponent implements OnInit {
 
 
 
-  approveRevision(notApprovedRevisionId:Number){
+  approveRevision(notApprovedRevisionId:Number,instructorEmail:String){
   
     if(window.confirm("You want to approve this revision?")){
       const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
       let options = { headers: headers };
 
-
+      this.allRevisionsService.sendMailApprovedRevisionByAdmin(instructorEmail,options).subscribe();
       this.allRevisionsService.approveRevision(notApprovedRevisionId,options).subscribe();
+      alert("You approved this revision!\n Instructor will receive announcement on email\n"+ instructorEmail);
       window.setInterval('document.location.reload()', 1000);
     } else {
       window.close();

@@ -67,7 +67,13 @@ export class AddRevisionMarkForInstructorComponent implements OnInit {
       console.log(returnValue);
     });
 
+    this.router.navigate(['clientReservations']);
 
+
+  }
+
+  back(){
+    this.router.navigate(['clientReservations']);
   }
 
 }

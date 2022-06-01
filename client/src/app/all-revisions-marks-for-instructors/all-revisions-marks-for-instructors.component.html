@@ -29,7 +29,7 @@
             
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" (click)="approveRevision(notApprovedRevision.id)"  >Approve</button>
+                <button id="btn-confirm" mat-button type="primary" (click)="approveRevision(notApprovedRevision.id,notApprovedRevision.instructor.email)"  >Approve</button>
                 <button id="btn-rejected" mat-button type="primary" *ngIf="notApprovedRevision.rejected==false" (click)="rejectRevision(notApprovedRevision.id)" >Reject</button>
                 <button id="btn-rejected-dark" mat-button type="primary" *ngIf="notApprovedRevision.rejected==true"  title="This revision is rejected!" disabled >Rejected</button>
                 

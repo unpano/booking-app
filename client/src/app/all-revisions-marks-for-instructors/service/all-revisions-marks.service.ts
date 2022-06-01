@@ -44,6 +44,9 @@ export class AllRevisionsMarksService {
     return this.http.get<ComplaintClient[]>(`${this.baseURL}`+"reports/get-all-complaints-from-clients-for-instructors",options);
   }
 
+  sendMailApprovedRevisionByAdmin(instructorEmail: String,options:any):Observable<Object>{
+    return this.http.post(`${this.baseURL}`+"emails/send-mail-instructor-approved-revision-by-admin/toEmail/"+`${instructorEmail}`,instructorEmail,options);
+  }
   
 
 }
