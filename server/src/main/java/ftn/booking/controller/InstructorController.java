@@ -387,6 +387,13 @@ public class InstructorController {
         return new ResponseEntity<>(adventureId,HttpStatus.OK);
    }
 
+   @GetMapping("/check-if-action-is-booked-by-client/actionId/{actionId}/clientId/{clientId}")
+   @PreAuthorize("hasRole('CLIENT')")
+   public ResponseEntity<Boolean> checkIfActionIsBookedByClient(@PathVariable Long actionId,
+                                                                @PathVariable Long clientId){
+        Boolean isBooked = adventureService.checkIfActionIsBookedByClient(actionId,clientId);
+        return new ResponseEntity<>(isBooked,HttpStatus.OK);
+   }
 
 
 }

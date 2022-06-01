@@ -63,12 +63,17 @@
 
   <h1>Price</h1>
   <mat-form-field class="mat-field">
-    <input  name="price" matInput  disabled [(ngModel)]="adventureAction.adventure.price">
+    <input  name="price" matInput *ngIf="isActionBooked==true" disabled [(ngModel)]="adventureAction.adventure.price">
+    <input  name="price" matInput *ngIf="isActionBooked==false && clientInfo.loyaltyCategory=='REGULAR'" title="You have no discont" disabled [(ngModel)]="adventureAction.adventure.price">
+    <input  name="price" matInput *ngIf="isActionBooked==false && clientInfo.loyaltyCategory=='SILVER'" title="You have 10% of discount for price" disabled [(ngModel)]="adventureAction.adventure.price">
+    <input  name="price" matInput *ngIf="isActionBooked==false && clientInfo.loyaltyCategory=='GOLD'" title="You have 20% of discount for price" disabled [(ngModel)]="adventureAction.adventure.price">
   </mat-form-field>
 
   <h1>Max number of persons</h1>
   <mat-form-field class="mat-field">
-    <input  name="maxNumOfPersons" matInput  disabled [(ngModel)]="adventureAction.adventure.maxNumOfPersons">
+    <input  name="maxNumOfPersons" matInput   disabled [(ngModel)]="adventureAction.adventure.maxNumOfPersons">
+    
+
   </mat-form-field>
 
 

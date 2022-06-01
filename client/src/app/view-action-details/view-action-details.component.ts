@@ -6,6 +6,7 @@ import { AdventureReservation } from '../dto/AdventureReservation';
 import { AddService } from '../edit-action-adventure/edit-action-adventure.component';
 import { ViewActionDetailsService } from './service/view-action-details.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { User } from '../dto/user';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class ViewActionDetailsComponent implements OnInit {
   addServicesOnInit : AdditionalAdvService[] = [];
   addServices: AddService[] = [];
 
+
+
   pickPeriod : FormGroup = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
@@ -31,6 +34,10 @@ export class ViewActionDetailsComponent implements OnInit {
 
   addOnBlur = true;
 
+  clientInfo : User = new User();
+  isActionBooked !: Boolean;
+  priceSilverClient !: Number;
+  priceGoldClient !: Number;
   constructor(private router:Router,
               private activeRoute:ActivatedRoute,
               private viewActionDetailsService:ViewActionDetailsService) { }
@@ -43,25 +50,58 @@ export class ViewActionDetailsComponent implements OnInit {
         'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
         let options = { headers: headers };
 
-        this.viewActionDetailsService.getOneAdventureAction(this.adventureActionId,options).subscribe(data=>{
-          this.adventureAction = Object.assign(data);
-          console.log(this.adventureAction);
-          
+        this.viewActionDetailsService.getOneClientByEmail(options).subscribe(client=>{
+          this.clientInfo = Object.assign(client);
+          console.log(this.clientInfo);
 
-          
-      });
+          this.viewActionDetailsService.checkIfActionIsBookedByClient(this.adventureActionId,this.clientInfo.id,options).subscribe(isBooked=>{
+            this.isActionBooked = Object.assign(isBooked);
+            console.log(this.isActionBooked);
 
-      let options2 = options;
-        this.viewActionDetailsService.getAdventureAdditionalServices(this.adventureActionId,options).subscribe(data=>{
-            this.addServicesOnInit = Object.assign(data);
-            this.addServicesOnInit.forEach(element => {
-              this.addServices.push({name: element.name});
+
+            this.viewActionDetailsService.getOneAdventureAction(this.adventureActionId,options).subscribe(data=>{
+              this.adventureAction = Object.assign(data);
+              console.log(this.adventureAction);
+              if(this.isActionBooked==false && this.clientInfo.loyaltyCategory=='SILVER'){
+                let oldPrice = this.adventureAction.adventure.price.valueOf();
+                let multiplicator = 9/10;
+                let newPrice = oldPrice * multiplicator;
+                this.adventureAction.adventure.price = newPrice;
+               
+              } else if(this.isActionBooked==false && this.clientInfo.loyaltyCategory=='GOLD'){
+                let oldPrice = this.adventureAction.adventure.price.valueOf();
+                let multiplicator = 8/10;
+                let newPrice = oldPrice * multiplicator;
+                this.adventureAction.adventure.price = newPrice;
+              }
+              
+    
+              
+          });
+    
+          let options2 = options;
+            this.viewActionDetailsService.getAdventureAdditionalServices(this.adventureActionId,options).subscribe(data=>{
+                this.addServicesOnInit = Object.assign(data);
+                this.addServicesOnInit.forEach(element => {
+                  this.addServices.push({name: element.name});
+                });
+    
+               // console.log(this.addServices);
             });
 
-           // console.log(this.addServices);
-        });
 
 
+          })
+
+      })
+
+
+
+
+       
+
+
+      
 
   }
 

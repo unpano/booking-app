@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AdditionalAdvService } from 'src/app/dto/AdditionalAdvService';
 import { AdventureReservation } from 'src/app/dto/AdventureReservation';
+import { User } from 'src/app/dto/user';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { AdventureReservation } from 'src/app/dto/AdventureReservation';
 export class ViewActionDetailsService {
 
   private baseURL = "http://localhost:8084/instructors/";
+  private baseURLusers = "http://localhost:8084/users/";
   constructor(private http:HttpClient) { }
 
   getOneAdventureAction(adventureActionId:Number,options:any): Observable<HttpEvent<AdventureReservation>>{
@@ -18,6 +20,14 @@ export class ViewActionDetailsService {
 
   getAdventureAdditionalServices(adventureReservationId: Number,options:any): Observable<HttpEvent<AdditionalAdvService[]>>{
     return this.http.get<AdditionalAdvService[]>(`${this.baseURL}` + "get-all-additional-services/adventureReservationId/" + `${adventureReservationId}`,options);
+  }
+
+  getOneClientByEmail(options:any):Observable<HttpEvent<User>>{
+    return this.http.get<User>(`${this.baseURLusers}`+"get-one-client/"+sessionStorage.getItem('email'),options);
+  }
+
+  checkIfActionIsBookedByClient(actionId:Number,clientId:Number,options:any):Observable<HttpEvent<Boolean>>{
+    return this.http.get<Boolean>(`${this.baseURL}`+"check-if-action-is-booked-by-client/actionId/"+`${actionId}`+"/clientId/"+`${clientId}`,options);
   }
 
 

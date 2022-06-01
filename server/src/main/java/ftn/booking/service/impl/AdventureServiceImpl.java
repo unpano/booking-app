@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Service
 @AllArgsConstructor
 public class AdventureServiceImpl implements AdventureService {
@@ -859,6 +861,18 @@ public class AdventureServiceImpl implements AdventureService {
         AdventureAction action = adventureActionRepository.findById(actionId).get();
 
         return action.getAdventure().getId();
+    }
+
+    @Override
+    public Boolean checkIfActionIsBookedByClient(Long actionId,Long clientId){
+        AdventureActionClients actionClients = adventureActionClientsRepo.findByActionIdAndClientId(actionId,clientId);
+
+        AdventureActionClients emptyAction = new AdventureActionClients();
+        if(isNull(actionClients)){
+            return Boolean.FALSE;
+        } else{
+            return Boolean.TRUE;
+        }
     }
 
     String generateUniqueFileName() {

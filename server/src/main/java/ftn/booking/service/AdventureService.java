@@ -85,4 +85,6 @@ public interface AdventureService {
     List<AdventureActionReportDTO> getAllReportsForApproving();
 
     Long getAdventureIdByActionId(Long actionId);
+
+    Boolean checkIfActionIsBookedByClient(Long actionId,Long clientId);
 }
