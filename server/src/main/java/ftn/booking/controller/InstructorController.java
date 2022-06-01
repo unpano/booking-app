@@ -4,6 +4,7 @@ package ftn.booking.controller;
 import ftn.booking.dto.*;
 import ftn.booking.model.*;
 import ftn.booking.repository.AdventureRepository;
+import ftn.booking.repository.UserRepository;
 import ftn.booking.service.AdminService;
 import ftn.booking.service.AdventureService;
 import ftn.booking.service.InstructorService;
@@ -33,6 +34,7 @@ public class InstructorController {
 
     private AdminService adminService;
 
+    private UserRepository userRepository;
     private ModelMapper modelMapper;
 
 
@@ -394,6 +396,7 @@ public class InstructorController {
         Boolean isBooked = adventureService.checkIfActionIsBookedByClient(actionId,clientId);
         return new ResponseEntity<>(isBooked,HttpStatus.OK);
    }
+
 
 
 }

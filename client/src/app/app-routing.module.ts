@@ -52,6 +52,7 @@ import { ProfileCottageComponent } from './profile-cottage/profile-cottage.compo
 import { ProfileInstructorComponent } from './profile-instructor/profile-instructor.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { RejectVerificationUserComponent } from './reject-verification-user/reject-verification-user.component';
 import { ReportAboutClientsComponent } from './report-about-clients/report-about-clients.component';
 import { ReportCottageOwnerComponent } from './report-cottage-owner/report-cottage-owner.component';
 import { ReportReservationComponent } from './report-reservation/report-reservation.component';
@@ -129,6 +130,7 @@ const routes: Routes = [
   {path: 'calendar-booking-instructor',component:CalendarBookingInstructorComponent},
   {path: 'calendar-booking-clients/actionId/:actionId',component:CalendarBookingClientsComponent},
   {path: 'admin-loyalty-change-program/loyaltyProgramId/:loyaltyProgramId',component:AdminLoyaltyChangeProgramComponent},
+  {path: 'reject-verification-user/userId/:userId',component:RejectVerificationUserComponent},
 
   {path: '**', component: PageNotFoundComponent},
   

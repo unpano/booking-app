@@ -1,5 +1,6 @@
 package ftn.booking.controller;
 
+import ftn.booking.dto.AdminResponseDTO;
 import ftn.booking.dto.MailDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.model.Mail;
@@ -96,7 +97,61 @@ public class MailController {
 
 	}
 
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value = "/send-mail-rejected-request-deleting-account/toEmail/{toEmail}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendMailRejectedRequestDeletingAccount(@PathVariable String toEmail){
+		User user = userService.loadUserByUsername(toEmail);
 
+
+			return emailService.sendMailSimplified(toEmail, "Admin rejected your request for deleting account, " + user.getFirstName() + " " +user.getLastName(),
+					"Unfortunatelly,admin didn't approved your request for deleting account.\n Hope we will see you soon, " +
+							user.getFirstName() + " " + user.getLastName() + "\n \n Isa Booking 56 team");
+
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value = "/send-mail-approving-request-deleting-account/toEmail/{toEmail}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendMailApprovingRequestDeletingAccount(@PathVariable String toEmail){
+		User user = userService.loadUserByUsername(toEmail);
+
+
+		return emailService.sendMailSimplified(toEmail, "Admin approved your request for deleting account, " + user.getFirstName() + " " +user.getLastName(),
+				"Admin approved your request for deleting account.\nIf you want to again have access to our app,you need to again register.\n \n Hope we will see you soon, " +
+						user.getFirstName() + " " + user.getLastName() + "\n \n Isa Booking 56 team");
+
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value = "/send-mail-disabling-account/toEmail/{toEmail}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendMailDisablingAccount(@PathVariable String toEmail){
+		User user = userService.loadUserByUsername(toEmail);
+
+
+		return emailService.sendMailSimplified(toEmail, "Admin disabled your  account, " + user.getFirstName() + " " +user.getLastName(),
+				"Because you have wired entities,admin only disabled your account.\n \n Hope we will see you soon, " +
+						user.getFirstName() + " " + user.getLastName() + "\n \n Isa Booking 56 team");
+
+	}
+
+
+
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value = "/send-mail-admin-comment-to-complaint-client",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendMailAdminCommentToComplaintClient(@RequestBody AdminResponseDTO adminResponseDTO){
+		User user = userService.loadUserByUsername(adminResponseDTO.getToEmail());
+
+		if(user.getRole().equals(Role.ROLE_CLIENT)) {
+			return emailService.sendMailSimplified(adminResponseDTO.getToEmail(), "Admin responsed to your complaint, " + user.getFirstName() + " " +user.getLastName(),
+					"Here is his response: \n" + adminResponseDTO.getComment() + ".\n\n Hope we will see you soon, " +
+							user.getFirstName() + " " + user.getLastName() + "\n \n Isa Booking 56 team");
+		} else if (user.getRole().equals(Role.ROLE_INSTRUCTOR)) {
+			return emailService.sendMailSimplified(adminResponseDTO.getToEmail(), "Admin responsed to complaint for you, " + user.getFirstName() + " " + user.getLastName(),
+					"Here is his response: " + adminResponseDTO.getComment() +  "\n\n Hope we will see you soon, " +
+							user.getFirstName() + " " + user.getLastName() + "\n \n Isa Booking 56 team");
+		} else
+			return Boolean.FALSE;
+
+	}
 
 
 

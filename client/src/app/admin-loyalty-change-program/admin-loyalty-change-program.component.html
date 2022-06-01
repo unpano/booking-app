@@ -7,7 +7,9 @@
 
         <div class="form-group">
             <h1>Loyalty category</h1>
-            <h2>{{loyaltyProgram.loyaltyCategory}}</h2>
+            <mat-form-field class="mat-field-category">
+                <input  name="loyaltyCategory" matInput type="text" [(ngModel)]="loyaltyProgram.loyaltyCategory" >
+              </mat-form-field>	
             
            						
         </div>
@@ -15,7 +17,7 @@
         <div class="form-group">
             <h1>Loyalty points</h1>
             <mat-form-field class="mat-field">
-                <input  name="lastName"  matInput type="number"[(ngModel)]="loyaltyProgram.loyaltyPoints" >
+                <input  name="loyaltyPoints" matInput type="number"[(ngModel)]="loyaltyProgram.loyaltyPoints" >
               </mat-form-field>		
            						
         </div>

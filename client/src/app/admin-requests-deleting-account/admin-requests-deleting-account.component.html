@@ -23,9 +23,9 @@
             <td>{{request.status}}</td> 
             <td>
               
-                <button id="btn-confirm" mat-button type="primary" class="button-confirm"  *ngIf="request.status=='PROCESSING'" (click)="deleteUser(request.canBeDeletedUser,request.userId,request.roleUser)">Delete</button>
+                <button id="btn-confirm" mat-button type="primary" class="button-confirm"  *ngIf="request.status=='PROCESSING'" (click)="deleteUser(request.canBeDeletedUser,request.userId,request.roleUser,request.emailUser)">Delete</button>
                 &nbsp;
-                <button id="btn-rejected" mat-button type="primary" class="button-confirm" *ngIf="request.status=='PROCESSING'" (click)="rejectDeleting(request.userId)">Reject</button>
+                <button id="btn-rejected" mat-button type="primary" class="button-confirm" *ngIf="request.status=='PROCESSING'" (click)="rejectDeleting(request.userId,request.emailUser)">Reject</button>
                
             </td>
         </tr>

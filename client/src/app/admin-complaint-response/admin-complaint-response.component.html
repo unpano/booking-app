@@ -8,7 +8,7 @@
     <textarea placeholder="Leave comment for this complaint."
           name="desc" [(ngModel)]="replyComplaint.response_admin"  rows="10" cols="120" ></textarea>
          
-          <button mat-button id="submitButton1" (click)="confirm(clientId,instructorId)">Confirm reply</button>
+          <button mat-button id="submitButton1" (click)="confirm(clientId,instructorId,clientInfo,instructorInfo)">Confirm reply</button>
           &nbsp;
           <button mat-button id="submitButton2" (click)="cancel()">Cancel</button>
 

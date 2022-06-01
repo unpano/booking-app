@@ -1,4 +1,5 @@
 import { HttpClient, HttpEvent } from '@angular/common/http';
+import { templateJitUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DeactivationRequest } from 'src/app/dto/DeactivationRequest';
@@ -57,5 +58,15 @@ export class AdminRequestsDeletingService {
     return this.http.put(`${this.baseURL}`+"users/disable-user-account-by-admin/userId/"+`${userId}`,userId,options);
   }
 
+  sendMailRejectingDeletingAccount(userEmail: String,options:any):Observable<Object>{
+    return this.http.post(`${this.baseURL}`+"emails/send-mail-rejected-request-deleting-account/toEmail/"+`${userEmail}`,userEmail,options);
+  }
 
+  sendMailApprovingDeletingAccount(userEmail: String,options:any):Observable<Object>{
+    return this.http.post(`${this.baseURL}`+"emails/send-mail-approving-request-deleting-account/toEmail/"+`${userEmail}`,userEmail,options);
+  }
+
+  sendMailDisablingAccount(userEmail:String,options:any):Observable<Object>{
+    return this.http.post(`${this.baseURL}`+"emails/send-mail-disabling-account/toEmail/"+`${userEmail}`,userEmail,options);
+  }
 }
