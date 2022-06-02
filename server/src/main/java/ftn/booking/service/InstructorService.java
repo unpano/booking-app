@@ -34,4 +34,5 @@ public interface InstructorService {
 
     Boolean deleteInstructor(Long instructorId);
 
+    Double getAverageMarkForInstructor(Long instructorId);
 }

@@ -30,9 +30,12 @@ public class InstructorServiceImpl implements InstructorService {
 
     private AdventureRepository adventureRepository;
 
+    private MarkRevisionClientRepository markRevisionClientRepository;
     private ModelMapper modelMapper;
 
     private final PasswordEncoder passwordEncoder;
+
+
 
     private InstructorAvailablePeriodRepository instructorAvailablePeriodRepository;
 
@@ -178,6 +181,22 @@ public class InstructorServiceImpl implements InstructorService {
         User instructor = userRepository.findById(instructorId).get();
         userRepository.delete(instructor);
         return Boolean.TRUE;
+    }
+
+    @Override
+    public Double getAverageMarkForInstructor(Long instructorId){
+        List<MarkRevisionClient> allRevisions = markRevisionClientRepository.findAll();
+        Double averageMark = 0.0;
+        Integer divider = 0;
+        for(MarkRevisionClient oneRevision:allRevisions){
+            if(oneRevision.getInstructor().getId().equals(instructorId)){
+                divider += 1;
+                averageMark += oneRevision.getMark();
+                averageMark = averageMark/divider;
+            }
+        }
+
+        return averageMark;
     }
 
 }

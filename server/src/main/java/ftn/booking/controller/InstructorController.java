@@ -433,6 +433,12 @@ public class InstructorController {
    }
 
 
+   @GetMapping("/get-average-mark-for-instructor/instructorId/{instructorId}")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<Double> getAverageMarkForInstructor(@PathVariable Long instructorId){
+        Double averageMark = instructorService.getAverageMarkForInstructor(instructorId);
+        return new ResponseEntity<>(averageMark,HttpStatus.OK);
+   }
 
 
 }

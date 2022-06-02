@@ -61,14 +61,17 @@ export class AddRevisionMarkForInstructorComponent implements OnInit {
 
     this.markRevision.mark = this.mark;
     console.log(this.markRevision.mark);
+    if(window.confirm("You want to add revision for this instructor?")){
 
     this.addRevisionMarkService.addNewRevisionMarkForInstructor(this.markRevision,options).subscribe(data=>{
       let returnValue = data;
       console.log(returnValue);
     });
-
+    alert("You added revision for this instructor!");
     this.router.navigate(['clientReservations']);
-
+  }else {
+    window.close();
+  }
 
   }
 

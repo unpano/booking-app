@@ -1,4 +1,22 @@
 <div class="form-group">
+    <h1>Average mark for instructor ,from clients: {{averageMarkInstructor}}</h1>
+
+    <h1>Period of availability of instructor:(for changing it,go to instructor profile)</h1>
+
+    
+    <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Pick period</mat-label>
+        <mat-date-range-input disabled
+          [formGroup]="pickPeriod"
+          [rangePicker]="periodPicker" [min]="minDate"  >
+          <input matStartDate placeholder="Start date" formControlName="start" [(ngModel)]="newPeriodAvailability.startTimeAvailable">
+          <input matEndDate placeholder="End date" formControlName="end" [(ngModel)]="newPeriodAvailability.endTimeAvailable">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #periodPicker></mat-date-range-picker>
+      </mat-form-field>
+
+
     <h1>All termins for active booked actions,when instructor is occupied: </h1>
    
     <mat-card> 
