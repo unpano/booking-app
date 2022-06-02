@@ -417,19 +417,21 @@ public class InstructorController {
         return new ResponseEntity<>(exist,HttpStatus.OK);
    }
 
-   @DeleteMapping("/delete-subscription-for-adventure")
+   @DeleteMapping("/delete-subscription-for-adventure/adventureId/{adventureId}/clientId/{clientId}")
    @PreAuthorize("hasRole('CLIENT')")
-   public ResponseEntity<Boolean> deleteSubscriptionForAdventure(@RequestBody AdventureSubscriber subscription){
-        Boolean isDeleted = adventureService.deleteSubscriptionForAdventure(subscription);
+   public ResponseEntity<Boolean> deleteSubscriptionForAdventure(@PathVariable Long adventureId,
+                                                                 @PathVariable Long clientId){
+        Boolean isDeleted = adventureService.deleteSubscriptionForAdventure(adventureId,clientId);
         return new ResponseEntity<>(isDeleted,HttpStatus.OK);
    }
 
-   /*@GetMapping("/get-all-clients-for-emailing-new-action/adventureId/{adventureId}")
+   @GetMapping("/get-all-clients-for-emailing-about-new-action/adventureId/{adventureId}")
    @PreAuthorize("hasRole('INSTRUCTOR')")
-   public ResponseEntity<List<AdventureActionClientsDTO>> getAllClientForEmailingAboutNewAction(){
-        List<AdventureActionClientsDTO> actionClients = new ArrayList<>();
+   public ResponseEntity<List<UserDTO>> getAllClientsForEmailingAboutNewAction(@PathVariable Long adventureId){
+        List<UserDTO> actionClients = adventureService.getAllClientForEmailingAboutNewAction(adventureId);
         return new ResponseEntity<>(actionClients,HttpStatus.OK);
-   }*/
+   }
+
 
 
 

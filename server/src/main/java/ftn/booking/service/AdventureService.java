@@ -96,5 +96,10 @@ public interface AdventureService {
     Boolean checkIfSubscriptionExist(Long adventureId,
                                       Long clientId);
 
-    Boolean deleteSubscriptionForAdventure(AdventureSubscriber subscription);
+    Boolean deleteSubscriptionForAdventure(Long adventureId,
+                                           Long clientId);
+
+    List<UserDTO> getAllClientForEmailingAboutNewAction(Long adventureId);
+
+
 }

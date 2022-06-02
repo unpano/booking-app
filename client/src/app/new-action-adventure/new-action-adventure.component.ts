@@ -10,6 +10,7 @@ import { AdventureReservation } from '../dto/AdventureReservation';
 import { ReservationType } from '../dto/enums/ReservationType';
 import { Adventure } from '../dto/Adventure';
 import { NewActionAdventureService } from './service/new-action-adventure.service';
+import { User } from '../dto/user';
 
 export interface AddService {
   name: string;
@@ -44,6 +45,8 @@ export class NewActionAdventureComponent implements OnInit {
 
   forbiddenDates : Date[] = new Array();
 
+  subscribedClients : User[] = new Array();
+
   constructor(private router: Router
     ,private activeRoute: ActivatedRoute,
     private http: HttpClient,
@@ -68,6 +71,10 @@ export class NewActionAdventureComponent implements OnInit {
      'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
      let options = { headers: headers };
 
+    this.newActionAdventureService.getAllClientsForEmailingAboutNewAction(this.adventureId,options).subscribe(clients=>{
+      this.subscribedClients = Object.assign(clients);
+      console.log(this.subscribedClients);
+    })
 
     this.newActionAdventureService.getOneAdventure(this.adventureId,options).subscribe(data=>{
       this.adventureReservation.adventure = Object.assign(data);
@@ -138,7 +145,7 @@ remove(addService: AddService): void {
     this.router.navigate(['profile-adventure-fishing-class/',adventureId]);
   }
 
-  addAction(){
+  addAction(subscribedClients: User[]){
     
    //console.log(this.pickPeriod.value.start);
    this.adventureReservation.startTime = this.pickPeriod.value.start;
@@ -178,6 +185,10 @@ remove(addService: AddService): void {
     this.newActionAdventureService.addAdventureAction(this.adventureReservation,this.adventureId,options).subscribe(data=>{
       this.advActionReturn = Object.assign(data);
       this.newActionAdventureService.addAdditonalServAdv(this.additionalServiceList,this.advActionReturn.id,options).subscribe();
+      subscribedClients.forEach(subscribedClient => {
+        this.newActionAdventureService.sendMailForSubscribedClients(subscribedClient.email,options).subscribe();
+      });
+     
       this.router.navigate(['profile-adventure-fishing-class/',this.adventureId]);
 }); 
 

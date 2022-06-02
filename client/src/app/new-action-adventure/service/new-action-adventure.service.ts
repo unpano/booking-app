@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AdditionalAdvService } from 'src/app/dto/AdditionalAdvService';
 import { Adventure } from 'src/app/dto/Adventure';
 import { AdventureReservation } from 'src/app/dto/AdventureReservation';
+import { User } from 'src/app/dto/user';
 import { AddService } from '../new-action-adventure.component';
 
 @Injectable({
@@ -12,6 +13,7 @@ import { AddService } from '../new-action-adventure.component';
 export class NewActionAdventureService {
 
   private baseURL  = "http://localhost:8084/instructors/";
+  private baseURLemails = "http://localhost:8084/emails/";
   constructor(private http:HttpClient) { }
 
 
@@ -29,5 +31,13 @@ export class NewActionAdventureService {
 
   getForbidenDates(options:any):Observable<HttpEvent<Date[]>>{
     return this.http.get<Date[]>(`${this.baseURL}`+ "get-forbiden-dates",options);
+  }
+
+  getAllClientsForEmailingAboutNewAction(adventureId:Number,options:any):Observable<HttpEvent<User[]>>{
+    return this.http.get<User[]>(`${this.baseURL}` + "get-all-clients-for-emailing-about-new-action/adventureId/"+`${adventureId}`,options);
+  }
+
+  sendMailForSubscribedClients(clientEmail:String,options:any):Observable<Object>{
+    return this.http.post(`${this.baseURLemails}`+"send-mail-client-about-new-action/toEmail/"+`${clientEmail}`,clientEmail,options);
   }
 }

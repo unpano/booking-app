@@ -32,8 +32,9 @@
                       </div>
                     </td>
                     
-                    <button id="eyeBtnDetails" (click)="subscribeToAdventure(adventureWithActions.id,adventureWithActions.instructorId)" > Subscribe</button>
-                    
+                    <button id="eyeBtnDetails" *ngIf="adventureWithActions.hasSubscription==false" (click)="subscribeToAdventure(adventureWithActions.id,clientId)" > Subscribe</button>
+                    <button id="eyeBtnDetailsSubscribed" *ngIf="adventureWithActions.hasSubscription==true" (click)="unsubscribeFromAdventure(adventureWithActions.id,clientId)" > Unsubscribe</button>
+
                    
                     
                   </tr>

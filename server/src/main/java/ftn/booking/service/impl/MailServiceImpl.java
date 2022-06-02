@@ -56,7 +56,7 @@ public class MailServiceImpl implements MailService {
     @Override
     public boolean sendMailSimplified(String sendTo,String subject,String body){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("isaBooking56@gmail.com");
+        message.setFrom("dejanpetrusic123@gmail.com");
         message.setTo(sendTo);
         message.setSubject(subject);
         message.setText(body);

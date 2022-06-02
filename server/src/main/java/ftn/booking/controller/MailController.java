@@ -192,6 +192,19 @@ public class MailController {
 
 	}
 
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping(value = "/send-mail-client-about-new-action/toEmail/{toEmail}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean sendMailClientAboutNewAction(@PathVariable String toEmail) {
+		User user = userService.loadUserByUsername(toEmail);
+
+
+		return emailService.sendMailSimplified(toEmail, "Admin created new action , " + user.getFirstName() + " " + user.getLastName(),
+				"Because you are subscripted to this adventure,you get this notification. \n"   + ".\n\n Hope we will see you soon, " +
+						user.getFirstName() + " " + user.getLastName() + "\n \n Isa Booking 56 team");
+
+
+	}
+
 
 
 

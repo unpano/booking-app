@@ -7,6 +7,7 @@ import { User } from '../dto/user';
 import { ClientReservationsService } from './service/client-reservations.service';
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Adventure } from '../dto/Adventure';
+import { AdventureSubscriber } from '../dto/AdventureSubscriber';
 
 @Component({
   selector: 'app-client-reservations',
@@ -28,6 +29,8 @@ export class ClientReservationsComponent implements OnInit {
   adventuresWithActions: Adventure[] = new Array();
 
   searchText !: any;
+
+  subscription : AdventureSubscriber = new AdventureSubscriber();
 
   constructor(private router: Router,
               private activeRoute: ActivatedRoute,
@@ -104,7 +107,7 @@ export class ClientReservationsComponent implements OnInit {
       })
 
 
-   });
+  
 
    this.clientReservationService.getAllAdventuresWithActions(options).subscribe(adventures=>{
      this.adventuresWithActions = Object.assign(adventures);
@@ -114,9 +117,16 @@ export class ClientReservationsComponent implements OnInit {
         adventureWithActions.instructorInfo = Object.assign(instructor); 
         
        })
+
+       this.clientReservationService.checkIfAdventureHasSubscription(adventureWithActions.id,this.clientId,options).subscribe(hasSubscription=>{
+         adventureWithActions.hasSubscription = Object.assign(hasSubscription);
+       })
+
      });
    })
  
+
+  });
   }
 
   reserveAction(actionId:Number){
@@ -149,10 +159,42 @@ export class ClientReservationsComponent implements OnInit {
 
   }
 
-  subscribeToAdventure(adventureId:Number,instructorId:Number){
-    
+  subscribeToAdventure(adventureId:Number,clientId:Number){
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+
+
+    if(window.confirm("You want to subscribe to this adventure?")){
+      this.subscription.adventureId = adventureId;
+      this.subscription.clientId = clientId;
+      this.clientReservationService.subcribeToAdventure(this.subscription,options).subscribe();
+      alert("You subscribed to this adventure!");
+      window.setInterval('document.location.reload()', 1000);
+    }else {
+      window.close();
+    }
 
   }
+
+  unsubscribeFromAdventure(adventureId:Number,clientId:Number){
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+    let options = { headers: headers };
+
+
+    if(window.confirm("You want to unsubcribe from this adventure?")){
+      this.subscription.adventureId = adventureId;
+      this.subscription.clientId = clientId;
+      this.clientReservationService.unsubscribeFromAdventure(adventureId,clientId,options).subscribe();
+      alert("You unsubcribed from this adventure!");
+      window.setInterval('document.location.reload()', 1000);
+    }else {
+      window.close();
+    }
+
+  }
+
 
   viewActionDetails(actionId:Number){
     this.router.navigate(['view-action-details/',actionId]);

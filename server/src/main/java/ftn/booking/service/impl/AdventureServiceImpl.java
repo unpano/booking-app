@@ -915,10 +915,27 @@ public class AdventureServiceImpl implements AdventureService {
     }
 
     @Override
-    public Boolean deleteSubscriptionForAdventure(AdventureSubscriber subscription){
-        AdventureSubscriber subscriptionForDeleting = adventureSubscribeRepository.findByAdventureIdAndClientId(subscription.getAdventureId(),subscription.getClientId());
+    public Boolean deleteSubscriptionForAdventure(Long adventureId,
+                                                  Long clientId){
+        AdventureSubscriber subscriptionForDeleting = adventureSubscribeRepository.findByAdventureIdAndClientId(adventureId,clientId);
         adventureSubscribeRepository.delete(subscriptionForDeleting);
         return Boolean.TRUE;
+    }
+
+    @Override
+        public List<UserDTO> getAllClientForEmailingAboutNewAction(Long adventureId){
+        List<UserDTO> allClientsForEmailing = new ArrayList<>();
+
+        List<AdventureSubscriber> allSubscription = adventureSubscribeRepository.findAll();
+        for(AdventureSubscriber subscription:allSubscription){
+            if(subscription.getAdventureId().equals(adventureId)){
+                User client = userRepository.findById(subscription.getClientId()).get();
+                UserDTO clientDTO = modelMapper.map(client,UserDTO.class);
+                allClientsForEmailing.add(clientDTO);
+            }
+        }
+
+        return allClientsForEmailing;
     }
 
     String generateUniqueFileName() {

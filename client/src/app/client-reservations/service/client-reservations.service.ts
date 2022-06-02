@@ -5,6 +5,7 @@ import { ActionClientReserved } from 'src/app/dto/ActionClientReserved';
 import { AdditionalAdvService } from 'src/app/dto/AdditionalAdvService';
 import { Adventure } from 'src/app/dto/Adventure';
 import { AdventureReservation } from 'src/app/dto/AdventureReservation';
+import { AdventureSubscriber } from 'src/app/dto/AdventureSubscriber';
 import { HasComplaintFromClient } from 'src/app/dto/HasComplaintFromClient';
 import { HasRevisionFromClient } from 'src/app/dto/HasRevisionFromClient';
 import { Instructor } from 'src/app/dto/Instructor';
@@ -62,6 +63,18 @@ export class ClientReservationsService {
 
   getOneInstructor(instructorId:Number,options:any):Observable<HttpEvent<User>>{
     return this.http.get<User>(`${this.baseURLusers}`+"get-user/userId/"+`${instructorId}`,options);
+  }
+
+  checkIfAdventureHasSubscription(adventureId:Number,clientId:Number,options:any):Observable<HttpEvent<Boolean>>{
+    return this.http.get<Boolean>(`${this.baseURLinstructors}`+"check-if-subscription-exist/adventureId/"+`${adventureId}`+"/clientId/"+`${clientId}`,options);
+  }
+
+  subcribeToAdventure(subscription:AdventureSubscriber,options:any):Observable<Object>{
+    return this.http.post(`${this.baseURLinstructors}`+"subscribe-to-adventure",subscription,options);
+  }
+
+  unsubscribeFromAdventure(adventureId:Number,clientId:Number,options:any):Observable<Object>{
+    return this.http.delete(`${this.baseURLinstructors}`+"delete-subscription-for-adventure/adventureId/"+ `${adventureId}`+"/clientId/"+`${clientId}`,options);
   }
 
 }

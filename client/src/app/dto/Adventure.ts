@@ -17,7 +17,7 @@ export class Adventure{
     numberOfActions !: Number;
     numberOfPastActions !: Number;
     instructorInfo !: User;
-    hasSubscription !: Number;
+    hasSubscription !: Boolean;
    
 
 }
