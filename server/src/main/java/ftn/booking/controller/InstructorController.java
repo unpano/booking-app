@@ -440,5 +440,19 @@ public class InstructorController {
         return new ResponseEntity<>(averageMark,HttpStatus.OK);
    }
 
+   @GetMapping("/get-all-incomes-for-instructor/instructorId/{instructorId}")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<List<IncomeReservationDTO>> getAllIncomesForInstructor(@PathVariable Long instructorId){
+        List<IncomeReservationDTO> allIncomes = instructorService.getAllIncomesForInstructor(instructorId);
+        return new ResponseEntity<>(allIncomes,HttpStatus.OK);
+   }
+
+   @GetMapping("/get-income-sum/instructorId/{instructorId}")
+   @PreAuthorize("hasRole('INSTRUCTOR')")
+   public ResponseEntity<Double> getIncomeSumForInstructor(@PathVariable Long instructorId){
+        Double sum = instructorService.getIncomeSumForInstructor(instructorId);
+        return new ResponseEntity<>(sum,HttpStatus.OK);
+   }
+
 
 }

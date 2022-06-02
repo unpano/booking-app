@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AdditionalAdvService } from 'src/app/dto/AdditionalAdvService';
 import { AdventureReservation } from 'src/app/dto/AdventureReservation';
+import { IncomeReservation } from 'src/app/dto/IncomeReservation';
 import { InstructorAvailablePeriod } from 'src/app/dto/InstructorAvailablePeriod';
 import { User } from 'src/app/dto/user';
 
@@ -34,6 +35,14 @@ export class CalendarBookingInstructorService {
 
   getAvailabilityPeriod(instructorId:Number,options:any):Observable<HttpEvent<InstructorAvailablePeriod>>{
     return this.http.get<InstructorAvailablePeriod>(`${this.baseURL}`+ "get-period-of-availability/instructorId/" + instructorId,options); 
+  }
+
+  getAllIncomesForInstructor(instructorId:Number,options:any):Observable<HttpEvent<IncomeReservation[]>>{
+    return this.http.get<IncomeReservation[]>(`${this.baseURL}` + "get-all-incomes-for-instructor/instructorId/"+`${instructorId}`,options);
+  }
+
+  getIncomeSum(instructorId:Number,options:any):Observable<HttpEvent<Number>>{
+    return this.http.get<Number>(`${this.baseURL}`+"get-income-sum/instructorId/"+`${instructorId}`,options);
   }
 
 }

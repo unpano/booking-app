@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { throwIfEmpty } from 'rxjs/operators';
 import { ActionClientReserved } from '../dto/ActionClientReserved';
 import { AdventureReservation } from '../dto/AdventureReservation';
+import { IncomeReservation } from '../dto/IncomeReservation';
 import { InstructorAvailablePeriod } from '../dto/InstructorAvailablePeriod';
 import { User } from '../dto/user';
 import { CalendarBookingInstructorService } from './service/calendar-booking-instructor.service';
@@ -19,6 +20,9 @@ export class CalendarBookingInstructorComponent implements OnInit {
   searchText !: any;
   instructorInfo : User = new User();
   averageMarkInstructor !: Number;
+
+  incomesInstructor : IncomeReservation[] = new Array();
+  totalIncome !: Number;
 
   pickPeriod : FormGroup = new FormGroup({
     start: new FormControl(),
@@ -45,6 +49,12 @@ export class CalendarBookingInstructorComponent implements OnInit {
     this.calendarBookingInstructorService.getInstructorInfo(options).subscribe(instructor=>{
       this.instructorInfo = Object.assign(instructor);
       console.log(this.instructorInfo);
+
+
+      this.calendarBookingInstructorService.getIncomeSum(this.instructorInfo.id,options).subscribe(sum=>{
+        this.totalIncome = Object.assign(sum);
+      })
+
       this.calendarBookingInstructorService.getAverageMarkInstructor(this.instructorInfo.id,options).subscribe(mark=>{
         this.averageMarkInstructor = Object.assign(mark);
         console.log(this.averageMarkInstructor);
@@ -54,6 +64,13 @@ export class CalendarBookingInstructorComponent implements OnInit {
       this.calendarBookingInstructorService.getAvailabilityPeriod(this.instructorInfo.id,options).subscribe(data=>{
         this.newPeriodAvailability = Object.assign(data);
     });
+
+      this.calendarBookingInstructorService.getAllIncomesForInstructor(this.instructorInfo.id,options).subscribe(incomes=>{
+        this.incomesInstructor = Object.assign(incomes);
+        console.log(this.incomesInstructor);
+        
+      })
+
     })
 
     this.calendarBookingInstructorService.getAllActiveActionsInstructor(options).subscribe(data=>{

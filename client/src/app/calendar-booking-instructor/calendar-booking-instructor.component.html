@@ -1,30 +1,37 @@
 <div class="form-group">
+  <form role="form" novalidate class="form-inline"  >
     <h1>Average mark for instructor ,from clients: {{averageMarkInstructor}}</h1>
 
     <h1>Period of availability of instructor:(for changing it,go to instructor profile)</h1>
 
     
     <mat-form-field class="example-form-field" appearance="fill">
-        <mat-label>Pick period</mat-label>
-        <mat-date-range-input disabled
-          [formGroup]="pickPeriod"
-          [rangePicker]="periodPicker" [min]="minDate"  >
-          <input matStartDate placeholder="Start date" formControlName="start" [(ngModel)]="newPeriodAvailability.startTimeAvailable">
-          <input matEndDate placeholder="End date" formControlName="end" [(ngModel)]="newPeriodAvailability.endTimeAvailable">
+       <mat-label>Pick period</mat-label>
+         <mat-date-range-input appearance="fill" disabled
+         [formGroup]="pickPeriod"
+         [rangePicker]="periodPicker" [min]="minDate"  >
+         <input class="start-date" matStartDate placeholder="Start date" formControlName="start" [(ngModel)]="newPeriodAvailability.startTimeAvailable">
+         <input matEndDate placeholder="End date" formControlName="end" [(ngModel)]="newPeriodAvailability.endTimeAvailable">
         </mat-date-range-input>
-        <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
-        <mat-date-range-picker #periodPicker></mat-date-range-picker>
-      </mat-form-field>
+         <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+         <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+         <mat-date-range-picker #periodPicker></mat-date-range-picker>
+     </mat-form-field>
 
+     
+    
 
-    <h1>All termins for active booked actions,when instructor is occupied: </h1>
+    </form>
+   
    
     <mat-card> 
         <mat-card-content>
           <form novalidate class="form-inline">
               <div class="container">
                   <div class="row">
+                  
                     
+                    <h1>All termins for active booked actions,when instructor is occupied: </h1>
                     <div class="search-hero">
                       <input class="form-control" [(ngModel)]="searchText"  type="text" style="font-family:Arial, FontAwesome" name="search"  autocomplete="off" placeholder="&#xF002; Search">
                       
@@ -67,6 +74,55 @@
                       <br>
                       <br>
                       <br>
+                      <br>
+                      <br>
+
+                
+                  
+                  </div>
+                </div>
+          </form> 
+        </mat-card-content>
+      </mat-card>
+
+
+
+      <mat-card> 
+        <mat-card-content>
+          <form novalidate class="form-inline">
+              <div class="container">
+                  <div class="row">
+                  
+                    <h1>Total income for instructor: {{totalIncome}} €</h1>
+            
+                      <h1>Incomes for instructor:</h1>
+                      <table matSort >
+                        <thead>
+                        <tr class="table-row-income"> 
+                          <th >Id</th>
+                          <th >Income in euros</th>
+                          <th>Action id</th>
+                          <th>Client id</th>
+                          
+                          
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="table-row-income" *ngFor="let income of incomesInstructor | filter:searchText">
+                          <td>{{income.id}}</td>
+                          <td>{{income.incomeInEuros}} €</td>
+                          <td>{{income.actionId}}</td>
+                          <td>{{income.clientId}}</td>
+
+                         
+                          
+                        </tr>
+                        </tbody>
+                      </table>
+
+                      <br>
+                      <br>
+                      <br>
 
                     
 
@@ -79,6 +135,12 @@
           </form> 
         </mat-card-content>
       </mat-card>
+
+      
+
+
+
+
 
 
              

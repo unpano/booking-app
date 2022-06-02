@@ -1,4 +1,5 @@
 package ftn.booking.service;
+import ftn.booking.dto.IncomeReservationDTO;
 import ftn.booking.dto.InstructorDTO;
 import ftn.booking.dto.UserDTO;
 import ftn.booking.model.Adventure;
@@ -35,4 +36,8 @@ public interface InstructorService {
     Boolean deleteInstructor(Long instructorId);
 
     Double getAverageMarkForInstructor(Long instructorId);
+
+    List<IncomeReservationDTO> getAllIncomesForInstructor( Long instructorId);
+
+    Double getIncomeSumForInstructor(Long instructorId);
 }

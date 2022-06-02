@@ -363,5 +363,26 @@ table {
 
 .mat-field{
     font-size: large;
+    width: 300px;
 }
+
+#example-form-field{
+    width: 300px;
+}
+
+.table-row-income{
+    margin-bottom: 3%;
+}
+
   
+th{
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.7rem;
+    font-weight: 900;
+  }
+  
+  td{
+    padding: 0.5rem 0.5rem;
+  }

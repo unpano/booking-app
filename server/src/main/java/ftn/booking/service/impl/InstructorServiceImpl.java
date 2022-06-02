@@ -1,5 +1,6 @@
 package ftn.booking.service.impl;
 
+import ftn.booking.dto.IncomeReservationDTO;
 import ftn.booking.dto.InstructorDTO;
 import ftn.booking.model.*;
 import ftn.booking.model.enums.Role;
@@ -31,6 +32,8 @@ public class InstructorServiceImpl implements InstructorService {
     private AdventureRepository adventureRepository;
 
     private MarkRevisionClientRepository markRevisionClientRepository;
+
+    private IncomeReservationRepository incomeReservationRepository;
     private ModelMapper modelMapper;
 
     private final PasswordEncoder passwordEncoder;
@@ -197,6 +200,43 @@ public class InstructorServiceImpl implements InstructorService {
         }
 
         return averageMark;
+    }
+
+    @Override
+    public List<IncomeReservationDTO> getAllIncomesForInstructor(Long instructorId){
+        List<IncomeReservationDTO> allIncomesDTO = new ArrayList<>();
+        List<IncomeReservation> allIncomes = incomeReservationRepository.findAll();
+
+        for(IncomeReservation income:allIncomes){
+            if(income.getAction().getAdventure().getInstructor().getId().equals(instructorId)){
+                IncomeReservationDTO incomeDTO= new IncomeReservationDTO();
+                incomeDTO.setId(income.getId());
+                incomeDTO.setIncomeInEuros(income.getIncomeInEuros());
+                incomeDTO.setEndTimeOfBooking(income.getAction().getEndTime());
+                incomeDTO.setStartTimeOfBooking(income.getAction().getStartTime());
+                incomeDTO.setClientId(income.getClient().getId());
+                incomeDTO.setActionId(income.getAction().getId());
+
+                allIncomesDTO.add(incomeDTO);
+            }
+        }
+
+        return allIncomesDTO;
+
+    }
+
+    @Override
+    public Double getIncomeSumForInstructor(Long instructorId){
+        List<IncomeReservation> allIncomes = incomeReservationRepository.findAll();
+        Double sum = 0.0;
+        for(IncomeReservation income:allIncomes){
+            if(income.getAction().getAdventure().getInstructor().getId().equals(instructorId)){
+                sum += income.getIncomeInEuros();
+            }
+        }
+
+        return sum;
+
     }
 
 }
