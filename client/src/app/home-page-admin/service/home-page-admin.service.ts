@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class HomePageAdminService {
 
   private baseURL = "http://localhost:8084/users";
+  private baseURLemails = "http://localhost:8084/emails/";
   constructor(private http:HttpClient) { }
 
   checkIfAdminIsOther(options:any):Observable<Object>{
@@ -17,4 +18,9 @@ export class HomePageAdminService {
   checkIfOtherAdminChangedPassword(options:any):Observable<Object>{
     return this.http.get<Object>(`${this.baseURL}`+ "/check-if-other-admin-changed-password/email/" + sessionStorage.getItem('email'),options);
   }
+
+  sendEmailToClient(clientEmail:String,options:any):Observable<Object>{
+    return this.http.post(`${this.baseURLemails}`+"send-mail-client-about-new-action/toEmail/"+`${clientEmail}`,clientEmail,options);
+  }
+
 }

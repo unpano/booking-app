@@ -41,4 +41,7 @@ public interface ReportService {
 
     Boolean checkIfExistComplaint(Long clientId,
                                   Long instructorId);
+
+    Boolean checkIfComplaintHasAdminResponse(Long clientId,
+                                              Long instructorId);
 }

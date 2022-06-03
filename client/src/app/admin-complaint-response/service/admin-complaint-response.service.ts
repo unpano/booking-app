@@ -19,6 +19,10 @@ export class AdminComplaintResponseService {
     return this.http.put(`${this.baseURL}`+"/reply-to-complaint-admin",reply,options);
   }
 
+  checkIfComplaintHasAdminResponse(clientId:Number,instructorId:Number,options:any):Observable<HttpEvent<Boolean>>{
+    return this.http.get<Boolean>(`${this.baseURL}`+"/check-if-complaint-has-admin-response/clientId/"+ `${clientId}` + "/instructorId/" + `${instructorId}`,options); 
+  }
+
   getInstructorInfo(instructorId:Number,options:any):Observable<HttpEvent<User>>{
     return this.http.get<User>(`${this.baseURLusers}`+"/get-user/userId/"+`${instructorId}`,options);
   }

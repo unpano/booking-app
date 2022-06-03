@@ -37,6 +37,8 @@ export class HomePageAdminComponent implements OnInit {
           'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
         let options = { headers: headers };
 
+   
+
     this.homePageAdminService.checkIfAdminIsOther(options).subscribe(data=>{
         this.otherAdmin = Object.assign(data);
         console.log(this.otherAdmin);
@@ -58,6 +60,14 @@ export class HomePageAdminComponent implements OnInit {
     
   }
 
+  sendEmail(){
+    const headers = { 'content-type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
+        let options = { headers: headers };
+
+     let clientEmail = "proboprobic354@gmail.com";
+    this.homePageAdminService.sendEmailToClient(clientEmail,options).subscribe();
+  }
 
 
   oldPasswordFunction() {

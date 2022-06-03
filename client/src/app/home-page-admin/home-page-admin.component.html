@@ -1,6 +1,7 @@
 <p *ngIf="firstAdmin==true || changedPasswordOtherAdmin==true">home-page-admin works!</p>
 <h2 *ngIf="otherAdmin==true && changedPasswordOtherAdmin==false">You are new admin,so you first need to change your password before continue</h2>
 
+<!--<button (click)="sendEmail()">Send email to proboprobic354@gmail.com</button>-->
 <form role="form" novalidate class="form-inline" *ngIf="otherAdmin==true && changedPasswordOtherAdmin==false" >
     
     <button mat-button (click)="saveChanges(otherAdminNewPassword,otherAdminReEnterPassword)"> Save changes </button>

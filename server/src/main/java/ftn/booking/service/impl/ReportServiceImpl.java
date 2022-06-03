@@ -10,9 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.thymeleaf.model.IModel;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @Service
 @AllArgsConstructor
@@ -306,8 +309,20 @@ public class ReportServiceImpl implements ReportService{
     }
 
     @Override
+    public Boolean checkIfComplaintHasAdminResponse(Long clientId,
+                                                    Long instructorId){
+        ComplaintClient complaintClient = complaintClientRepository.findByClientIdAndInstructorId(clientId,instructorId);
+        if(complaintClient.getResponse_admin().equals("")){
+            return Boolean.FALSE;
+        } else {
+            return Boolean.TRUE;
+        }
+    }
+
+    @Override
+    @Transactional
     public Boolean replyToComplaintAdmin(ComplaintClientDTO replyComplaint){
-        ComplaintClient matchingComplaint = complaintClientRepository.findByClientIdAndInstructorId(replyComplaint.getClient_id(),replyComplaint.getInstructor_id());
+        ComplaintClient matchingComplaint = complaintClientRepository.findByClientIdAndInstructorIdTransactional(replyComplaint.getClient_id(),replyComplaint.getInstructor_id());
         matchingComplaint.setResponse_admin(replyComplaint.getResponse_admin());
 
         complaintClientRepository.save(matchingComplaint);

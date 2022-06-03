@@ -159,5 +159,14 @@ public class ReportController {
         return  new ResponseEntity<>(response,HttpStatus.OK);
     }
 
+    @GetMapping("/check-if-complaint-has-admin-response/clientId/{clientId}/instructorId/{instructorId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Boolean> checkIfComplaintHasAdminResponse(@PathVariable Long clientId,
+                                                                    @PathVariable Long instructorId){
+        Boolean response = reportService.checkIfComplaintHasAdminResponse(clientId,instructorId);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+
 
 }
