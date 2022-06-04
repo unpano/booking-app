@@ -355,6 +355,71 @@ public class AdventureServiceImpl implements AdventureService {
     }
 
     @Override
+    public List<AdventureActionDTO> getAllActionForClientSpecificInstructor(Long clientId,
+                                                                            Long instructorId){
+
+
+        List<AdventureAction> allActions = adventureActionRepository.findAll();
+        List<AdventureActionDTO> allActionsDTO = new ArrayList<>();
+
+        List<AdventureActionClients> allBookedActions = adventureActionClientsRepo.findAll();
+        List<AdventureActionClients> allBookedActionsClient = new ArrayList<>();
+
+        for(AdventureActionClients bookedAction:allBookedActions){
+            if(bookedAction.getClient().getId().equals(clientId)){
+                allBookedActionsClient.add(bookedAction);
+            }
+        }
+
+
+        AdventureActionDTO oneAction = new AdventureActionDTO();
+
+        for(AdventureAction adventureAction: allActions){
+            int comparation = adventureAction.getEndTime().compareTo(LocalDateTime.now());
+            if(comparation >= 0) {
+
+                Boolean isEqual = Boolean.FALSE;
+                Boolean isThatInstructor = Boolean.FALSE;
+                if(adventureAction.getAdventure().getInstructor().getId().equals(instructorId)){
+                    isThatInstructor = Boolean.TRUE;
+                }
+
+                for(AdventureActionClients bookedAction:allBookedActionsClient) {
+                    //hocemo da za tog klijenta dobavimo one akcije koje nije rezervisao
+                    if(bookedAction.getAction().getId().equals(adventureAction.getId())){
+                        isEqual = Boolean.TRUE;
+                    }
+
+                }
+
+                if(isEqual.equals(Boolean.FALSE) && isThatInstructor.equals(Boolean.TRUE)){
+                    oneAction = modelMapper.map(adventureAction, AdventureActionDTO.class);
+                    oneAction.setInstructorId(adventureAction.getAdventure().getInstructor().getId());
+                    oneAction.setInstructorEmail(adventureAction.getAdventure().getInstructor().getEmail());
+                    allActionsDTO.add(oneAction);
+                }
+
+            }
+        }
+
+
+        return allActionsDTO;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
     public List<AdventureActionDTO> getAllBookedActionsForClient(Long clientId){
         List<AdventureAction> allActions = adventureActionRepository.findAll();
         List<AdventureActionDTO> allActionsDTO = new ArrayList<>();

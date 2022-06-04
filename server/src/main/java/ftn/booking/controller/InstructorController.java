@@ -258,6 +258,14 @@ public class InstructorController {
         return new ResponseEntity<>(allActions,HttpStatus.OK);
     }
 
+    @GetMapping("/get-all-actions-client-specific-instructor/clientId/{clientId}/instructorId/{instructorId}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
+    public ResponseEntity<List<AdventureActionDTO>> getAllActionForClientSpecificInstructor(@PathVariable Long clientId,
+                                                                                            @PathVariable Long instructorId){
+        List<AdventureActionDTO> allActions = adventureService.getAllActionForClientSpecificInstructor(clientId,instructorId);
+        return new ResponseEntity<>(allActions,HttpStatus.OK);
+    }
+
     @GetMapping("/get-all-booked-actions/clientId/{clientId}")
     @PreAuthorize("hasRole('CLIENT') || hasRole('INSTRUCTOR')")
     public ResponseEntity<List<AdventureActionDTO>> getAllBookedActionsForClient(@PathVariable Long clientId){

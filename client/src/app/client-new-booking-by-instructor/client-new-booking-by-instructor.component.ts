@@ -20,6 +20,7 @@ export class ClientNewBookingByInstructorComponent implements OnInit {
   allActions : AdventureReservation[] = new Array();
 
   clientInfo : User = new User();
+  instructorInfo : User = new User();
   
   constructor(private activeRoute:ActivatedRoute,
               private router:Router,
@@ -29,6 +30,8 @@ export class ClientNewBookingByInstructorComponent implements OnInit {
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + sessionStorage.getItem("token")}  
     let options = { headers: headers };
+  
+    
 
    this.clientId =  this.activeRoute.snapshot.params['clientId'];
    console.log(this.clientId);
@@ -45,7 +48,11 @@ export class ClientNewBookingByInstructorComponent implements OnInit {
       console.log(this.currentAdventureId);
     })
 
-    this.clientNewBookingService.getAllActionsForClient(this.clientId,options).subscribe(data=>{
+    this.clientNewBookingService.getInstructorInfo().subscribe(data=>{
+      this.instructorInfo = data;
+      console.log(data);
+    
+    this.clientNewBookingService.getAllActionsForClientSpecificInstructor(this.clientId,this.instructorInfo.id,options).subscribe(data=>{
       this.allActions = Object.assign(data);
       console.log(this.allActions);
 
@@ -62,7 +69,7 @@ export class ClientNewBookingByInstructorComponent implements OnInit {
         });
       })
 
-
+    })
 
   }
 

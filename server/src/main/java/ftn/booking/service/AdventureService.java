@@ -43,6 +43,9 @@ public interface AdventureService {
 
     List<AdventureActionDTO> getAllActionsForClient(Long clientId);
 
+    List<AdventureActionDTO> getAllActionForClientSpecificInstructor(Long clientId,
+                                                                      Long instructorId);
+
     List<AdventureActionDTO> getAllBookedActionsForClient(Long clientId);
 
     List<AdventureActionDTO> getAllPastActionsForAdventure(Long adventureId);

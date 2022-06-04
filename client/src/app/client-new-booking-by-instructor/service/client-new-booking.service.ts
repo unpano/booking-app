@@ -18,8 +18,8 @@ export class ClientNewBookingService {
     return this.http.get<Number>(`${this.baseURL}`+"instructors/get-adventure-id-by-action-id/actionId/"+`${actionId}`,options);
   }
 
-  getAllActionsForClient(clientId:Number,options:any):Observable<HttpEvent<AdventureReservation[]>>{
-    return this.http.get<AdventureReservation[]>(`${this.baseURL}`+ "instructors/get-all-actions-client/clientId/" + `${clientId}`,options);
+  getAllActionsForClientSpecificInstructor(clientId:Number,instructorId:Number,options:any):Observable<HttpEvent<AdventureReservation[]>>{
+    return this.http.get<AdventureReservation[]>(`${this.baseURL}`+ "instructors/get-all-actions-client-specific-instructor/clientId/" + `${clientId}` + "/instructorId/" + `${instructorId}`,options);
   }
 
   getAllAddServices(actionId:Number,options:any):Observable<HttpEvent<AdditionalAdvService[]>>{
@@ -40,6 +40,10 @@ export class ClientNewBookingService {
 
   checkIfActionIsAlreadyBooked(actionId:Number,clientId:Number,options:any):Observable<HttpEvent<Boolean>>{
     return this.http.get<Boolean>(`${this.baseURL}`+"instructors/check-if-action-is-already-booked/actionId/"+`${actionId}`+ "/clientId/"+`${clientId}`,options);
+  }
+
+  getInstructorInfo():Observable<User>{
+    return this.http.get<User>(`${this.baseURL}`+ "instructors/findInstructorByUsername/"+ sessionStorage.getItem('email'));
   }
 
 
