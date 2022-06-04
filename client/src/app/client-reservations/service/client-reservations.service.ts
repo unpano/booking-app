@@ -77,4 +77,8 @@ export class ClientReservationsService {
     return this.http.delete(`${this.baseURLinstructors}`+"delete-subscription-for-adventure/adventureId/"+ `${adventureId}`+"/clientId/"+`${clientId}`,options);
   }
 
+  checkIfActionIsAlreadyBooked(actionId:Number,clientId:Number,options:any):Observable<HttpEvent<Boolean>>{
+    return this.http.get<Boolean>(`${this.baseURLinstructors}`+"check-if-action-is-already-booked/actionId/"+`${actionId}`+ "/clientId/"+`${clientId}`,options);
+  }
+
 }

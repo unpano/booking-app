@@ -136,13 +136,20 @@ export class ClientReservationsComponent implements OnInit {
     var actionForReservation = new ActionClientReserved();
     actionForReservation.actionId = actionId;
     actionForReservation.clientId = this.clientId;
-    if(window.confirm("You want to reserve this action?")){
+    
+    this.clientReservationService.checkIfActionIsAlreadyBooked(actionForReservation.actionId,actionForReservation.clientId,options).subscribe(response=>{
+        let isBooked = Object.assign(response);
+        if(isBooked==true){
+          alert("Instructor suddenly reserved this action for you,so you are unable to reserve it twice.");
+        } else {
+          alert("You reserved this action");
+        }
+    
         this.clientReservationService.reserveOneAction(actionForReservation,options).subscribe();
+        
         window.setInterval('document.location.reload()', 1000);
-    } else {
-      window.close();
-    }
-
+   
+      })
   }
 
   cancelBooking(clientId:Number,actionId:Number){

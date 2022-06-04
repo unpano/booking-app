@@ -243,6 +243,14 @@ public class InstructorController {
 
     }
 
+    @GetMapping("/check-if-action-is-already-booked/actionId/{actionId}/clientId/{clientId}")
+    @PreAuthorize("hasRole('CLIENT') || hasRole('INSTRUCTOR')")
+    public ResponseEntity<Boolean> checkIfActionIsAlreadyBooked(@PathVariable Long actionId,
+                                                                @PathVariable Long clientId){
+        Boolean isBooked = adventureService.checkIfActionIsAlreadyBooked(actionId,clientId);
+        return new ResponseEntity<>(isBooked,HttpStatus.OK);
+    }
+
     @GetMapping("/get-all-actions-client/clientId/{clientId}")
     @PreAuthorize("hasRole('CLIENT') || hasRole('INSTRUCTOR')")
     public ResponseEntity<List<AdventureActionDTO>> getAllActionsForClient(@PathVariable Long clientId){

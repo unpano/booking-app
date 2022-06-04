@@ -101,5 +101,8 @@ public interface AdventureService {
 
     List<UserDTO> getAllClientForEmailingAboutNewAction(Long adventureId);
 
+    Boolean checkIfActionIsAlreadyBooked(Long actionId,
+                                          Long clientId);
+
 
 }

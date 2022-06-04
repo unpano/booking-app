@@ -77,17 +77,28 @@ export class ClientNewBookingByInstructorComponent implements OnInit {
     var actionForReservation = new ActionClientReserved();
     actionForReservation.actionId = activeActionId;
     actionForReservation.clientId = clientId;
-    if(window.confirm("You want to reserve this action for client?")){
-        this.clientNewBookingService.reserveOneAction(actionForReservation,options).subscribe();
+
+    this.clientNewBookingService.checkIfActionIsAlreadyBooked(actionForReservation.actionId,actionForReservation.clientId,options).subscribe(response=>{
+      let isBooked = Object.assign(response);
+
+      if(isBooked==true){
+        alert("Client suddenly reserved this action for you,so you are unable to reserve it twices.");
+      }else{
+        alert("You reserved this action for client,he will receive announcement on email.");
         console.log(this.clientInfo.email);
         this.clientNewBookingService.sendMailNewReservationByInstructor(this.clientInfo.email,options).subscribe();
-        alert("You reserved new action for "+ this.clientInfo.firstName+ " "+ this.clientInfo.lastName+"\nHe will receive verification email on "+this.clientInfo.email);
-        this.router.navigate(['profile-adventure-fishing-class/'+currentAdventureId]);
-    } else {
-      window.close();
-    }
+      }
+    
 
+   
+        this.clientNewBookingService.reserveOneAction(actionForReservation,options).subscribe(data=>{
+         
+          this.router.navigate(['profile-adventure-fishing-class/'+currentAdventureId]);
+        });
+        
+    
 
+  })
     
   }
 

@@ -38,6 +38,9 @@ export class ClientNewBookingService {
     return this.http.get<User>(`${this.baseURL}`+"users/get-user/userId/"+`${clientId}`,options);
   }
 
+  checkIfActionIsAlreadyBooked(actionId:Number,clientId:Number,options:any):Observable<HttpEvent<Boolean>>{
+    return this.http.get<Boolean>(`${this.baseURL}`+"instructors/check-if-action-is-already-booked/actionId/"+`${actionId}`+ "/clientId/"+`${clientId}`,options);
+  }
 
 
 }
