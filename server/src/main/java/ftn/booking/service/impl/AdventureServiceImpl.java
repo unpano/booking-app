@@ -687,7 +687,7 @@ public class AdventureServiceImpl implements AdventureService {
         IncomeReservation incomeReservation = incomeReservationRepository.findByActionIdAndClientId(actionId,clientId);
 
         IncomeReservation emptyIncome = new IncomeReservation();
-        if(incomeReservation.equals(emptyIncome)) {
+        if(isNull(incomeReservation)) {
             //bezveze naredba,kao empty statement
            Boolean localVariable = Boolean.TRUE;
         } else{
@@ -695,14 +695,9 @@ public class AdventureServiceImpl implements AdventureService {
         }
 
 
-        for(AdventureActionClients bookedAction:allBookedActions){
-            Boolean isThatAction = bookedAction.getAction().getId().equals(actionId);
-            Boolean isThatClient = bookedAction.getClient().getId().equals(clientId);
-            if(isThatAction && isThatClient){
-                adventureActionClientsRepo.delete(bookedAction);
-            }
+        AdventureActionClients bookedAction = adventureActionClientsRepo.findByActionIdAndClientId(actionId,clientId);
+        adventureActionClientsRepo.delete(bookedAction);
 
-        }
         return Boolean.TRUE;
     }
 
