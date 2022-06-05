@@ -82,6 +82,7 @@ public class ReportServiceImpl implements ReportService{
         List<AdventureActionClients> allClientBookings = adventureActionClientsRepository.findAll();
 
         List<InstructorDTO> matchingInstructors = new ArrayList<>();
+        List<Long> listOfIdAddedInstructors = new ArrayList<>();
 
         for(AdventureActionClients actionClientBook:allClientBookings) {
             if (actionClientBook.getClient().getId().equals(clientId)) {
@@ -91,19 +92,18 @@ public class ReportServiceImpl implements ReportService{
                 InstructorDTO instructorDTO = modelMapper.map(instructor, InstructorDTO.class);
                 int isActionActive = action.getEndTime().compareTo(LocalDateTime.now());
 
-                if (isActionActive < 0) {
-                    if (matchingInstructors.isEmpty()) {
-                        matchingInstructors.add(instructorDTO);
-
-                    } else {
-                        Boolean contains = matchingInstructors.contains(instructorDTO);
-
-                        if (contains.equals(Boolean.TRUE)) { //ovde treba da bude provera ako
-                            //niz vec sadrzi tog instruktora da ga ne dodaje,al iz nekog razloga
-                            //mora ovako
-                            matchingInstructors.add(instructorDTO);
+                Integer numOfSameInstructor = 0;
+                if (isActionActive < 0 ) {
+                    listOfIdAddedInstructors.add(instructorDTO.getId());
+                    for(Long idInstructor:listOfIdAddedInstructors){
+                        if(idInstructor.equals(instructorDTO.getId())){
+                            numOfSameInstructor += 1;
                         }
                     }
+                    if(numOfSameInstructor.equals(1)){
+                        matchingInstructors.add(instructorDTO);
+                    }
+
 
                 }
 
