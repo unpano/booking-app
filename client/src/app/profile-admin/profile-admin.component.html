@@ -26,7 +26,7 @@
         <div class="form-group">
             <h1>Email</h1>
             <h2 *ngIf="editProfileVar==false">{{admin.email}}</h2>
-            <mat-form-field class="mat-field" *ngIf="editProfileVar==true" disabled title="You cannot change email!">
+            <mat-form-field class="mat-field"  *ngIf="editProfileVar==true" disabled="true" title="You cannot change email!">
                 <input  name="email"  matInput [(ngModel)]="admin.email" >
               </mat-form-field>	
            						
